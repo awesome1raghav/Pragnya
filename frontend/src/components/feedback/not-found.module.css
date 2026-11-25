@@ -1,0 +1,69 @@
+.page {
+  display: grid;
+  min-height: 100svh;
+  place-items: center;
+  padding: 32px 20px;
+  background: #0b0a09;
+  color: #f3eee6;
+}
+
+.content {
+  width: min(100%, 480px);
+}
+
+.brand {
+  color: #e9a23b;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+}
+
+.code {
+  margin: 48px 0 4px;
+  color: #e9a23b;
+  font-family: var(--font-jb), ui-monospace, monospace;
+  font-size: 14px;
+}
+
+.content h1 {
+  margin: 0;
+  font-size: clamp(36px, 8vw, 64px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.05;
+}
+
+.description {
+  margin: 20px 0 32px;
+  color: #bdb6aa;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.links a {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  padding: 0 18px;
+  border: 1px solid #f3eee629;
+  border-radius: 8px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.links a:first-child {
+  background: #e9a23b;
+  border-color: #e9a23b;
+  color: #1a1206;
+}
+
+.links a:focus-visible {
+  outline: 2px solid #e9a23b;
+  outline-offset: 3px;
+}

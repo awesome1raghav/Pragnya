@@ -1,0 +1,100 @@
+/* Hero exhibit. Tokens come from .landing. The frame is a film frame, not a card: square corners, crop marks
+   inside the edges, labels in mono above it. Red only marks the pasted copy; steel marks the source. */
+.exhibit { position: relative; margin: 0; }
+.chrome { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 12px; font: 400 12px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--mute); }
+.chrome b { font-weight: 500; color: var(--soft); }
+.flag { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.flag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+
+/* the frame, and a plate inside it that holds the still at its own aspect; a crop is a plate offset */
+.frame { --cx: 0; --cy: 0; --cw: 1; --ch: 1; position: relative; aspect-ratio: 1280 / 853; overflow: hidden; border-radius: 3px; background: #050505; cursor: ew-resize; touch-action: pan-y; user-select: none; -webkit-user-select: none; box-shadow: 0 50px 120px -50px #000, 0 0 0 1px var(--line-2); }
+.frame::before { content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(90deg, #0b0a09e0, #0b0a0966 16%, transparent 34%), linear-gradient(0deg, #0b0a0999, transparent 30%); }
+.plate { position: absolute; left: calc(var(--cx) / var(--cw) * -100%); top: calc(var(--cy) / var(--ch) * -100%); width: calc(100% / var(--cw)); height: calc(100% / var(--ch)); }
+.img { object-fit: cover; pointer-events: none; -webkit-user-drag: none; }
+.elaO { position: absolute; inset: 0; z-index: 1; overflow: hidden; transform: translate3d(-100%, 0, 0); will-change: transform, opacity; }
+.elaO::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 2px; background: var(--gold-2); box-shadow: 0 0 18px 2px #e9a23b99; opacity: var(--edge, 0); }
+.elaI { position: absolute; inset: 0; transform: translate3d(100%, 0, 0); will-change: transform; }
+
+.box { position: absolute; z-index: 3; border: 1.5px solid; border-radius: 3px; opacity: 0; will-change: transform, opacity; pointer-events: none; }
+.boxA { border-color: var(--steel); }
+.boxB { border-color: var(--alert); box-shadow: 0 0 0 4px #f0604d26; }
+.box span { position: absolute; left: -1.5px; bottom: calc(100% + 6px); padding: 4px 7px; border-radius: 3px; font: 500 11px/1 var(--mono); white-space: nowrap; }
+.boxA span { background: var(--steel); color: #0b1620; }
+.boxB span { background: var(--alert); color: #1d0703; }
+.link { position: absolute; z-index: 3; height: 0; opacity: 0; pointer-events: none; }
+.link i { position: absolute; left: 0; right: 0; top: 0; border-top: 1.5px dashed #f3eee6cc; transform-origin: left; transform: scaleX(0); will-change: transform; }
+.link em { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); padding: 4px 7px; border-radius: 3px; background: #0b0a09d9; font: 500 11px/1 var(--mono); font-style: normal; color: var(--ink); white-space: nowrap; opacity: var(--tag, 0); }
+
+.crop { position: absolute; inset: 14px; z-index: 4; pointer-events: none; }
+.crop i { position: absolute; width: 18px; height: 18px; border: 0 solid #f3eee6b3; }
+.crop i:nth-child(1) { top: 0; left: 0; border-width: 1.5px 0 0 1.5px; }
+.crop i:nth-child(2) { top: 0; right: 0; border-width: 1.5px 1.5px 0 0; }
+.crop i:nth-child(3) { bottom: 0; right: 0; border-width: 0 1.5px 1.5px 0; }
+.crop i:nth-child(4) { bottom: 0; left: 0; border-width: 0 0 1.5px 1.5px; }
+
+/* the product glimpse: what the workspace records, appearing once the evidence does */
+.card { position: absolute; z-index: 5; left: 18px; bottom: 18px; width: 276px; display: grid; gap: 7px; padding: 14px 16px; border-radius: 8px; background: #0b0a09eb; border: 1px solid var(--line-2); opacity: 0; visibility: hidden; cursor: default; will-change: transform, opacity; }
+.cardKind { margin: 0; font: 500 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--steel); }
+.cardTitle { margin: 0 0 2px; font: 600 15px/1.3 var(--display); color: var(--ink); }
+.cardRow { display: flex; justify-content: space-between; gap: 12px; margin: 0; font-size: 13px; color: var(--soft); }
+.cardRow b { font: 500 12px/1.6 var(--mono); color: var(--ink); }
+.cardLink { display: inline-flex; align-items: center; gap: 8px; margin-top: 4px; font-size: 13px; font-weight: 500; color: var(--gold) !important; }
+.cardLink svg { transition: transform .25s var(--ease); }
+.cardLink:hover svg { transform: translateX(3px); }
+
+/* the examination timeline */
+.controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 28px; margin-top: 16px; }
+.track { position: relative; height: 36px; cursor: pointer; touch-action: none; }
+.rail { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: repeating-linear-gradient(90deg, #f3eee62e 0 1px, transparent 1px 12.5%), var(--line-2); background-size: 100% 6px, auto; background-position: 0 -2px, 0 0; }
+.rail em { position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; will-change: transform; }
+.tick { position: absolute; top: 50%; width: 2px; height: 14px; margin: -7px 0 0 -1px; background: #f3eee699; }
+.headWrap { position: absolute; inset: 0; pointer-events: none; will-change: transform; }
+.head { position: absolute; left: -8px; top: 50%; width: 16px; height: 16px; margin-top: -8px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px #e9a23b99; transition: transform .2s var(--ease); }
+.track:hover .head, .track:active .head { transform: scale(1.15); }
+.steps { display: flex; gap: 2px; }
+.steps button { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 14px; border: 0; border-radius: 6px; background: none; color: var(--mute); font-size: 14px; white-space: nowrap; transition: color .2s, background-color .2s; }
+.steps button span { font: 400 11px/1 var(--mono); color: var(--mute); transition: color .2s; }
+.steps button:hover { color: var(--ink); }
+.steps button[aria-pressed='true'] { color: var(--ink); background: #f3eee60f; }
+.steps button[aria-pressed='true'] span { color: var(--gold); }
+
+.caption { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: start; gap: 28px; margin-top: 12px; min-height: 3.3em; font-size: 16px; line-height: 1.6; color: var(--soft); }
+.caption > div { max-width: 62ch; }
+.caption b { font-weight: 600; color: var(--ink); }
+.hint { display: inline-flex; align-items: center; gap: 8px; margin: 2px 0 0; font-size: 13px; color: var(--mute); white-space: nowrap; transition: opacity .5s; }
+.hint svg { color: var(--gold); }
+.hintGone { opacity: 0; }
+
+@media (max-width: 1100px) {
+  .chrome > span:first-child { display: none; }
+  .controls { grid-template-columns: 1fr; gap: 6px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .steps button { justify-content: center; height: 44px; padding: 0 6px; }
+  .caption { grid-template-columns: 1fr; gap: 8px; }
+  .hint { display: none; }
+  .card { width: 240px; left: 12px; bottom: 12px; padding: 12px 14px; }
+}
+@media (max-width: 900px) {
+  .chrome > span:first-child { display: inline; }
+  .frame::before { background: linear-gradient(0deg, #0b0a0999, transparent 30%); }
+  .controls { grid-template-columns: 1fr; gap: 6px; }
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .steps button { justify-content: center; height: 44px; padding: 0 6px; }
+  .caption { grid-template-columns: 1fr; gap: 8px; }
+  .hint { display: none; }
+}
+@media (max-width: 640px) {
+  /* a square crop around the evidence, full bleed: x 28–90 %, y 7–100 % of the still */
+  .frame { --cx: .28; --cy: .07; --cw: .62; --ch: .93; aspect-ratio: 1; margin-inline: calc(-1 * var(--pad)); border-radius: 0; box-shadow: none; }
+  .chrome { font-size: 11px; letter-spacing: .03em; }
+  .chrome > span:first-child { display: none; }
+  .crop { inset: 10px; }
+  .crop i { width: 14px; height: 14px; }
+  .card { left: 10px; right: 10px; bottom: 10px; width: auto; gap: 4px; padding: 10px 12px; }
+  .cardKind, .cardRow { display: none; }
+  .cardTitle { margin: 0; font-size: 14px; align-self: center; }
+  .cardLink { margin: 0; }
+  .box span { font-size: 11px; padding: 3px 5px; }
+  .link em { font-size: 11px; }
+  .caption { font-size: 15px; min-height: 5em; }
+}

@@ -1,7 +1,7 @@
 # NEXTRON backend API
 
 The workspace (`/workspace`) talks to the backend through one typed interface, `NextronApi`, defined in
-[`app/workspace/api/contract.ts`](../app/workspace/api/contract.ts). That file is the source of truth: every
+[`frontend/src/api/contract.ts`](../frontend/src/api/contract.ts). That file is the source of truth: every
 shape below is copied from it. When this document and that file disagree, the file wins.
 
 ## Switching the frontend to your server
@@ -11,8 +11,8 @@ shape below is copied from it. When this document and that file disagree, the fi
 NEXT_PUBLIC_NEXTRON_API=https://api.nextron.example
 ```
 
-Unset, the app runs on an in-memory mock (`app/workspace/api/mock.ts`) with demo data, so frontend work never
-waits on the backend. Set, every call goes to your server through `app/workspace/api/http.ts`. No component
+Unset, the app runs on an in-memory mock (`frontend/src/api/mock.ts`) with demo data, so frontend work never
+waits on the backend. Set, every call goes to your server through `frontend/src/api/client.ts`. No component
 changes are needed either way.
 
 - **Auth.** If `localStorage['nx-token']` is set, every request carries `Authorization: Bearer <token>`.
@@ -156,6 +156,6 @@ See `contract.ts`. Each one is a flat object with the fields listed there and no
 ## Testing against the contract
 
 The example payloads your responses should match are in
-[`app/workspace/api/fixtures.ts`](../app/workspace/api/fixtures.ts): the exact objects the mock returns.
-To check your server, point `NEXT_PUBLIC_NEXTRON_API` at it and walk through every view. Any field your server
+[`frontend/src/api/fixtures.ts`](../frontend/src/api/fixtures.ts): the exact objects the mock returns.
+To check your server, point `NEXT_PUBLIC_NEXTRON_API` at it and walk through every page. Any field your server
 leaves out shows up as an empty or broken element.

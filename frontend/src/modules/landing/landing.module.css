@@ -1,0 +1,131 @@
+/* NEXTRON landing
+   Colour system (60 / 30 / 10):
+   - 60  warm black ground, hue 30°, so the amber reads as light, not as paint
+   - 30  warm greys for text and hairlines, same hue family, never pure white
+   - 10  amber #E9A23B (36°) as the one action and focus colour
+   Analogous to amber: ember #D9652B (20°) for glow, alert #F0604D (7°) only for detections.
+   Complement of amber: steel #7FA6BF (203°), used only for neutral data (time codes, audio). */
+.landing {
+  --bg: #0b0a09; --bg-2: #11100e; --surface: #161411; --surface-2: #1d1a16;
+  --ink: #f3eee6; --soft: #bdb6aa; --mute: #8d877c; --line: #f3eee617; --line-2: #f3eee629;
+  --gold: #e9a23b; --gold-2: #f6c26b; --ember: #d9652b; --alert: #f0604d; --steel: #7fa6bf;
+  --display: var(--font-host), 'Helvetica Neue', Arial, sans-serif; --mono: var(--font-jb), ui-monospace, monospace;
+  --pad: clamp(20px, 4.5vw, 72px); --ease: cubic-bezier(.22, 1, .36, 1);
+  position: relative; min-height: 100vh; overflow-x: clip; color: var(--ink); font: 400 16px/1.55 var(--display);
+  background: radial-gradient(60% 50% at 62% 22%, #2a1a0b55, transparent 70%), radial-gradient(40% 40% at 8% 80%, #1c120833, transparent 70%), var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+.landing *, .landing *::before, .landing *::after { box-sizing: border-box; }
+.landing a { color: inherit; text-decoration: none; }
+.landing button { font: inherit; color: inherit; cursor: pointer; }
+.landing :focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: 4px; }
+.landing section { scroll-margin-top: 24px; }
+.wrap { width: min(1456px, 100% - 2 * var(--pad)); margin-inline: auto; }
+.skip { position: absolute; left: var(--pad); top: -80px; z-index: 20; background: var(--ink); color: var(--bg) !important; padding: 12px 16px; border-radius: 6px; }
+.skip:focus { top: 16px; }
+
+/* header */
+.header { height: 88px; display: flex; align-items: center; gap: 40px; position: relative; z-index: 10; }
+.brand { display: flex; align-items: center; gap: 16px; padding-right: 40px; border-right: 1px solid var(--line-2); font: 600 20px/1 var(--display); letter-spacing: .22em; }
+.brand svg { width: 34px; height: 34px; color: var(--gold); stroke-width: 2.2; transition: transform .8s var(--ease); }
+.brand:hover svg { transform: rotate(60deg); }
+.nav { display: flex; gap: 56px; margin: auto; font-size: 15px; }
+.nav a, .textLink, .inlineLink { position: relative; color: var(--soft); transition: color .2s; }
+.nav a { padding: 12px 0; }
+.nav a::after, .textLink::after { content: ''; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .35s var(--ease); }
+.nav a:hover, .textLink:hover { color: var(--ink); }
+.nav a:hover::after, .textLink:hover::after { transform: scaleX(1); transform-origin: left; }
+.launch { display: inline-flex; align-items: center; gap: 14px; height: 48px; padding: 0 22px; border: 1px solid #e9a23b99; border-radius: 8px; font-weight: 500; font-size: 15px; white-space: nowrap; transition: background .25s, border-color .25s, transform .2s var(--ease); }
+.short { display: none; }
+.launch svg { color: var(--gold); transition: transform .25s var(--ease); }
+.launch:hover { background: #e9a23b14; border-color: var(--gold); transform: translateY(-1px); }
+.launch:hover svg { transform: translate(2px, -2px); }
+.menuButton { display: none; }
+
+/* type */
+.eyebrow { display: flex; align-items: center; gap: 22px; margin: 0 0 36px; font: 400 13px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--soft); }
+.eyebrow i { width: 36px; height: 2px; background: var(--gold); flex: none; }
+.mask { display: block; width: max-content; max-width: none; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
+.mask > span { display: block; }
+
+/* hero: the headline and the exhibit are one composition. The headline sits in front of the frame's
+   darkened left edge; the frame takes the larger share and is capped by the viewport height. */
+.hero { position: relative; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: clamp(16px, 2vw, 32px); align-items: start; padding: clamp(12px, 2.5vh, 36px) 0 clamp(64px, 10vh, 120px); }
+.heroCopy { grid-column: 1 / span 5; grid-row: 1; position: relative; z-index: 6; padding-top: clamp(40px, 9vh, 104px); pointer-events: none; }
+.heroCopy a, .heroCopy button { pointer-events: auto; }
+.heroExhibit { grid-column: 5 / -1; grid-row: 1; justify-self: end; width: min(100%, (100vh - 330px) * 1.5); width: min(100%, (100svh - 330px) * 1.5); min-width: 0; }
+.hero h1 { margin: 0 0 32px; font: 600 clamp(60px, 8vw, 146px)/.9 var(--display); letter-spacing: -.055em; white-space: nowrap; text-shadow: 0 2px 40px #0b0a09; }
+.hero h1 em { font-style: normal; color: var(--gold); }
+.heroLead { margin: 0; max-width: 29ch; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.55; color: var(--soft); }
+.actions { display: flex; align-items: center; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+.primary { display: inline-flex; align-items: center; gap: 18px; height: 54px; padding: 0 24px; border-radius: 8px; background: var(--gold); color: #1a1206 !important; font-weight: 600; font-size: 16px; transition: transform .25s var(--ease), background-color .25s; }
+.primary svg { transition: transform .25s var(--ease); }
+.primary:hover { transform: translateY(-2px); background: var(--gold-2); }
+.primary:hover svg { transform: translateX(4px); }
+.primary:active { transform: translateY(0) scale(.985); }
+.textLink { font-weight: 500; font-size: 16px; color: var(--ink); padding: 12px 0; }
+
+/* entrance starting states, only when script runs and motion is welcome; a timed fallback shows everything */
+@media (prefers-reduced-motion: no-preference) {
+  :global(html.js) .landing [data-nav] > *, :global(html.js) .landing [data-line], :global(html.js) .landing [data-enter], :global(html.js) .landing [data-enter-frame] { opacity: 0; animation: nxShow 0s 2.8s forwards; }
+}
+@keyframes nxShow { to { opacity: 1; } }
+
+/* footer */
+.footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; padding: 48px 0 56px; border-top: 1px solid var(--line); }
+.footBrand { display: flex; align-items: center; gap: 16px; }
+.footBrand svg { color: var(--gold); }
+.footBrand b { font-size: 15px; letter-spacing: .22em; }
+.footBrand span { padding-left: 16px; border-left: 1px solid var(--line-2); font-size: 14px; color: var(--mute); }
+.footer p { width: 100%; margin: 0; font-size: 13px; line-height: 1.7; color: var(--mute); }
+.footer p + p { margin-top: -16px; }
+
+/* widths */
+@media (max-width: 1280px) {
+  .nav { gap: 36px; }
+}
+@media (max-width: 1100px) {
+  .heroCopy { grid-column: 1 / span 6; }
+  .heroExhibit { grid-column: 6 / -1; }
+  .hero h1 { font-size: clamp(56px, 7.6vw, 90px); }
+}
+@media (max-width: 900px) {
+  /* stacked: headline, then the exhibit at full width */
+  .hero { grid-template-columns: minmax(0, 1fr); padding-top: 24px; }
+  .heroCopy { display: contents; }
+  .heroCopy > * { position: relative; z-index: 1; }
+  .hero .eyebrow { order: 1; }
+  .hero h1 { order: 2; margin-bottom: 18px; font-size: clamp(52px, 11.5vw, 96px); white-space: normal; }
+  .heroLead { order: 3; max-width: 40ch; }
+  .heroExhibit { order: 4; grid-column: 1; grid-row: auto; width: 100%; margin-top: 36px; }
+  .actions { order: 5; margin-top: 28px; }
+}
+@media (max-width: 860px) {
+  .header { gap: 16px; }
+  .brand { border-right: 0; padding-right: 0; margin-right: auto; }
+  .nav { display: none; position: absolute; top: 80px; left: 0; right: 0; z-index: 20; flex-direction: column; gap: 0; padding: 12px 20px; border: 1px solid var(--line-2); border-radius: 12px; background: #12100ef7; }
+  .nav a { padding: 16px 0; font-size: 18px; border-bottom: 1px solid var(--line); }
+  .nav.openNav { display: flex; }
+  .menuButton { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid var(--line-2); border-radius: 8px; background: none; }
+  .launch { height: 44px; padding: 0 16px; font-size: 14px; }
+}
+@media (max-width: 640px) {
+  .header { height: 68px; gap: 10px; }
+  .brand { font-size: 16px; gap: 12px; letter-spacing: .18em; }
+  .brand svg { width: 28px; height: 28px; }
+  .header .launch { gap: 8px; padding: 0 14px; }
+  .long { display: none; }
+  .short { display: inline; }
+  .hero { padding-top: 12px; padding-bottom: 72px; }
+  .hero .eyebrow { display: none; }
+  .hero h1 { font-size: clamp(48px, 14.6vw, 64px); line-height: .92; margin-bottom: 14px; }
+  .heroLead { font-size: 16px; }
+  .heroExhibit { margin-top: 24px; }
+  .actions { gap: 8px 20px; }
+  .primary { width: 100%; justify-content: space-between; }
+  .footBrand { flex-wrap: wrap; }
+  .footBrand span { border: 0; padding: 0; width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing *, .landing *::before, .landing *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
