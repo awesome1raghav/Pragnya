@@ -61,7 +61,7 @@ export default function Command({ go, notify }: Ctx) {
         <div ref={media} className={s.focusMedia}>
           <AnimatePresence mode='popLayout' initial={false}>
             <motion.div key={f.id} style={{ position: 'absolute', inset: 0 }} initial={{ opacity: 0, scale: 1.03 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: .4, ease }}>
-              <Image src={f.cover.still} alt={`Evidence still from ${f.name}`} fill priority sizes='(max-width: 760px) 100vw, 34vw' style={{ objectFit: 'cover', objectPosition: focusPos(f.cover) }} />
+              <Image src={f.cover.still} alt={`Evidence still from ${f.name}`} fill preload sizes='(max-width: 760px) 100vw, 34vw' style={{ objectFit: 'cover', objectPosition: focusPos(f.cover) }} />
               {fTop?.region && (() => { const m = evidence.find(e => e.id === fTop.evidenceId)!.media; const b = coverBox(fTop.region, aspect(m), mediaAr, m.focus?.x ?? .5, m.focus?.y ?? .5); return <motion.div className={s.region} data-tone={severityTone[fTop.severity]} style={{ left: `${b.x}%`, top: `${b.y}%`, width: `${b.w}%`, height: `${b.h}%` }} initial={{ opacity: 0, scale: 1.15 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: .25, duration: .45, ease }}><span>{fTop.id} · {fTop.confidence.toFixed(2)}</span></motion.div>; })()}
             </motion.div>
           </AnimatePresence>

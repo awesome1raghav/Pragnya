@@ -137,7 +137,7 @@ export default function Exhibit() {
     <div ref={frame} className={s.frame} onPointerDown={onFrameDown} onDragStart={e => e.preventDefault()} data-step={step} data-enter-frame>
       <i className={s.crop} aria-hidden='true'><i /><i /><i /><i /></i>
       <div className={s.plate}>
-        <Image src='/images/exhibit/frame-1280.webp' alt='A busy station concourse with people crossing the floor. One group of five people near the right has been copied from beside the information booth.' fill priority draggable={false} sizes='(max-width: 640px) 160vw, (max-width: 900px) 100vw, 64vw' className={s.img} />
+        <Image src='/images/exhibit/frame-1280.webp' alt='A busy station concourse with people crossing the floor. One group of five people near the right has been copied from beside the information booth.' fill preload draggable={false} sizes='(max-width: 640px) 160vw, (max-width: 900px) 100vw, 64vw' className={s.img} />
         <div ref={el.elaO} className={s.elaO} aria-hidden='true'><div ref={el.elaI} className={s.elaI}><Image src='/images/exhibit/ela-1280.webp' alt='' fill draggable={false} sizes='(max-width: 640px) 160vw, (max-width: 900px) 100vw, 64vw' className={s.img} /></div></div>
         <div ref={el.boxA} className={`${s.box} ${s.boxA}`} style={pct(A)} aria-hidden='true'><span>A · source</span></div>
         <div ref={el.boxB} className={`${s.box} ${s.boxB}`} style={pct(B)} aria-hidden='true'><span>B · pasted</span></div>

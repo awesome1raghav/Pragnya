@@ -186,7 +186,7 @@ export default function Investigate({ go, notify, caseId, evidenceId, tool, setT
 
       <div className={s.canvas}>
         {(tool === 'viewer' || tool === 'frames') && <div ref={stage} className={s.stage} style={{ ['--ar' as string]: ar }} onPointerMove={onStageMove} onPointerDown={onStageMove} onPointerLeave={() => { if (lp.current) lp.current.style.opacity = '0'; }} onClick={() => setFinding(null)}>
-          <Image src={ev.media.still} alt={`Frame from ${ev.fileName}`} fill priority sizes='(max-width: 1024px) 100vw, 60vw' style={{ objectFit: 'cover' }} />
+          <Image src={ev.media.still} alt={`Frame from ${ev.fileName}`} fill preload sizes='(max-width: 1024px) 100vw, 60vw' style={{ objectFit: 'cover' }} />
           {tool === 'viewer' && compare && ev.media.overlay && <>
             <div ref={so} className={s.layer} aria-hidden='true'><div ref={si} className={s.layerIn}><Image src={ev.media.overlay} alt='' fill sizes='60vw' style={{ objectFit: 'cover' }} /></div></div>
             <div ref={sl} className={s.split} aria-hidden='true'><i /><b><ChevronsLeftRight size={16} /></b><span>Original</span><span>Error level</span></div>

@@ -27,9 +27,9 @@ export function FindingMark({ f, time = true }: { f: { id: string; severity: str
 export const focusPos = (m: Media) => m.focus ? `${m.focus.x * 100}% ${m.focus.y * 100}%` : '50% 50%';
 export const aspect = (m: Media) => m.width / m.height;
 
-export function Thumb({ media, big, className, style, sizes = '120px', priority }: { media: Media; big?: boolean; className?: string; style?: React.CSSProperties; sizes?: string; priority?: boolean }) {
+export function Thumb({ media, big, className, style, sizes = '120px', eager }: { media: Media; big?: boolean; className?: string; style?: React.CSSProperties; sizes?: string; eager?: boolean }) {
   return <span className={`${s.thumb} ${className ?? ''}`} style={{ display: 'block', ...style }}>
-    <Image src={big ? media.still : media.thumb} alt='' fill sizes={sizes} priority={priority} style={{ objectPosition: focusPos(media) }} />
+    <Image src={big ? media.still : media.thumb} alt='' fill sizes={sizes} loading={eager ? 'eager' : undefined} style={{ objectPosition: focusPos(media) }} />
   </span>;
 }
 

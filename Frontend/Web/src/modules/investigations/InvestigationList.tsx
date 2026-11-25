@@ -33,11 +33,11 @@ export default function InvestigationList({ filter = 'all' }: { filter?: CaseFil
       <nav className={s.seg} aria-label='Filter investigations'>{TABS.map(([k, label, href]) => <Link key={k} href={href} aria-current={filter === k ? 'page' : undefined} aria-selected={filter === k} role='tab'>{label}<span className={s.count}>{cases.filter(MATCH[k]).length}</span></Link>)}</nav>
       <label className={`${s.cmdk} ${s.listSearch}`}><Search size={14} /><input value={q} onChange={e => setQ(e.target.value)} placeholder='Find a case, ID or analyst' aria-label='Find a case' /></label>
     </div>
-    {rows.length ? <ul className={s.list}>{rows.map(c => {
+    {rows.length ? <ul className={s.list}>{rows.map((c, i) => {
       const ev = evidence.filter(e => e.caseId === c.id);
       const open = findings.filter(f => ev.some(e => e.id === f.evidenceId) && f.status === 'open').length;
       return <li key={c.id}><Link className={s.listRow} href={paths.case(c.id)}>
-        <Thumb media={c.cover} sizes='80px' />
+        <Thumb media={c.cover} sizes='80px' eager={i < 6} />
         <span className={s.listMain}><b>{c.name}</b><small><span className={s.mono}>{c.id}</span> · {c.analyst} · {c.summary}</small></span>
         <Dot tone={statusTone[c.status]}>{statusLabel[c.status]}</Dot>
         <span className={s.listNum}><b>{ev.length}</b> files</span>
