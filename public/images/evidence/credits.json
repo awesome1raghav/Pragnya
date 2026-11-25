@@ -1,0 +1,155 @@
+{
+ "note": "Credits for the photographs in this folder: photos.mjs credits prints the footer block for the ones the pages use.",
+ "photos": [
+  {
+   "file": "photo-692.jpg",
+   "files": [
+    "photo-692-500.jpg",
+    "photo-692-960.jpg",
+    "photo-692.jpg"
+   ],
+   "id": "692",
+   "alt": "Grand station concourse with arched windows and a blurred crowd",
+   "by": "Nicolai Berntsen",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/2Qm47LI0W1c",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-781.jpg",
+   "files": [
+    "photo-781-500.jpg",
+    "photo-781-960.jpg",
+    "photo-781.jpg"
+   ],
+   "id": "781",
+   "alt": "Dark station platform with a row of bright windows, black and white",
+   "by": "Matthew Wiebe",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/azkWKhyr54U",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-579.jpg",
+   "files": [
+    "photo-579-500.jpg",
+    "photo-579-960.jpg",
+    "photo-579.jpg"
+   ],
+   "id": "579",
+   "alt": "Blurred night street with glowing traffic and building lights",
+   "by": "Israel Sundseth",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/BYu8ITUWMfc",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-d368.jpg",
+   "files": [
+    "photo-d368-500.jpg",
+    "photo-d368-960.jpg",
+    "photo-d368.jpg"
+   ],
+   "id": "d368",
+   "alt": "Person under a dark umbrella seen from behind on a rainy evening street, wet tram lines and coloured bokeh lights",
+   "by": "Todd Diemer",
+   "licence": "CC0",
+   "licenceUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Umbrella_California_St_rain_(Unsplash).jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-840-960.jpg",
+   "files": [
+    "photo-840-500.jpg",
+    "photo-840-960.jpg"
+   ],
+   "id": "840",
+   "alt": "Aerial view of green grass courts with a small car on the road below",
+   "by": "Noah Kuhn",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/aB7g_LMJhRs",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-c394.jpg",
+   "files": [
+    "photo-c394-500.jpg",
+    "photo-c394-960.jpg",
+    "photo-c394.jpg"
+   ],
+   "id": "c394",
+   "alt": "Drone view of circular fish-farm pens and a small feed barge on a mirror-still fjord reflecting mountains and pink-lit cloud",
+   "where": "Øksfjorden, Norway",
+   "by": "Ximonic (Simo Räsänen)",
+   "licence": "CC BY-SA 4.0",
+   "licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+   "page": "https://commons.wikimedia.org/wiki/File:Fish_farming_on_%C3%98ksfjorden_in_Loppa,_Troms_og_Finnmark,_Norway,_2022_August.jpg",
+   "source": "Wikimedia Commons"
+  },
+  {
+   "file": "photo-266.jpg",
+   "files": [
+    "photo-266-500.jpg",
+    "photo-266-960.jpg",
+    "photo-266.jpg"
+   ],
+   "id": "266",
+   "alt": "Three ships on a distant horizon across a calm blue sea",
+   "by": "John Maravelakis",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/Vosp2wlY3Bs",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-331.jpg",
+   "files": [
+    "photo-331-500.jpg",
+    "photo-331-960.jpg",
+    "photo-331.jpg"
+   ],
+   "id": "331",
+   "alt": "Silhouette of a person standing beneath a steel-framed roof",
+   "by": "Thong Vo",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/g28MgVK85bQ",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-171.jpg",
+   "files": [
+    "photo-171-500.jpg",
+    "photo-171-960.jpg",
+    "photo-171.jpg"
+   ],
+   "id": "171",
+   "alt": "Raindrops on a window with blurred traffic lights at night",
+   "by": "Riley Briggs",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/cSe3oKQ03OQ",
+   "source": "Unsplash"
+  },
+  {
+   "file": "photo-396.jpg",
+   "files": [
+    "photo-396-500.jpg",
+    "photo-396-960.jpg",
+    "photo-396.jpg"
+   ],
+   "id": "396",
+   "alt": "Long escalator tunnel with a curved lit ceiling and blurred motion",
+   "by": "Sam X",
+   "licence": "Unsplash License",
+   "licenceUrl": "https://unsplash.com/license",
+   "page": "https://unsplash.com/photos/ko-wCySsj-I",
+   "source": "Unsplash"
+  }
+ ]
+}

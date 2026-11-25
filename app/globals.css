@@ -1,0 +1,10 @@
+/* Global layer: a reset and the page ground only. Every page styles itself through its own CSS module,
+   so no class here can leak into another page. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; color-scheme: dark; }
+html, body { margin: 0; min-height: 100%; background: #0b0a09; color: #f3eee6; }
+body { font-family: var(--font-host), system-ui, sans-serif; }
+img, video, canvas { display: block; max-width: 100%; }
+button, input, select, textarea { font: inherit; }
+::selection { background: #e9a23b55; color: #fff; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

@@ -1,0 +1,31 @@
+# AI tools and local configurations
+.21st/
+.claude/
+.codex/
+.taste-skill/
+.playwright-cli/
+.mcp.json
+
+# Dependencies
+node_modules/
+
+# Next.js generated files
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+# Temporary files
+tmp/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Operating system files
+.DS_Store
+Thumbs.db
