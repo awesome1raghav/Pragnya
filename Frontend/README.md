@@ -18,13 +18,13 @@ npm run dev        # http://localhost:8080
 
 **Backend:** set `NEXT_PUBLIC_NEXTRON_API=http://localhost:8000/api/v1` in `.env.local`. Every call then goes to the
 backend through `src/api/client.ts`; without it, `src/api/mock.ts` serves the demo data in the browser.
-The routes and payloads the backend must provide are in [`../docs/BACKEND_API.md`](../docs/BACKEND_API.md);
-what the ML pipeline must output is in [`../docs/ML_OUTPUT_SPEC.md`](../docs/ML_OUTPUT_SPEC.md).
+The routes and payloads the backend must provide are in [`../Documentation/Backend API Specification.md`](../Documentation/Backend%20API%20Specification.md);
+what the ML pipeline must output is in [`../Documentation/ML Output Specification.md`](../Documentation/ML%20Output%20Specification.md).
 
 ## Folders
 
 ```
-frontend/
+Frontend/
 ├── public/images/            evidence stills, the landing exhibit, social preview
 ├── src/
 │   ├── app/                  routes only (Next.js App Router): one folder per address

@@ -3,7 +3,7 @@
 
    Every workspace screen reads and writes ONLY through `NextronApi` below.
    The frontend ships with a mock implementation (./mock.ts) that returns demo data in exactly
-   these shapes. To go live, the backend implements the HTTP routes in docs/BACKEND_API.md and
+   these shapes. To go live, the backend implements the HTTP routes in Documentation/Backend API Specification.md and
    the app is started with NEXT_PUBLIC_NEXTRON_API=https://your-api — no UI changes needed.
 
    Conventions (apply everywhere):

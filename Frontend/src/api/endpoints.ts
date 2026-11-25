@@ -1,4 +1,4 @@
-/* The backend's REST routes, relative to NEXT_PUBLIC_NEXTRON_API (docs/BACKEND_API.md describes each one).
+/* The backend's REST routes, relative to NEXT_PUBLIC_NEXTRON_API (Documentation/Backend API Specification.md describes each one).
    The HTTP client builds every request from this table. */
 const e = encodeURIComponent;
 

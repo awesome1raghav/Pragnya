@@ -1,4 +1,4 @@
-/* HTTP adapter: maps the contract onto the REST routes documented in docs/BACKEND_API.md.
+/* HTTP adapter: maps the contract onto the REST routes documented in Documentation/Backend API Specification.md.
    Backend: implement those routes and start the frontend with NEXT_PUBLIC_NEXTRON_API set. */
 import type { NextronApi } from './contract';
 import { endpoints as ep } from './endpoints';

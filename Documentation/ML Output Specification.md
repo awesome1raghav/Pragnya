@@ -2,7 +2,7 @@
 
 The UI can show anything your models find, as long as each result arrives as a **`Finding`** plus, for each piece of
 evidence, an **overlay image**. This page covers what each field means on screen, so you can choose the values on
-purpose. The exact type is in [`frontend/src/api/contract.ts`](../frontend/src/api/contract.ts).
+purpose. The exact type is in [`Frontend/src/api/contract.ts`](../Frontend/src/api/contract.ts).
 
 ## 1. One `Finding` per thing an investigator should look at
 
