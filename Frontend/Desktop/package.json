@@ -1,0 +1,10 @@
+{
+  "name": "nextron-desktop",
+  "version": "1.0.0",
+  "description": "NEXTRON Forensic Desktop Client",
+  "private": true,
+  "scripts": {
+    "start": "echo 'Desktop client shell ready'",
+    "build": "echo 'Desktop build script ready'"
+  }
+}

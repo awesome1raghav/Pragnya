@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../../Backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgrespassword@postgres:5432/nextron_db
+
+  frontend:
+    build:
+      context: ../../Frontend/Web
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"

@@ -1,0 +1,15 @@
+name: Android CI
+
+on:
+  push:
+    paths:
+      - 'Frontend/Android/**'
+  pull_request:
+    paths:
+      - 'Frontend/Android/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
