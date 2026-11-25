@@ -18,7 +18,6 @@ NEXTRON/
 │   │   ├── Api/V1/                 # Versioned REST API routes & controllers
 │   │   ├── Audit/                  # Forensic event recording & chain of custody logging
 │   │   ├── Core/                   # Security, middleware, permissions, exceptions, constants
-│   │   ├── Database/               # SQLAlchemy session, base, and entity models
 │   │   ├── Modules/                # The 18 official NEXTRON domain engines (NexCm to NexRpt)
 │   │   ├── Orchestration/          # T-MIR pipeline & multi-branch forensic execution engine
 │   │   ├── Realtime/               # WebSocket connections & realtime forensic event publisher
@@ -27,6 +26,11 @@ NEXTRON/
 │   │   ├── Storage/                # File storage management & integrity checks
 │   │   ├── Utils/                  # Cryptographic hashing, binary, and media utilities
 │   │   └── Workers/                # Asynchronous job dispatchers, executors, and tasks
+│   ├── Database/                   # Multi-model database architecture
+│   │   ├── PostgreSQL/             # Relational models, migrations, repositories & indexes
+│   │   ├── Neo4j/                  # Graph repository, node/relationship managers & Cypher queries
+│   │   ├── Qdrant/                 # Vector collections, embeddings repository & ANN search
+│   │   └── Redis/                  # Distributed cache, lock coordination & connection pools
 │   ├── Documentation/              # Backend, database, API, and T-MIR architectural documentation
 │   ├── Scripts/                    # Database migrations, seeding, and administrative scripts
 │   ├── Storage/                    # Storage roots (Originals, Derived, Thumbnails, Frames, Audio, etc.)
