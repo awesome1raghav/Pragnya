@@ -25,9 +25,9 @@ const useCase = (caseId: string) => {
 };
 const evOf = (ev: Evidence[], f: Finding) => ev.find(e => e.id === f.evidenceId);
 
-function FindingRow({ f, e }: { f: Finding; e?: Evidence }) {
+function FindingRow({ f, e, eager }: { f: Finding; e?: Evidence; eager?: boolean }) {
   return <li><Link className={s.fRow} href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`}>
-    {e && <Thumb media={e.media} sizes='96px' />}
+    {e && <Thumb media={e.media} sizes='96px' eager={eager} />}
     <span className={s.fRowMain}><FindingMark f={f} /><b>{f.title}</b><small>{f.detail}</small></span>
     <span className={s.fRowSide}><Dot tone={severityTone[f.severity]}>{branchLabel[f.branch]}</Dot><span className={s.mono}>{f.confidence.toFixed(2)}</span>{f.status !== 'open' && <span className={s.cap}>{findingStatusLabel[f.status]}</span>}</span>
   </Link></li>;
@@ -40,7 +40,7 @@ export function CaseOverview({ caseId }: Ctx) {
   return <div className={s.page}>
     <div className={s.overview}>
       <section className={s.ovLead}>
-        <div className={s.ovMedia}><Image src={c.cover.still} alt={`Evidence still from ${c.name}`} fill priority sizes='(max-width: 900px) 100vw, 44vw' style={{ objectFit: 'cover', objectPosition: focusPos(c.cover) }} /></div>
+        <div className={s.ovMedia}><Image src={c.cover.still} alt={`Evidence still from ${c.name}`} fill preload sizes='(max-width: 900px) 100vw, 44vw' style={{ objectFit: 'cover', objectPosition: focusPos(c.cover) }} /></div>
         <div className={s.ovBody}>
           <p className={s.cap}>{c.summary}</p>
           <h1>{c.name}</h1>
@@ -72,10 +72,10 @@ export function CaseOverview({ caseId }: Ctx) {
 
 export function EvidenceGrid({ items }: { items: Evidence[] }) {
   const { findings } = useData();
-  return <ul className={s.evGrid}>{items.map(e => {
+  return <ul className={s.evGrid}>{items.map((e, i) => {
     const n = findings.filter(f => f.evidenceId === e.id).length;
     return <li key={e.id}><Link className={s.evCard} href={paths.evidence(e.id)}>
-      <Thumb media={e.media} sizes='(max-width: 640px) 50vw, 280px' />
+      <Thumb media={e.media} sizes='(max-width: 640px) 50vw, 280px' eager={i < 8} />
       <span><b>{e.fileName}</b><small><Dot tone={statusTone[e.status]}>{statusLabel[e.status]}</Dot><span>{e.kind === 'video' ? fmt(e.durationSec) : e.kind}</span>{n > 0 && <span>{n} finding{n === 1 ? '' : 's'}</span>}</small></span>
     </Link></li>;
   })}</ul>;
@@ -103,7 +103,7 @@ export function CaseAnalysis({ caseId, branch }: Ctx & { branch?: AnalysisBranch
       <Link href={paths.caseAnalysis(c.id)} aria-selected={!branch}>All<span className={s.count}>{fs.length}</span></Link>
       {(Object.keys(ANALYSIS) as AnalysisBranch[]).map(k => <Link key={k} href={paths.caseAnalysis(c.id, k)} aria-selected={branch === k}>{ANALYSIS_LABEL[k]}<span className={s.count}>{fs.filter(f => f.branch === ANALYSIS[k]).length}</span></Link>)}
     </nav>
-    {list.length ? <ul className={s.fRows}>{list.map(f => <FindingRow key={f.id} f={f} e={evOf(ev, f)} />)}</ul>
+    {list.length ? <ul className={s.fRows}>{list.map((f, i) => <FindingRow key={f.id} f={f} e={evOf(ev, f)} eager={i < 3} />)}</ul>
       : <div className={s.empty}><ShieldCheck size={24} /><b>Nothing found</b><span>This branch reported no anomalies for the files in this case.</span></div>}
   </div>;
 }
@@ -139,8 +139,8 @@ export function CaseReview({ caseId, notify }: Ctx) {
   const pending = fs.filter(f => f.status === 'open' || f.status === 'second_review');
   return <div className={s.page}>
     <PageHead title='Review' desc={`Findings in ${c.name} that still need an investigator’s decision. Inspect the frame before you decide.`} />
-    {pending.length ? <ul className={s.reviewList}>{pending.map(f => <li key={f.id}>
-      <Link href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`} className={s.reviewMedia} aria-label={`Inspect ${f.title}`}>{evOf(ev, f) && <Thumb media={evOf(ev, f)!.media} sizes='160px' />}</Link>
+    {pending.length ? <ul className={s.reviewList}>{pending.map((f, i) => <li key={f.id}>
+      <Link href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`} className={s.reviewMedia} aria-label={`Inspect ${f.title}`}>{evOf(ev, f) && <Thumb media={evOf(ev, f)!.media} sizes='160px' eager={i < 5} />}</Link>
       <div className={s.reviewMain}><FindingMark f={f} /><b>{f.title}</b><p>{f.detail}</p><small>{branchLabel[f.branch]} · confidence {f.confidence.toFixed(2)} · most likely {f.explanations[0]?.label.toLowerCase()} ({Math.round((f.explanations[0]?.likelihood ?? 0) * 100)}%){f.status === 'second_review' ? ' · in second review' : ''}</small></div>
       <div className={s.actions}>
         <Link className={`${s.btn} ${s.primary}`} href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`}>Inspect <ArrowRight size={14} /></Link>
