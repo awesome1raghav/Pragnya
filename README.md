@@ -8,10 +8,33 @@ NEXTRON is an enterprise-grade digital media verification platform designed for 
 
 ## 1. Project Architecture & Organization
 
-The repository follows a clean, standardized, modular structure separating user-facing applications, design specifications, and system documentation:
+The repository follows a clean, standardized, modular structure separating user-facing applications, backend microservices, design specifications, and system documentation:
 
 ```text
 NEXTRON/
+│
+├── Backend/                        # FastAPI asynchronous backend application & orchestration engine
+│   ├── App/                        # Application source code
+│   │   ├── Api/V1/                 # Versioned REST API routes & controllers
+│   │   ├── Audit/                  # Forensic event recording & chain of custody logging
+│   │   ├── Core/                   # Security, middleware, permissions, exceptions, constants
+│   │   ├── Database/               # SQLAlchemy session, base, and entity models
+│   │   ├── Modules/                # The 18 official NEXTRON domain engines (NexCm to NexRpt)
+│   │   ├── Orchestration/          # T-MIR pipeline & multi-branch forensic execution engine
+│   │   ├── Realtime/               # WebSocket connections & realtime forensic event publisher
+│   │   ├── Schemas/                # Pydantic data validation schemas & DTOs
+│   │   ├── Services/               # High-level domain service adapters
+│   │   ├── Storage/                # File storage management & integrity checks
+│   │   ├── Utils/                  # Cryptographic hashing, binary, and media utilities
+│   │   └── Workers/                # Asynchronous job dispatchers, executors, and tasks
+│   ├── Documentation/              # Backend, database, API, and T-MIR architectural documentation
+│   ├── Scripts/                    # Database migrations, seeding, and administrative scripts
+│   ├── Storage/                    # Storage roots (Originals, Derived, Thumbnails, Frames, Audio, etc.)
+│   ├── Tests/                      # Unit, integration, end-to-end, and security test suites
+│   ├── alembic.ini                 # Alembic database migration configuration
+│   ├── pyproject.toml              # Modern Python packaging configuration
+│   ├── requirements.txt            # Python dependencies manifest
+│   └── README.md
 │
 ├── Design/                         # UI/UX design specifications, prototypes, and visual assets
 │   ├── Implementation Plan.md      # Design implementation details and visual direction
@@ -54,12 +77,34 @@ NEXTRON/
 
 ## 2. Quick Start
 
-### Running the Frontend Application
-
-The user-facing application is built on Next.js 16 (App Router) with TypeScript and Tailwind/CSS Modules. It operates seamlessly with an integrated in-memory mock engine or connects to a live NEXTRON backend.
+### Running the Backend Application
 
 ```bash
-# Navigate to the frontend directory
+# Navigate to Backend
+cd Backend
+
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run database migrations
+alembic upgrade head
+
+# Start FastAPI development server
+uvicorn App.Main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+Interactive API documentation will be available at:
+- Swagger UI: [http://localhost:8000/api/v1/docs](http://localhost:8000/api/v1/docs)
+- ReDoc: [http://localhost:8000/api/v1/redoc](http://localhost:8000/api/v1/redoc)
+
+### Running the Frontend Application
+
+```bash
+# Navigate to Frontend
 cd Frontend
 
 # Install dependencies
@@ -77,25 +122,15 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ### Inspecting the Design Prototype
 
-The standalone prototype demonstrates early visual design explorations and can be viewed directly:
+The standalone prototype demonstrates early visual design explorations:
 - Open `Design/Prototype/index.html` in any modern web browser.
 
 ---
 
 ## 3. Technology Stack & Key Specifications
 
+- **Backend:** FastAPI, Python 3.11+, SQLAlchemy 2.0, Alembic, Celery, Redis, Pydantic v2
 - **Frontend Core:** Next.js 16, React 19, TypeScript, CSS Modules
-- **Forensic Pipeline:** Spatial Detection, Temporal Consistency, Audio-Visual Alignment, and Multi-Branch Evidence Fusion
+- **Forensic Pipeline:** Spatial Detection, Temporal Consistency, Audio-Visual Alignment, and Multi-Branch Evidence Fusion (T-MIR Orchestration)
 - **API Standard:** OpenAPI / RESTful JSON with strict TypeScript contract definitions (`Frontend/src/api/contract.ts`)
 - **Documentation Standards:** Comprehensive Markdown with Mermaid diagrams and mathematical rigor
-
----
-
-## 4. Documentation Index
-
-For in-depth specifications and engineering guidelines, consult the `Documentation/` directory:
-- [NEXTRON Master Architecture](Documentation/NEXTRON%20Master%20Architecture.md)
-- [NEXTRON Frontend Architecture](Documentation/NEXTRON%20Frontend%20Architecture.md)
-- [Backend API Specification](Documentation/Backend%20API%20Specification.md)
-- [ML Output Specification](Documentation/ML%20Output%20Specification.md)
-- [Workspace Visual UX Audit](Documentation/Workspace%20Visual%20UX%20Audit.md)
