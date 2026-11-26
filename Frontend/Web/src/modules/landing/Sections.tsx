@@ -150,7 +150,7 @@ export function FinalCta() {
     <p className={s.lede} data-reveal-item style={{ marginInline: 'auto', textAlign: 'center' }}>Open the demo workspace: sample cases in the real interface, this exhibit among them. Nothing to install, no account.</p>
     <div className={s.finalActions} data-reveal-item>
       <Link href='/dashboard' className={s.cta}>Open the analyzer <ArrowUpRight size={18} /></Link>
-      <Link href='/evidence/EV-0149?finding=F-061' className={s.textCta}>Start with this exhibit <ArrowRight size={16} /></Link>
+      <Link href='/investigations/new' className={s.textCta}>Start an investigation <ArrowRight size={16} /></Link>
     </div>
   </section>;
 }

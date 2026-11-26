@@ -1,24 +1,28 @@
 [project]
 name = "nextron-backend"
 version = "1.0.0"
-description = "NEXTRON Intelligent Deepfake and Digital Media Verification System Backend"
+description = "NEXTRON digital media forensic investigation API (FastAPI modular monolith)"
 readme = "README.md"
-requires-python = ">=3.11"
+requires-python = ">=3.11,<3.12"
+
+# Direct dependencies, pinned exactly. Backend/requirements.txt is the full resolved lock
+# (direct + transitive) generated from this list; install from that file.
 dependencies = [
-    "fastapi>=0.115.0",
-    "uvicorn[standard]>=0.30.0",
-    "pydantic>=2.8.0",
-    "pydantic-settings>=2.4.0",
-    "sqlalchemy>=2.0.30",
-    "alembic>=1.13.0",
-    "asyncpg>=0.29.0",
-    "redis>=5.0.0",
-    "celery>=5.4.0",
-    "loguru>=0.7.2",
-    "python-jose[cryptography]>=3.3.0",
-    "passlib[bcrypt]>=1.7.4"
+    "fastapi==0.165.0",
+    "uvicorn[standard]==0.54.0",
+    "pydantic==2.14.4",
+    "pydantic-settings==2.16.3",
+    "sqlalchemy==2.1.9",
+    "alembic==1.20.1",
+    "psycopg[binary]==3.3.9",
+    "python-multipart==0.0.34",
+    "pillow==13.0.0",
+    "numpy==2.4.6",          # NEX-IMG / NEX-VID / NEX-AUD signal processing
+    "c2pa-python==0.39.0",   # NEX-PRV: the C2PA SDK (c2pa-rs 0.92)
 ]
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[project.optional-dependencies]
+test = [
+    "pytest==9.2.0",
+    "httpx==0.28.1",
+]

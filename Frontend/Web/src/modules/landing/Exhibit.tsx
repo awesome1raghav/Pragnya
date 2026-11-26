@@ -148,7 +148,7 @@ export default function Exhibit() {
         <p className={s.cardTitle}>Copied group of five people</p>
         <p ref={el.rowE} className={s.cardRow}><span>Error level</span><b>3.9× frame average</b></p>
         <p ref={el.rowM} className={s.cardRow}><span>Matches region A</span><b>0.987</b></p>
-        <Link href='/evidence/EV-0149?finding=F-061' className={s.cardLink}>Open in the demo workspace <ArrowRight size={14} /></Link>
+        <Link href='/investigations/new' className={s.cardLink}>Start an investigation <ArrowRight size={14} /></Link>
       </div>
     </div>
 

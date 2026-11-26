@@ -8,6 +8,16 @@
 
 # Dependencies
 node_modules/
+.venv/
+
+# Playwright output (screenshots under Tests/Test Reports/End-To-End/Screenshots are kept)
+Tests/Test Reports/End-To-End/Html/
+Tests/Test Reports/End-To-End/Artifacts/
+
+# Python build and test artefacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
 
 # Next.js generated files
 .next/

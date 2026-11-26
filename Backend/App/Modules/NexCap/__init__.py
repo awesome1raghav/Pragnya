@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEX-CAP Evidence Acquisition."""

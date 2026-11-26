@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEXTRON FastAPI application."""

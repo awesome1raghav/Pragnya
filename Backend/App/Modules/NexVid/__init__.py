@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEX-VID Video Forensics."""

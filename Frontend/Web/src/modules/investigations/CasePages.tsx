@@ -1,165 +1,284 @@
 'use client';
 
-/* The case's own pages: overview, evidence, analysis (by media type), timeline, review and events.
-   All of them read the shared store, so a decision taken on one shows on every other at once. */
+/* The investigation workspace's tabs. Every value comes from the API: the case record, its evidence,
+   its statistics and its append-only event history. Sections whose backend does not exist yet are
+   shown as such, with the module that will provide them. */
 import Link from 'next/link';
-import Image from 'next/image';
-import { useMemo } from 'react';
-import { ArrowRight, Check, FileText, Plus, Share2, ShieldCheck } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, FileText, Film, GitBranch, Globe2, LoaderCircle, Network, Pencil, Plus, Save, Share2 } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
-import { useData } from '@/stores/workspace.store';
-import type { Branch, Evidence, Finding } from '@/api';
-import { BRANCHES, branchColor, branchLabel, findingStatusLabel, severityTone, statusLabel, statusTone, timeOf, toneColor } from '@/utils/labels';
-import { Dot, FindingMark, PageHead, Thumb, focusPos, fmt, type Ctx } from '@/components/ui';
-import { ANALYSIS, ANALYSIS_LABEL, paths, type AnalysisBranch } from '@/config/routes';
+import p from '@/styles/platform.module.css';
+import { ApiError, CASE_CATEGORIES, CASE_PRIORITIES, api, type Case, type CaseCategory, type CasePriority, type InvestigationEvent } from '@/api';
+import { useCase, useCaseEvidence, useCaseSummary, useModules } from '@/api/hooks';
+import { invalidate, prime, useQuery } from '@/api/query';
+import { Dot, Empty, ErrorState, Load, PageHead, SecHead, Unavailable } from '@/components/ui';
+import { CaseAnalysisPage, ModuleResultsPage } from '@/modules/analysis/Analysis';
+import { useWorkspace } from '@/layouts/MainLayout';
+import { ANALYSIS_BRANCHES, ANALYSIS_LABEL, ANALYSIS_MODULE, paths, type AnalysisBranch } from '@/config/routes';
+import { ago, bytes, categoryLabel, eventDetail, eventLabel, eventTone, moduleStatusLabel, moduleStatusTone, priorityLabel, toneColor, utc } from '@/utils/labels';
+import EvidenceRows from '@/modules/evidence/EvidenceRows';
+import Uploader from '@/modules/evidence/Uploader';
+import { fieldErrors, parseTags } from './NewInvestigation';
+import { useCaseId } from './CaseShell';
 
-const useCase = (caseId: string) => {
-  const { cases, evidence, findings, decisions, activity, audit } = useData();
-  return useMemo(() => {
-    const c = cases.find(x => x.id === caseId)!;
-    const ev = evidence.filter(e => e.caseId === caseId);
-    const ids = new Set(ev.map(e => e.id));
-    const fs = findings.filter(f => ids.has(f.evidenceId));
-    return { c, ev, fs, ds: decisions.filter(d => d.caseId === caseId), act: activity.filter(a => a.caseId === caseId), aud: audit.filter(a => a.text.includes(caseId) || ev.some(e => a.text.includes(e.id))) };
-  }, [cases, evidence, findings, decisions, activity, audit, caseId]);
-};
-const evOf = (ev: Evidence[], f: Finding) => ev.find(e => e.id === f.evidenceId);
-
-function FindingRow({ f, e, eager }: { f: Finding; e?: Evidence; eager?: boolean }) {
-  return <li><Link className={s.fRow} href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`}>
-    {e && <Thumb media={e.media} sizes='96px' eager={eager} />}
-    <span className={s.fRowMain}><FindingMark f={f} /><b>{f.title}</b><small>{f.detail}</small></span>
-    <span className={s.fRowSide}><Dot tone={severityTone[f.severity]}>{branchLabel[f.branch]}</Dot><span className={s.mono}>{f.confidence.toFixed(2)}</span>{f.status !== 'open' && <span className={s.cap}>{findingStatusLabel[f.status]}</span>}</span>
-  </Link></li>;
-}
+const useLoadedCase = () => useCase(useCaseId()).data as Case; // CaseShell renders tabs only once the case has loaded
 
 /* ── /investigations/:caseId ── */
-export function CaseOverview({ caseId }: Ctx) {
-  const { c, ev, fs, ds } = useCase(caseId);
-  const open = fs.filter(f => f.status === 'open').sort((a, b) => b.confidence - a.confidence);
+export function CaseOverview() {
+  const c = useLoadedCase();
+  const summary = useCaseSummary(c.case_id);
+  const archived = c.status === 'ARCHIVED';
   return <div className={s.page}>
-    <div className={s.overview}>
-      <section className={s.ovLead}>
-        <div className={s.ovMedia}><Image src={c.cover.still} alt={`Evidence still from ${c.name}`} fill preload sizes='(max-width: 900px) 100vw, 44vw' style={{ objectFit: 'cover', objectPosition: focusPos(c.cover) }} /></div>
-        <div className={s.ovBody}>
-          <p className={s.cap}>{c.summary}</p>
-          <h1>{c.name}</h1>
-          <p className={s.reason}>{c.reason}</p>
-          <dl className={s.ovFacts}><div><dt>Analyst</dt><dd>{c.analyst}</dd></div><div><dt>Updated</dt><dd>{timeOf(c.updatedAt)}</dd></div><div><dt>Evidence</dt><dd>{ev.length} files</dd></div><div><dt>Legal hold</dt><dd>{c.legalHold ? 'Yes' : 'No'}</dd></div></dl>
-          <div className={s.meterRow}>{BRANCHES.map(b => <span key={b}>{branchLabel[b]}<b>{c.readiness[b] == null ? '—' : `${c.readiness[b]}%`}</b><i><em style={{ transform: `scaleX(${(c.readiness[b] ?? 0) / 100})`, background: branchColor[b] }} /></i></span>)}</div>
-          <div className={s.actions}>
-            {ev[0] && <Link className={`${s.btn} ${s.primary}`} href={paths.evidence(ev[0].id)}>Open the workbench <ArrowRight size={15} /></Link>}
-            <Link className={`${s.btn} ${s.ghost}`} href={paths.caseGraph(c.id)}><Share2 size={15} />Graph</Link>
-            <Link className={`${s.btn} ${s.ghost}`} href={paths.caseReport(c.id)}><FileText size={15} />Report</Link>
-          </div>
-        </div>
-      </section>
-      <section className={s.ovSide}>
-        <header className={s.secHead}><h2 className={s.title}>Waiting on a decision</h2><Link href={paths.caseReview(c.id)} className={s.secLink}>Review <ArrowRight size={13} /></Link></header>
-        {ds.length ? <ul className={s.miniList}>{ds.map(d => <li key={d.id}><b>{d.title}</b><small>{d.rationale}</small></li>)}</ul> : <p className={s.cap}>Nothing is waiting.</p>}
-      </section>
+    <div className={p.grid2}>
+      <div className={p.stack}>
+        <Details c={c} archived={archived} />
+        <Notes c={c} archived={archived} />
+        <section className={s.panel} aria-label='Evidence overview'>
+          <SecHead title='Evidence' count={c.evidence_count}>
+            <span className={s.actions}>{!archived && <Link className={`${s.btn} ${s.sm} ${s.primary}`} href={paths.caseAddEvidence(c.case_id)}><Plus size={14} />Add evidence</Link>}<Link href={paths.caseEvidence(c.case_id)} className={s.secLink}>All <ArrowRight size={13} /></Link></span>
+          </SecHead>
+          <Load q={summary} rows={1}>{sm => <div className={p.statGrid}>
+            {(['IMAGE', 'VIDEO', 'AUDIO'] as const).map(m => <div key={m} className={p.stat}><span>{m === 'IMAGE' ? 'Images' : m === 'VIDEO' ? 'Videos' : 'Audio'}</span><b>{sm.statistics.evidence_by_media_type[m]}</b></div>)}
+            <div className={p.stat}><span>Stored</span><b>{bytes(sm.statistics.evidence_total_bytes)}</b></div>
+          </div>}</Load>
+          <RecentEvidence caseId={c.case_id} />
+        </section>
+      </div>
+      <div className={p.stack}>
+        <section className={s.panel} aria-label='Investigate this case in'>
+          <SecHead title='Work on this investigation' />
+          <nav className={p.ctxNav}>
+            <Link href={paths.evidenceList(c.case_id)}><Film size={15} />Evidence</Link>
+            <Link href={paths.sources(c.case_id)}><Globe2 size={15} />Sources <small>not built</small></Link>
+            <Link href={paths.lineage(c.case_id)}><GitBranch size={15} />Lineage <small>not built</small></Link>
+            <Link href={paths.intelligence(c.case_id)}><Network size={15} />Intelligence</Link>
+            <Link href={paths.graph(c.case_id)}><Share2 size={15} />Evidence graph <small>not built</small></Link>
+            <Link href={paths.reports(c.case_id)}><FileText size={15} />Reports <small>not built</small></Link>
+          </nav>
+        </section>
+        <ModuleOverview caseId={c.case_id} />
+        <section className={s.panel} aria-label='Recent activity'>
+          <SecHead title='Recent activity'><Link href={paths.caseEvents(c.case_id)} className={s.secLink}>All events <ArrowRight size={13} /></Link></SecHead>
+          <Load q={summary} rows={3}>{sm => <EventFeed events={sm.recent_events.slice(0, 6)} />}</Load>
+        </section>
+        <Unavailable title='Review and report' modules={['NEX-INV', 'NEX-RPT']} step='plan Step 7'>
+          <p>Investigator decisions (accept, reject, inconclusive, needs more evidence) and versioned PDF/JSON reports are built after the analysis modules, because they review and report their findings.</p>
+        </Unavailable>
+      </div>
     </div>
-    <section className={s.block}>
-      <header className={s.secHead}><h2 className={s.title}>Open findings <span className={s.muted}>{open.length}</span></h2><Link href={paths.caseAnalysis(c.id)} className={s.secLink}>All analysis <ArrowRight size={13} /></Link></header>
-      {open.length ? <ul className={s.fRows}>{open.slice(0, 4).map(f => <FindingRow key={f.id} f={f} e={evOf(ev, f)} />)}</ul> : <p className={s.cap}>No open findings.</p>}
-    </section>
-    <section className={s.block}>
-      <header className={s.secHead}><h2 className={s.title}>Evidence <span className={s.muted}>{ev.length}</span></h2><Link href={paths.caseEvidence(c.id)} className={s.secLink}>All evidence <ArrowRight size={13} /></Link></header>
-      <EvidenceGrid items={ev.slice(0, 6)} />
-    </section>
   </div>;
 }
 
-export function EvidenceGrid({ items }: { items: Evidence[] }) {
-  const { findings } = useData();
-  return <ul className={s.evGrid}>{items.map((e, i) => {
-    const n = findings.filter(f => f.evidenceId === e.id).length;
-    return <li key={e.id}><Link className={s.evCard} href={paths.evidence(e.id)}>
-      <Thumb media={e.media} sizes='(max-width: 640px) 50vw, 280px' eager={i < 8} />
-      <span><b>{e.fileName}</b><small><Dot tone={statusTone[e.status]}>{statusLabel[e.status]}</Dot><span>{e.kind === 'video' ? fmt(e.durationSec) : e.kind}</span>{n > 0 && <span>{n} finding{n === 1 ? '' : 's'}</span>}</small></span>
-    </Link></li>;
-  })}</ul>;
+function Details({ c, archived }: { c: Case; archived: boolean }) {
+  const { notify } = useWorkspace();
+  const [edit, setEdit] = useState(false);
+  const [f, setF] = useState({ title: c.title, description: c.description ?? '', objectives: c.objectives ?? '', category: c.category, priority: c.priority, tags: c.tags.join(', ') });
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<ApiError | null>(null);
+  const fe = fieldErrors(err);
+  const open = () => { setF({ title: c.title, description: c.description ?? '', objectives: c.objectives ?? '', category: c.category, priority: c.priority, tags: c.tags.join(', ') }); setErr(null); setEdit(true); };
+  async function save() {
+    setBusy(true); setErr(null);
+    try {
+      const updated = await api.cases.update(c.case_id, { title: f.title.trim(), description: f.description.trim() || null, objectives: f.objectives.trim() || null, category: f.category, priority: f.priority, tags: parseTags(f.tags) });
+      prime(`case:${c.case_id}`, updated); invalidate('cases', `case:${c.case_id}`);
+      notify(updated.revision > c.revision ? `Saved · revision ${updated.revision}` : 'Nothing changed');
+      setEdit(false);
+    } catch (e) { setErr(e instanceof ApiError ? e : new ApiError(0, 'CLIENT_ERROR', String(e))); }
+    setBusy(false);
+  }
+  const set = (k: keyof typeof f) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => setF(v => ({ ...v, [k]: e.target.value }));
+
+  if (edit) return <section className={s.panel} aria-label='Edit investigation details'>
+    <SecHead title='Edit details' />
+    <div className={p.formGrid}>
+      <label className={`${s.field} ${p.formWide}`}><span>Title</span><input className={s.input} value={f.title} onChange={set('title')} maxLength={200} />{fe.title && <span className={p.fieldError}>{fe.title}</span>}</label>
+      <label className={s.field}><span>Category</span><select className={s.input} value={f.category} onChange={e => setF(v => ({ ...v, category: e.target.value as CaseCategory }))}>{CASE_CATEGORIES.map(x => <option key={x} value={x}>{categoryLabel[x]}</option>)}</select></label>
+      <label className={s.field}><span>Priority</span><select className={s.input} value={f.priority} onChange={e => setF(v => ({ ...v, priority: e.target.value as CasePriority }))}>{CASE_PRIORITIES.map(x => <option key={x} value={x}>{priorityLabel[x]}</option>)}</select></label>
+      <label className={`${s.field} ${p.formWide}`}><span>Objectives</span><textarea className={`${s.input} ${p.textarea}`} value={f.objectives} onChange={set('objectives')} maxLength={5000} />{fe.objectives && <span className={p.fieldError}>{fe.objectives}</span>}</label>
+      <label className={`${s.field} ${p.formWide}`}><span>Description</span><textarea className={`${s.input} ${p.textarea}`} value={f.description} onChange={set('description')} maxLength={10000} /></label>
+      <label className={`${s.field} ${p.formWide}`}><span>Tags (comma-separated)</span><input className={s.input} value={f.tags} onChange={set('tags')} />{fe.tags && <span className={p.fieldError}>{fe.tags}</span>}</label>
+    </div>
+    {err && !Object.keys(fe).length && <ErrorState error={err} title='Not saved' />}
+    <div className={p.formFoot}><button className={`${s.btn} ${s.primary}`} onClick={save} disabled={busy || !f.title.trim()}>{busy ? <LoaderCircle size={14} className={s.spin} /> : <Save size={14} />}Save</button><button className={`${s.btn} ${s.ghost}`} onClick={() => setEdit(false)}>Cancel</button></div>
+  </section>;
+
+  return <section className={s.panel} aria-label='Investigation details'>
+    <SecHead title='Details'>{!archived && <button className={`${s.btn} ${s.sm} ${s.ghost}`} onClick={open}><Pencil size={14} />Edit</button>}</SecHead>
+    <div><p className={s.cap}>Objectives</p><p className={p.notes} style={{ marginTop: 4 }}>{c.objectives || <span className={s.muted}>No objectives recorded yet.</span>}</p></div>
+    {c.description && <div><p className={s.cap}>Description</p><p className={p.notes} style={{ marginTop: 4 }}>{c.description}</p></div>}
+    <dl className={p.facts}>
+      <div><dt>Category</dt><dd>{categoryLabel[c.category]}</dd></div>
+      <div><dt>Priority</dt><dd>{priorityLabel[c.priority]}</dd></div>
+      <div><dt>Created</dt><dd title={c.created_at}>{utc(c.created_at)}</dd></div>
+      <div><dt>Created by</dt><dd>{c.created_by}</dd></div>
+      <div><dt>Last activity</dt><dd title={c.last_activity_at}>{ago(c.last_activity_at)}</dd></div>
+      <div><dt>Revision</dt><dd>{c.revision}</dd></div>
+      {c.tags.length > 0 && <div style={{ gridColumn: '1 / -1' }}><dt>Tags</dt><dd className={p.chips}>{c.tags.map(t => <span key={t}>{t}</span>)}</dd></div>}
+      {c.archived_at && <div><dt>Archived</dt><dd>{utc(c.archived_at)}</dd></div>}
+    </dl>
+  </section>;
+}
+
+function Notes({ c, archived }: { c: Case; archived: boolean }) {
+  const { notify } = useWorkspace();
+  const [draft, setDraft] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<ApiError | null>(null);
+  async function save() {
+    setBusy(true); setErr(null);
+    try {
+      const updated = await api.cases.update(c.case_id, { notes: draft!.trim() || null });
+      prime(`case:${c.case_id}`, updated); invalidate(`case:${c.case_id}`);
+      notify('Notes saved'); setDraft(null);
+    } catch (e) { setErr(e instanceof ApiError ? e : new ApiError(0, 'CLIENT_ERROR', String(e))); }
+    setBusy(false);
+  }
+  return <section className={s.panel} aria-label='Investigator notes'>
+    <SecHead title='Investigator notes'>{draft === null && !archived && <button className={`${s.btn} ${s.sm} ${s.ghost}`} onClick={() => setDraft(c.notes ?? '')}><Pencil size={14} />Edit</button>}</SecHead>
+    {draft === null ? <p className={p.notes}>{c.notes || <span className={s.muted}>No notes yet.</span>}</p> : <>
+      <textarea className={`${s.input} ${p.textarea}`} value={draft} onChange={e => setDraft(e.target.value)} maxLength={20000} aria-label='Investigator notes' style={{ minHeight: 140 }} autoFocus />
+      {err && <ErrorState error={err} title='Notes not saved' />}
+      <div className={p.formFoot}><button className={`${s.btn} ${s.primary}`} onClick={save} disabled={busy}>{busy ? <LoaderCircle size={14} className={s.spin} /> : <Save size={14} />}Save notes</button><button className={`${s.btn} ${s.ghost}`} onClick={() => setDraft(null)}>Cancel</button><p>Each save is recorded in the case history.</p></div>
+    </>}
+  </section>;
+}
+
+function RecentEvidence({ caseId }: { caseId: string }) {
+  const q = useCaseEvidence(caseId);
+  return <Load q={q} rows={2}>{page => page.data.length ? <EvidenceRows items={page.data.slice(0, 5)} /> : <p className={s.cap}>No evidence yet. Add the original files you need to examine.</p>}</Load>;
+}
+
+function ModuleOverview({ caseId }: { caseId: string }) {
+  const q = useModules();
+  return <section className={s.panel} aria-label='Module execution overview'>
+    <SecHead title='Investigation modules'><Link href={paths.intelligence(caseId)} className={s.secLink}>Intelligence <ArrowRight size={13} /></Link></SecHead>
+    <Load q={q} rows={2}>{cat => {
+      const by = (st: string) => cat.modules.filter(m => m.status === st);
+      return <>
+        <p className={s.cap}>Per-investigation execution status arrives with T-MIR (plan Step 3). Today:</p>
+        <ul className={s.miniList}>{(['IMPLEMENTED', 'PARTIAL', 'NOT_IMPLEMENTED'] as const).map(st => <li key={st}><Dot tone={moduleStatusTone[st]}>{moduleStatusLabel[st]}</Dot><small>{by(st).map(m => m.module_id).join(' · ') || 'none'}</small></li>)}</ul>
+      </>;
+    }}</Load>
+  </section>;
+}
+
+export function EventFeed({ events }: { events: InvestigationEvent[] }) {
+  if (!events.length) return <p className={s.cap}>Nothing recorded yet.</p>;
+  return <ol className={s.feed} style={{ padding: '4px 0' }}>{events.map(e => <li key={e.event_id} style={{ color: toneColor[eventTone(e.event_type)] }}>
+    <time title={e.occurred_at}>{ago(e.occurred_at)}</time>
+    <p>{e.evidence_id ? <Link href={paths.evidence(e.evidence_id, 'timeline')}>{eventLabel(e.event_type)}</Link> : eventLabel(e.event_type)}<small>{eventDetail(e.event_type, e.payload) ?? e.actor}</small></p>
+  </li>)}</ol>;
 }
 
 /* ── /investigations/:caseId/evidence ── */
-export function CaseEvidence({ caseId }: Ctx) {
-  const { c, ev } = useCase(caseId);
+export function CaseEvidence() {
+  const c = useLoadedCase();
+  const q = useCaseEvidence(c.case_id);
   return <div className={s.page}>
-    <PageHead title='Evidence' desc={`Every file in ${c.name}, as preserved at intake. Open one to examine it.`}>
-      <Link className={`${s.btn} ${s.primary}`} href={paths.caseAddEvidence(c.id)}><Plus size={15} />Add evidence</Link>
+    <PageHead title='Evidence' desc={`Every file preserved in ${c.case_number}, newest first. Open one to examine it.`}>
+      {c.status !== 'ARCHIVED' && <Link className={`${s.btn} ${s.primary}`} href={paths.caseAddEvidence(c.case_id)}><Plus size={15} />Add evidence</Link>}
     </PageHead>
-    <EvidenceGrid items={ev} />
+    <Load q={q} rows={4}>{page => page.data.length ? <EvidenceRows items={page.data} /> : <Empty title='No evidence yet' action={c.status !== 'ARCHIVED' ? <Link className={`${s.btn} ${s.primary}`} href={paths.caseAddEvidence(c.case_id)}><Plus size={15} />Add evidence</Link> : undefined}>Upload the original image, video or audio files.</Empty>}</Load>
   </div>;
 }
 
-/* ── /investigations/:caseId/analysis[/image|video|audio|provenance] ── */
-export function CaseAnalysis({ caseId, branch }: Ctx & { branch?: AnalysisBranch }) {
-  const { c, ev, fs } = useCase(caseId);
-  const b: Branch | undefined = branch ? ANALYSIS[branch] : undefined;
-  const list = fs.filter(f => !b || f.branch === b).sort((x, y) => y.confidence - x.confidence);
+/* ── /investigations/:caseId/evidence/add ── */
+export function CaseAddEvidence() {
+  const c = useLoadedCase();
+  const [done, setDone] = useState(0);
+  if (c.status === 'ARCHIVED') return <div className={s.page}><Empty title='This investigation is archived'>Reopen it before adding evidence.</Empty></div>;
   return <div className={s.page}>
-    <PageHead title={branch ? `${ANALYSIS_LABEL[branch]} analysis` : 'Analysis'} desc={branch ? `${branchLabel[b!]} findings in ${c.name}, strongest first.` : `What each branch found in ${c.name}, strongest first.`} />
-    <nav className={`${s.seg} ${s.subTabs}`} aria-label='Analysis by media type'>
-      <Link href={paths.caseAnalysis(c.id)} aria-selected={!branch}>All<span className={s.count}>{fs.length}</span></Link>
-      {(Object.keys(ANALYSIS) as AnalysisBranch[]).map(k => <Link key={k} href={paths.caseAnalysis(c.id, k)} aria-selected={branch === k}>{ANALYSIS_LABEL[k]}<span className={s.count}>{fs.filter(f => f.branch === ANALYSIS[k]).length}</span></Link>)}
-    </nav>
-    {list.length ? <ul className={s.fRows}>{list.map((f, i) => <FindingRow key={f.id} f={f} e={evOf(ev, f)} eager={i < 3} />)}</ul>
-      : <div className={s.empty}><ShieldCheck size={24} /><b>Nothing found</b><span>This branch reported no anomalies for the files in this case.</span></div>}
+    <PageHead title='Add evidence' desc={<>Files are preserved in <b>{c.case_number} · {c.title}</b>. Each one is hashed on the server and stored read-only before anything else happens to it.</>}>
+      {done > 0 && <Link className={`${s.btn} ${s.primary}`} href={paths.caseEvidence(c.case_id)}>View evidence <ArrowRight size={15} /></Link>}
+    </PageHead>
+    <Uploader caseId={c.case_id} onDone={r => setDone(n => n + r.length)} />
   </div>;
 }
 
-/* ── /investigations/:caseId/timeline: what happened, in order ── */
-export function CaseTimeline({ caseId }: Ctx) {
-  const { c, ev, fs, act } = useCase(caseId);
-  const items = [
-    ...ev.map(e => ({ at: e.capturedAt, kind: 'capture', title: `${e.fileName} captured`, meta: `${e.source} · ${e.kind}`, href: paths.evidence(e.id), tone: 'steel' as const })),
-    ...act.map(a => ({ at: a.at, kind: a.kind, title: a.text, meta: a.actor, href: undefined as string | undefined, tone: (a.kind === 'finding' ? 'alert' : a.kind === 'integrity' ? 'ok' : 'mute') as 'alert' | 'ok' | 'mute' })),
-  ].sort((a, b) => a.at.localeCompare(b.at));
-  const ranged = fs.filter(f => f.startSec != null && f.endSec != null && f.endSec > f.startSec);
+/* ── /investigations/:caseId/timeline ── */
+export function CaseTimeline() {
+  const c = useLoadedCase();
+  const q = useQuery(`case:${c.case_id}:events:all`, async () => {
+    const all: InvestigationEvent[] = [];
+    let after = 0;
+    for (let i = 0; i < 20; i++) { const page = await api.cases.events(c.case_id, after, 200); all.push(...page.data); if (!page.cursor.has_more || page.cursor.next_after === null) break; after = page.cursor.next_after; }
+    return all;
+  });
   return <div className={s.page}>
-    <PageHead title='Timeline' desc={`How ${c.name} unfolded: when each file was captured, and what the investigation did since.`} />
+    <PageHead title='Timeline' desc={`What has happened in ${c.case_number}, in order, from its recorded history. Times are when NEXTRON recorded each event.`} />
     <div className={s.tlPage}>
-      <ol className={s.chron}>{items.map((it, i) => <li key={i} style={{ ['--c' as string]: toneColor[it.tone] }}>
-        <time>{it.at.slice(0, 10)}<span>{it.at.slice(11, 16)} UTC</span></time>
-        <div>{it.href ? <Link href={it.href}><b>{it.title}</b></Link> : <b>{it.title}</b>}<small>{it.meta}</small></div>
-      </li>)}</ol>
-      <aside className={s.quiet}>
-        <p className={s.title}>Inside the files</p>
-        <p className={s.cap} style={{ margin: '6px 0 12px' }}>Intervals the branches flagged, by offset into each file.</p>
-        {ranged.length ? <ul className={s.miniList}>{ranged.map(f => <li key={f.id}><Link href={`${paths.evidence(f.evidenceId, 'timeline')}?finding=${encodeURIComponent(f.id)}`}><FindingMark f={f} /><b>{f.title}</b><small>{evOf(ev, f)?.fileName}</small></Link></li>)}</ul> : <p className={s.cap}>No time-bound findings.</p>}
+      <Load q={q} rows={6}>{events => events.length ? <ol className={s.chron}>{events.map(e => <li key={e.event_id} style={{ ['--c' as string]: toneColor[eventTone(e.event_type)] }}>
+        <time>{e.occurred_at.slice(0, 10)}<span>{e.occurred_at.slice(11, 19)} UTC</span></time>
+        <div>{e.evidence_id ? <Link href={paths.evidence(e.evidence_id, 'timeline')}><b>{eventLabel(e.event_type)}</b></Link> : <b>{eventLabel(e.event_type)}</b>}<small>{eventDetail(e.event_type, e.payload) ?? ''} · {e.actor}</small></div>
+      </li>)}</ol> : <Empty title='Nothing recorded yet' />}</Load>
+      <aside>
+        <Unavailable title='Event reconstruction' modules={['NEX-REC', 'NEX-EGC']} step='plan Step 7'>
+          <p>This timeline is the investigation’s own record. Reconstructing the media’s history (publication, capture and edit times from sources and analysis) is NEX-REC’s job and is not built yet.</p>
+        </Unavailable>
       </aside>
     </div>
   </div>;
 }
 
-/* ── /investigations/:caseId/review: decide on what is open ── */
-export function CaseReview({ caseId, notify }: Ctx) {
-  const { setFindingStatus } = useData();
-  const { c, ev, fs, ds } = useCase(caseId);
-  const pending = fs.filter(f => f.status === 'open' || f.status === 'second_review');
+/* ── /investigations/:caseId/events ── */
+export function CaseEvents() {
+  const c = useLoadedCase();
+  const [pages, setPages] = useState<InvestigationEvent[][]>([]);
+  const [cursor, setCursor] = useState<number | null>(null);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState<ApiError | null>(null);
+  const [kind, setKind] = useState<'all' | 'case' | 'evidence'>('all');
+  async function more() {
+    if (cursor === null) return;
+    setBusy(true); setErr(null);
+    try { const page = await api.cases.events(c.case_id, cursor, 50); setPages(p0 => [...p0, page.data]); setCursor(page.cursor.has_more ? page.cursor.next_after : null); }
+    catch (e) { setErr(e instanceof ApiError ? e : new ApiError(0, 'CLIENT_ERROR', String(e))); }
+    setBusy(false);
+  }
+  useEffect(() => { // first page replaces (safe when effects run twice in development)
+    let live = true;
+    setBusy(true); setErr(null);
+    api.cases.events(c.case_id, 0, 50).then(
+      page => { if (live) { setPages([page.data]); setCursor(page.cursor.has_more ? page.cursor.next_after : null); } },
+      e => { if (live) setErr(e instanceof ApiError ? e : new ApiError(0, 'CLIENT_ERROR', String(e))); },
+    ).finally(() => { if (live) setBusy(false); });
+    return () => { live = false; };
+  }, [c.case_id]);
+  const loaded = pages.flat();
+  const shown = loaded.filter(e => kind === 'all' || (kind === 'case' ? !e.evidence_id : !!e.evidence_id));
   return <div className={s.page}>
-    <PageHead title='Review' desc={`Findings in ${c.name} that still need an investigator’s decision. Inspect the frame before you decide.`} />
-    {pending.length ? <ul className={s.reviewList}>{pending.map((f, i) => <li key={f.id}>
-      <Link href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`} className={s.reviewMedia} aria-label={`Inspect ${f.title}`}>{evOf(ev, f) && <Thumb media={evOf(ev, f)!.media} sizes='160px' eager={i < 5} />}</Link>
-      <div className={s.reviewMain}><FindingMark f={f} /><b>{f.title}</b><p>{f.detail}</p><small>{branchLabel[f.branch]} · confidence {f.confidence.toFixed(2)} · most likely {f.explanations[0]?.label.toLowerCase()} ({Math.round((f.explanations[0]?.likelihood ?? 0) * 100)}%){f.status === 'second_review' ? ' · in second review' : ''}</small></div>
-      <div className={s.actions}>
-        <Link className={`${s.btn} ${s.primary}`} href={`${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}`}>Inspect <ArrowRight size={14} /></Link>
-        <button className={`${s.btn} ${s.ghost}`} onClick={() => { setFindingStatus(f.id, 'accepted'); notify(`Accepted · ${f.title}`); }}><Check size={14} />Accept</button>
-        {f.status !== 'second_review' && <button className={`${s.btn} ${s.ghost}`} onClick={() => { setFindingStatus(f.id, 'second_review'); notify(`Sent for second review · ${f.title}`); }}>Second review</button>}
-        <button className={`${s.btn} ${s.ghost}`} onClick={() => { setFindingStatus(f.id, 'rejected'); notify(`Rejected · ${f.title}`); }}>Reject</button>
-      </div>
-    </li>)}</ul> : <div className={s.empty}><ShieldCheck size={24} /><b>Everything is decided</b><span>New findings for this case land here first.</span></div>}
-    {ds.length > 0 && <section className={s.block}><header className={s.secHead}><h2 className={s.title}>Other decisions</h2></header><ul className={s.miniList}>{ds.filter(d => !d.findingId).map(d => <li key={d.id}><b>{d.title}</b><small>{d.rationale}</small></li>)}</ul></section>}
+    <PageHead title='Events' desc={`The append-only record of ${c.case_number}: lifecycle changes and the chain of custody of its evidence. Entries cannot be edited or deleted.`} />
+    <div className={s.listBar}><div className={s.seg} role='tablist' aria-label='Event type'>{(['all', 'case', 'evidence'] as const).map(k => <button key={k} role='tab' aria-selected={kind === k} onClick={() => setKind(k)}>{k === 'all' ? 'All' : k === 'case' ? 'Investigation' : 'Evidence custody'}</button>)}</div></div>
+    {err && <ErrorState error={err} onRetry={cursor !== null ? more : undefined} />}
+    {shown.length ? <section className={s.ledger}>{shown.map(e => <div key={e.event_id} className={s.eventWrap}><div className={s.event}>
+      <i style={{ background: toneColor[eventTone(e.event_type)] }} />
+      <span className={s.eventMain}><b>{eventLabel(e.event_type)}</b><small>#{e.sequence} · {utc(e.occurred_at)} · {e.actor}{eventDetail(e.event_type, e.payload) ? ` · ${eventDetail(e.event_type, e.payload)}` : ''}</small></span>
+      {e.evidence_id ? <Link className={s.cap} href={paths.evidence(e.evidence_id, 'timeline')}>Evidence</Link> : <span className={s.cap}>Case</span>}
+    </div></div>)}</section> : !busy && !err && <Empty title='No events of this kind' />}
+    <div className={p.pager}><span>{loaded.length} loaded</span>{cursor !== null && <button className={`${s.btn} ${s.sm}`} onClick={more} disabled={busy}>{busy ? 'Loading…' : 'Load more'}</button>}</div>
   </div>;
 }
 
-/* ── /investigations/:caseId/events ── */
-export function CaseEvents({ caseId }: Ctx) {
-  const { c, act, aud } = useCase(caseId);
-  const rows = [...act.map(a => ({ at: a.at, text: a.text, who: a.actor, kind: 'Activity', ok: true })), ...aud.map(a => ({ at: a.at, text: a.text, who: a.actor, kind: 'Audit', ok: a.verified }))].sort((a, b) => b.at.localeCompare(a.at));
+/* ── tabs whose backend is not built yet ── */
+const PENDING: Record<'analysis' | 'graph' | 'review' | 'report', { title: string; modules: string[]; step: string; body: string }> = {
+  analysis: { title: 'Forensic analysis', modules: ['T-MIR'], step: 'plan Step 3', body: 'Runs and module results for this investigation.' },
+  graph: { title: 'Evidence graph', modules: ['NEX-EGC'], step: 'plan Step 7', body: 'The graph is built from stored evidence, source records, lineage relationships, transformations and correlations. None of those modules exist yet, so there is no graph to draw; sample nodes are not shown.' },
+  review: { title: 'Review and decisions', modules: ['NEX-INV'], step: 'plan Step 7', body: 'Investigators will accept, reject, mark inconclusive or request more evidence on each machine finding, with the decision kept separate from the finding. There are no findings to review until analysis exists.' },
+  report: { title: 'Reports', modules: ['NEX-RPT'], step: 'plan Step 7', body: 'Versioned PDF and JSON reports, built from a frozen snapshot of evidence hashes, findings and reviews, arrive after review exists.' },
+};
+
+export function CasePending({ kind, branch }: { kind: keyof typeof PENDING; branch?: AnalysisBranch }) {
+  const c = useLoadedCase();
+  const d = PENDING[kind];
   return <div className={s.page}>
-    <PageHead title='Events' desc={`Everything recorded against ${c.name}: activity in the workspace and signed audit entries.`} />
-    {rows.length ? <section className={s.ledger}>{rows.map((r, i) => <div key={i} className={s.eventWrap}><div className={s.event}><i style={{ background: r.ok ? 'var(--ok)' : 'var(--alert)' }} /><span className={s.eventMain}><b>{r.text}</b><small>{r.at.slice(0, 16).replace('T', ' ')} UTC · {r.kind} · {r.who}</small></span><span className={s.cap}>{r.kind}</span></div></div>)}</section>
-      : <div className={s.empty}><b>No events yet</b></div>}
+    <PageHead title={branch ? `${ANALYSIS_LABEL[branch]} analysis` : d.title} desc={branch ? `${c.case_number} · ${ANALYSIS_MODULE[branch]} results for each evidence item. Scores are each method's own measurement, not probabilities.` : `${c.case_number} · ${c.title}`} />
+    {kind === 'analysis' && <nav className={`${s.seg} ${s.subTabs}`} aria-label='Analysis by media type' style={{ marginBottom: 20 }}>
+      <Link href={paths.caseAnalysis(c.case_id)} aria-selected={!branch}>All</Link>
+      {ANALYSIS_BRANCHES.map(b => <Link key={b} href={paths.caseAnalysis(c.case_id, b)} aria-selected={branch === b}>{ANALYSIS_LABEL[b]}</Link>)}
+    </nav>}
+    {kind === 'analysis' && !branch ? <CaseAnalysisPage caseId={c.case_id} archived={c.status === 'ARCHIVED'} />
+      : kind === 'analysis' && branch ? <ModuleResultsPage caseId={c.case_id} moduleId={ANALYSIS_MODULE[branch]} />
+      : <Unavailable title={branch ? `${ANALYSIS_LABEL[branch]} forensics (${ANALYSIS_MODULE[branch]})` : d.title} modules={branch ? [ANALYSIS_MODULE[branch]] : d.modules} step={d.step}><p>{d.body}</p></Unavailable>}
   </div>;
 }

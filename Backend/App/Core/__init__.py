@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""Cross-cutting concerns: errors, middleware, request context."""

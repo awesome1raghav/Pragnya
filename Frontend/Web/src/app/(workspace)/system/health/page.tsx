@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { SystemScreen } from '@/modules/screens';
+import { SystemHealthScreen } from '@/modules/screens';
 
-export const metadata: Metadata = { title: 'System health — NEXTRON' };
+export const metadata: Metadata = { title: 'Health checks — NEXTRON' };
 
-export default function Page() { return <SystemScreen section='health' />; }
+export default function Page() { return <SystemHealthScreen />; }

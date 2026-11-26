@@ -1,7 +1,6 @@
-import { Suspense } from 'react';
-import { WorkbenchRoute } from '@/modules/evidence/EvidencePages';
+import EvidenceShell from '@/modules/evidence/EvidenceShell';
 
-/* One workbench for /evidence/:id and its tools, so switching tools keeps it mounted. */
+/* Every /evidence/:evidenceId page shares the evidence frame; switching tools keeps it mounted. */
 export default function EvidenceLayout({ children }: { children: React.ReactNode }) {
-  return <Suspense><WorkbenchRoute>{children}</WorkbenchRoute></Suspense>;
+  return <EvidenceShell>{children}</EvidenceShell>;
 }

@@ -1,18 +1,40 @@
-version: '3.8'
+# NEXTRON local infrastructure — the one Compose definition for the project.
+#
+# Phase 1 runs PostgreSQL only. Neo4j and Qdrant are added in Step 5, when the
+# outbox projections that feed them exist. Redis stays deferred (archive §11).
+#
+# Usage, from the repository root:
+#   Copy-Item Infrastructure/Docker/.env.example Infrastructure/Docker/.env   (then set a password)
+#   docker compose -f Infrastructure/Docker/docker-compose.yml up -d
+#
+# The port binds to 127.0.0.1 only, so the database is not reachable from the network.
+# The host port defaults to 5433 because a native PostgreSQL may already hold 5432.
+
+name: nextron
 
 services:
-  backend:
-    build:
-      context: ../../Backend
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
+  postgres:
+    image: postgres:17.12-alpine
+    container_name: nextron-postgres
+    restart: unless-stopped
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgrespassword@postgres:5432/nextron_db
-
-  frontend:
-    build:
-      context: ../../Frontend/Web
-      dockerfile: Dockerfile
+      POSTGRES_DB: ${POSTGRES_DB:-nextron}
+      POSTGRES_USER: ${POSTGRES_USER:-nextron}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in Infrastructure/Docker/.env}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C.UTF-8"
+      TZ: UTC
+      PGTZ: UTC
     ports:
-      - "8080:8080"
+      - "127.0.0.1:${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 10s
+
+volumes:
+  postgres-data:
+    name: nextron-postgres-data

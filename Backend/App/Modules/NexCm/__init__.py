@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEX-CM Case Management."""

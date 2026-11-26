@@ -1,34 +1,47 @@
 'use client';
 
-/* /notifications: what needs you first, then what happened. */
+/* /notifications: created by the backend from committed events (job outcomes, failed integrity checks).
+   Each links to what it is about. Only the read state changes; notifications are never edited or invented. */
 import Link from 'next/link';
-import { ArrowRight, ShieldCheck } from 'lucide-react';
+import { useState } from 'react';
+import { CheckCheck } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
-import { useData } from '@/stores/workspace.store';
-import { severityTone, timeOf, toneColor } from '@/utils/labels';
-import { Dot, FindingMark, PageHead, type Ctx } from '@/components/ui';
-import { paths } from '@/config/routes';
+import p from '@/styles/platform.module.css';
+import { api, ApiError, type Notification } from '@/api';
+import { useNotifications } from '@/api/hooks';
+import { invalidate } from '@/api/query';
+import { Dot, Empty, Load, PageHead } from '@/components/ui';
+import { useWorkspace } from '@/layouts/MainLayout';
+import { ago, utc, type Tone } from '@/utils/labels';
 
-export default function Notifications(_: Ctx) {
-  const { decisions, activity, findings, cases } = useData();
-  const name = (id: string) => cases.find(c => c.id === id)?.name ?? id;
+const tone: Record<Notification['severity'], Tone> = { INFO: 'steel', WARNING: 'gold', ALERT: 'alert' };
+const label: Record<Notification['severity'], string> = { INFO: 'Info', WARNING: 'Warning', ALERT: 'Alert' };
+
+export default function NotificationsPage() {
+  const [unread, setUnread] = useState(false);
+  const q = useNotifications(unread);
+  const { notify } = useWorkspace();
+  const act = async (fn: () => Promise<unknown>) => {
+    try { await fn(); invalidate('notifications'); } catch (e) { notify(e instanceof ApiError ? e.message : 'The update failed', 'alert'); }
+  };
   return <div className={s.page}>
-    <PageHead title='Notifications' desc='Decisions waiting on you, then everything that changed in your investigations.' />
-    <section className={s.block}>
-      <header className={s.secHead}><h2 className={s.title}>Needs your decision <span className={s.muted}>{decisions.length}</span></h2></header>
-      {decisions.length ? <ul className={s.list}>{decisions.map(d => {
-        const f = findings.find(x => x.id === d.findingId);
-        const href = f ? `${paths.evidence(f.evidenceId)}?finding=${encodeURIComponent(f.id)}` : d.kind === 'approve_report' ? paths.caseReport(d.caseId) : paths.caseReview(d.caseId);
-        return <li key={d.id}><Link className={s.noteRow} href={href}>
-          <span className={s.listMain}>{f && <FindingMark f={f} />}<b>{d.title}</b><small>{name(d.caseId)} · {d.rationale}</small></span>
-          <Dot tone={severityTone[d.severity]}>{d.kind === 'approve_report' ? 'Report' : d.kind === 'resolve_conflict' ? 'Conflict' : 'Finding'}</Dot>
-          <ArrowRight size={15} className={s.rowChev} />
-        </Link></li>;
-      })}</ul> : <div className={s.empty}><ShieldCheck size={24} /><b>Nothing waiting</b></div>}
-    </section>
-    <section className={s.block}>
-      <header className={s.secHead}><h2 className={s.title}>Activity</h2></header>
-      <ol className={s.feed} style={{ padding: 0 }}>{activity.map(a => <li key={a.id} style={{ color: toneColor[({ finding: 'alert', status: 'steel', integrity: 'ok', analysis: 'mute' } as const)[a.kind]] }}><time>{timeOf(a.at)}</time><p><Link href={paths.case(a.caseId)}>{a.text}</Link><small>{name(a.caseId)} · {a.actor}</small></p></li>)}</ol>
+    <PageHead title='Notifications' desc='Job outcomes and integrity failures, created from NEXTRON’s committed event stream.'>
+      <button className={s.btn} onClick={() => act(async () => { const r = await api.notifications.readAll(); notify(`${r.marked} marked read`); })}><CheckCheck size={15} />Mark all read</button>
+    </PageHead>
+    <nav className={`${s.seg} ${s.subTabs}`} aria-label='Filter notifications' style={{ marginBottom: 20 }}>
+      <button aria-selected={!unread} onClick={() => setUnread(false)}>All</button>
+      <button aria-selected={unread} onClick={() => setUnread(true)}>Unread</button>
+    </nav>
+    <section className={s.panel}>
+      <Load q={q} rows={4}>{r => r.data.length ? <ul className={p.jobList}>{r.data.map(n => <li key={n.notification_id} className={p.notifRow} data-unread={!n.read_at}>
+        <Dot tone={tone[n.severity]}>{label[n.severity]}</Dot>
+        <div>
+          <b>{n.link ? <Link href={n.link} onClick={() => !n.read_at && act(() => api.notifications.read(n.notification_id))}>{n.title}</Link> : n.title}</b>
+          {n.body && <p>{n.body}</p>}
+          <small title={utc(n.created_at)}>{ago(n.created_at)}{n.read_at ? ' · read' : ''}</small>
+        </div>
+        {!n.read_at && <button className={`${s.btn} ${s.sm}`} onClick={() => act(() => api.notifications.read(n.notification_id))} aria-label={`Mark “${n.title}” read`}>Mark read</button>}
+      </li>)}</ul> : <Empty title={unread ? 'Nothing unread' : 'No notifications yet'}>Finished, partial, failed and cancelled jobs, and failed integrity checks, appear here.</Empty>}</Load>
     </section>
   </div>;
 }

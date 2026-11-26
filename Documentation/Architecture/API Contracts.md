@@ -1,0 +1,107 @@
+# API Contracts
+
+The NEXTRON REST API at `http://localhost:8000/api/v1`. The live, authoritative description is the OpenAPI
+document at `/openapi.json` (interactive at `/docs`). The frontend mirrors its shapes in
+`Frontend/Web/src/api/types.ts`; change both together.
+
+## Conventions
+
+| Topic | Rule |
+|---|---|
+| Success | `{ "success": true, "message": …, "data": …, "meta": { "request_id", "timestamp" } }` |
+| Lists | `data` is an array plus `pagination: { page, page_size, total_items, total_pages, has_next, has_previous }`; `page_size` ≤ 100 |
+| Event lists | `data` plus `cursor: { after, next_after, has_more, limit }`; pass `after=<sequence>` to continue |
+| Errors | `{ "success": false, "error": { "code", "message", "details" }, "meta": … }`; no stack traces |
+| Request IDs | Every response carries `X-Request-ID` (a client may send its own, `[A-Za-z0-9._-]{1,64}`) |
+| Status codes | 200 read/update · 201 created · 202 accepted (jobs, from Step 3) · 400 · 404 · 405 · 409 lifecycle conflict · 410 stored original missing · 413 · 415 · 422 validation · 500 · 503 dependency unavailable |
+| IDs | UUIDs in paths; display numbers `CASE-0001`, `EVD-0001`, `JOB-0001` in bodies |
+| Times | UTC ISO 8601 |
+| Fields | snake_case; enums in UPPER_SNAKE |
+| Access | Single local operator, no authentication; the API listens on 127.0.0.1 only; CORS allows the frontend origins |
+
+Error codes in use: `VALIDATION_ERROR`, `NOT_FOUND`, `METHOD_NOT_ALLOWED`, `CASE_NOT_FOUND`, `CASE_ARCHIVED`,
+`CASE_NOT_ARCHIVED`, `EVIDENCE_NOT_FOUND`, `EVIDENCE_FILE_MISSING`, `METADATA_NOT_FOUND`, `INVALID_UPLOAD`,
+`UPLOAD_TOO_LARGE`, `UNSUPPORTED_MEDIA_TYPE`, `INVALID_MEDIA_FORMAT`, `MEDIA_PROBE_UNAVAILABLE`,
+`PRESERVATION_FAILED`, `STORAGE_UNAVAILABLE`, `DATABASE_UNAVAILABLE`, `SERVICE_NOT_READY`, `INTERNAL_ERROR`.
+
+## Implemented endpoints (from the running OpenAPI document)
+
+| Method | Path | Summary | Domain |
+|---|---|---|---|
+| GET | `/health` | Liveness | Health |
+| GET | `/health/ready` | Readiness | Health |
+| GET | `/system/modules` | Investigation modules and connectivity | System |
+| GET | `/system/storage` | Evidence storage status | System |
+| GET | `/system/database` | PostgreSQL status | System |
+| POST | `/cases` | Create case | Cases (NEX-CM) |
+| GET | `/cases` | List cases | Cases (NEX-CM) |
+| GET | `/cases/statistics` | Case statistics | Cases (NEX-CM) |
+| GET | `/cases/{case_id}` | Get case | Cases (NEX-CM) |
+| PATCH | `/cases/{case_id}` | Update case fields | Cases (NEX-CM) |
+| POST | `/cases/{case_id}/archive` | Archive case | Cases (NEX-CM) |
+| POST | `/cases/{case_id}/reopen` | Reopen case | Cases (NEX-CM) |
+| GET | `/cases/{case_id}/summary` | Case overview | Cases (NEX-CM) |
+| GET | `/cases/{case_id}/statistics` | Case counts | Cases (NEX-CM) |
+| GET | `/cases/{case_id}/events` | Case events (cursor) | Cases (NEX-CM) |
+| POST | `/cases/{case_id}/evidence` | Upload evidence (streamed, hashed server-side, preserved) | Evidence |
+| GET | `/cases/{case_id}/evidence` | List a case's evidence | Evidence |
+| GET | `/evidence` | List evidence across investigations | Evidence |
+| GET | `/evidence/statistics` | Evidence counts | Evidence |
+| GET | `/evidence/{evidence_id}` | Evidence detail | Evidence |
+| GET | `/evidence/{evidence_id}/metadata` | Latest extracted metadata | Evidence |
+| GET | `/evidence/{evidence_id}/integrity` | Recorded hash and last verification | Evidence |
+| POST | `/evidence/{evidence_id}/verify-integrity` | Recompute SHA-256 of the stored bytes and compare | Evidence |
+| GET | `/evidence/{evidence_id}/history` | Custody events (cursor) | Evidence |
+| GET | `/evidence/{evidence_id}/preview` | Inline preview of the original bytes (HTTP Range) | Evidence |
+| GET | `/evidence/{evidence_id}/download` | Download the original bytes (recorded as a custody event) | Evidence |
+| GET | `/search` | Search investigations and evidence | Search |
+
+`GET /system/modules` returns the module catalogue including the 31 typed edges of the dependency registry.
+
+### Step 3: jobs, T-MIR runs, analysis, notifications, live events
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/jobs` | Jobs, newest first (`state`, `active`, `job_type`, `case_id`, `evidence_id`, paging) |
+| GET | `/jobs/{job_id}` | Job detail with measured progress |
+| POST | `/jobs/{job_id}/cancel` | Cancel (queued: at once; running: before its next module). 409 `JOB_NOT_CANCELLABLE` |
+| POST | `/jobs/{job_id}/retry` | 202: a new job with the same request; completed work is reused. 409 `JOB_NOT_RETRYABLE` |
+| POST | `/cases/{case_id}/runs` | 202: queue a T-MIR run (`{"evidence_id": …}` or the whole case). 409 `CASE_ARCHIVED`, `NO_EVIDENCE` |
+| GET | `/cases/{case_id}/runs` | A case's runs |
+| GET | `/runs/{job_id}` | The run's plan (every module and scope with state and reason) and all its executions |
+| POST | `/evidence/{evidence_id}/analyze` | 202: queue a run for one evidence item |
+| GET | `/evidence/{evidence_id}/analysis` | Per-module latest execution, current result, recent runs, current findings |
+| GET | `/analyses/{result_id}` | A module result envelope (schema 1.0) |
+| GET | `/analyses/{result_id}/reproducibility` | Module version, parameters, tool versions, fingerprint, pinned inputs |
+| GET | `/analyses/{result_id}/artifacts` | Derived artifacts of a result (none until media engines exist) |
+| GET | `/notifications` | Notifications (`unread=true` to filter) |
+| GET | `/notifications/summary` | Unread and total counts |
+| PATCH | `/notifications/{id}/read` | Mark one read |
+| POST | `/notifications/read-all` | Mark all read |
+| GET | `/system/workers` | Registered workers, heartbeats, `alive` within the lease window |
+| WS | `/ws/events`, `/ws/jobs/{job_id}`, `/ws/cases/{case_id}` | Live outbox events. `?after=<sequence>` replays from PostgreSQL, then streams; without `after` the stream starts now. Messages: `event`, `replay_complete`, `heartbeat`, `pong` |
+
+### Step 4: media engine results and artifacts
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/cases/{case_id}/modules/{module_id}/results` | One evidence-scoped module (MET, IMG, VID, AUD, PRV, FPM) for every evidence item: latest execution, current result, findings, artifacts, limitations, tool versions. 404 `UNKNOWN_MODULE` |
+| GET | `/artifacts/{artifact_id}` | A derived artifact's bytes, inline and inert (`nosniff`, sandboxing CSP), with `X-Artifact-SHA256`. 404 `ARTIFACT_NOT_FOUND`, 410 `ARTIFACT_FILE_MISSING` |
+
+`GET /evidence/{id}/analysis` also returns the `artifacts` of the current results, and `GET /analyses/{id}/artifacts`
+returns typed artifact records. Findings carry `region` (percent of the image) or `time_range` (seconds) in their
+payload, `score_kind` METHOD_SPECIFIC, and no `confidence` (no method here is calibrated).
+
+Upload responses (`POST /cases/{id}/evidence`) now carry `analysis_job: {job_id, job_number, state}` instead of
+`metadata_status`: metadata is extracted by the worker. Per-engine views use `/cases/{case_id}/modules/{module_id}/results`; re-running a module is `POST /evidence/{id}/analyze`
+(completed work with unchanged inputs is reused).
+
+## Planned endpoints (by step)
+
+| Step | Domain → service | Endpoints |
+|---|---|---|
+| 5 | Source APIs → Source Service | `POST/GET /cases/{id}/sources`, `GET /sources`, `/sources/{id}`, `/resolve`, `/refresh`, `/history`, `/sources/connectors` |
+| 5 | T-MIR APIs (lineage) | `GET /cases/{id}/lineage`, `/lineage/relationships`, `/lineage/compare` |
+| 6 | T-MIR APIs (correlation) | `/cases/{id}/alignment`, `/transformations`, `/correlation` |
+| 7 | Graph, Review, Report APIs | `/cases/{id}/graph`, `/graph/nodes/{id}`, `/graph/edges/{id}`, `/cases/{id}/timeline`, `/cases/{id}/reconstruction`, `/cases/{id}/review`, `/reviews/{id}`, `/cases/{id}/decisions`, `/cases/{id}/reports`, `/reports/{id}` (+ preview, download, history) |
+| 8 | Preferences, configuration | `GET/PATCH /preferences`, `GET /system/config`, `/system/projections` |

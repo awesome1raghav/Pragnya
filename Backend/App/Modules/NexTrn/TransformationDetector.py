@@ -1,4 +1,0 @@
-"""
-NEXTRON Backend: TransformationDetector
-"""
-

@@ -1,12 +1,12 @@
 # NEXTRON frontend
 
-The public site and the investigation workspace, in one Next.js app (App Router, TypeScript).
-It runs on demo data by default and switches to the NEXTRON backend with one environment variable.
+The investigation workspace and the public landing page, in one Next.js app (App Router, TypeScript).
+Every workspace page reads the real NEXTRON API. There is no mock mode: if the API is down, the pages say so.
 
 ```powershell
-cd frontend
-npm install
-npm run dev        # http://localhost:8080
+cd frontend\Web          # use the folder's on-disk casing; see "Known issue" below
+npm ci --workspaces=false
+npm run dev              # http://localhost:8080 (the API must run on http://localhost:8000)
 ```
 
 | Script | Does |
@@ -16,65 +16,57 @@ npm run dev        # http://localhost:8080
 | `npm start` | Serve the production build on port 8080 |
 | `npm run typecheck` | TypeScript check only |
 
-**Backend:** set `NEXT_PUBLIC_NEXTRON_API=http://localhost:8000/api/v1` in `.env.local`. Every call then goes to the
-backend through `src/api/client.ts`; without it, `src/api/mock.ts` serves the demo data in the browser.
-The routes and payloads the backend must provide are in [`../Documentation/Backend API Specification.md`](../Documentation/Backend%20API%20Specification.md);
-what the ML pipeline must output is in [`../Documentation/ML Output Specification.md`](../Documentation/ML%20Output%20Specification.md).
+**API address:** `http://localhost:8000/api/v1` by default. To change it, copy `.env.example` to `.env.local`
+and set `NEXT_PUBLIC_NEXTRON_API`. The API's shapes are mirrored in `src/api/types.ts` from its OpenAPI
+(`http://localhost:8000/docs`).
+
+**End-to-end tests:** `Tests/End-To-End` (Playwright) runs against the running frontend and API:
+`cd Tests\End-To-End; npm install --workspaces=false; npx playwright install chromium; npx playwright test`.
 
 ## Folders
 
 ```
-Frontend/
-├── public/images/            evidence stills, the landing exhibit, social preview
-├── src/
-│   ├── app/                  routes only (Next.js App Router): one folder per address
-│   │   ├── page.tsx          /  the landing page
-│   │   ├── not-found.tsx     every unbuilt or unknown address (HTTP 404)
-│   │   └── (workspace)/      every workspace address, sharing one shell (layout.tsx)
-│   ├── layouts/              MainLayout (shell + navigation), Sidebar, Topbar, Breadcrumbs, CommandPalette
-│   ├── modules/              one folder per product area; screens.tsx connects them to the shell
-│   │   ├── landing/  dashboard/  investigations/  evidence/  evidence-graph/
-│   │   └── reports/  notifications/  system/  settings/
-│   ├── components/ui/        shared primitives (Dot, Thumb, FindingMark, PageHead, Skeleton…)
-│   ├── components/feedback/  the 404 page
-│   ├── api/                  contract.ts (types), endpoints.ts (REST table), client.ts (HTTP), mock.ts + fixtures.ts (demo)
-│   ├── stores/               workspace.store.tsx: data for the session, optimistic actions, analysis polling
-│   ├── config/               routes.ts (every address, as functions), navigation.ts (the sidebar)
-│   ├── utils/                labels.ts: every label and colour for the contract's enums
-│   ├── styles/               globals.css, workspace.module.css (the workspace design system)
-│   └── proxy.ts              answers 404 for unknown case/report IDs and analysis types
-└── tests/                    unit, components, routes, integration, e2e
+Frontend/Web/
+├── public/images/          landing exhibit and social preview
+└── src/
+    ├── app/                routes only: one folder per address
+    │   ├── about/          /about, the landing page (/ redirects to /dashboard)
+    │   ├── not-found.tsx   unknown addresses (HTTP 404)
+    │   └── (workspace)/    every application address, sharing one shell
+    ├── api/                index.ts (every call, by API domain), http.ts (transport + ApiError),
+    │                       types.ts (API shapes), query.ts (cache, invalidation), hooks.ts (typed reads)
+    ├── state/              CaseContext.tsx: the active investigation, taken from the address
+    ├── layouts/            MainLayout (shell), Sidebar, Topbar, Breadcrumbs, SearchPalette, JobMonitor, SystemStatus
+    ├── modules/            dashboard, investigations, evidence, intelligence, pending (not-yet-built areas), system, settings, landing
+    ├── components/         ui/ (states, PageHead, Hash, Pager…), CaseScope.tsx, feedback/ (404)
+    ├── config/             routes.ts (every address), navigation.ts (the eleven destinations)
+    ├── utils/labels.ts     labels and colours for the API's codes, formatting helpers
+    ├── styles/             workspace.module.css (design system), platform.module.css (states, forms, rows, module map)
+    └── demo/               the earlier mock-data prototype, not routed; kept for its designs (see demo/README.md)
 ```
 
-Not created yet, because nothing needs them: `realtime/` (arrives with the backend's WebSocket/SSE events),
-`hooks/` beyond the store, and `schemas/` (the contract in `src/api/contract.ts` is the single schema today).
+## Addresses (Flowchart B)
 
-## Addresses
+| Address | Page | Data today |
+|---|---|---|
+| `/` | Redirects to `/dashboard` | — |
+| `/dashboard` | Counts, recently active investigations, recent activity, system health, jobs | Live; jobs and findings shown as not built |
+| `/investigations` · `/active` · `/completed` · `/archived` | Server-side search, filters, sorting, paging | Live |
+| `/investigations/new` | Create an investigation (objectives, category, priority…) | Live |
+| `/investigations/:caseId` (+ evidence, evidence/add, timeline, events) | The investigation workspace | Live |
+| `/investigations/:caseId` analysis, graph, review, report | Workspace tabs | Not built yet (Steps 3–7) |
+| `/evidence` (`?case=` to scope) | Evidence inventory | Live |
+| `/evidence/:id` (+ preview, metadata, integrity, timeline) | Original, metadata, integrity check, custody | Live |
+| `/evidence/:id/analysis` | Forensic analysis | Not built yet |
+| `/intelligence` | The 18 modules, their connectivity and status | Live (from `/system/modules`) |
+| `/sources` · `/lineage` · `/graph` · `/reports` · `/notifications` | Their purpose and the module that will provide them | Not built yet |
+| `/system` · `/system/health` · `/system/logs` | Measured health, database, storage, modules | Live; workers and logs not built |
+| `/settings` | Browser preferences, read-only installation facts | Live |
+| `/about` | Landing page | Static |
 
-Built (everything else in the sitemap answers **404** until its page exists):
+## Known issue: folder casing
 
-| Address | Page |
-|---|---|
-| `/` | Landing |
-| `/dashboard` | Dashboard: the most urgent case, decisions waiting, all investigations |
-| `/investigations` · `/active` · `/completed` · `/archived` | Investigation list and its filters |
-| `/investigations/new` | New investigation: scan and seal evidence |
-| `/investigations/:caseId` | Case overview |
-| `…/evidence` · `…/evidence/add` | The case's evidence; add evidence |
-| `…/analysis` · `…/analysis/image\|video\|audio\|provenance` | Findings, all or by media type |
-| `…/timeline` · `…/graph` · `…/review` · `…/report` · `…/events` | Case timeline, graph, review queue, report studio, event log |
-| `/evidence` | All evidence |
-| `/evidence/:id` · `/preview` · `/analysis` · `/timeline` · `/metadata` | The evidence workbench, one address per tool (`?finding=F-021` selects a finding) |
-| `/evidence/:id/integrity` | Hash, preservation and custody trail |
-| `/graph` | Evidence graph across cases |
-| `/reports` · `/reports/:id` · `/reports/:id/preview` | Reports, the studio, a read-only preview |
-| `/notifications` | Decisions waiting and activity |
-| `/system` · `/system/health` · `/system/logs` | Governance, health, audit log |
-| `/settings` | Preferences for this browser |
-
-Not built yet (404): sources and connectors, lineage, intelligence, graph node/edge pages, report history,
-evidence versions and history, help, the remaining system and settings pages, and the case sources, lineage and settings tabs.
-To build one, add its folder under `src/app/(workspace)/`, its helper in `src/config/routes.ts`, and, if it belongs
-in the sidebar, an entry in `src/config/navigation.ts`.
-
-`/workspace` (the old single-page address) redirects to `/dashboard`.
+Git tracks this folder as `Frontend/`, but on this machine it exists on disk as `frontend/`. Windows tolerates
+the difference for most tools, but the Turbopack dev server fails to resolve its Google Fonts module when started
+through the `Frontend/Web` spelling (for example via the root `package.json` scripts). Start it from `frontend\Web`
+until the folder is renamed on disk to match Git.

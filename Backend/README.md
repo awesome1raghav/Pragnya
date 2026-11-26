@@ -1,32 +1,105 @@
 # NEXTRON Backend
 
-Enterprise-grade FastAPI backend service powering the NEXTRON Digital Media Verification and Forensic Analysis Platform.
+FastAPI modular monolith for NEXTRON (archive: `Documentation/NEXTRON Master Project Archive.md`).
+Database code lives only in the root `Database/` package; this folder holds the API application.
 
-## Architecture
+## Status
 
-The backend implements the 18 official NEXTRON domain modules (NexCm through NexRpt), T-MIR orchestration engine, multi-branch forensic execution pipeline, and REST/WebSocket APIs.
+| Built and tested | Not built yet |
+|---|---|
+| App factory, settings, `{success, data, meta}` envelope, error envelope, `X-Request-ID` | Evaluated deepfake / synthetic-media detectors (need a model choice and its weights) |
+| `/health`, `/health/ready` (database + storage), `/system/database`, `/system/storage`, `/system/workers` | Per-pair ALN/TRN expansion (Step 6) |
+| NEX-CM cases: create, list/filter/sort/page, get, patch, archive, reopen, summary, statistics, events | Sources, fingerprints, Neo4j, Qdrant (Step 5); Redis is deferred |
+| NEX-CAP streamed multipart upload with signature + decode validation | Authentication (single local operator for now; API binds to 127.0.0.1) |
+| NEX-EVD SHA-256 while streaming, read-only originals, custody events, verify-integrity, preview (Range), download, history | Derived artifacts (thumbnails, frames) |
+| NEX-MET FFprobe (video/audio) and Pillow + EXIF (images) metadata, versioned, run by T-MIR in workers | |
+| T-MIR planner and runner; Job Service (claims with SKIP LOCKED, leases, fencing, recovery, retry with backoff, cancel, timeouts); worker process | |
+| Transactional outbox, dispatcher, WebSockets, notifications; Job, Run, Analysis and Notification APIs | |
+| Media engines NEX-IMG, NEX-VID, NEX-AUD (measurement methods) and NEX-PRV (C2PA SDK); derived artifacts, `GET /artifacts/{id}` | Chromaprint fingerprints (install `fpcalc`; set `FPCALC_PATH`) |
+| Migrations `0001` baseline, `0002` cases/evidence/metadata/events with append-only triggers, `0003` case objectives and category, `0004` jobs/executions/results/findings/artifacts/outbox, `0005` workers and notifications | |
+| Frontend support: `GET /evidence` (all investigations, filters, search), `GET /search`, `GET /system/modules` (module catalogue from flowchart A1), `last_activity_at` on cases | |
 
-## Multi-Model Database Architecture
+## Run it (Windows PowerShell, from the repository root)
 
-NEXTRON leverages a dedicated multi-model persistence layer situated in `Backend/Database/`:
-- **PostgreSQL (`Database/PostgreSQL/`)**: Relational storage for cases, evidence metadata, analysis findings, audit trails, and transactional models.
-- **Neo4j (`Database/Neo4j/`)**: High-performance graph database for evidence node/edge relationships, provenance chains, and cross-media lineage.
-- **Qdrant (`Database/Qdrant/`)**: Vector database for deepfake embeddings, multimodal audio/video/image fingerprints, and nearest-neighbor search.
-- **Redis (`Database/Redis/`)**: Distributed cache, task queue coordination, and pub/sub event brokers.
+```powershell
+# 1. PostgreSQL 17 in Docker (first time: copy and edit the two .env.example files)
+Copy-Item Infrastructure/Docker/.env.example Infrastructure/Docker/.env
+Copy-Item Backend/.env.example Backend/.env
+docker compose -f Infrastructure/Docker/docker-compose.yml up -d
 
-## Quick Start
+# 2. Python 3.11 environment
+py -3.11 -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r Backend/requirements.txt
 
-```bash
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# 3. Migrate, then start the API on http://127.0.0.1:8000 (Swagger UI at /docs)
+.\.venv\Scripts\python.exe -m alembic -c Database/PostgreSQL/alembic.ini upgrade head
+.\.venv\Scripts\python.exe -m uvicorn Backend.App.Main:app --host 127.0.0.1 --port 8000
 
-# Install dependencies
-pip install -r requirements.txt
+# 4. At least one worker, in another terminal (uploads queue analysis; without a worker it waits)
+.\.venv\Scripts\python.exe -m Backend.App.Workers.Worker
 
-# Run migrations
-alembic upgrade head
-
-# Start application server
-uvicorn App.Main:app --host 0.0.0.0 --port 8000 --reload
+# 5. Tests (integration tests need the Compose PostgreSQL running)
+.\.venv\Scripts\python.exe -m pytest Tests
 ```
+
+PostgreSQL is published on `127.0.0.1:5433` (not 5432, which a native install may already use).
+The password in both `.env` files must match; neither file is committed.
+
+## Layout
+
+```text
+Backend/App/
+├── Main.py            app factory; `app` is the ASGI entry point
+├── Config.py          settings from environment / Backend/.env (no default credentials)
+├── Lifespan.py        creates and disposes the database engine; runs the outbox dispatcher
+├── Dependencies.py    FastAPI dependencies
+├── Api/V1/            Router.py, Health.py, System.py, Cases.py, Evidence.py, Search.py, Jobs.py,
+│                      Analysis.py (runs, analysis, results), Notifications.py, Realtime.py (WebSockets)
+├── Contracts/         ExecutionStates.py, Findings.py, Artifacts.py, ModuleResult.py
+├── Orchestration/     ModuleCatalog.py; TMir/ DependencyRegistry.py, Planner.py, Runner.py, Executors.py,
+│                      Recording.py, Service.py, Schemas.py
+├── Workers/           JobService.py (job state, leases, recovery), Worker.py (the worker process)
+├── Realtime/          Outbox.py, Cursor.py (gap-safe), Dispatcher.py, Hub.py, Notifications.py
+├── Core/              Exceptions.py (error codes + handlers), Middleware.py, RequestContext.py
+├── Schemas/           Common.py (envelopes), Pagination.py, Events.py
+├── Modules/
+│   ├── NexCm/         Service.py, Lifecycle.py, Schemas.py
+│   ├── NexCap/        Service.py, FileAcquisition.py (streaming multipart), Validation.py
+│   ├── NexEvd/        Service.py, HashService.py, IntegrityService.py, ChainOfCustody.py,
+│   │                  StorageReconciliation.py, Schemas.py
+│   ├── NexMet/        Service.py, MetadataExtractor.py, ExifAnalyzer.py, Schemas.py
+│   ├── NexImg/ImageAnalyzer.py, NexVid/VideoAnalyzer.py, NexAud/AudioAnalyzer.py, NexPrv/C2paAnalyzer.py
+│   └── Engine.py      the EngineOutput contract shared by the media engines
+├── Storage/           StorageInterface.py, LocalStorage.py (originals and write-once derived artifacts)
+├── Utils/MediaProbe.py, MediaDecode.py   FFprobe / FFmpeg adapters (bounded frame, packet and audio reads)
+└── Services/HealthService.py     PostgreSQL probe
+```
+
+Database models and query functions live in the root `Database/PostgreSQL/` (`Models/`, `Repositories/`).
+
+## Evidence handling
+
+1. The upload streams into `STORAGE_ROOT/Temporary/<random>.part` while SHA-256 and size are computed;
+   the size limit (`MAX_UPLOAD_SIZE_BYTES`) is enforced mid-stream.
+2. The bytes must carry a supported image/video/audio signature **and** decode (Pillow) or parse (FFprobe).
+   The client's filename and Content-Type are recorded as labels only.
+3. The file is moved to `Originals/<case_id>/<evidence_id>`, made read-only, re-hashed, and only then is
+   the evidence row committed together with `evidence.received / hashed / preserved` events.
+4. Metadata is extracted from the stored original and recorded as a new version with its input hash.
+   (This runs in the upload request until Step 3 moves it to a worker job.)
+
+The database rejects UPDATE/DELETE on events and metadata, DELETE on evidence, and any change to an
+evidence row's hash, size, storage key, case or timestamps. Check storage against the database with:
+
+```powershell
+.\.venv\Scripts\python.exe -m Scripts.Maintenance.ReconcileEvidenceStorage
+```
+
+## Health semantics
+
+- `/health` answers whenever the process is running; it touches no dependency.
+- `/health/ready` returns 200 only if PostgreSQL is reachable **and** at the migration head;
+  otherwise 503 `SERVICE_NOT_READY` with the failing check.
+- `/system/database` returns 200 `HEALTHY` (or `DEGRADED` when migrations are behind) with measured
+  latency, server version, revisions and this process's pool counts; 503 `DATABASE_UNAVAILABLE` when
+  unreachable. Driver error messages are not returned, only the error class and SQLSTATE.

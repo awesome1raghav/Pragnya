@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { IntegrityScreen } from '@/modules/screens';
+import { EvidenceIntegrityScreen } from '@/modules/screens';
 
-export const metadata: Metadata = { title: 'Integrity — NEXTRON' };
+export const metadata: Metadata = { title: 'Evidence integrity — NEXTRON' };
 
-export default function Page() { return <IntegrityScreen />; }
+export default function Page() { return <EvidenceIntegrityScreen />; }

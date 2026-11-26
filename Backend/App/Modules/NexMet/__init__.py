@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEX-MET Metadata Intelligence."""

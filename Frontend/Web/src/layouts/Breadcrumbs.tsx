@@ -1,44 +1,42 @@
 'use client';
 
-/* Breadcrumbs read the address, so they always describe the page you are on and every step is a real link. */
+/* Breadcrumbs read the address, so they always describe the page you are on and every step is a real link.
+   Case titles and evidence filenames come from the same cached API reads the pages use. */
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
-import { useData } from '@/stores/workspace.store';
-import { ANALYSIS_LABEL, paths, toolFromSegment, type AnalysisBranch } from '@/config/routes';
+import { useCase, useEvidence } from '@/api/hooks';
+import { ANALYSIS_LABEL, paths, type AnalysisBranch } from '@/config/routes';
 
-const TOOL = { viewer: 'Viewer', frames: 'Examine', timeline: 'Timeline', metadata: 'Metadata' } as const;
 const CASE_TAB: Record<string, string> = { evidence: 'Evidence', add: 'Add evidence', analysis: 'Analysis', timeline: 'Timeline', graph: 'Evidence graph', review: 'Review', report: 'Report', events: 'Events' };
+const EV_TAB: Record<string, string> = { preview: 'Preview', metadata: 'Metadata', integrity: 'Integrity', timeline: 'Custody timeline', analysis: 'Analysis' };
 const TOP: Record<string, [string, string]> = {
-  dashboard: ['Dashboard', paths.dashboard()], investigations: ['Investigations', paths.investigations()], evidence: ['Evidence', paths.evidenceList()],
-  graph: ['Evidence graph', paths.graph()], reports: ['Reports', paths.reports()], notifications: ['Notifications', paths.notifications()],
-  system: ['System', paths.system()], settings: ['Settings', paths.settings()],
+  dashboard: ['Dashboard', paths.dashboard()], investigations: ['Investigations', paths.investigations()], evidence: ['Evidence', '/evidence'],
+  sources: ['Sources', '/sources'], lineage: ['Lineage', '/lineage'], intelligence: ['Intelligence', '/intelligence'], graph: ['Evidence graph', '/graph'],
+  reports: ['Reports', '/reports'], notifications: ['Notifications', paths.notifications()], system: ['System', paths.system()], settings: ['Settings', paths.settings()],
 };
 const SUB: Record<string, string> = { new: 'New investigation', active: 'Active', completed: 'Completed', archived: 'Archived', health: 'Health', logs: 'Logs', preview: 'Preview' };
 
 export default function Breadcrumbs() {
-  const pathname = usePathname();
-  const { cases, evidence } = useData();
-  const seg = pathname.split('/').filter(Boolean).map(decodeURIComponent);
+  const seg = usePathname().split('/').filter(Boolean).map(decodeURIComponent);
+  const caseId = seg[0] === 'investigations' && seg[1] && !SUB[seg[1]] ? seg[1] : null;
+  const evidenceId = seg[0] === 'evidence' && seg[1] ? seg[1] : null;
+  const c = useCase(caseId);
+  const ev = useEvidence(evidenceId);
+  const evCase = useCase(ev.data?.case_id ?? null);
   const crumbs: { label: React.ReactNode; href?: string }[] = [];
-  const caseCrumb = (id: string) => { const c = cases.find(x => x.id === id); crumbs.push({ label: c?.name ?? id, href: paths.case(id) }); };
 
-  if (seg[0] === 'evidence' && seg[1]) {
-    const ev = evidence.find(e => e.id === seg[1]);
+  if (evidenceId) {
+    crumbs.push({ label: 'Evidence', href: '/evidence' });
+    if (ev.data) crumbs.push({ label: evCase.data?.case_number ?? 'Investigation', href: paths.case(ev.data.case_id) });
+    crumbs.push({ label: <span className={s.mono}>{ev.data?.evidence_number ?? '…'}</span>, href: paths.evidence(evidenceId) });
+    if (seg[2]) crumbs.push({ label: EV_TAB[seg[2]] ?? seg[2] });
+  } else if (caseId) {
     crumbs.push({ label: 'Investigations', href: paths.investigations() });
-    if (ev) caseCrumb(ev.caseId);
-    crumbs.push({ label: <span className={s.mono}>{ev?.fileName ?? seg[1]}</span>, href: paths.evidence(seg[1]) });
-    crumbs.push({ label: seg[2] === 'integrity' ? 'Integrity' : TOOL[toolFromSegment(seg[2])] });
-  } else if (seg[0] === 'investigations' && seg[1] && !SUB[seg[1]]) {
-    crumbs.push({ label: 'Investigations', href: paths.investigations() });
-    caseCrumb(seg[1]);
+    crumbs.push({ label: c.data ? `${c.data.case_number} · ${c.data.title}` : '…', href: paths.case(caseId) });
     const tab = seg[2] === 'evidence' && seg[3] === 'add' ? 'add' : seg[2];
     crumbs.push({ label: tab ? (seg[2] === 'analysis' && seg[3] ? `${ANALYSIS_LABEL[seg[3] as AnalysisBranch] ?? seg[3]} analysis` : CASE_TAB[tab] ?? tab) : 'Overview' });
-  } else if (seg[0] === 'reports' && seg[1]) {
-    crumbs.push({ label: 'Reports', href: paths.reports() });
-    crumbs.push({ label: cases.find(x => x.id === seg[1])?.name ?? seg[1], href: paths.report(seg[1]) });
-    if (seg[2]) crumbs.push({ label: SUB[seg[2]] ?? seg[2] });
   } else {
     const t = TOP[seg[0]];
     if (t) crumbs.push({ label: t[0], href: t[1] });

@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""NEX-IMG Image Forensics."""

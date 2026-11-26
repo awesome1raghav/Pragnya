@@ -1,0 +1,11 @@
+{
+  "name": "nextron-end-to-end",
+  "private": true,
+  "description": "Browser end-to-end tests against the running NEXTRON frontend (:8080) and API (:8000).",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.65.1"
+  }
+}

@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""Shared Pydantic response schemas."""

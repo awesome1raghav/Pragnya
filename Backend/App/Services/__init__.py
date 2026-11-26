@@ -1,1 +1,1 @@
-"""NEXTRON Backend module initialization."""
+"""Application services shared by route modules."""

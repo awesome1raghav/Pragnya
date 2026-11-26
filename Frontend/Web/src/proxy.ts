@@ -1,20 +1,23 @@
-/* Unknown investigation and report IDs, and unknown analysis types, answer with a real 404 status. Rendering streams its first byte with a
-   200, so the check has to happen here, before rendering. With the demo data the IDs are known up front; once
-   NEXT_PUBLIC_NEXTRON_API points at the backend, this steps aside and each page reports a missing ID itself. */
+/* Addresses that cannot exist answer with a real HTTP 404. Rendering streams its first byte with a 200,
+   so these checks must run here, before rendering:
+   - an analysis type other than image, video, audio or provenance;
+   - any report address (no report records exist until NEX-RPT is built, plan Step 7);
+   - a malformed investigation or evidence ID (IDs are UUIDs).
+   Well-formed IDs that do not exist are reported by the page itself, after asking the API. */
 import { NextResponse, type NextRequest } from 'next/server';
-import { cases } from '@/api/fixtures';
 
-const IDS = new Set(cases.map(c => c.id));
-const LISTS = new Set(['new', 'active', 'completed', 'archived']);
 const BRANCHES = new Set(['image', 'video', 'audio', 'provenance']);
+const LISTS = new Set(['new', 'active', 'completed', 'archived']);
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function proxy(request: NextRequest) {
   const [, section, id, tab, branch] = request.nextUrl.pathname.split('/');
-  const badBranch = section === 'investigations' && tab === 'analysis' && branch !== undefined && !BRANCHES.has(branch);
-  if (badBranch) return NextResponse.rewrite(new URL('/not-found', request.url));
-  if (process.env.NEXT_PUBLIC_NEXTRON_API) return NextResponse.next();
-  const known = !id || (section === 'investigations' && LISTS.has(id)) || IDS.has(decodeURIComponent(id));
-  return known ? NextResponse.next() : NextResponse.rewrite(new URL('/not-found', request.url));
+  const notFound = () => NextResponse.rewrite(new URL('/not-found', request.url), { status: 404 });
+  if (section === 'reports' && id) return notFound();
+  if (section === 'investigations' && id && !LISTS.has(id) && !UUID.test(decodeURIComponent(id))) return notFound();
+  if (section === 'evidence' && id && !UUID.test(decodeURIComponent(id))) return notFound();
+  if (section === 'investigations' && tab === 'analysis' && branch !== undefined && !BRANCHES.has(branch)) return notFound();
+  return NextResponse.next();
 }
 
-export const config = { matcher: ['/investigations/:id/:path*', '/reports/:id/:path*'] };
+export const config = { matcher: ['/investigations/:id/:path*', '/evidence/:id/:path*', '/reports/:id/:path*'] };

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { ReportListScreen } from '@/modules/screens';
+import { ReportsScreen } from '@/modules/screens';
 
 export const metadata: Metadata = { title: 'Reports — NEXTRON' };
 
-export default function Page() { return <ReportListScreen />; }
+export default function Page() { return <ReportsScreen />; }

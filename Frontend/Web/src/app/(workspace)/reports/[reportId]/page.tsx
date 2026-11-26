@@ -1,6 +1,4 @@
-import type { Metadata } from 'next';
-import { ReportScreen } from '@/modules/screens';
+import { notFound } from 'next/navigation';
 
-export const metadata: Metadata = { title: 'Report — NEXTRON' };
-
-export default function Page() { return <ReportScreen />; }
+/* Reports are not built yet (plan Step 7): no report record exists, so every report address is unknown. */
+export default function Page() { notFound(); }
