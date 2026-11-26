@@ -30,6 +30,8 @@ export default function JobMonitor({ open, onClose }: { open: boolean; onClose: 
 
 function JobBody() {
   const active = useJobs({ active: true, page_size: 50 });
+  const partial = useJobs({ state: 'PARTIALLY_COMPLETED', page_size: 15 });
+  const failed = useJobs({ state: 'FAILED', page_size: 15 });
   const recent = useJobs({ page_size: 15 });
   return <>
     <WorkerNotice />
@@ -37,10 +39,17 @@ function JobBody() {
       <SecHead title='Active' count={active.data?.pagination.total_items} />
       <Load q={active} rows={2}>{r => r.data.length ? <JobList jobs={r.data} /> : <p className={s.cap}>Nothing queued or running.</p>}</Load>
     </section>
+    <section aria-label='Jobs requiring attention'>
+      <SecHead title='Needs attention' count={(partial.data?.pagination.total_items ?? 0) + (failed.data?.pagination.total_items ?? 0)} />
+      <Load q={partial} rows={1}>{p => <Load q={failed} rows={1}>{f => {
+        const jobs = [...p.data, ...f.data].sort((a, b) => b.created_at.localeCompare(a.created_at));
+        return jobs.length ? <JobList jobs={jobs} /> : <p className={s.cap}>No failed or partial jobs.</p>;
+      }}</Load>}</Load>
+    </section>
     <section aria-label='Recent jobs'>
       <SecHead title='Recent' />
       <Load q={recent} rows={3}>{r => {
-        const done = r.data.filter(j => j.state !== 'QUEUED' && j.state !== 'RUNNING');
+        const done = r.data.filter(j => j.state === 'COMPLETED' || j.state === 'CANCELLED');
         return done.length ? <JobList jobs={done} /> : <Empty title='No finished jobs yet'>Uploading evidence queues an investigation run for it.</Empty>;
       }}</Load>
     </section>

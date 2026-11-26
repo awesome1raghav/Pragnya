@@ -53,7 +53,11 @@ def alembic_config(database_url: str) -> AlembicConfig:
 
 def build_app(database_url: str, storage_root: Path | None = None, **overrides) -> FastAPI:
     """An app on the given database. Tests always pass their own storage root, never Backend/Storage."""
-    update = {"DATABASE_URL": database_url, "ENVIRONMENT": "testing", **overrides}
+    # Detectors are off unless a test turns them on: measurement tests must not depend on 2.6 GB of weights.
+    # The Neo4j projection is off too; Tests/Integration/Projection turns it on against a disposable graph.
+    update = {"DATABASE_URL": database_url, "ENVIRONMENT": "testing", "DETECTORS_ENABLED": False,
+              "NEO4J_URI": "", "QDRANT_URL": "", "WEB_VISUAL_SEARCH_ENABLED": False,
+              "SERPAPI_API_KEY": "", **overrides}
     if storage_root is not None:
         update["STORAGE_ROOT"] = Path(storage_root)
     return create_app(get_settings().model_copy(update=update))

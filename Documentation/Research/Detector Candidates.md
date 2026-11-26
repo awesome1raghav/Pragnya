@@ -1,6 +1,7 @@
 # Detector Candidates: comparison before integration
 
-26 November 2026. Desk comparison only: nothing was downloaded or run. Licences and weight locations were read from
+26 November 2026. **Measured results: [Detector Benchmark](../Testing/Detector%20Benchmark.md).** This page is the
+desk comparison that preceded them; nothing below was downloaded or run when it was written. Licences and weight locations were read from
 each repository and Hugging Face (file listings via the Hub API); accuracy figures are the authors' or third-party
 benchmark numbers, not NEXTRON measurements. The archive (§4, §16) requires this comparison before a detector is
 chosen: accuracy, CPU latency, memory, licence, checkpoint provenance, reproducibility, out-of-distribution robustness.

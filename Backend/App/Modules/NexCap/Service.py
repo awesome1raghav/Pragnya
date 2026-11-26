@@ -15,6 +15,7 @@ from starlette.requests import Request
 
 from Backend.App.Config import Settings
 from Backend.App.Core.Exceptions import ErrorCode, NextronError
+from Backend.App.Services import Preferences
 from Backend.App.Modules.NexCap.FileAcquisition import ReceivedUpload, receive_upload
 from Backend.App.Modules.NexCap.Validation import identify_media
 from Backend.App.Modules.NexCm import Lifecycle
@@ -64,7 +65,7 @@ def _preserve(factory, storage, case_id, upload, media, context, actor, settings
     with factory() as session:
         evidence, duplicates = EvidenceService.preserve(
             session, storage, case_id=case_id, upload=upload, media=media, context=context, actor=actor,
-            before_commit=queue_analysis if settings.AUTO_ANALYZE_ON_UPLOAD else None,
+            before_commit=queue_analysis if Preferences.auto_analyze(session, settings) else None,
         )
         return evidence, [DuplicateReference(evidence_id=d.id, evidence_number=d.display_number) for d in duplicates], queued.get("job")
 

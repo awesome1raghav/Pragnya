@@ -24,8 +24,8 @@ def _revisions(url: str) -> list[str]:
 
 def test_history_is_linear_with_one_head(migrated_database):
     script = ScriptDirectory.from_config(alembic_config(migrated_database[1]))
-    assert script.get_heads() == ["0005"]
-    assert [rev.revision for rev in script.walk_revisions()] == ["0005", "0004", "0003", "0002", "0001"]
+    assert script.get_heads() == ["0009"]
+    assert [rev.revision for rev in script.walk_revisions()] == ["0009", "0008", "0007", "0006", "0005", "0004", "0003", "0002", "0001"]
 
 
 def test_upgrade_and_downgrade_on_clean_database(database_factory):
@@ -34,10 +34,10 @@ def test_upgrade_and_downgrade_on_clean_database(database_factory):
     assert _revisions(url) == []
 
     command.upgrade(config, "head")
-    assert _revisions(url) == ["0005"]
+    assert _revisions(url) == ["0009"]
 
     command.downgrade(config, "base")
     assert _revisions(url) == []
 
     command.upgrade(config, "head")
-    assert _revisions(url) == ["0005"]
+    assert _revisions(url) == ["0009"]

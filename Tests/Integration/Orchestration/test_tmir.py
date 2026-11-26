@@ -83,23 +83,23 @@ def test_image_only_run_ends_with_every_module_explained(api, media):
 
     assert run_worker(api.app) == [uuid.UUID(job_id)]
     job = api.get(f"{API}/jobs/{job_id}").json()["data"]
-    assert job["state"] == "PARTIALLY_COMPLETED"  # no evaluated detector is installed, and FPM, CMC, EGC are not built yet
+    assert job["state"] == "PARTIALLY_COMPLETED"  # detectors are disabled in tests
     assert job["progress"]["finished"] == job["progress"]["planned"] == 12
 
     states = plan_states(api, job_id)
     assert states == {
         "NEX-MET": ("COMPLETED", None),
-        "NEX-IMG": ("PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED"),
+        "NEX-IMG": ("PARTIALLY_COMPLETED", "DETECTOR_DISABLED"),  # detectors off in tests
         "NEX-VID": ("SKIPPED", "NOT_APPLICABLE"),
         "NEX-AUD": ("SKIPPED", "NOT_APPLICABLE"),
         "NEX-PRV": ("COMPLETED", None),
-        "NEX-FPM": ("UNAVAILABLE", "MODULE_NOT_IMPLEMENTED"),
-        "NEX-MOC": ("SKIPPED", "NO_INPUT"),
-        "NEX-ALN": ("SKIPPED", "NO_INPUT"),
+        "NEX-FPM": ("COMPLETED", None),
+        "NEX-MOC": ("COMPLETED", None),  # one image: nothing to relate, which MOC reports
+        "NEX-ALN": ("SKIPPED", "NO_INPUT"),  # MOC proposed no pairs
         "NEX-TRN": ("SKIPPED", "NO_INPUT"),
-        "NEX-CMC": ("UNAVAILABLE", "MODULE_NOT_IMPLEMENTED"),
-        "NEX-EGC": ("UNAVAILABLE", "MODULE_NOT_IMPLEMENTED"),
-        "NEX-REC": ("SKIPPED", "NO_INPUT"),
+        "NEX-CMC": ("COMPLETED", None),
+        "NEX-EGC": ("COMPLETED", None),
+        "NEX-REC": ("COMPLETED", None),  # a timeline of one received item
     }
 
     run = api.get(f"{API}/runs/{job_id}").json()["data"]
@@ -135,9 +135,9 @@ def test_video_plans_audio_and_audio_plans_no_video(api, media):
     run_worker(api.app)
     v = plan_states(api, video["analysis_job"]["job_id"])
     a = plan_states(api, audio["analysis_job"]["job_id"])
-    assert v["NEX-VID"] == ("PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED") and v["NEX-AUD"] == ("PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED")
+    assert v["NEX-VID"] == ("PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED") and v["NEX-AUD"] == ("PARTIALLY_COMPLETED", "DETECTOR_DISABLED")
     assert v["NEX-IMG"] == ("SKIPPED", "NOT_APPLICABLE")
-    assert a["NEX-VID"] == ("SKIPPED", "NOT_APPLICABLE") and a["NEX-AUD"] == ("PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED")
+    assert a["NEX-VID"] == ("SKIPPED", "NOT_APPLICABLE") and a["NEX-AUD"] == ("PARTIALLY_COMPLETED", "DETECTOR_DISABLED")
     assert v["NEX-MET"] == a["NEX-MET"] == ("COMPLETED", None)
 
 
@@ -299,7 +299,7 @@ def test_crash_after_a_module_committed_does_not_rerun_it(api, media):
         mets = session.scalars(select(AnalysisExecution).where(AnalysisExecution.module_id == "NEX-MET")).all()
         imgs = session.scalars(select(AnalysisExecution).where(AnalysisExecution.module_id == "NEX-IMG").order_by(AnalysisExecution.attempt)).all()
         assert [(m.attempt, m.state) for m in mets] == [(1, "COMPLETED")]  # committed before the crash; not run again
-        assert [(i.attempt, i.state, i.state_reason) for i in imgs] == [(1, "FAILED", "LEASE_EXPIRED"), (2, "PARTIALLY_COMPLETED", "DETECTOR_NOT_INSTALLED")]
+        assert [(i.attempt, i.state, i.state_reason) for i in imgs] == [(1, "FAILED", "LEASE_EXPIRED"), (2, "PARTIALLY_COMPLETED", "DETECTOR_DISABLED")]
         assert session.scalar(select(func.count()).select_from(EvidenceMetadata)) == 1
 
 
@@ -408,7 +408,8 @@ def test_outbox_records_domain_and_run_events_in_order(api, media):
     assert types[4] == "job.started" and types[-1] == "job.partially_completed"
     module_events = [t for t in types if t.startswith("analysis.module.")]
     assert module_events[:2] == ["analysis.module.started", "analysis.module.completed"]  # MET first
-    assert len(module_events) == 15  # MET, IMG and PRV started + 12 endings
+    assert len(module_events) == 20  # MET, IMG, PRV, FPM, MOC, CMC, EGC and REC started + 12 endings
+    assert module_events.count("analysis.module.started") == 8
     assert [e.sequence for e in events] == sorted(e.sequence for e in events)
 
 
@@ -483,7 +484,8 @@ def test_a_real_worker_process_runs_queued_jobs(fresh, media):
     with TestClient(build_app(url, storage)) as client:
         evidence = upload(client, new_case(client), media["wav"], "voice.wav", "audio/wav")
         job_id = evidence["analysis_job"]["job_id"]
-        env = os.environ | {"DATABASE_URL": url, "STORAGE_ROOT": str(storage), "WORKER_POLL_SECONDS": "0.2", "LOG_LEVEL": "WARNING"}
+        env = os.environ | {"DATABASE_URL": url, "STORAGE_ROOT": str(storage), "WORKER_POLL_SECONDS": "0.2", "LOG_LEVEL": "WARNING",
+                            "DETECTORS_ENABLED": "false", "NEO4J_URI": ""}  # as build_app: no weights, no shared graph
         process = subprocess.Popen([sys.executable, "-m", "Backend.App.Workers.Worker"], cwd=ROOT, env=env,
                                    stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         try:

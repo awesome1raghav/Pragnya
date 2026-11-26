@@ -12,6 +12,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from Backend.App.Api.V1.Router import api_router
 from Backend.App.Config import Settings, get_settings
 from Backend.App.Core.Exceptions import register_exception_handlers
+from Backend.App.Core.Security import OriginGuardMiddleware, RateLimitMiddleware, SecurityHeadersMiddleware
 from Backend.App.Core.Middleware import RequestIdMiddleware
 from Backend.App.Core.RequestContext import REQUEST_ID_HEADER
 from Backend.App.Lifespan import lifespan
@@ -19,6 +20,9 @@ from Backend.App.Lifespan import lifespan
 
 def create_app(settings: Settings | None = None) -> FastAPI:
     settings = settings or get_settings()
+    if settings.ENVIRONMENT == "production" and not settings.ALLOW_UNAUTHENTICATED_PRODUCTION:
+        raise RuntimeError("NEXTRON has no authentication yet: refusing ENVIRONMENT=production. Bind it to a trusted machine and set "
+                           "ALLOW_UNAUTHENTICATED_PRODUCTION=true only if that is acceptable.")
     logging.basicConfig(level=settings.LOG_LEVEL, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 
     app = FastAPI(
@@ -42,6 +46,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         allow_headers=["Content-Type", "Authorization", REQUEST_ID_HEADER],
         expose_headers=[REQUEST_ID_HEADER],
     )
+    app.add_middleware(RateLimitMiddleware, per_minute=settings.RATE_LIMIT_MUTATIONS_PER_MINUTE)
+    app.add_middleware(OriginGuardMiddleware, allowed=settings.CORS_ORIGINS)  # before CORS: foreign sites never reach a handler
+    app.add_middleware(SecurityHeadersMiddleware)
     app.add_middleware(RequestIdMiddleware)
 
     register_exception_handlers(app)

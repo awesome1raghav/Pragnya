@@ -3,19 +3,20 @@
 /* The investigation workspace's tabs. Every value comes from the API: the case record, its evidence,
    its statistics and its append-only event history. Sections whose backend does not exist yet are
    shown as such, with the module that will provide them. */
+import { CaseGraph, CaseReport, CaseReview, ReconstructionPanel } from '@/modules/investigation/Investigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ArrowRight, FileText, Film, GitBranch, Globe2, LoaderCircle, Network, Pencil, Plus, Save, Share2 } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
 import { ApiError, CASE_CATEGORIES, CASE_PRIORITIES, api, type Case, type CaseCategory, type CasePriority, type InvestigationEvent } from '@/api';
-import { useCase, useCaseEvidence, useCaseSummary, useModules } from '@/api/hooks';
+import { useCase, useCaseEvidence, useCaseRuns, useCaseSummary, useRun } from '@/api/hooks';
 import { invalidate, prime, useQuery } from '@/api/query';
 import { Dot, Empty, ErrorState, Load, PageHead, SecHead, Unavailable } from '@/components/ui';
 import { CaseAnalysisPage, ModuleResultsPage } from '@/modules/analysis/Analysis';
 import { useWorkspace } from '@/layouts/MainLayout';
 import { ANALYSIS_BRANCHES, ANALYSIS_LABEL, ANALYSIS_MODULE, paths, type AnalysisBranch } from '@/config/routes';
-import { ago, bytes, categoryLabel, eventDetail, eventLabel, eventTone, moduleStatusLabel, moduleStatusTone, priorityLabel, toneColor, utc } from '@/utils/labels';
+import { ago, bytes, categoryLabel, eventDetail, eventLabel, eventTone, execStateLabel, execStateTone, jobStateTone, priorityLabel, toneColor, utc } from '@/utils/labels';
 import EvidenceRows from '@/modules/evidence/EvidenceRows';
 import Uploader from '@/modules/evidence/Uploader';
 import { fieldErrors, parseTags } from './NewInvestigation';
@@ -29,6 +30,7 @@ export function CaseOverview() {
   const summary = useCaseSummary(c.case_id);
   const archived = c.status === 'ARCHIVED';
   return <div className={s.page}>
+    <h1 className={s.srOnly}>{c.case_number} overview: {c.title}</h1>
     <div className={p.grid2}>
       <div className={p.stack}>
         <Details c={c} archived={archived} />
@@ -49,11 +51,11 @@ export function CaseOverview() {
           <SecHead title='Work on this investigation' />
           <nav className={p.ctxNav}>
             <Link href={paths.evidenceList(c.case_id)}><Film size={15} />Evidence</Link>
-            <Link href={paths.sources(c.case_id)}><Globe2 size={15} />Sources <small>not built</small></Link>
-            <Link href={paths.lineage(c.case_id)}><GitBranch size={15} />Lineage <small>not built</small></Link>
+            <Link href={paths.sources(c.case_id)}><Globe2 size={15} />Sources</Link>
+            <Link href={paths.lineage(c.case_id)}><GitBranch size={15} />Lineage</Link>
             <Link href={paths.intelligence(c.case_id)}><Network size={15} />Intelligence</Link>
-            <Link href={paths.graph(c.case_id)}><Share2 size={15} />Evidence graph <small>not built</small></Link>
-            <Link href={paths.reports(c.case_id)}><FileText size={15} />Reports <small>not built</small></Link>
+            <Link href={paths.graph(c.case_id)}><Share2 size={15} />Evidence graph</Link>
+            <Link href={paths.reports(c.case_id)}><FileText size={15} />Reports</Link>
           </nav>
         </section>
         <ModuleOverview caseId={c.case_id} />
@@ -61,9 +63,6 @@ export function CaseOverview() {
           <SecHead title='Recent activity'><Link href={paths.caseEvents(c.case_id)} className={s.secLink}>All events <ArrowRight size={13} /></Link></SecHead>
           <Load q={summary} rows={3}>{sm => <EventFeed events={sm.recent_events.slice(0, 6)} />}</Load>
         </section>
-        <Unavailable title='Review and report' modules={['NEX-INV', 'NEX-RPT']} step='plan Step 7'>
-          <p>Investigator decisions (accept, reject, inconclusive, needs more evidence) and versioned PDF/JSON reports are built after the analysis modules, because they review and report their findings.</p>
-        </Unavailable>
       </div>
     </div>
   </div>;
@@ -150,16 +149,19 @@ function RecentEvidence({ caseId }: { caseId: string }) {
 }
 
 function ModuleOverview({ caseId }: { caseId: string }) {
-  const q = useModules();
+  const runs = useCaseRuns(caseId);
+  const latest = runs.data?.data[0] ?? null;
+  const run = useRun(latest?.job_id ?? null);
   return <section className={s.panel} aria-label='Module execution overview'>
-    <SecHead title='Investigation modules'><Link href={paths.intelligence(caseId)} className={s.secLink}>Intelligence <ArrowRight size={13} /></Link></SecHead>
-    <Load q={q} rows={2}>{cat => {
-      const by = (st: string) => cat.modules.filter(m => m.status === st);
+    <SecHead title='Latest analysis run'><Link href={paths.caseAnalysis(caseId)} className={s.secLink}>Analysis <ArrowRight size={13} /></Link></SecHead>
+    <Load q={runs} rows={2}>{() => !latest ? <p className={s.cap}>No run yet. Adding evidence queues one.</p> : <Load q={run} rows={2}>{r => {
+      const states = [...new Set(r.plan.map(e => e.state))];
       return <>
-        <p className={s.cap}>Per-investigation execution status arrives with T-MIR (plan Step 3). Today:</p>
-        <ul className={s.miniList}>{(['IMPLEMENTED', 'PARTIAL', 'NOT_IMPLEMENTED'] as const).map(st => <li key={st}><Dot tone={moduleStatusTone[st]}>{moduleStatusLabel[st]}</Dot><small>{by(st).map(m => m.module_id).join(' · ') || 'none'}</small></li>)}</ul>
+        <p className={s.cap}><span className={s.mono}>{r.job_number}</span> · <Dot tone={jobStateTone[r.state]}>{r.state.replace(/_/g, ' ').toLowerCase()}</Dot> · {r.progress.finished} of {r.progress.planned} planned modules finished · {ago(r.created_at)}</p>
+        <ul className={s.miniList}>{states.map(st => <li key={st}><Dot tone={execStateTone[st]}>{execStateLabel[st]}</Dot>
+          <small>{[...new Set(r.plan.filter(e => e.state === st).map(e => e.module_id))].join(' · ')}</small></li>)}</ul>
       </>;
-    }}</Load>
+    }}</Load>}</Load>
   </section>;
 }
 
@@ -213,9 +215,7 @@ export function CaseTimeline() {
         <div>{e.evidence_id ? <Link href={paths.evidence(e.evidence_id, 'timeline')}><b>{eventLabel(e.event_type)}</b></Link> : <b>{eventLabel(e.event_type)}</b>}<small>{eventDetail(e.event_type, e.payload) ?? ''} · {e.actor}</small></div>
       </li>)}</ol> : <Empty title='Nothing recorded yet' />}</Load>
       <aside>
-        <Unavailable title='Event reconstruction' modules={['NEX-REC', 'NEX-EGC']} step='plan Step 7'>
-          <p>This timeline is the investigation’s own record. Reconstructing the media’s history (publication, capture and edit times from sources and analysis) is NEX-REC’s job and is not built yet.</p>
-        </Unavailable>
+        <ReconstructionPanel caseId={c.case_id} />
       </aside>
     </div>
   </div>;
@@ -260,13 +260,12 @@ export function CaseEvents() {
   </div>;
 }
 
-/* ── tabs whose backend is not built yet ── */
-const PENDING: Record<'analysis' | 'graph' | 'review' | 'report', { title: string; modules: string[]; step: string; body: string }> = {
-  analysis: { title: 'Forensic analysis', modules: ['T-MIR'], step: 'plan Step 3', body: 'Runs and module results for this investigation.' },
-  graph: { title: 'Evidence graph', modules: ['NEX-EGC'], step: 'plan Step 7', body: 'The graph is built from stored evidence, source records, lineage relationships, transformations and correlations. None of those modules exist yet, so there is no graph to draw; sample nodes are not shown.' },
-  review: { title: 'Review and decisions', modules: ['NEX-INV'], step: 'plan Step 7', body: 'Investigators will accept, reject, mark inconclusive or request more evidence on each machine finding, with the decision kept separate from the finding. There are no findings to review until analysis exists.' },
-  report: { title: 'Reports', modules: ['NEX-RPT'], step: 'plan Step 7', body: 'Versioned PDF and JSON reports, built from a frozen snapshot of evidence hashes, findings and reviews, arrive after review exists.' },
-};
+/* ── analysis, graph, review and report tabs ── */
+const PENDING = { analysis: { title: 'Forensic analysis', modules: ['T-MIR'], step: 'plan Step 3', body: 'Runs and module results for this investigation.' } };
+
+export function CaseGraphTab() { const c = useLoadedCase(); return <CaseGraph caseId={c.case_id} caseNumber={c.case_number} />; }
+export function CaseReviewTab() { const c = useLoadedCase(); return <CaseReview caseId={c.case_id} caseNumber={c.case_number} archived={c.status === 'ARCHIVED'} />; }
+export function CaseReportTab() { const c = useLoadedCase(); return <CaseReport caseId={c.case_id} caseNumber={c.case_number} archived={c.status === 'ARCHIVED'} />; }
 
 export function CasePending({ kind, branch }: { kind: keyof typeof PENDING; branch?: AnalysisBranch }) {
   const c = useLoadedCase();

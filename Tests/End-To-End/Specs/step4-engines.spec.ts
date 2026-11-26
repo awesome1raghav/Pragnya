@@ -44,8 +44,7 @@ test('image engines: findings, measured region, heatmaps, provenance, case image
   await queue.getByRole('link', { name: /JOB-\d+/ }).click();
 
   const modules = page.getByRole('region', { name: 'Modules for this evidence' });
-  await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('Partial');
-  await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('No evaluated synthetic-image detector is installed');
+  await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('Completed');  // measurements + the pinned detector
   await expect(modules.getByRole('row', { name: /^NEX-PRV / })).toContainText('Completed');
 
   const findings = page.getByRole('region', { name: 'Findings' });
@@ -59,6 +58,10 @@ test('image engines: findings, measured region, heatmaps, provenance, case image
   await expect(findings.locator('[data-finding="NO_CONTENT_CREDENTIALS"]')).toContainText('No content credentials');
   await expect(findings.locator('[data-finding="JPEG_QUANTIZATION"]')).toContainText('IJG quality');
   await expect(findings).toContainText('not a probability');
+  const detector = findings.locator('[data-finding="SYNTHETIC_IMAGE_DETECTOR"]');
+  await expect(detector).toContainText(/CommunityForensics-ViT-S16-384 scores this image [0-9.e-]+: (above|below) its operating threshold/);
+  await expect(detector).toContainText('inference');
+  await expect(detector).toContainText('Measured locally: ROC AUC');
   await shot(page, '23-evidence-engine-findings');
 
   // the artifact API serves the heatmap with its recorded hash
@@ -69,7 +72,7 @@ test('image engines: findings, measured region, heatmaps, provenance, case image
 
   await page.goto(`/investigations/${c.case_id}/analysis/image`);
   const result = page.getByRole('region', { name: /NEX-IMG result for EVD-\d+/ });
-  await expect(result).toContainText('Partial');
+  await expect(result).toContainText('Completed');
   await expect(result).toContainText('Region with a different noise level');
   await expect(result).toContainText(/Tools: .*pillow \d/);
   await page.goto(`/investigations/${c.case_id}/analysis/provenance`);

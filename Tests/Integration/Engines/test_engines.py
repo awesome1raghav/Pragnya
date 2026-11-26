@@ -26,7 +26,7 @@ from Backend.App.Modules.NexImg import ImageAnalyzer
 from Backend.App.Modules.NexPrv import C2paAnalyzer
 from Backend.App.Modules.NexVid import VideoAnalyzer
 
-SETTINGS = get_settings()
+SETTINGS = get_settings().model_copy(update={"DETECTORS_ENABLED": False})  # detectors: Tests/Integration/Engines/test_detector_host.py
 FFMPEG = shutil.which("ffmpeg")
 needs_ffmpeg = pytest.mark.skipif(FFMPEG is None, reason="FFmpeg is required for video and audio fixtures")
 EV = uuid.uuid4()
@@ -70,12 +70,12 @@ def images(tmp_path_factory):
 
 
 def test_image_genuine_has_no_localised_response(images):
-    out = ImageAnalyzer.analyze(images / "genuine.jpg", EV)
-    assert out.status is ExecutionState.PARTIALLY_COMPLETED and out.reason == "DETECTOR_NOT_INSTALLED"
+    out = ImageAnalyzer.analyze(images / "genuine.jpg", EV, settings=SETTINGS)
+    assert out.status is ExecutionState.PARTIALLY_COMPLETED and out.reason == "DETECTOR_DISABLED"
     assert "NOISE_LEVEL_CONSISTENT" in kinds(out) and "ELA_UNIFORM_RESPONSE" in kinds(out)
     assert one(out, "JPEG_QUANTIZATION").measurement["estimated_ijg_quality"] == 92
     assert all(f.confidence is None for f in out.findings)
-    assert any("detector" in limit for limit in out.limitations)
+    assert any("detector" in limit for limit in out.limitations)  # the missing assessment is stated
 
 
 def test_image_splice_is_localised_where_it_was_pasted(images):
@@ -134,7 +134,7 @@ def videos(tmp_path_factory):
 @needs_ffmpeg
 def test_video_hard_cut_is_found_at_its_time(videos):
     out = VideoAnalyzer.analyze(videos / "cut.mp4", EV, settings=SETTINGS)
-    assert out.status is ExecutionState.PARTIALLY_COMPLETED and out.reason == "DETECTOR_NOT_INSTALLED"
+    assert out.status is ExecutionState.PARTIALLY_COMPLETED and out.reason == "DETECTOR_NOT_INSTALLED"  # no video detector is benchmarked
     cuts = [f for f in out.findings if f.finding_type == "VISUAL_DISCONTINUITY"]
     assert any(abs(f.time_range.end_seconds - 2.0) <= 0.26 for f in cuts), [(f.time_range, f.score) for f in cuts]
     timing = one(out, "FRAME_TIMING").measurement

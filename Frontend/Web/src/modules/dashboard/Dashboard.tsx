@@ -8,8 +8,9 @@ import { ArrowRight, Plus, Search, Upload } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
 import { api } from '@/api';
+import { useQuery } from '@/api/query';
 import { useCaseStatistics, useCases, useDatabaseStatus, useEvidenceStatistics, useJobs, useLiveness, useReadiness, useStorageStatus } from '@/api/hooks';
-import { Dot, Empty, ErrorState, Load, PageHead, SecHead, Skeleton, Unavailable } from '@/components/ui';
+import { Dot, Empty, ErrorState, Load, PageHead, SecHead, Skeleton } from '@/components/ui';
 import { JobList, WorkerNotice } from '@/modules/jobs/Jobs';
 import { useWorkspace } from '@/layouts/MainLayout';
 import { paths } from '@/config/routes';
@@ -59,9 +60,7 @@ export default function Dashboard() {
 
     <div className={p.grid2} style={{ marginTop: 24 }}>
       <RecentActivity caseIds={recent.data?.data.slice(0, 5).map(c => c.case_id)} failed={!!recent.error && !recent.data} />
-      <Unavailable title='Findings across investigations' modules={['NEX-INV']} step='plan Step 7'>
-        <p>The image, video, audio and provenance engines now run on every upload; their findings, heatmaps and frame sheets are on each evidence item’s Analysis tab and each investigation’s Analysis tabs. A cross-investigation findings feed arrives with the review queue. No detector verdicts exist: no evaluated deepfake detector is installed.</p>
-      </Unavailable>
+      <RecentFindings />
     </div>
   </div>;
 }
@@ -116,5 +115,18 @@ function RecentActivity({ caseIds, failed }: { caseIds?: string[]; failed: boole
         <p><Link href={e.evidence_id ? paths.evidence(e.evidence_id, 'timeline') : paths.caseEvents(c.case_id)}>{eventLabel(e.event_type)}</Link><small><span className={s.mono}>{c.case_number}</span> · {eventDetail(e.event_type, e.payload) ?? c.title}</small></p>
       </li>)}
     </ol> : <p className={s.cap}>No recorded activity yet.</p>}
+  </section>;
+}
+
+/* Inferences first: they are what an investigator reviews. Each is a method's reading, never a verdict. */
+function RecentFindings() {
+  const q = useQuery('findings:recent', () => api.findings.recent(5, 'INFERENCE'));
+  return <section className={s.panel} aria-label='Recent inferences'>
+    <SecHead title='Recent inferences'><span className={s.cap}>across investigations</span></SecHead>
+    <Load q={q} rows={4}>{fs => fs.length ? <ul className={s.miniList}>{fs.map(f => <li key={f.finding_id}>
+      <Link href={f.evidence[0] ? paths.evidence(f.evidence[0].evidence_id, 'analysis') : paths.caseAnalysis(f.case_id)}><b>{f.title}</b></Link>
+      <small>{f.module_id} · {f.case_number}{f.evidence[0]?.evidence_number ? ` · ${f.evidence[0].evidence_number}` : ''} · {ago(f.created_at)}</small>
+    </li>)}</ul> : <Empty title='No inferences yet'>Methods that read evidence beyond measuring it (detectors, consistency checks) report here.</Empty>}</Load>
+    <p className={s.cap}>Scores are each method's own measure, not probabilities. Record your decision on an investigation's Review tab.</p>
   </section>;
 }

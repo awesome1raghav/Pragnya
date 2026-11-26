@@ -5,11 +5,14 @@
 import Link from 'next/link';
 import p from '@/styles/platform.module.css';
 import { useReadiness } from '@/api/hooks';
+import { useLive } from '@/api/live';
 import type { ReadinessCheck } from '@/api';
 import { paths } from '@/config/routes';
 
 export function useSystemState() {
   const q = useReadiness();
+  const live = useLive();
+  if (q.data && !q.error && live.state === 'reconnecting') return { tone: 'gold' as const, label: 'Reconnecting', detail: 'Live updates are reconnecting; what is shown may be out of date and refreshes when they return', q };
   if (q.data && !q.error) return { tone: 'ok' as const, label: 'System ready', detail: 'Database and evidence storage are ready', q };
   if (q.error?.unreachable) return { tone: 'alert' as const, label: 'API unreachable', detail: q.error.message, q };
   if (q.error) {
@@ -30,8 +33,8 @@ export default function SystemStatus() {
 /** Full-width warning under the top bar while the API cannot be reached. */
 export function OfflineBanner() {
   const st = useSystemState();
-  if (st.tone !== 'alert') return null;
-  return <div className={p.banner} role='status'>
+  if (st.tone !== 'alert' && st.tone !== 'gold') return null;
+  return <div className={p.banner} role='status' data-tone={st.tone}>
     <b>{st.label}.</b><span>{st.detail}</span><Link href={paths.system()}>System status</Link>
   </div>;
 }

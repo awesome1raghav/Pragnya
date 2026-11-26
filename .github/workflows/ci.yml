@@ -1,0 +1,109 @@
+# NEXTRON CI: backend suite, frontend typecheck and build, browser tests against the real stack, Docker image builds.
+# Mirrors what runs locally (Documentation/Testing/Validation Report.md). No secrets are needed: detectors, visual-search
+# models and Neo4j are absent on the runner, and the tests that need them skip with the reason.
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency: { group: "ci-${{ github.ref }}", cancel-in-progress: true }
+
+env:
+  DATABASE_URL: postgresql+psycopg://nextron:ci-only-password@127.0.0.1:5432/nextron
+  PG_TOOLS: local
+  DETECTORS_ENABLED: "false"
+
+jobs:
+  backend:
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17.12-alpine
+        env: { POSTGRES_DB: nextron, POSTGRES_USER: nextron, POSTGRES_PASSWORD: ci-only-password }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U nextron" --health-interval 5s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11.9" }
+      - name: FFmpeg and PostgreSQL 17 client tools
+        run: |
+          sudo install -d /usr/share/postgresql-common/pgdg
+          sudo curl -fsSL -o /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc https://www.postgresql.org/media/keys/ACCC4CF8.asc
+          echo "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main" | sudo tee /etc/apt/sources.list.d/pgdg.list
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg postgresql-client-17
+      - name: Python dependencies (runtime + test, pinned to the lock)
+        run: |
+          python -c "import tomllib; p = tomllib.load(open('Backend/pyproject.toml', 'rb'))['project']; print('\n'.join(p['dependencies'] + p['optional-dependencies']['test']))" > runtime.txt
+          grep -v '^--' Backend/requirements.txt | sed 's/+cpu//' > constraints.txt
+          pip install -r runtime.txt -c constraints.txt pip-audit==2.10.0
+      - name: Dependency audit
+        run: pip-audit -r runtime.txt --progress-spinner off
+      - name: Migrations are complete
+        run: python -m alembic -c Database/PostgreSQL/alembic.ini upgrade head && python -m alembic -c Database/PostgreSQL/alembic.ini check
+      - name: Backend tests
+        run: python -m pytest Tests --ignore=Tests/End-To-End -q -p no:cacheprovider
+
+  frontend:
+    runs-on: ubuntu-24.04
+    defaults: { run: { working-directory: Frontend/Web } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "24.22.0", cache: npm, cache-dependency-path: Frontend/Web/package-lock.json }
+      - run: npm ci --no-fund
+      - run: npm audit --audit-level=high
+      - run: npm run typecheck
+      - run: npm run build
+        env: { NEXT_PUBLIC_NEXTRON_API: "http://localhost:8000/api/v1" }
+
+  end-to-end:
+    needs: [backend, frontend]
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17.12-alpine
+        env: { POSTGRES_DB: nextron, POSTGRES_USER: nextron, POSTGRES_PASSWORD: ci-only-password }
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U nextron" --health-interval 5s --health-retries 20
+    env:
+      NEXTRON_API: http://localhost:8000/api/v1
+      NEXT_PUBLIC_NEXTRON_API: http://localhost:8000/api/v1
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11.9" }
+      - uses: actions/setup-node@v4
+        with: { node-version: "24.22.0" }
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Backend
+        run: |
+          python -c "import tomllib; p = tomllib.load(open('Backend/pyproject.toml', 'rb'))['project']; print('\n'.join(p['dependencies'] + p['optional-dependencies']['test']))" > runtime.txt
+          grep -v '^--' Backend/requirements.txt | sed 's/+cpu//' > constraints.txt
+          pip install -r runtime.txt -c constraints.txt
+          python -m alembic -c Database/PostgreSQL/alembic.ini upgrade head
+          nohup python -m uvicorn Backend.App.Main:app --host 127.0.0.1 --port 8000 > api.log 2>&1 &
+          nohup python -m Backend.App.Workers.Worker > worker.log 2>&1 &
+      - name: Frontend
+        working-directory: Frontend/Web
+        run: npm ci --no-fund && npm run build && (nohup npm start > ../../web.log 2>&1 &)
+      - name: Browser tests
+        working-directory: Tests/End-To-End
+        run: |
+          npm ci --no-fund && npx playwright install --with-deps chromium
+          for url in http://localhost:8000/api/v1/health/ready http://localhost:8080/; do
+            for i in $(seq 60); do curl -fs "$url" > /dev/null && break; sleep 2; done
+            curl -fs "$url" > /dev/null || { cat ../../api.log ../../web.log; exit 1; }
+          done
+          npx playwright test
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with: { name: e2e-report, path: "Tests/Test Reports/End-To-End", retention-days: 7 }
+
+  docker:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -f Infrastructure/Docker/Backend.Dockerfile -t nextron-backend:ci .
+      - run: docker build -f Infrastructure/Docker/Frontend.Dockerfile -t nextron-web:ci .

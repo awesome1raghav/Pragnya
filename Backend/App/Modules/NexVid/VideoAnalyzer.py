@@ -54,8 +54,8 @@ def analyze(path: Path, evidence_id, *, settings) -> EngineOutput:
     ffmpeg = MediaDecode.ffmpeg_for(ffprobe)
     timeout = settings.MODULE_TIMEOUT_SECONDS
     out = EngineOutput(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_NOT_INSTALLED,
-                       "No evaluated video deepfake detector is installed, so no synthetic-video assessment was made; "
-                       "the timing and continuity measurements below ran.")
+                       "No face-manipulation detector has been benchmarked yet (GenD is shortlisted; it needs a licensed "
+                       "face-swap test set), so no synthetic-video assessment was made; the timing and continuity measurements below ran.")
     out.tool_versions = {"ffprobe": MediaDecode.tool_version(ffprobe), "ffmpeg": MediaDecode.tool_version(ffmpeg), "numpy": np.__version__}
     ev = [evidence_id]
 
@@ -131,5 +131,5 @@ def analyze(path: Path, evidence_id, *, settings) -> EngineOutput:
                 score=r(z.max(), 2), limitations=lim, artifacts=[sheet, signatures])
     else:
         out.limitations.append("Fewer than three frames could be sampled: continuity was not assessed")
-    out.limitations.append("No evaluated video deepfake detector is installed: synthetic or face-swapped content was not assessed")
+    out.limitations.append("No benchmarked video deepfake detector: synthetic or face-swapped content was not assessed")
     return out

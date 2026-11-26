@@ -5,7 +5,8 @@ import type {
   AcquisitionMethod, Case, CaseEvidenceStatistics, CaseInput, CasePatch, CaseQuery, CaseStatistics, CaseSummary, DatabaseStatus, EventPage,
   EvidenceListItem, EvidenceQuery, EvidenceStatistics, Evidence, IntegrityState, IntegrityVerification, Liveness, Metadata, ModuleCatalogue,
   Paginated, Readiness, SearchResults, SourceType, StorageStatus, UploadedEvidence,
-  AnalysisResult, EvidenceAnalysis, Job, JobQuery, ModuleResults, Notification, NotificationSummary, Run, WorkersStatus,
+  AnalysisResult, Connector, EvidenceAnalysis, Job, JobQuery, Lineage, ModuleResults, Notification, NotificationSummary, Run, Source, SourceObservation, WorkersStatus,
+  GraphSnapshot, Reconstruction, Report, Review, ReviewInput, Preferences, SystemConfig, RecentFinding,
 } from './types';
 
 const e = encodeURIComponent;
@@ -51,6 +52,11 @@ export const api = {
     storage: () => request<StorageStatus>('/system/storage'),
     modules: () => request<ModuleCatalogue>('/system/modules'),
     workers: () => request<WorkersStatus>('/system/workers'),
+    config: () => request<SystemConfig>('/system/config'),
+  },
+  preferences: {
+    get: () => request<Preferences>('/preferences'),
+    update: (version: number, preferences: Record<string, unknown>) => request<Preferences>('/preferences', { method: 'PATCH', ...json({ version, preferences }) }),
   },
   jobs: {
     list: (q: JobQuery = {}) => requestRaw<Paginated<Job>>(`/jobs${query({ ...q })}`),
@@ -69,6 +75,30 @@ export const api = {
     result: (resultId: string) => request<AnalysisResult>(`/analyses/${e(resultId)}`),
     moduleResults: (caseId: string, moduleId: string) => request<ModuleResults>(`/cases/${e(caseId)}/modules/${e(moduleId)}/results`),
     artifactUrl: (artifactId: string) => url(`/artifacts/${e(artifactId)}`),
+  },
+  sources: {
+    add: (caseId: string, url: string, notes?: string) => request<Source>(`/cases/${e(caseId)}/sources`, { method: 'POST', ...json({ url, notes: notes || null }) }),
+    list: (caseId?: string | null) => requestRaw<Paginated<Source>>(caseId ? `/cases/${e(caseId)}/sources` : '/sources'),
+    get: (id: string) => request<Source>(`/sources/${e(id)}`),
+    refresh: (id: string) => request<Source>(`/sources/${e(id)}/refresh`, { method: 'POST' }),
+    history: (id: string) => request<SourceObservation[]>(`/sources/${e(id)}/history`),
+    connectors: () => request<Connector[]>('/sources/connectors'),
+  },
+  lineage: (caseId: string) => request<Lineage>(`/cases/${e(caseId)}/lineage`),
+  findings: {
+    recent: (limit = 8, assertion?: 'OBSERVATION' | 'INFERENCE' | 'INCONCLUSIVE') => request<RecentFinding[]>(`/findings${query({ limit, assertion })}`),
+  },
+  graph: (caseId: string) => request<GraphSnapshot>(`/cases/${e(caseId)}/graph`),
+  reconstruction: (caseId: string) => request<Reconstruction>(`/cases/${e(caseId)}/reconstruction`),
+  reviews: {
+    list: (caseId: string, current = false) => request<Review[]>(`/cases/${e(caseId)}/reviews${query({ current })}`),
+    create: (caseId: string, body: ReviewInput) => request<Review>(`/cases/${e(caseId)}/reviews`, { method: 'POST', ...json(body) }),
+  },
+  reports: {
+    list: (caseId: string) => request<Report[]>(`/cases/${e(caseId)}/reports`),
+    create: (caseId: string, kind: 'DRAFT' | 'FINAL') => request<Report>(`/cases/${e(caseId)}/reports`, { method: 'POST', ...json({ kind }) }),
+    get: (id: string) => request<Report>(`/reports/${e(id)}`),
+    downloadUrl: (id: string, format: 'pdf' | 'json') => url(`/reports/${e(id)}/download${query({ format })}`),
   },
   notifications: {
     list: (unread = false, page = 1, pageSize = 30) => requestRaw<Paginated<Notification>>(`/notifications${query({ unread: unread || undefined, page, page_size: pageSize })}`),

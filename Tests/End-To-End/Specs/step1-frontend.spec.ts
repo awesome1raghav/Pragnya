@@ -173,7 +173,7 @@ test('search finds investigations and evidence through the API', async ({ page }
   const dialog = page.getByRole('dialog', { name: 'Search and commands' });
   await dialog.getByRole('combobox', { name: 'Search' }).fill(c.case_number);
   await expect(dialog.getByRole('option', { name: /Searchable/ })).toBeVisible();
-  await expect(dialog).toContainText('not searchable yet');
+  await expect(dialog).toContainText('Searched case, evidence, source, finding, report, review');  // Step 8: every stored type
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(new RegExp(`/investigations/${c.case_id}$`));
 });

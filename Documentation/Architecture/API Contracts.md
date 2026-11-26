@@ -92,16 +92,63 @@ Error codes in use: `VALIDATION_ERROR`, `NOT_FOUND`, `METHOD_NOT_ALLOWED`, `CASE
 returns typed artifact records. Findings carry `region` (percent of the image) or `time_range` (seconds) in their
 payload, `score_kind` METHOD_SPECIFIC, and no `confidence` (no method here is calibrated).
 
+### Step 5: sources and lineage
+
+| Method | Path | Purpose |
+|---|---|---|
+| POST | `/cases/{case_id}/sources` | 202: add a URL; a SOURCE_RESOLUTION job retrieves it. 409 `SOURCE_EXISTS`, `CASE_ARCHIVED`; 422 `INVALID_SOURCE_URL` |
+| GET | `/cases/{case_id}/sources`, `/sources` | Sources of a case / across investigations |
+| GET | `/sources/{source_id}` | Latest state, claimed publication time, retrieved evidence |
+| POST | `/sources/{source_id}/refresh` | 202: retrieve again (new revision). 409 `SOURCE_BUSY` |
+| GET | `/sources/{source_id}/history` | Every attempt: outcome, each redirect hop with the address it resolved to, content type, size, media hash |
+| GET | `/sources/connectors` | Which connectors exist (generic) and which need approved platform APIs |
+| GET | `/cases/{case_id}/lineage` | Nodes (evidence, their sources) and current CANDIDATE relationships with their basis |
+
+Source outcomes: RETRIEVED, METADATA_ONLY, UNAVAILABLE, RESTRICTED, NOT_FOUND, UNSUPPORTED, RATE_LIMITED, BLOCKED (SSRF
+rule), FAILED. Retrieved media is preserved as evidence (`source_type` SOURCE_RETRIEVAL) and gets its own run.
+
+### Visual search: local evidence and optional web leads
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/visual-search/status` | Local model, PostgreSQL and Qdrant readiness; whether the opt-in SerpApi provider is configured. Never returns the API key. |
+| POST | `/cases/{case_id}/visual-search` | Multipart image or image `url`, optional JSON `crop`, `top_k` 1–50, and `mode=local|web`. Local searches only the case's indexed evidence. Web requires `allow_external=true` and a configured free-plan SerpApi key; it returns unverified Google Lens leads. |
+| GET | `/visual-search/thumbnails/{token}` | Short-lived JPEG preview of a returned web match, fetched by the server under public-address and size limits. A blocked or expired preview returns 404; the source link remains available. |
+
+Web results have `page_url`, `image_url`, `title`, optional `thumbnail_token`, `match_type` (`VISUAL_MATCH` or `EXACT_MATCH_REPORTED`) and null score fields. The provider's exact-match label is not a forensic conclusion. Local results include a cosine similarity score from Qdrant and remain investigation scoped. A web request is never sent implicitly by local search.
+
 Upload responses (`POST /cases/{id}/evidence`) now carry `analysis_job: {job_id, job_number, state}` instead of
 `metadata_status`: metadata is extracted by the worker. Per-engine views use `/cases/{case_id}/modules/{module_id}/results`; re-running a module is `POST /evidence/{id}/analyze`
 (completed work with unchanged inputs is reused).
+
+### Step 7: graph, reconstruction, reviews, reports, projections
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/cases/{case_id}/graph` | Latest NEX-EGC snapshot: nodes, edges (each with the `record` that supports it), counts. 409 `GRAPH_NOT_BUILT` |
+| GET | `/cases/{case_id}/reconstruction` | Current NEX-REC timeline (RECEIVED, RETRIEVED, CLAIMED_CREATION, CLAIMED_PUBLICATION, each with who states it) and TIME_CONFLICT findings |
+| POST | `/cases/{case_id}/reviews` | 201: a decision on a FINDING, RELATIONSHIP or CASE_CONCLUSION (subject = the case), with rationale; version n+1 of that subject. 404 `REVIEW_SUBJECT_NOT_FOUND`; 409 `RECONSTRUCTION_REQUIRED`, `CASE_ARCHIVED` |
+| GET | `/cases/{case_id}/reviews?current=` | Every version, newest first; `current=true` keeps the latest per subject |
+| POST | `/cases/{case_id}/reports` | 202: `{kind: DRAFT|FINAL}`; a REPORT_GENERATION job writes JSON and PDF. 409 `CONCLUSION_REQUIRED` for FINAL without a reviewed conclusion |
+| GET | `/cases/{case_id}/reports`, `/reports/{report_id}` | Versions: state QUEUED/GENERATED/FAILED, SHA-256 of each file, frozen summary |
+| GET | `/reports/{report_id}/download?format=pdf|json` | The file, with `X-Report-SHA256`. 409 `REPORT_NOT_READY` |
+| GET | `/system/projections` | Neo4j consumer: configured, reachable, checkpoint, latest sequence, lag, pending snapshots, node and relationship counts |
+| POST | `/system/projections/neo4j/rebuild` | Re-project every case's latest snapshot from PostgreSQL. 503 `PROJECTION_UNAVAILABLE` |
+
+### Step 8: search, preferences, configuration
+
+| Method | Path | Purpose |
+|---|---|---|
+| GET | `/search?q=&limit=` | Hits of type CASE, EVIDENCE, SOURCE (URL, title, SRC-n), FINDING (current findings: title, type; with `evidence_id`), REPORT (RPT-n), REVIEW (rationale, REV-n); `searched_types` lists all six |
+| GET | `/preferences` | `{operator, version, preferences, effective, updated_at}`; version 0 = defaults, never saved |
+| PATCH | `/preferences` | `{version, preferences: <partial>}`; 409 `PREFERENCES_CONFLICT` (with the current document) when `version` is stale; 422 for unknown keys. Publishes `preferences.updated` |
+| GET | `/system/config` | Environment, version, operator, upload limit and auto-analysis default, job limits, detectors, projections, web visual search: no secrets |
+
+New outbox events: `preferences.updated`, `notification.read`. Notifications now also come from `source.retrieval_ended`
+(failure outcomes), `report.generated` and `report.failed`.
 
 ## Planned endpoints (by step)
 
 | Step | Domain → service | Endpoints |
 |---|---|---|
-| 5 | Source APIs → Source Service | `POST/GET /cases/{id}/sources`, `GET /sources`, `/sources/{id}`, `/resolve`, `/refresh`, `/history`, `/sources/connectors` |
-| 5 | T-MIR APIs (lineage) | `GET /cases/{id}/lineage`, `/lineage/relationships`, `/lineage/compare` |
 | 6 | T-MIR APIs (correlation) | `/cases/{id}/alignment`, `/transformations`, `/correlation` |
-| 7 | Graph, Review, Report APIs | `/cases/{id}/graph`, `/graph/nodes/{id}`, `/graph/edges/{id}`, `/cases/{id}/timeline`, `/cases/{id}/reconstruction`, `/cases/{id}/review`, `/reviews/{id}`, `/cases/{id}/decisions`, `/cases/{id}/reports`, `/reports/{id}` (+ preview, download, history) |
-| 8 | Preferences, configuration | `GET/PATCH /preferences`, `GET /system/config`, `/system/projections` |

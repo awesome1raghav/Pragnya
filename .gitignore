@@ -39,3 +39,13 @@ tmp/
 # Operating system files
 .DS_Store
 Thumbs.db
+# Detector weights and benchmark data (downloaded; pinned by SHA-256 in Backend/App/Detectors/Models.json)
+Backend/Models/
+Benchmarks/Data/
+
+# Benchmark run logs and resumable progress files
+Benchmarks/Results/*.log
+Benchmarks/Results/*.partial.jsonl
+
+# Encrypted backups (Scripts/Database); never committed
+/Backups/

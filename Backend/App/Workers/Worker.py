@@ -53,7 +53,11 @@ class Worker:
         self.storage = storage
         self.worker_id = worker_id or f"{socket.gethostname()}:{os.getpid()}:{uuid.uuid4().hex[:6]}"
         self.executors = executors
+        self.allow_addresses: frozenset[str] = frozenset()  # tests only: exact addresses exempt from the public-address rule
         self.stopping = threading.Event()
+        from Backend.App.Projections.Neo4jGraph import Neo4jGraph
+
+        self.graph = Neo4jGraph(settings, session_factory)
 
     # ── registration ──────────────────────────────────────────────────────────────────────
     def register(self) -> None:
@@ -72,6 +76,15 @@ class Worker:
         session.execute(update(WorkerProcess).where(WorkerProcess.worker_id == self.worker_id)
                         .values(heartbeat_at=_now(), current_job_id=job_id, state="RUNNING"))
         session.commit()
+
+    def project(self) -> None:
+        """Idle work: bring the Neo4j projection up to date. Failures wait for the next idle tick."""
+        try:
+            if self.graph.tick():
+                logger.info("Neo4j projection updated")
+        except Exception as exc:  # noqa: BLE001 — Neo4j down must not stop jobs
+            logger.warning("Neo4j projection not updated: %s", f"{type(exc).__name__}: {str(exc)[:200]}")
+            self.graph.close()
 
     # ── one job ───────────────────────────────────────────────────────────────────────────
     def recover(self) -> list[uuid.UUID]:
@@ -113,6 +126,19 @@ class Worker:
                                executors=self.executors).run(job_id)
                 logger.info("Job %s ended %s", job_id, state.value if state else "elsewhere (lease lost)")
                 return
+            if job_type == JobType.SOURCE_RESOLUTION.value:
+                from Backend.App.Modules.NexSrc import Service as SourceService
+
+                state = SourceService.run_retrieval(self.factory, self.storage, self.settings, job_id, self.worker_id,
+                                                    allow=self.allow_addresses)
+                logger.info("Source job %s ended %s", job_id, state.value if state else "elsewhere (lease lost)")
+                return
+            if job_type == JobType.REPORT_GENERATION.value:
+                from Backend.App.Modules.NexRpt import Service as ReportService
+
+                state = ReportService.generate(self.factory, self.storage, self.settings, job_id, self.worker_id)
+                logger.info("Report job %s ended %s", job_id, state.value if state else "elsewhere (lease lost)")
+                return
             with self.factory() as session:  # job types whose services are built in later steps
                 job = JobService.get_job(session, job_id)
                 JobService.finish(session, job, self.worker_id, JobState.FAILED,
@@ -149,11 +175,20 @@ class Worker:
             while not self.stopping.is_set():
                 try:
                     if self.process_one() is None:
+                        self.project()
+                        if self.settings.QDRANT_URL:
+                            from Backend.App.Modules.NexFpm.VisualSearch import index_pending
+                            with self.factory() as session:
+                                index_pending(session, self.storage, self.settings)
                         self.stopping.wait(self.settings.WORKER_POLL_SECONDS)
                 except Exception:  # database down, for example: keep the worker alive and try again
                     logger.exception("Worker loop error")
                     self.stopping.wait(max(self.settings.WORKER_POLL_SECONDS, 5))
         finally:
+            from Backend.App.Detectors import Host
+
+            Host.shared_host().close()  # stop the detector child process with the worker
+            self.graph.close()
             try:
                 self.deregister()
             except Exception:

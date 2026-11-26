@@ -49,4 +49,6 @@ def test_modules_endpoint(database_down_app):
     assert statuses["NEX-CM"] == statuses["NEX-CAP"] == statuses["NEX-EVD"] == "IMPLEMENTED"
     assert statuses["NEX-MET"] == "PARTIAL"
     assert statuses["NEX-IMG"] == statuses["NEX-VID"] == statuses["NEX-AUD"] == "PARTIAL" and statuses["NEX-PRV"] == "IMPLEMENTED"
-    assert sum(s == "NOT_IMPLEMENTED" for s in statuses.values()) == 10
+    assert statuses["NEX-SRC"] == statuses["NEX-MOC"] == "PARTIAL" and statuses["NEX-FPM"] == "IMPLEMENTED"
+    assert statuses["NEX-EGC"] == statuses["NEX-INV"] == statuses["NEX-RPT"] == "IMPLEMENTED" and statuses["NEX-REC"] == "PARTIAL"
+    assert sum(s == "NOT_IMPLEMENTED" for s in statuses.values()) == 0

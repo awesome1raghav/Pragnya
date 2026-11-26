@@ -1,0 +1,143 @@
+{
+  "measured_at": "2026-11-26T18:24:53.286759+00:00",
+  "api": "http://127.0.0.1:8001/api/v1",
+  "machine": {
+    "platform": "Windows-10-10.0.26300-SP0",
+    "processor": "AMD64 Family 25 Model 117 Stepping 2, AuthenticAMD",
+    "cpus": 16,
+    "python": "3.11.9"
+  },
+  "data_size": {
+    "cases": 226,
+    "evidence": 87
+  },
+  "reads": {
+    "GET /cases": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 30.7,
+        "p95_ms": 99.1,
+        "max_ms": 186.1
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 30.5,
+        "p95_ms": 119.0,
+        "max_ms": 146.8
+      }
+    ],
+    "GET /evidence": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 30.7,
+        "p95_ms": 78.2,
+        "max_ms": 86.8
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 64.7,
+        "p95_ms": 205.5,
+        "max_ms": 273.1
+      }
+    ],
+    "GET /cases/{id}/summary": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 31.4,
+        "p95_ms": 51.1,
+        "max_ms": 65.8
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 53.4,
+        "p95_ms": 177.9,
+        "max_ms": 207.7
+      }
+    ],
+    "GET /jobs": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 19.3,
+        "p95_ms": 58.5,
+        "max_ms": 74.4
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 40.8,
+        "p95_ms": 95.8,
+        "max_ms": 140.5
+      }
+    ],
+    "GET /search?q=e2e": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 33.3,
+        "p95_ms": 72.8,
+        "max_ms": 79.8
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 40.3,
+        "p95_ms": 155.8,
+        "max_ms": 189.8
+      }
+    ],
+    "GET /health/ready": [
+      {
+        "concurrency": 1,
+        "requests": 40,
+        "p50_ms": 34.6,
+        "p95_ms": 83.4,
+        "max_ms": 132.6
+      },
+      {
+        "concurrency": 16,
+        "requests": 160,
+        "p50_ms": 36.8,
+        "p95_ms": 163.2,
+        "max_ms": 187.1
+      }
+    ]
+  },
+  "uploads": [
+    {
+      "megabytes": 25,
+      "seconds": 0.26,
+      "mb_per_s": 96.1,
+      "sha256_recorded": true
+    },
+    {
+      "megabytes": 200,
+      "seconds": 1.02,
+      "mb_per_s": 195.4,
+      "sha256_recorded": true
+    }
+  ],
+  "image_runs_1024x768": [
+    {
+      "state": "COMPLETED",
+      "seconds": 1.14,
+      "modules": 12
+    },
+    {
+      "state": "COMPLETED",
+      "seconds": 1.18,
+      "modules": 12
+    },
+    {
+      "state": "COMPLETED",
+      "seconds": 1.04,
+      "modules": 12
+    }
+  ]
+}

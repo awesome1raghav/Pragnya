@@ -26,11 +26,21 @@ export const useDatabaseStatus = () => useQuery('system:database', api.system.da
 export const useStorageStatus = () => useQuery('system:storage', api.system.storage);
 export const useModules = () => useQuery('system:modules', api.system.modules);
 export const useWorkers = () => useQuery('system:workers', api.system.workers, { refreshMs: 15_000 });
+export const useSystemConfig = () => useQuery('system:config', api.system.config);
+export const usePreferences = () => useQuery('preferences', api.preferences.get);
 
 export const useJobs = (q: JobQuery = {}) => useQuery(`jobs:list:${k(q)}`, () => api.jobs.list(q));
 export const useRun = (jobId: string | null) => useQuery(jobId ? `run:${jobId}` : null, () => api.runs.get(jobId!));
 export const useCaseRuns = (caseId: string | null) => useQuery(caseId ? `jobs:case:${caseId}` : null, () => api.runs.list(caseId!));
 export const useModuleResults = (caseId: string | null, moduleId: string) => useQuery(caseId ? `case:${caseId}:module:${moduleId}` : null, () => api.analysis.moduleResults(caseId!, moduleId));
 export const useEvidenceAnalysis = (id: string | null) => useQuery(id ? `ev:${id}:analysis` : null, () => api.analysis.forEvidence(id!));
+export const useSources = (caseId: string | null) => useQuery(`sources:${caseId ?? 'all'}`, () => api.sources.list(caseId));
+export const useSourceHistory = (id: string | null) => useQuery(id ? `sources:history:${id}` : null, () => api.sources.history(id!));
+export const useConnectors = () => useQuery('sources:connectors', api.sources.connectors);
+export const useLineage = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:lineage` : null, () => api.lineage(caseId!));
 export const useNotifications = (unread: boolean) => useQuery(`notifications:list:${unread}`, () => api.notifications.list(unread));
 export const useNotificationSummary = () => useQuery('notifications:summary', api.notifications.summary, { refreshMs: 60_000 });
+export const useGraph = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:graph` : null, () => api.graph(caseId!));
+export const useReconstruction = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:reconstruction` : null, () => api.reconstruction(caseId!));
+export const useReviews = (caseId: string | null, current = false) => useQuery(caseId ? `case:${caseId}:reviews:${current}` : null, () => api.reviews.list(caseId!, current));
+export const useReports = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:reports` : null, () => api.reports.list(caseId!));

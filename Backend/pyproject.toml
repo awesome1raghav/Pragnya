@@ -19,10 +19,38 @@ dependencies = [
     "pillow==13.0.0",
     "numpy==2.4.6",          # NEX-IMG / NEX-VID / NEX-AUD signal processing
     "c2pa-python==0.39.0",   # NEX-PRV: the C2PA SDK (c2pa-rs 0.92)
+    "reportlab==4.4.4",      # NEX-RPT: PDF rendering of reports
+    "neo4j==5.28.2",         # graph projection driver (Neo4j 5.26 server)
+    "cryptography==50.0.2",  # AES-256-GCM backup encryption (Scripts/Database)
+    "httpx==0.28.1",         # visual-search provider client and Step 9 drills
 ]
 
 [project.optional-dependencies]
+visual = [
+    "torch==2.15.0",
+    "transformers==5.24.1",
+    "safetensors==0.8.0",
+    "huggingface_hub==2.4.0",
+]
 test = [
     "pytest==9.2.0",
     "httpx==0.28.1",
+]
+# Pretrained detectors (Backend/App/Detectors). PyTorch CPU wheels come from https://download.pytorch.org/whl/cpu.
+detectors = [
+    "torch==2.15.0",
+    "torchvision==0.29.2",
+    "timm==1.0.31",              # Community Forensics (ViT-S/16), SPAI layers
+    "transformers==5.24.1",      # XLS-R front-end for SSL-AASIST
+    "safetensors==0.8.0",
+    "yacs==0.1.8",               # SPAI configuration
+    "einops==0.8.2",             # SPAI
+]
+# Detector benchmark only (Benchmarks/Detectors) and fetching weights
+benchmark = [
+    "scikit-learn==1.9.1",
+    "pyarrow==26.0.1",
+    "pandas==3.1.1",
+    "huggingface_hub==2.4.0",
+    "gdown==6.5.2",
 ]

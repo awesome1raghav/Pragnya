@@ -85,6 +85,7 @@ def close_execution(
     errors: list[ModuleError] | None = None,
     tool_versions: dict[str, str] | None = None,
     artifacts: list[ArtifactRef] | None = None,
+    related_evidence: list[uuid.UUID] | None = None,
 ) -> AnalysisResult:
     finished = _now()
     started = execution.started_at
@@ -112,6 +113,7 @@ def close_execution(
         limitations=limitations or [],
         warnings=warnings or [],
         artifacts=artifacts or [],
+        related_evidence=related_evidence or [],
         dependencies=dependencies or [],
         tool_versions=tool_versions or {},
         parameters=execution.parameters,

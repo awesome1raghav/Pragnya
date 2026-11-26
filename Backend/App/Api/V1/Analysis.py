@@ -124,3 +124,27 @@ def artifact_content(artifact_id: uuid.UUID, session: Session = Depends(get_db_s
             summary="One evidence-scoped module's current results for every evidence item in a case")
 def case_module_results(case_id: uuid.UUID, module_id: str, session: Session = Depends(get_db_session)):
     return envelope(TMirService.module_results(session, case_id, module_id), "Module results retrieved successfully")
+
+
+@router.get("/findings", response_model=SuccessEnvelope[list[dict]],
+            summary="Recent current findings across investigations (what each method reported, at its assertion level)")
+def recent_findings(limit: int = Query(default=8, ge=1, le=50),
+                    assertion: str | None = Query(default=None, pattern="^(OBSERVATION|INFERENCE|INCONCLUSIVE)$"),
+                    session: Session = Depends(get_db_session)):
+    from sqlalchemy import select
+
+    from Database.PostgreSQL.Models import AnalysisFinding, AnalysisResult, Case, Evidence
+
+    q = (select(AnalysisFinding, Case).join(AnalysisResult, AnalysisResult.id == AnalysisFinding.result_id)
+         .join(Case, Case.id == AnalysisFinding.case_id).where(AnalysisResult.superseded_at.is_(None))
+         .order_by(AnalysisFinding.created_at.desc()).limit(limit))
+    if assertion:
+        q = q.where(AnalysisFinding.assertion == assertion)
+    rows = session.execute(q).all()
+    ids = {e for f, _ in rows for e in f.evidence_ids}
+    numbers = {e.id: e.display_number for e in session.scalars(select(Evidence).where(Evidence.id.in_(ids)))} if ids else {}
+    return envelope([{"finding_id": str(f.id), "module_id": f.module_id, "finding_type": f.finding_type, "assertion": f.assertion,
+                      "title": f.title, "score": f.score, "score_kind": f.score_kind, "created_at": f.created_at.isoformat(),
+                      "case_id": str(c.id), "case_number": c.display_number,
+                      "evidence": [{"evidence_id": str(e), "evidence_number": numbers.get(e)} for e in f.evidence_ids]} for f, c in rows],
+                    f"{len(rows)} findings")

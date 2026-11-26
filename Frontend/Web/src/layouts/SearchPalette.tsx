@@ -1,19 +1,29 @@
 'use client';
 
-/* Global search and command palette (Ctrl/⌘ K). Commands are filtered locally; investigations and
-   evidence come from the backend's /search, so results cover everything stored, not just what is on
-   screen. The palette says which resource types it cannot search yet. */
+/* Global search and command palette (Ctrl/⌘ K). Commands are filtered locally; investigations, evidence, sources,
+   findings, reports and reviews come from the backend's /search, so results cover everything stored, not just what is
+   on screen. The palette says which resource types it searched. */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { FileSearch, FolderOpen, LoaderCircle, PanelLeft, Plus, Search, Upload, type LucideIcon } from 'lucide-react';
+import { FileSearch, FileText, FolderOpen, Gavel, Globe2, LoaderCircle, PanelLeft, Plus, ScanSearch, Search, Upload, type LucideIcon } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
-import { api, type ApiError, type SearchResults } from '@/api';
+import { api, type ApiError, type SearchHit, type SearchResults } from '@/api';
 import { NAV } from '@/config/navigation';
 import { paths } from '@/config/routes';
 import { useCaseContext } from '@/state/CaseContext';
 
 type Item = { id: string; group: string; label: string; hint?: string; icon: LucideIcon; run: () => void };
+
+const HIT: Record<SearchHit['type'], { group: string; icon: LucideIcon; href: (h: SearchHit) => string }> = {
+  CASE: { group: 'Investigations', icon: FolderOpen, href: h => paths.case(h.id) },
+  EVIDENCE: { group: 'Evidence', icon: FileSearch, href: h => paths.evidence(h.id) },
+  SOURCE: { group: 'Sources', icon: Globe2, href: h => paths.sources(h.case_id) },
+  FINDING: { group: 'Findings', icon: ScanSearch, href: h => h.evidence_id ? paths.evidence(h.evidence_id, 'analysis') : paths.caseAnalysis(h.case_id) },
+  REPORT: { group: 'Reports', icon: FileText, href: h => paths.caseReport(h.case_id) },
+  REVIEW: { group: 'Reviews', icon: Gavel, href: h => paths.caseReview(h.case_id) },
+};
+const GROUPS = ['Investigations', 'Evidence', 'Sources', 'Findings', 'Reports', 'Reviews', 'Actions', 'Go to'];
 
 function score(q: string, text: string) {
   if (!q) return 1;
@@ -62,10 +72,9 @@ export default function SearchPalette({ open, onClose, toggleRail }: { open: boo
     const text = q.trim();
     const filtered = text ? commands.map(it => ({ it, sc: score(text, it.label) })).filter(x => x.sc > 0).sort((a, b) => b.sc - a.sc).slice(0, 6).map(x => x.it) : commands;
     const hits: Item[] = found?.res?.hits.map(h => ({
-      id: `${h.type}-${h.id}`, group: h.type === 'CASE' ? 'Investigations' : 'Evidence', label: h.title, hint: h.subtitle,
-      icon: h.type === 'CASE' ? FolderOpen : FileSearch, run: go(h.type === 'CASE' ? paths.case(h.id) : paths.evidence(h.id)),
+      id: `${h.type}-${h.id}`, group: HIT[h.type].group, label: h.title, hint: h.subtitle, icon: HIT[h.type].icon, run: go(HIT[h.type].href(h)),
     })) ?? [];
-    const order = (g: string) => ({ Investigations: 0, Evidence: 1, Actions: 2, 'Go to': 3 } as Record<string, number>)[g] ?? 9;
+    const order = (g: string) => { const i = GROUPS.indexOf(g); return i < 0 ? 99 : i; };
     return [...hits, ...filtered].sort((a, b) => order(a.group) - order(b.group));
   }, [q, found, caseId, toggleRail, router]);
 
@@ -87,7 +96,7 @@ export default function SearchPalette({ open, onClose, toggleRail }: { open: boo
     <motion.div className={s.palette} role='dialog' aria-modal='true' aria-label='Search and commands' initial={{ opacity: 0, y: -8, scale: .985 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -6, scale: .99 }} transition={{ duration: .16, ease: [.22, 1, .36, 1] }}>
       <div className={s.palInput}>
         {busy ? <LoaderCircle size={18} className={s.spin} /> : <Search size={18} />}
-        <input ref={input} value={q} onChange={e => setQ(e.target.value)} onKeyDown={onKey} placeholder='Search investigations and evidence, or run a command' aria-label='Search' role='combobox' aria-expanded='true' aria-controls='pal-list' aria-activedescendant={`pal-${sel}`} />
+        <input ref={input} value={q} onChange={e => setQ(e.target.value)} onKeyDown={onKey} placeholder='Search investigations, evidence, sources, findings, reports, reviews, or run a command' aria-label='Search' role='combobox' aria-expanded='true' aria-controls='pal-list' aria-activedescendant={`pal-${sel}`} />
         <kbd className={s.kbd}>Esc</kbd>
       </div>
       <div ref={list} className={s.palList} id='pal-list' role='listbox'>
@@ -100,12 +109,12 @@ export default function SearchPalette({ open, onClose, toggleRail }: { open: boo
             </button>
           </div>;
         })}
-        {text.length >= 2 && !busy && found?.res && found.res.hits.length === 0 && <p className={s.palEmpty}>No investigation or evidence matches “{text}”.</p>}
+        {text.length >= 2 && !busy && found?.res && found.res.hits.length === 0 && <p className={s.palEmpty}>Nothing matches “{text}” in investigations, evidence, sources, findings, reports or reviews.</p>}
         {found?.err && <p className={s.palEmpty}>Search failed: {found.err.unreachable ? 'the API is unreachable' : found.err.message}</p>}
       </div>
       <div className={s.palFoot}>
         <span><kbd>↑ ↓</kbd>Navigate</span><span><kbd>↵</kbd>Open</span>
-        <span style={{ marginLeft: 'auto' }}>{found?.res ? `Searches ${found.res.searched_types.map(t => t.toLowerCase()).join(' and ')}; ${found.res.not_searchable_yet.map(t => `${t.toLowerCase()}s`).join(', ')} are not searchable yet` : 'Type 2+ characters to search investigations and evidence'}</span>
+        <span style={{ marginLeft: 'auto' }}>{found?.res ? `Searched ${found.res.searched_types.map(t => t.toLowerCase()).join(', ')}${found.res.not_searchable_yet.length ? `; ${found.res.not_searchable_yet.map(t => `${t.toLowerCase()}s`).join(', ')} are not searchable yet` : ''}` : 'Type 2+ characters to search investigations, evidence, sources, findings, reports and reviews'}</span>
       </div>
     </motion.div>
   </>}</AnimatePresence>;

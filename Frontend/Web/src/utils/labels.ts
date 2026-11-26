@@ -42,6 +42,7 @@ const REASON: Record<string, string> = {
   UPSTREAM_FAILED: 'a required input failed', CANCELLED: 'job cancelled before it started', JOB_TIMEOUT: 'job ran out of time before it started',
   MODULE_NOT_IMPLEMENTED: 'not built yet', TOOL_UNAVAILABLE: 'its tool is not installed', TIMEOUT: 'exceeded its time limit', ERROR: 'error',
   LEASE_EXPIRED: 'worker stopped while running; retried', REUSED: 'result reused', SUPERSEDED: 'superseded by an identical concurrent run',
+  DETECTOR_NOT_INSTALLED: 'detector not installed', DETECTOR_DISABLED: 'detector turned off', DETECTOR_FAILED: 'detector did not produce a score',
 };
 export const reasonLabel = (r: string | null | undefined) => (r ? REASON[r] ?? r.toLowerCase().replace(/_/g, ' ') : null);
 /** The reason in words plus the recorded detail, without saying the same thing twice. */

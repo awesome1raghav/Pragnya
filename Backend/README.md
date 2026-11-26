@@ -7,16 +7,19 @@ Database code lives only in the root `Database/` package; this folder holds the 
 
 | Built and tested | Not built yet |
 |---|---|
-| App factory, settings, `{success, data, meta}` envelope, error envelope, `X-Request-ID` | Evaluated deepfake / synthetic-media detectors (need a model choice and its weights) |
-| `/health`, `/health/ready` (database + storage), `/system/database`, `/system/storage`, `/system/workers` | Per-pair ALN/TRN expansion (Step 6) |
-| NEX-CM cases: create, list/filter/sort/page, get, patch, archive, reopen, summary, statistics, events | Sources, fingerprints, Neo4j, Qdrant (Step 5); Redis is deferred |
+| App factory, settings, `{success, data, meta}` envelope, error envelope, `X-Request-ID` | A benchmarked face-manipulation video detector (GenD is pinned; needs a licensed face-swap test set) |
+| `/health`, `/health/ready` (database + storage), `/system/database`, `/system/storage`, `/system/workers` | Event-level reconstruction beyond dated statements and their conflicts (NEX-REC) |
+| NEX-CM cases: create, list/filter/sort/page, get, patch, archive, reopen, summary, statistics, events | Qdrant (no embedding model adopted); Redis is deferred |
 | NEX-CAP streamed multipart upload with signature + decode validation | Authentication (single local operator for now; API binds to 127.0.0.1) |
-| NEX-EVD SHA-256 while streaming, read-only originals, custody events, verify-integrity, preview (Range), download, history | Derived artifacts (thumbnails, frames) |
+| NEX-EVD SHA-256 while streaming, read-only originals, custody events, verify-integrity, preview (Range), download, history | Reviewer roles (single local operator) |
 | NEX-MET FFprobe (video/audio) and Pillow + EXIF (images) metadata, versioned, run by T-MIR in workers | |
+| NEX-SRC (SSRF-safe retrieval), NEX-FPM, NEX-MOC; NEX-ALN, NEX-TRN, NEX-CMC | |
+| NEX-EGC graph snapshots, NEX-REC timeline and time conflicts, NEX-INV versioned reviews, NEX-RPT JSON + PDF reports (worker job, SHA-256) | |
+| Neo4j 5.26 projection kept current by the worker; `/system/projections`, rebuild from PostgreSQL | |
 | T-MIR planner and runner; Job Service (claims with SKIP LOCKED, leases, fencing, recovery, retry with backoff, cancel, timeouts); worker process | |
 | Transactional outbox, dispatcher, WebSockets, notifications; Job, Run, Analysis and Notification APIs | |
 | Media engines NEX-IMG, NEX-VID, NEX-AUD (measurement methods) and NEX-PRV (C2PA SDK); derived artifacts, `GET /artifacts/{id}` | Chromaprint fingerprints (install `fpcalc`; set `FPCALC_PATH`) |
-| Migrations `0001` baseline, `0002` cases/evidence/metadata/events with append-only triggers, `0003` case objectives and category, `0004` jobs/executions/results/findings/artifacts/outbox, `0005` workers and notifications | |
+| Migrations `0001` baseline, `0002` cases/evidence/metadata/events with append-only triggers, `0003` case objectives and category, `0004` jobs/executions/results/findings/artifacts/outbox, `0005` workers and notifications, `0006` sources/fingerprints/relationships, `0007` graph snapshots, reviews, reports | |
 | Frontend support: `GET /evidence` (all investigations, filters, search), `GET /search`, `GET /system/modules` (module catalogue from flowchart A1), `last_activity_at` on cases | |
 
 ## Run it (Windows PowerShell, from the repository root)
@@ -38,12 +41,31 @@ py -3.11 -m venv .venv
 # 4. At least one worker, in another terminal (uploads queue analysis; without a worker it waits)
 .\.venv\Scripts\python.exe -m Backend.App.Workers.Worker
 
+# Optional: pretrained detectors (about 2.6 GB of weights into Backend/Models, pinned by SHA-256 in
+# Backend/App/Detectors/Manifest.py; see Documentation/Testing/Detector Benchmark.md). Without them the
+# engines still run and say that the detector is not installed.
+
 # 5. Tests (integration tests need the Compose PostgreSQL running)
 .\.venv\Scripts\python.exe -m pytest Tests
 ```
 
 PostgreSQL is published on `127.0.0.1:5433` (not 5432, which a native install may already use).
 The password in both `.env` files must match; neither file is committed.
+
+## Run it in containers
+
+```powershell
+docker compose -f Infrastructure/Docker/docker-compose.yml --profile app up -d --build
+```
+API on http://localhost:8100, web on http://localhost:8180, database `nextron_app` (create it first; kept apart from a
+natively run API's database). The image is lean: no PyTorch, so detectors and local visual search report themselves
+unavailable.
+
+```powershell
+docker compose -f Infrastructure/Docker/docker-compose.yml --profile ci run --rm tests
+```
+Backend suite in a clean image. Backups and restore: [Backup and Recovery](../Documentation/Operations/Backup%20and%20Recovery.md).
+Security controls and open gaps: [Security Review](../Documentation/Testing/Security%20Review.md).
 
 ## Layout
 

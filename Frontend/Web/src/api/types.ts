@@ -107,7 +107,8 @@ export type ModuleEdge = { upstream: string; downstream: string; kind: 'REQUIRED
 export type ModuleCatalogue = { source: string; groups: string[]; modules: ModuleInfo[]; edges: ModuleEdge[]; tmir: { status: ModuleStatus; coordinates: string[] }; execution_tracking: 'PERSISTED' };
 
 /* ── search ── */
-export type SearchHit = { type: 'CASE' | 'EVIDENCE'; id: string; title: string; subtitle: string; case_id: string; case_number: string };
+export type SearchHitType = 'CASE' | 'EVIDENCE' | 'SOURCE' | 'FINDING' | 'REPORT' | 'REVIEW';
+export type SearchHit = { type: SearchHitType; id: string; title: string; subtitle: string; case_id: string; case_number: string; evidence_id: string | null };
 export type SearchResults = { query: string; hits: SearchHit[]; searched_types: string[]; not_searchable_yet: string[] };
 
 /* ── jobs, T-MIR runs and analysis (plan Step 3) ── */
@@ -159,3 +160,44 @@ export type WorkersStatus = { alive: number; workers: WorkerInfo[]; lease_second
 /* ── live events (WebSocket /ws/events) ── */
 export type LiveEvent = { type: 'event'; sequence: number; event_id: string; schema_version: string; event_type: string; aggregate_type: string; aggregate_id: string; case_id: string | null; job_id: string | null; module_id: string | null; payload: Record<string, unknown>; created_at: string | null };
 export type LiveMessage = LiveEvent | { type: 'replay_complete'; after: number; latest: number } | { type: 'heartbeat'; latest: number } | { type: 'pong' };
+
+/* ── sources (NEX-SRC) and lineage (NEX-MOC), plan Step 5 ── */
+export type SourceState = 'PENDING' | 'RETRIEVED' | 'METADATA_ONLY' | 'UNAVAILABLE' | 'RESTRICTED' | 'NOT_FOUND' | 'UNSUPPORTED' | 'RATE_LIMITED' | 'BLOCKED' | 'FAILED';
+export type Source = {
+  source_id: string; source_number: string; case_id: string; url: string; normalized_url: string; platform: string; state: SourceState; state_detail: string | null;
+  revision: number; title: string | null; claimed_publication_time: string | null; evidence_id: string | null; notes: string | null; created_by: string;
+  created_at: string; last_retrieved_at: string | null; job_id: string | null;
+};
+export type SourceObservation = {
+  revision: number; connector: string; outcome: SourceState; detail: string | null; requested_url: string; final_url: string | null;
+  redirects: { url: string; address: string | null; status: number | null }[]; http_status: number | null; content_type: string | null;
+  bytes_received: number | null; media_sha256: string | null; evidence_id: string | null; metadata: Record<string, unknown>; retrieved_at: string;
+};
+export type Connector = { connector: string; available: boolean; covers: string; retrieves: string };
+export type LineageNode = { evidence_id: string; evidence_number: string; filename: string; media_type: MediaType; source_type: SourceType; received_at: string; fingerprinted: boolean; sources: { source_id: string; source_number: string; url: string; claimed_publication_time: string | null; title: string | null }[] };
+export type LineageEdge = { relationship_id: string; evidence_a: string; evidence_b: string; kind: string; status: 'CANDIDATE'; similarity: number; earlier_observed: string | null; ordering_basis: string | null; basis: Record<string, unknown>; created_at: string };
+export type Lineage = { case_id: string; nodes: LineageNode[]; edges: LineageEdge[]; note: string };
+
+/* ── evidence graph, reconstruction, reviews and reports (NEX-EGC, NEX-REC, NEX-INV, NEX-RPT), plan Step 7 ── */
+export type GraphNodeType = 'CASE' | 'EVIDENCE' | 'SOURCE' | 'FINDING';
+export type GraphNode = { id: string; type: GraphNodeType; label: string; [k: string]: unknown };
+export type GraphEdge = { from: string; to: string; type: 'CONTAINS' | 'RETRIEVED_AS' | 'CANDIDATE_VERSION' | 'ABOUT' | 'CITES'; record: string; [k: string]: unknown };
+export type GraphSnapshot = { snapshot_id: string; case_id: string; execution_id: string; nodes: GraphNode[]; edges: GraphEdge[]; counts: Record<string, number>; created_at: string };
+export type TimelineEntry = { time: string; kind: 'RECEIVED' | 'RETRIEVED' | 'CLAIMED_CREATION' | 'CLAIMED_PUBLICATION'; label: string; by: string; evidence_id?: string | null; source_id?: string; raw?: string };
+export type Reconstruction = { result_id: string | null; produced_at: string | null; timeline: TimelineEntry[]; conflicts: { finding_id: string; title: string; description: string | null; evidence_ids: string[]; assertion: string }[] };
+export type ReviewSubject = 'FINDING' | 'RELATIONSHIP' | 'CASE_CONCLUSION';
+export type ReviewDecision = 'ACCEPTED' | 'REJECTED' | 'INCONCLUSIVE' | 'NEEDS_MORE_EVIDENCE';
+export type Review = { review_id: string; review_number: string; case_id: string; subject_type: ReviewSubject; subject_id: string; version: number; decision: ReviewDecision; rationale: string; reconstruction_result_id: string | null; reviewer: string; created_at: string };
+export type ReviewInput = { subject_type: ReviewSubject; subject_id: string; decision: ReviewDecision; rationale: string };
+export type Report = { report_id: string; report_number: string; case_id: string; version: number; kind: 'DRAFT' | 'FINAL'; state: 'QUEUED' | 'GENERATED' | 'FAILED'; job_id: string | null; json_sha256: string | null; pdf_sha256: string | null; summary: Record<string, unknown>; error: string | null; requested_by: string; created_at: string; generated_at: string | null };
+
+/* ── preferences and configuration (Step 8) ── */
+export type NotificationPrefs = { runs_completed: boolean; runs_partial: boolean; runs_failed: boolean; runs_cancelled: boolean; sources: boolean; reports: boolean };
+export type PreferenceDocument = { notifications: NotificationPrefs; analysis: { auto_analyze_on_upload: boolean | null }; reports: { default_download: 'pdf' | 'json' } };
+export type Preferences = { operator: string; version: number; preferences: PreferenceDocument; effective: { auto_analyze_on_upload: boolean; integrity_notifications: string }; updated_at: string | null };
+export type SystemConfig = {
+  environment: string; version: string; operator: string; uploads: { max_bytes: number; auto_analyze_default: boolean };
+  jobs: { lease_seconds: number; max_attempts: number; job_timeout_seconds: number; module_timeout_seconds: number };
+  detectors: { enabled: boolean; image: string | null; speech: string | null; timeout_seconds: number }; projections: { neo4j: boolean; qdrant: boolean }; web_visual_search?: { enabled: boolean; key_configured: boolean }; cors_origins: string[];
+};
+export type RecentFinding = { finding_id: string; module_id: string; finding_type: string; assertion: 'OBSERVATION' | 'INFERENCE' | 'INCONCLUSIVE'; title: string; score: number | null; score_kind: string | null; created_at: string; case_id: string; case_number: string; evidence: { evidence_id: string; evidence_number: string | null }[] };

@@ -3,6 +3,9 @@
    (no reload) → every module is explained → a second run reuses the completed work → a notification exists. */
 import { expect, test, type Page } from '@playwright/test';
 import path from 'node:path';
+import fs from 'node:fs';
+import os from 'node:os';
+import { execFileSync } from 'node:child_process';
 
 const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
 const SHOTS = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'Screenshots');
@@ -40,18 +43,19 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
   const queue = page.getByRole('region', { name: 'Upload queue' });
   await expect(queue).toContainText(/analysis JOB-\d+ queued/);
 
-  await queue.getByRole('link', { name: /JOB-\d+/ }).click();
+  const uploadedJob = (await queue.getByRole('link', { name: /JOB-\d+/ }).innerText()).trim();
+  await queue.getByRole('link', { name: uploadedJob }).click();
   await expect(page.getByRole('heading', { level: 1, name: 'Analysis' })).toBeVisible();
   const modules = page.getByRole('region', { name: 'Modules for this evidence' });
   // arrives through the WebSocket: the page is not reloaded
   await expect(modules.getByRole('row', { name: /^NEX-MET / })).toContainText('Completed');
   await expect(modules.getByRole('row', { name: /^NEX-VID / })).toContainText('does not apply to this media');
   await expect(modules.getByRole('row', { name: /^NEX-AUD / })).toContainText('Skipped');
-  await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('Partial');  // engine ran; no detector installed
-  await expect(modules.getByRole('row', { name: /^NEX-FPM / })).toContainText('not built yet');
+  await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('Completed');  // measurement methods + detector
+  await expect(modules.getByRole('row', { name: /^NEX-FPM / })).toContainText('Completed');  // fingerprints (Step 5)
   await expect(page.getByRole('region', { name: 'Findings' })).toContainText('Container and embedded metadata recorded');
   const runs = page.getByRole('region', { name: 'Runs for this evidence' });
-  await expect(runs).toContainText('Partially completed');
+  await expect(runs).toContainText(/Completed · 12 of 12 modules finished/)  // every module runs since Step 7 (EGC, REC built);
   await expect(page.getByRole('region', { name: 'Case-level modules of the latest run' })).toContainText('NEX-EGC');
   await shot(page, '19-evidence-analysis');
 
@@ -62,7 +66,7 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
   await page.getByRole('link', { name: 'Analysis', exact: true }).click();
   await page.getByRole('button', { name: 'Run analysis' }).click();
   await expect(runs.getByRole('listitem')).toHaveCount(2);
-  await expect(runs.getByRole('listitem').first()).toContainText('Partially completed');
+  await expect(runs.getByRole('listitem').first()).toContainText(/Completed/);
 
   await page.goto(`/investigations/${c.case_id}/analysis`);
   const plan = page.getByRole('region', { name: 'Latest run plan' });
@@ -72,7 +76,7 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
   await shot(page, '20-case-analysis');
 
   await page.goto('/notifications');
-  await expect(page.locator('main')).toContainText(/JOB-\d+ completed partially/);
+  await expect(page.locator('main')).toContainText(`${uploadedJob} completed`);
   await shot(page, '21-notifications');
 
   await page.goto('/system');
@@ -81,9 +85,25 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
   await shot(page, '22-system-workers');
 });
 
+/* A run that ends PARTIALLY_COMPLETED on any stack: a short video, because no evaluated video detector is installed
+   (NEX-VID reports DETECTOR_NOT_INSTALLED). Made here with ffmpeg (FFMPEG_PATH or ffmpeg on PATH). */
+async function partialRun(): Promise<{ job_id: string; job_number: string }> {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'nextron-e2e-'));
+  const clip = path.join(dir, 'clip.mp4');
+  execFileSync(process.env.FFMPEG_PATH ?? 'ffmpeg', ['-v', 'error', '-y', '-f', 'lavfi', '-i', 'testsrc=size=160x120:rate=10:duration=1',
+    '-pix_fmt', 'yuv420p', '-c:v', 'libx264', clip]);
+  const c = (await (await fetch(`${API}/cases`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: `[E2E] Retry ${Date.now()}` }) })).json()).data;
+  const form = new FormData();
+  form.append('file', new Blob([fs.readFileSync(clip)], { type: 'video/mp4' }), 'clip.mp4');
+  const job = (await (await fetch(`${API}/cases/${c.case_id}/evidence`, { method: 'POST', body: form })).json()).data.analysis_job;
+  fs.rmSync(dir, { recursive: true, force: true });
+  await expect.poll(async () => (await (await fetch(`${API}/jobs/${job.job_id}`)).json()).data.state, { timeout: 90_000 }).toBe('PARTIALLY_COMPLETED');
+  return job;
+}
+
 test('retrying a partial run from the job monitor queues a new job that the worker finishes', async ({ page }) => {
-  const jobs = (await (await fetch(`${API}/jobs?state=PARTIALLY_COMPLETED&page_size=1`)).json()).data;
-  expect(jobs.length, 'the previous test leaves a partially completed run').toBe(1);
+  test.setTimeout(150_000);
+  const jobs = [await partialRun()];
   const before = (await (await fetch(`${API}/jobs?page_size=1`)).json()).pagination.total_items;
   await page.goto('/dashboard');
   await expect(page.getByRole('link', { name: /System status: System ready/ })).toBeVisible();
@@ -95,7 +115,9 @@ test('retrying a partial run from the job monitor queues a new job that the work
   expect(after.pagination.total_items).toBe(before + 1);
   const retried = after.data[0];
   expect(retried.parameters.retry_of).toBe(jobs[0].job_id);
-  // the worker picks it up; the drawer follows through live events
-  await expect(drawer.getByRole('region', { name: 'Recent jobs' })).toContainText(retried.job_number);
+  // the worker picks it up and reuses completed work; the video detector is still missing, so the retry ends partial too
+  // and the drawer, following live events, lists it under "Needs attention"
+  await expect.poll(async () => (await (await fetch(`${API}/jobs/${retried.job_id}`)).json()).data.state, { timeout: 60_000 }).toBe('PARTIALLY_COMPLETED');
+  await expect(drawer.getByRole('region', { name: 'Jobs requiring attention' })).toContainText(retried.job_number);
   await shot(page, '16-job-monitor');
 });

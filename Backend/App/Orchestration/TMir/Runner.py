@@ -27,7 +27,7 @@ from dataclasses import dataclass, field
 from datetime import datetime, timedelta, timezone
 from typing import Any, Callable
 
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, sessionmaker
 
@@ -39,13 +39,13 @@ from Backend.App.Orchestration.TMir import Planner, Recording
 from Backend.App.Orchestration.TMir.Executors import EXECUTORS, NOT_IMPLEMENTED, ExecutionContext, ModuleExecutor, Outcome, default_inputs
 from Backend.App.Storage.StorageInterface import EvidenceStorage
 from Backend.App.Workers import JobService
-from Database.PostgreSQL.Models import AnalysisExecution, AnalysisJob, AnalysisResult, Evidence
+from Database.PostgreSQL.Models import AnalysisExecution, AnalysisJob, AnalysisResult, Evidence, MediaRelationship
 
 logger = logging.getLogger("nextron.tmir")
 
 NOT_IMPLEMENTED_VERSION = "not-implemented"
 _PLANNED_STEP = {  # where each unbuilt module is scheduled in the approved plan
-    "NEX-IMG": 4, "NEX-VID": 4, "NEX-AUD": 4, "NEX-PRV": 4, "NEX-FPM": 5, "NEX-MOC": 5,
+    "NEX-IMG": 4, "NEX-VID": 4, "NEX-AUD": 4, "NEX-PRV": 4, "NEX-FPM": 5, "NEX-MOC": 5,  # (built; kept for history)
     "NEX-ALN": 6, "NEX-TRN": 6, "NEX-CMC": 6, "NEX-EGC": 7, "NEX-REC": 7,
 }
 
@@ -272,6 +272,8 @@ class Runner:
 
         if decision.action is R.Action.SKIP:
             return end_now(ExecutionState.SKIPPED, decision.reason.value, "; ".join(limitations) or None)
+        if R.spec(module_id).scope is R.Scope.PAIR and not self._proposed_pairs(session, job.case_id):
+            return end_now(ExecutionState.SKIPPED, SkipReason.NO_INPUT.value, "NEX-MOC proposed no pairs of related evidence to compare")
         if executor is None:
             step = _PLANNED_STEP.get(module_id)
             return end_now(ExecutionState.UNAVAILABLE, NOT_IMPLEMENTED,
@@ -299,6 +301,7 @@ class Runner:
 
         def finish(s: Session, p: dict, record: bool) -> None:
             outcome.artifacts.clear()  # a retried recording must not list artifacts twice
+            outcome.related.clear()
             e = Recording.find_entry(p, key)
             ex = s.get(AnalysisExecution, opened["id"])
             findings = executor.record(s, ctx, outcome) if record else []
@@ -306,6 +309,7 @@ class Runner:
                 s, job, e, ex, status=outcome.status, reason=outcome.reason, detail=outcome.detail, evidence_ids=evidence_ids,
                 inputs=inputs, findings=findings, dependencies=view.dependencies, limitations=limitations + outcome.limitations,
                 warnings=outcome.warnings, errors=outcome.errors, tool_versions=outcome.tool_versions, artifacts=outcome.artifacts,
+                related_evidence=outcome.related,
             )
             e.update(state=outcome.status.value, reason=outcome.reason, detail=outcome.detail, execution_id=str(ex.id),
                      result_id=str(result.id) if outcome.status.produced_output else None, running_execution_id=None,
@@ -329,6 +333,12 @@ class Runner:
             outcome = Outcome(ExecutionState.FAILED, FailureReason.ERROR.value, f"Recording the result failed: {type(exc).__name__}",
                               errors=[ModuleError(code="RECORD_FAILED", message=f"{type(exc).__name__}: {exc}"[:2000])])
             return self._transaction(session, job, plan, lambda s, p: finish(s, p, False))
+
+    def _proposed_pairs(self, session: Session, case_id: uuid.UUID) -> int:
+        count = session.scalar(select(func.count()).select_from(MediaRelationship).where(
+            MediaRelationship.case_id == case_id, MediaRelationship.superseded_at.is_(None))) or 0
+        session.commit()
+        return count
 
     def _reusable(self, session: Session, module_id: str, scope_ref: str, fingerprint: str) -> tuple[AnalysisExecution, AnalysisResult] | None:
         row = session.execute(

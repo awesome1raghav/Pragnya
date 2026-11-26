@@ -11,7 +11,8 @@ Methods (each reports what it measured):
               A low limit at a high sample rate suggests the audio passed through a lower-rate or lossy stage.
   CONTINUITY  abrupt changes of the short-time spectrum (spectral flux), as candidate edit points with times.
 A normalised working copy (16 kHz mono WAV) is stored for alignment (NEX-ALN). Chromaprint fingerprinting runs
-only when `fpcalc` is installed. An evaluated synthetic-speech detector is not installed.
+only when `fpcalc` is installed. The configured synthetic-speech detector scores up to three 4-second windows
+(start, middle, end) of the working copy; the highest score is reported with its time range.
 """
 
 import io
@@ -25,14 +26,15 @@ import numpy as np
 from Backend.App.Contracts.Artifacts import ArtifactKind
 from Backend.App.Contracts.ExecutionStates import ExecutionState
 from Backend.App.Contracts.Findings import Assertion, Finding, ScoreKind, TimeRange
-from Backend.App.Modules.Engine import DETECTOR_NOT_INSTALLED, ArtifactOut, EngineOutput, heatmap, png, r, robust_z
+from Backend.App.Detectors import Benchmarks
+from Backend.App.Modules.Engine import ArtifactOut, EngineOutput, detector_finding, heatmap, png, r, robust_z, run_detector
 from Backend.App.Utils import MediaDecode
 from Backend.App.Utils.MediaProbe import resolve_executable
 
 VERSION = "nextron-aud/1"
 MODULE = "NEX-AUD"
 PARAMETERS = {"analysis_rate_max": 48_000, "working_rate": 16_000, "max_seconds": 600, "frame": 2048, "hop": 512,
-              "flux_z": 8.0, "edge_s": 0.25, "digital_silence_min_s": 0.05, "silence_dbfs": -60, "max_candidates": 20}
+              "flux_z": 8.0, "novelty_z": 5.0, "novelty_ratio": 3.0, "edge_s": 0.25, "digital_silence_min_s": 0.05, "silence_dbfs": -60, "max_candidates": 20}
 
 
 def _db(x: float) -> float:
@@ -112,9 +114,7 @@ def analyze(path: Path, evidence_id, *, settings) -> EngineOutput:
     native = int(stream.get("sample_rate") or 0) or PARAMETERS["working_rate"]
     rate = min(native, PARAMETERS["analysis_rate_max"])
     x = MediaDecode.decode_audio(path, ffmpeg, timeout, sample_rate=rate, max_seconds=PARAMETERS["max_seconds"])
-    out = EngineOutput(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_NOT_INSTALLED,
-                       "No evaluated synthetic-speech detector is installed, so no voice-cloning assessment was made; "
-                       "the signal measurements below ran.", tool_versions=tools)
+    out = EngineOutput(ExecutionState.PARTIALLY_COMPLETED, tool_versions=tools)  # the detector step decides the final status
     ev = [evidence_id]
     if len(audio) > 1:
         out.limitations.append(f"The file has {len(audio)} audio streams; only the first was analysed")
@@ -172,6 +172,28 @@ def analyze(path: Path, evidence_id, *, settings) -> EngineOutput:
             finding("SPECTRAL_DISCONTINUITY", f"Abrupt spectral change at {t:.2f} s", "The short-time spectrum changes much more than elsewhere in the recording.",
                     {"flux": r(flux[i], 3), "median_flux": r(np.median(flux), 3)}, score=r(z[i], 2),
                     time_range=TimeRange(start_seconds=r(max(0.0, t - hop / rate), 4), end_seconds=r(t + hop / rate, 4)), limitations=flux_lim)
+        # novelty (Foote 2000): distance between the mean spectrum of the 0.5 s before and the 0.5 s after each moment,
+        # which finds a change of sound type (noise -> tone, room -> studio) that frame-to-frame flux misses in noisy audio
+        cols = stft["columns"]
+        seconds_per_col = duration / max(len(cols), 1)
+        w = max(2, int(round(0.5 / max(seconds_per_col, 1e-9))))
+        if len(cols) > 2 * w + 2:
+            novelty = np.array([np.linalg.norm(cols[i - w:i].mean(axis=0) - cols[i:i + w].mean(axis=0)) for i in range(w, len(cols) - w)])
+            nz = robust_z(novelty)
+            times = (np.arange(w, len(cols) - w)) * seconds_per_col
+            ok = (times > PARAMETERS["edge_s"]) & (times < duration - PARAMETERS["edge_s"])
+            taken = [(i + 1) * hop / rate for i in picks]
+            floor = PARAMETERS["novelty_ratio"] * float(np.median(novelty))
+            for k in [int(k) for k in np.argsort(-nz) if nz[k] > PARAMETERS["novelty_z"] and novelty[k] > floor and ok[k]][: PARAMETERS["max_candidates"]]:
+                t = float(times[k])
+                if any(abs(t - u) < 0.5 for u in taken):
+                    continue
+                taken.append(t)
+                finding("SPECTRAL_DISCONTINUITY", f"Change of sound character at {t:.2f} s",
+                        "The average spectrum before and after this moment differs much more than elsewhere in the recording.",
+                        {"novelty": r(novelty[k], 3), "median_novelty": r(np.median(novelty), 3), "window_s": r(w * seconds_per_col, 3)},
+                        score=r(nz[k], 2), time_range=TimeRange(start_seconds=r(max(0.0, t - seconds_per_col), 4), end_seconds=r(t + seconds_per_col, 4)),
+                        limitations=flux_lim)
         spectrogram = ArtifactOut(ArtifactKind.HEATMAP, "image/png", "png", png(heatmap(stft["columns"].T[::-1])),
                                   {"method": "SPECTROGRAM", "rate_hz": rate, "frame": n, "hop": hop, "duration_s": r(duration, 3), "top_hz": nyquist})
         out.artifacts.append(spectrogram)
@@ -189,5 +211,38 @@ def analyze(path: Path, evidence_id, *, settings) -> EngineOutput:
         finding("ACOUSTIC_FINGERPRINT", "Chromaprint fingerprint computed", "Features for similarity search (NEX-FPM); not evidence on its own.", fingerprint)
     else:
         out.limitations.append(problem)
-    out.limitations.append("No evaluated synthetic-speech detector is installed: voice cloning or synthesis was not assessed")
+    _speech_detector(out, working, evidence_id, settings)
     return out
+
+
+WINDOW = 64_600  # the detector's input length at 16 kHz (about 4 s)
+
+
+def _speech_detector(out: EngineOutput, working: np.ndarray, evidence_id, settings) -> None:
+    import tempfile
+
+    rate = PARAMETERS["working_rate"]
+    starts = [0] if working.size <= WINDOW else sorted({0, max(0, (working.size - WINDOW) // 2), working.size - WINDOW})
+    scored, problem = [], None
+    with tempfile.TemporaryDirectory(prefix="nextron-aud-") as folder:
+        for start in starts:
+            window = Path(folder) / f"{start}.npy"
+            np.save(window, working[start:start + WINDOW].astype(np.float32), allow_pickle=False)
+            run = run_detector(settings, getattr(settings, "SPEECH_DETECTOR", ""), window, what="synthetic-speech")
+            if run.score is None:
+                problem = run
+                break
+            scored.append((start, run))
+    if problem is not None:
+        out.reason, out.detail = problem.reason, problem.detail + " The signal measurements below ran."
+        out.limitations.append(problem.detail)
+        return
+    start, top = max(scored, key=lambda pair: pair[1].score)
+    end = min(working.size, start + WINDOW)
+    out.status = ExecutionState.COMPLETED
+    out.tool_versions[top.info.name] = top.info.version
+    out.findings.append(detector_finding(
+        MODULE, evidence_id, top, kind="SYNTHETIC_SPEECH_DETECTOR", subject="speech", benchmark=Benchmarks.summary(top.info.name),
+        time_range=TimeRange(start_seconds=r(start / rate, 3), end_seconds=r(end / rate, 3)),
+        measurement={"windows": [{"start_s": r(s / rate, 3), "end_s": r(min(working.size, s + WINDOW) / rate, 3), "score": r(run.score, 8)}
+                                 for s, run in scored], "reported": "highest-scoring window"}))

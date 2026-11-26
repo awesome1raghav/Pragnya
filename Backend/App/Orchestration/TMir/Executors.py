@@ -29,8 +29,16 @@ from Backend.App.Contracts.Artifacts import ArtifactRef, InputKind, InputReferen
 from Backend.App.Contracts.ExecutionStates import ExecutionState, FailureReason
 from Backend.App.Contracts.Findings import Assertion, Finding
 from Backend.App.Contracts.ModuleResult import ModuleError
+from Backend.App.Detectors import Host
 from Backend.App.Modules.Engine import EngineOutput
 from Backend.App.Modules.NexAud import AudioAnalyzer
+from Backend.App.Modules.NexFpm import Service as FpmService
+from Backend.App.Modules.NexAln import Service as AlnService
+from Backend.App.Modules.NexCmc import Service as CmcService
+from Backend.App.Modules.NexEgc import Service as EgcService
+from Backend.App.Modules.NexRec import Service as RecService
+from Backend.App.Modules.NexMoc import Service as MocService
+from Backend.App.Modules.NexTrn import Service as TrnService
 from Backend.App.Modules.NexImg import ImageAnalyzer
 from Backend.App.Modules.NexMet import MetadataExtractor
 from Backend.App.Modules.NexPrv import C2paAnalyzer
@@ -66,6 +74,7 @@ class Outcome:
     errors: list[ModuleError] = field(default_factory=list)
     tool_versions: dict[str, str] = field(default_factory=dict)
     artifacts: list[ArtifactRef] = field(default_factory=list)  # filled by record(), listed in the envelope
+    related: list[uuid.UUID] = field(default_factory=list)      # other evidence the findings cite (filled by record())
 
 
 class ModuleExecutor(Protocol):
@@ -140,7 +149,8 @@ class EngineExecutor:
         self.module_id, self.version, self._parameters, self._engine = module_id, version, parameters, engine
 
     def parameters(self, ctx: ExecutionContext) -> dict[str, Any]:
-        return dict(self._parameters)
+        # the configured detector and its pinned weights are part of what is computed, so they enter the fingerprint
+        return dict(self._parameters) | Host.detector_parameters(ctx.settings, self.module_id)
 
     def inputs(self, ctx: ExecutionContext) -> list[InputReference]:
         return [evidence_input(ctx.evidence)]
@@ -172,6 +182,88 @@ class EngineExecutor:
         return result.findings if outcome.status.produced_output else []
 
 
+class FingerprintExecutor:
+    """NEX-FPM: canonical fingerprints of the original (run), stored and compared with the case's others (record)."""
+
+    module_id, version = "NEX-FPM", FpmService.VERSION
+
+    def parameters(self, ctx: ExecutionContext) -> dict[str, Any]:
+        return dict(FpmService.PARAMETERS)
+
+    def inputs(self, ctx: ExecutionContext) -> list[InputReference]:
+        return default_inputs(ctx)  # the evidence plus the media-engine results T-MIR made available (IMG, VID, AUD, MET)
+
+    def run(self, ctx: ExecutionContext) -> Outcome:
+        path = ctx.storage.local_path(ctx.evidence.storage_key)
+        if path is None or not path.is_file():
+            return Outcome(ExecutionState.FAILED, FailureReason.INVALID_INPUT.value, "The preserved original is not readable",
+                           errors=[ModuleError(code="ORIGINAL_MISSING", message="The preserved original is not readable")])
+        fingerprints = FpmService.compute(path, ctx.evidence.media_type, settings=ctx.settings)
+        if not fingerprints:
+            empty = FpmService.no_fingerprint(ctx.evidence)
+            return Outcome(empty.status, empty.reason, empty.detail, data={})
+        return Outcome(ExecutionState.COMPLETED, data=fingerprints, tool_versions={"fingerprints": FpmService.VERSION})
+
+    def record(self, session: Session, ctx: ExecutionContext, outcome: Outcome) -> list[Finding]:
+        if not outcome.data:
+            return []
+        FpmService.store(session, ctx.evidence, outcome.data, ctx.execution_id)
+        found, related = FpmService.candidates(session, ctx.evidence, outcome.data)
+        outcome.related[:] = related
+        return [FpmService.summary_finding(ctx.evidence, outcome.data), *found]
+
+
+class LineageExecutor:
+    """NEX-MOC: candidate relationships over the whole case's fingerprints and source records (all in record())."""
+
+    module_id, version = "NEX-MOC", MocService.VERSION
+
+    def parameters(self, ctx: ExecutionContext) -> dict[str, Any]:
+        return dict(MocService.PARAMETERS)
+
+    def inputs(self, ctx: ExecutionContext) -> list[InputReference]:
+        return default_inputs(ctx)
+
+    def run(self, ctx: ExecutionContext) -> Outcome:
+        return Outcome(ExecutionState.COMPLETED, data=True, tool_versions={"lineage": MocService.VERSION})
+
+    def record(self, session: Session, ctx: ExecutionContext, outcome: Outcome) -> list[Finding]:
+        findings, involved, stats = MocService.build(session, ctx.job.case_id, ctx.execution_id)
+        run = {e.id for e in ctx.run_evidence}
+        outcome.related[:] = [e for e in involved if e not in run]
+        if not findings:
+            outcome.warnings.append(f"No candidate relationships among {stats['fingerprinted_evidence']} fingerprinted evidence items")
+        return findings
+
+
+class CaseComputationExecutor:
+    """A module computed over the case's stored results at record time (NEX-ALN, NEX-TRN, NEX-CMC).
+
+    `build(session, ctx)` returns (findings, evidence the findings cite); its inputs are the upstream results T-MIR
+    made available, so the fingerprint changes whenever they do.
+    """
+
+    def __init__(self, module_id: str, version: str, parameters: dict[str, Any], build):
+        self.module_id, self.version, self._parameters, self._build = module_id, version, parameters, build
+
+    def parameters(self, ctx: ExecutionContext) -> dict[str, Any]:
+        return dict(self._parameters)
+
+    def inputs(self, ctx: ExecutionContext) -> list[InputReference]:
+        return default_inputs(ctx)
+
+    def run(self, ctx: ExecutionContext) -> Outcome:
+        return Outcome(ExecutionState.COMPLETED, data=True, tool_versions={self.module_id: self.version})
+
+    def record(self, session: Session, ctx: ExecutionContext, outcome: Outcome) -> list[Finding]:
+        findings, involved = self._build(session, ctx)
+        run = {e.id for e in ctx.run_evidence}
+        outcome.related[:] = [e for e in involved if e not in run]
+        if not findings:
+            outcome.warnings.append("Nothing to report for the current evidence")
+        return findings
+
+
 def _engine_error(fn):
     """Engines raise on undecodable input; that is the module's FAILED result, not a worker error."""
     def run(path, ctx):
@@ -184,8 +276,16 @@ def _engine_error(fn):
 
 EXECUTORS: dict[str, ModuleExecutor] = {e.module_id: e for e in (
     MetadataExecutor(),
+    FingerprintExecutor(),
+    LineageExecutor(),
+    CaseComputationExecutor("NEX-ALN", AlnService.VERSION, AlnService.PARAMETERS, lambda s, ctx: AlnService.build(s, ctx.job.case_id)),
+    CaseComputationExecutor("NEX-TRN", TrnService.VERSION, TrnService.PARAMETERS,
+                            lambda s, ctx: TrnService.build(s, ctx.job.case_id, ctx.upstream_results.get("NEX-ALN", []))),
+    CaseComputationExecutor("NEX-CMC", CmcService.VERSION, CmcService.PARAMETERS, lambda s, ctx: CmcService.build(s, ctx.job.case_id)),
+    CaseComputationExecutor("NEX-EGC", EgcService.VERSION, EgcService.PARAMETERS, lambda s, ctx: EgcService.build(s, ctx.job.case_id, ctx.execution_id)),
+    CaseComputationExecutor("NEX-REC", RecService.VERSION, RecService.PARAMETERS, lambda s, ctx: RecService.build(s, ctx.job.case_id)),
     EngineExecutor("NEX-IMG", ImageAnalyzer.VERSION, ImageAnalyzer.PARAMETERS,
-                   _engine_error(lambda path, ctx: ImageAnalyzer.analyze(path, ctx.evidence.id))),
+                   _engine_error(lambda path, ctx: ImageAnalyzer.analyze(path, ctx.evidence.id, settings=ctx.settings))),
     EngineExecutor("NEX-VID", VideoAnalyzer.VERSION, VideoAnalyzer.PARAMETERS,
                    _engine_error(lambda path, ctx: VideoAnalyzer.analyze(path, ctx.evidence.id, settings=ctx.settings))),
     EngineExecutor("NEX-AUD", AudioAnalyzer.VERSION, AudioAnalyzer.PARAMETERS,

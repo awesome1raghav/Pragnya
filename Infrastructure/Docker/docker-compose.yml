@@ -1,13 +1,16 @@
 # NEXTRON local infrastructure — the one Compose definition for the project.
 #
-# Phase 1 runs PostgreSQL only. Neo4j and Qdrant are added in Step 5, when the
-# outbox projections that feed them exist. Redis stays deferred (archive §11).
+# PostgreSQL is the system of record. Neo4j holds a rebuildable projection of each case's
+# evidence graph (Step 7). Qdrant stays deferred until an embedding model is adopted, and
+# Redis stays deferred (archive §11).
 #
 # Usage, from the repository root:
-#   Copy-Item Infrastructure/Docker/.env.example Infrastructure/Docker/.env   (then set a password)
-#   docker compose -f Infrastructure/Docker/docker-compose.yml up -d
+#   Copy-Item Infrastructure/Docker/.env.example Infrastructure/Docker/.env   (then set the passwords)
+#   docker compose -f Infrastructure/Docker/docker-compose.yml up -d                       databases only
+#   docker compose -f Infrastructure/Docker/docker-compose.yml --profile app up -d --build  + API, worker, web
+#   docker compose -f Infrastructure/Docker/docker-compose.yml --profile ci run --rm tests  backend suite, clean image
 #
-# The port binds to 127.0.0.1 only, so the database is not reachable from the network.
+# Ports bind to 127.0.0.1 only, so neither database is reachable from the network.
 # The host port defaults to 5433 because a native PostgreSQL may already hold 5432.
 
 name: nextron
@@ -35,6 +38,100 @@ services:
       retries: 20
       start_period: 10s
 
+  neo4j:
+    # 5.x Community, pinned by digest (the image pulled and tested here).
+    image: neo4j:5-community@sha256:c5fd91e41d44858ea678813fd53f8e60602e771a7656c502385247ffbcb0aec0
+    container_name: nextron-neo4j
+    restart: unless-stopped
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:?Set NEO4J_PASSWORD in Infrastructure/Docker/.env}
+      NEO4J_server_memory_heap_max__size: 1G
+      NEO4J_server_memory_pagecache_size: 512M
+      NEO4J_dbms_usage__report_enabled: "false"
+      TZ: UTC
+    ports:
+      - "127.0.0.1:${NEO4J_BOLT_PORT:-7687}:7687"
+      - "127.0.0.1:${NEO4J_HTTP_PORT:-7474}:7474"
+    volumes:
+      - neo4j-data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:7474 || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+      start_period: 20s
+
+  qdrant:
+    image: qdrant/qdrant:v1.20.2@sha256:d277592721d2e3b73f9b797b53cf05e6a5bb2134f6d13fdbda4ca51782afbcac
+    container_name: nextron-qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - qdrant-data:/qdrant/storage
+
+  # ── the application in containers (profile "app"): docker compose --profile app up -d --build ─────────────────────
+  # Host ports 8100 (API) and 8180 (web) so they do not clash with a natively run API (8000/8001) or web (8080).
+  api:
+    profiles: ["app"]
+    build: { context: ../.., dockerfile: Infrastructure/Docker/Backend.Dockerfile }
+    image: nextron-backend:local
+    container_name: nextron-api
+    restart: unless-stopped
+    depends_on: { postgres: { condition: service_healthy } }
+    environment: &backend-env
+      # NEXTRON_APP_DB: the containers' database. Keep it apart from a natively run API's database: the two use
+      # different evidence storage, so one worker must never claim the other's jobs.
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-nextron}:${POSTGRES_PASSWORD}@postgres:5432/${NEXTRON_APP_DB:-nextron_app}
+      STORAGE_ROOT: /data/storage
+      CORS_ORIGINS: http://localhost:8180,http://127.0.0.1:8180
+      NEO4J_URI: ${NEXTRON_APP_NEO4J_URI-bolt://neo4j:7687}
+      NEO4J_PASSWORD: ${NEO4J_PASSWORD}
+      BACKUP_ENCRYPTION_KEY: ${BACKUP_ENCRYPTION_KEY:-}
+    ports: ["127.0.0.1:${API_PORT:-8100}:8000"]
+    volumes: [app-storage:/data/storage]
+
+  worker:
+    profiles: ["app"]
+    image: nextron-backend:local
+    container_name: nextron-worker
+    restart: unless-stopped
+    depends_on: { api: { condition: service_healthy } }   # the API container applies migrations first
+    environment: *backend-env
+    command: ["python", "-m", "Backend.App.Workers.Worker"]
+    healthcheck: { disable: true }
+    volumes: [app-storage:/data/storage]
+
+  web:
+    profiles: ["app"]
+    build:
+      context: ../..
+      dockerfile: Infrastructure/Docker/Frontend.Dockerfile
+      args: { NEXT_PUBLIC_NEXTRON_API: "http://localhost:${API_PORT:-8100}/api/v1" }
+    image: nextron-web:local
+    container_name: nextron-web
+    restart: unless-stopped
+    depends_on: { api: { condition: service_healthy } }
+    ports: ["127.0.0.1:${WEB_PORT:-8180}:8080"]
+
+  # ── the backend test suite on a clean runner (profile "ci"): docker compose --profile ci run --rm tests ─────────
+  tests:
+    profiles: ["ci"]
+    image: nextron-backend:local
+    build: { context: ../.., dockerfile: Infrastructure/Docker/Backend.Dockerfile }
+    depends_on: { postgres: { condition: service_healthy } }
+    environment:
+      DATABASE_URL: postgresql+psycopg://${POSTGRES_USER:-nextron}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-nextron}
+      PG_TOOLS: local
+    command: ["python", "-m", "pytest", "Tests", "-q", "-p", "no:cacheprovider"]
+    healthcheck: { disable: true }
+
 volumes:
+  app-storage:
+    name: nextron-app-storage
   postgres-data:
     name: nextron-postgres-data
+  neo4j-data:
+    name: nextron-neo4j-data
+  qdrant-data:
+    name: nextron-qdrant-data

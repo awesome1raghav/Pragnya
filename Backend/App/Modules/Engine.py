@@ -78,3 +78,64 @@ def robust_z(x: np.ndarray) -> np.ndarray:
 
 def r(value: float, digits: int = 4) -> float:
     return float(round(float(value), digits))
+
+
+# ── pretrained detectors (run in the detector host process) ──────────────────────────────────
+
+DETECTOR_FAILED = "DETECTOR_FAILED"
+DETECTOR_DISABLED = "DETECTOR_DISABLED"
+
+
+@dataclass
+class DetectorRun:
+    """What one detector call produced, for the engine to put in its result."""
+
+    status: ExecutionState            # COMPLETED when the detector scored, otherwise PARTIALLY_COMPLETED
+    reason: str | None
+    detail: str | None
+    score: float | None = None
+    info: Any = None                  # Detectors.Host.DetectorInfo
+    seconds: float | None = None
+
+
+def run_detector(settings, name: str, path, *, what: str) -> DetectorRun:
+    """Score `path` with the configured detector; any problem becomes a stated reason, never a guess."""
+    from Backend.App.Detectors import Host
+
+    if settings is None or not settings.DETECTORS_ENABLED or not name:
+        return DetectorRun(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_DISABLED, f"The {what} detector is turned off in this installation.")
+    host = Host.shared_host()
+    try:
+        info = host.info(name)
+        score, seconds = host.score(name, path, timeout=settings.DETECTOR_TIMEOUT_SECONDS)
+    except Host.DetectorUnavailable as exc:
+        return DetectorRun(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_NOT_INSTALLED, f"The {what} detector {name} is not available: {exc}")
+    except Host.DetectorFailed as exc:
+        return DetectorRun(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_FAILED, f"The {what} detector {name} did not produce a score: {exc}")
+    return DetectorRun(ExecutionState.COMPLETED, None, None, score=score, info=info, seconds=seconds)
+
+
+def detector_finding(module: str, evidence_id, run: DetectorRun, *, kind: str, subject: str, benchmark: str,
+                     time_range=None, measurement: dict | None = None) -> Finding:
+    """An INFERENCE with the model's own score. Wording states what the number is and is not."""
+    from Backend.App.Contracts.Findings import Assertion, ScoreKind
+
+    from Backend.App.Detectors.Benchmarks import operating
+
+    op = operating(run.info.name)
+    above = run.score >= op.threshold
+    return Finding(
+        module_id=module, evidence_ids=[evidence_id], assertion=Assertion.INFERENCE, finding_type=kind,
+        title=(f"{run.info.name} scores this {subject} {run.score:.4g}: "
+               + ("above" if above else "below") + " its operating threshold"
+               + (" (resembles the synthetic material it was trained on)" if above else "")),
+        description=(f"{run.info.name} returns a score between 0 and 1. It is compared with {op.threshold:g}, "
+                     f"{op.source}. The score is the model's own output, not a probability that this file is synthetic."),
+        measurement={"detector": run.info.name, "detector_version": run.info.version, "licence": run.info.licence,
+                     "score": r(run.score, 8), "threshold": op.threshold, "threshold_source": op.source,
+                     "above_threshold": above, "seconds": run.seconds} | (measurement or {}),
+        score=r(run.score, 8), score_kind=ScoreKind.METHOD_SPECIFIC, time_range=time_range,
+        limitations=[f"Trained on: {run.info.trained_on}", f"Measured locally: {benchmark}",
+                     "Generators and voice-cloning tools released after the model was trained may not be recognised",
+                     "Recompression, resizing, screenshots and re-recording change the score"],
+    )

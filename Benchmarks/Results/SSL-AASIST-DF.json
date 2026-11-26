@@ -1,0 +1,6449 @@
+{
+ "detector": "SSL-AASIST-DF",
+ "version_sha256_prefix": "1cf904f1d84c",
+ "licence": "MIT (code), Apache-2.0 (XLS-R)",
+ "trained_on": "ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+ "dataset": "In-the-Wild (M\u00fcller et al. 2022), 400 spoof + 400 bona fide, seed 20261126",
+ "machine": "Windows 11, AMD Ryzen 7 260, 23 GB RAM, CPU only (8 threads)",
+ "load_seconds": 18.02,
+ "seconds_per_item_mean": 5.621,
+ "seconds_per_item_p95": 0.953,
+ "peak_working_set_mb": 2890.0,
+ "overall": {
+  "n": 800,
+  "positives": 400,
+  "negatives": 400,
+  "roc_auc": 0.9656,
+  "eer": 0.08,
+  "accuracy_at_0_5": 0.6837,
+  "false_positive_rate_at_0_5": 0.6325,
+  "true_positive_rate_at_0_5": 1.0,
+  "tpr_at_1pct_fpr": 0.3975,
+  "tpr_at_5pct_fpr": 0.8,
+  "calibration_half_b": {
+   "n": 386,
+   "ece_raw": 0.312,
+   "ece_platt": 0.0537,
+   "accuracy_platt_0_5": 0.8808
+  }
+ },
+ "by_group": {
+  "bona-fide": {
+   "n": 400,
+   "positives": 0,
+   "negatives": 400,
+   "flagged_at_0_5": 0.6325,
+   "median_score": 0.9844
+  },
+  "spoof": {
+   "n": 400,
+   "positives": 400,
+   "negatives": 0,
+   "flagged_at_0_5": 1.0,
+   "median_score": 0.9998
+  }
+ },
+ "items": [
+  {
+   "key": "20818.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9997119307518005,
+   "seconds": 1.078
+  },
+  {
+   "key": "19540.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997826218605042,
+   "seconds": 0.8047
+  },
+  {
+   "key": "1417.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997218251228333,
+   "seconds": 0.7565
+  },
+  {
+   "key": "27483.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997792840003967,
+   "seconds": 0.7227
+  },
+  {
+   "key": "29562.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997832179069519,
+   "seconds": 0.7498
+  },
+  {
+   "key": "3591.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997102618217468,
+   "seconds": 0.766
+  },
+  {
+   "key": "12917.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997758269309998,
+   "seconds": 0.7335
+  },
+  {
+   "key": "14362.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997991919517517,
+   "seconds": 0.7509
+  },
+  {
+   "key": "28177.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997647404670715,
+   "seconds": 0.8562
+  },
+  {
+   "key": "9926.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997057318687439,
+   "seconds": 0.7195
+  },
+  {
+   "key": "27864.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997703433036804,
+   "seconds": 0.7116
+  },
+  {
+   "key": "27586.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997521042823792,
+   "seconds": 0.6717
+  },
+  {
+   "key": "13053.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Burr",
+   "score": 0.9997621178627014,
+   "seconds": 0.6946
+  },
+  {
+   "key": "4606.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997702240943909,
+   "seconds": 0.693
+  },
+  {
+   "key": "17903.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.999769389629364,
+   "seconds": 0.7512
+  },
+  {
+   "key": "15208.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997697472572327,
+   "seconds": 0.6534
+  },
+  {
+   "key": "10927.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997686743736267,
+   "seconds": 0.6876
+  },
+  {
+   "key": "23863.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997785687446594,
+   "seconds": 0.6675
+  },
+  {
+   "key": "5680.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997921586036682,
+   "seconds": 0.6828
+  },
+  {
+   "key": "23521.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Harry Truman",
+   "score": 0.9997678399085999,
+   "seconds": 0.7583
+  },
+  {
+   "key": "28766.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.999728262424469,
+   "seconds": 0.7604
+  },
+  {
+   "key": "24940.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997233748435974,
+   "seconds": 0.6597
+  },
+  {
+   "key": "17785.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997774958610535,
+   "seconds": 0.6801
+  },
+  {
+   "key": "17318.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997798800468445,
+   "seconds": 0.6722
+  },
+  {
+   "key": "30505.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9995622038841248,
+   "seconds": 0.7161
+  },
+  {
+   "key": "16209.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997747540473938,
+   "seconds": 0.7552
+  },
+  {
+   "key": "16360.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "FDR",
+   "score": 0.9997671246528625,
+   "seconds": 0.6679
+  },
+  {
+   "key": "9003.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Orson Welles",
+   "score": 0.9996392726898193,
+   "seconds": 0.6821
+  },
+  {
+   "key": "21653.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997418522834778,
+   "seconds": 0.7119
+  },
+  {
+   "key": "3321.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997761845588684,
+   "seconds": 0.7068
+  },
+  {
+   "key": "25113.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997686743736267,
+   "seconds": 0.6965
+  },
+  {
+   "key": "10430.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997789263725281,
+   "seconds": 0.7365
+  },
+  {
+   "key": "31355.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997876286506653,
+   "seconds": 0.686
+  },
+  {
+   "key": "4679.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997690320014954,
+   "seconds": 0.6811
+  },
+  {
+   "key": "15518.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997374415397644,
+   "seconds": 0.6971
+  },
+  {
+   "key": "26426.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.999782145023346,
+   "seconds": 0.6599
+  },
+  {
+   "key": "17492.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997624754905701,
+   "seconds": 0.6737
+  },
+  {
+   "key": "11376.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997829794883728,
+   "seconds": 0.6932
+  },
+  {
+   "key": "23111.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997876286506653,
+   "seconds": 0.7062
+  },
+  {
+   "key": "16110.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997408986091614,
+   "seconds": 0.7637
+  },
+  {
+   "key": "11576.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997650980949402,
+   "seconds": 0.6537
+  },
+  {
+   "key": "1609.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997891783714294,
+   "seconds": 0.6586
+  },
+  {
+   "key": "18271.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997788071632385,
+   "seconds": 0.7208
+  },
+  {
+   "key": "13108.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997830986976624,
+   "seconds": 0.76
+  },
+  {
+   "key": "1251.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997144341468811,
+   "seconds": 0.6696
+  },
+  {
+   "key": "7833.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997366070747375,
+   "seconds": 0.6739
+  },
+  {
+   "key": "20133.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997805953025818,
+   "seconds": 0.6529
+  },
+  {
+   "key": "14973.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997797608375549,
+   "seconds": 0.6811
+  },
+  {
+   "key": "8024.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.999777615070343,
+   "seconds": 0.6924
+  },
+  {
+   "key": "5902.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Malcolm X",
+   "score": 0.9997586607933044,
+   "seconds": 0.7877
+  },
+  {
+   "key": "6031.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9997652173042297,
+   "seconds": 0.6937
+  },
+  {
+   "key": "9324.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9997562766075134,
+   "seconds": 0.6723
+  },
+  {
+   "key": "27399.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997803568840027,
+   "seconds": 0.6828
+  },
+  {
+   "key": "15076.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997783303260803,
+   "seconds": 0.7155
+  },
+  {
+   "key": "20386.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9996488094329834,
+   "seconds": 0.6784
+  },
+  {
+   "key": "27318.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997215867042542,
+   "seconds": 0.6658
+  },
+  {
+   "key": "14943.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997633099555969,
+   "seconds": 0.6541
+  },
+  {
+   "key": "17668.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9996156692504883,
+   "seconds": 0.6822
+  },
+  {
+   "key": "26557.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997760653495789,
+   "seconds": 0.666
+  },
+  {
+   "key": "25149.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997846484184265,
+   "seconds": 0.6819
+  },
+  {
+   "key": "19860.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.999721109867096,
+   "seconds": 0.6876
+  },
+  {
+   "key": "18931.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997822642326355,
+   "seconds": 0.6377
+  },
+  {
+   "key": "4143.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Norm MacDonald",
+   "score": 0.9997715353965759,
+   "seconds": 0.6465
+  },
+  {
+   "key": "19219.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Tucker Carlson",
+   "score": 0.999775230884552,
+   "seconds": 0.6878
+  },
+  {
+   "key": "31205.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997404217720032,
+   "seconds": 0.6597
+  },
+  {
+   "key": "23128.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997723698616028,
+   "seconds": 0.672
+  },
+  {
+   "key": "17.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997808337211609,
+   "seconds": 0.6787
+  },
+  {
+   "key": "21701.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "George Carlin",
+   "score": 0.9997707009315491,
+   "seconds": 0.6439
+  },
+  {
+   "key": "6054.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997749924659729,
+   "seconds": 0.6586
+  },
+  {
+   "key": "26043.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997685551643372,
+   "seconds": 0.7324
+  },
+  {
+   "key": "28475.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997617602348328,
+   "seconds": 0.6497
+  },
+  {
+   "key": "26380.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.999779999256134,
+   "seconds": 0.6535
+  },
+  {
+   "key": "1768.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997643828392029,
+   "seconds": 0.6932
+  },
+  {
+   "key": "23371.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997652173042297,
+   "seconds": 0.6666
+  },
+  {
+   "key": "8842.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997925162315369,
+   "seconds": 0.64
+  },
+  {
+   "key": "23788.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997346997261047,
+   "seconds": 0.6745
+  },
+  {
+   "key": "24379.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997536540031433,
+   "seconds": 0.6577
+  },
+  {
+   "key": "3712.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997498393058777,
+   "seconds": 0.6542
+  },
+  {
+   "key": "18422.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997890591621399,
+   "seconds": 0.7015
+  },
+  {
+   "key": "28285.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Burr",
+   "score": 0.999764621257782,
+   "seconds": 0.6689
+  },
+  {
+   "key": "12373.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "John Cleese",
+   "score": 0.9997890591621399,
+   "seconds": 0.6544
+  },
+  {
+   "key": "30775.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.999789297580719,
+   "seconds": 0.7184
+  },
+  {
+   "key": "25907.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997132420539856,
+   "seconds": 0.6734
+  },
+  {
+   "key": "21938.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.999778687953949,
+   "seconds": 0.7027
+  },
+  {
+   "key": "5130.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Norm MacDonald",
+   "score": 0.9997922778129578,
+   "seconds": 0.6936
+  },
+  {
+   "key": "20827.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997473359107971,
+   "seconds": 0.6515
+  },
+  {
+   "key": "29072.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997753500938416,
+   "seconds": 0.6535
+  },
+  {
+   "key": "18831.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Dave Chappelle",
+   "score": 0.9997740387916565,
+   "seconds": 0.6994
+  },
+  {
+   "key": "24983.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.9997660517692566,
+   "seconds": 0.6723
+  },
+  {
+   "key": "14255.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997503161430359,
+   "seconds": 0.6473
+  },
+  {
+   "key": "17484.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997698664665222,
+   "seconds": 0.6515
+  },
+  {
+   "key": "24704.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997380375862122,
+   "seconds": 0.6504
+  },
+  {
+   "key": "4584.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997422099113464,
+   "seconds": 0.648
+  },
+  {
+   "key": "11814.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997850060462952,
+   "seconds": 0.6567
+  },
+  {
+   "key": "13016.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997921586036682,
+   "seconds": 0.6479
+  },
+  {
+   "key": "11287.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997658133506775,
+   "seconds": 0.6556
+  },
+  {
+   "key": "7810.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997815489768982,
+   "seconds": 0.7037
+  },
+  {
+   "key": "14715.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997630715370178,
+   "seconds": 0.6439
+  },
+  {
+   "key": "29128.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997681975364685,
+   "seconds": 0.7042
+  },
+  {
+   "key": "11243.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997839331626892,
+   "seconds": 0.6621
+  },
+  {
+   "key": "22352.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997873902320862,
+   "seconds": 0.6649
+  },
+  {
+   "key": "25445.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997314810752869,
+   "seconds": 0.6666
+  },
+  {
+   "key": "31262.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997289776802063,
+   "seconds": 0.6674
+  },
+  {
+   "key": "26648.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997393488883972,
+   "seconds": 0.6312
+  },
+  {
+   "key": "7358.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997637867927551,
+   "seconds": 0.6351
+  },
+  {
+   "key": "9339.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997465014457703,
+   "seconds": 0.6911
+  },
+  {
+   "key": "15233.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997830986976624,
+   "seconds": 0.6379
+  },
+  {
+   "key": "9334.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997124075889587,
+   "seconds": 0.6457
+  },
+  {
+   "key": "24302.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Orson Welles",
+   "score": 0.999637246131897,
+   "seconds": 0.6539
+  },
+  {
+   "key": "27204.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997884631156921,
+   "seconds": 0.6278
+  },
+  {
+   "key": "22865.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997847676277161,
+   "seconds": 0.6555
+  },
+  {
+   "key": "9466.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997585415840149,
+   "seconds": 0.6516
+  },
+  {
+   "key": "16936.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997621178627014,
+   "seconds": 0.6333
+  },
+  {
+   "key": "12749.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997642636299133,
+   "seconds": 0.6596
+  },
+  {
+   "key": "1122.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Louis C.K.",
+   "score": 0.9997925162315369,
+   "seconds": 0.6658
+  },
+  {
+   "key": "19861.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997264742851257,
+   "seconds": 0.6456
+  },
+  {
+   "key": "6751.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mr. Rogers",
+   "score": 0.9997871518135071,
+   "seconds": 0.6502
+  },
+  {
+   "key": "19570.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9995075464248657,
+   "seconds": 0.6591
+  },
+  {
+   "key": "15852.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997081160545349,
+   "seconds": 0.62
+  },
+  {
+   "key": "19015.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997848868370056,
+   "seconds": 0.6503
+  },
+  {
+   "key": "24228.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.999764621257782,
+   "seconds": 0.7251
+  },
+  {
+   "key": "27643.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997188448905945,
+   "seconds": 0.6307
+  },
+  {
+   "key": "18941.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997761845588684,
+   "seconds": 0.6178
+  },
+  {
+   "key": "12216.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997885823249817,
+   "seconds": 0.6489
+  },
+  {
+   "key": "4528.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997566342353821,
+   "seconds": 0.6376
+  },
+  {
+   "key": "427.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9997525811195374,
+   "seconds": 0.6186
+  },
+  {
+   "key": "17460.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997829794883728,
+   "seconds": 0.6297
+  },
+  {
+   "key": "26704.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997933506965637,
+   "seconds": 0.6502
+  },
+  {
+   "key": "27062.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997138381004333,
+   "seconds": 0.6314
+  },
+  {
+   "key": "1810.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997326731681824,
+   "seconds": 0.6783
+  },
+  {
+   "key": "27752.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997536540031433,
+   "seconds": 0.6518
+  },
+  {
+   "key": "22845.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997534155845642,
+   "seconds": 0.6213
+  },
+  {
+   "key": "14315.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Louis C.K.",
+   "score": 0.9997408986091614,
+   "seconds": 0.6055
+  },
+  {
+   "key": "6145.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997650980949402,
+   "seconds": 0.6818
+  },
+  {
+   "key": "17399.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997871518135071,
+   "seconds": 0.6481
+  },
+  {
+   "key": "30569.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997615218162537,
+   "seconds": 0.6379
+  },
+  {
+   "key": "6341.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997634291648865,
+   "seconds": 0.6396
+  },
+  {
+   "key": "19806.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997802376747131,
+   "seconds": 0.6279
+  },
+  {
+   "key": "9760.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.999752938747406,
+   "seconds": 0.6224
+  },
+  {
+   "key": "4084.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.99980229139328,
+   "seconds": 0.6482
+  },
+  {
+   "key": "4581.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Kanye West",
+   "score": 0.999782383441925,
+   "seconds": 0.6095
+  },
+  {
+   "key": "6025.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997888207435608,
+   "seconds": 0.6248
+  },
+  {
+   "key": "12046.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Scarlett Johansson",
+   "score": 0.9997369647026062,
+   "seconds": 0.6768
+  },
+  {
+   "key": "25573.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997524619102478,
+   "seconds": 0.6488
+  },
+  {
+   "key": "1655.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997761845588684,
+   "seconds": 0.6503
+  },
+  {
+   "key": "2400.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997836947441101,
+   "seconds": 0.6911
+  },
+  {
+   "key": "27663.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Tucker Carlson",
+   "score": 0.9997480511665344,
+   "seconds": 0.856
+  },
+  {
+   "key": "1699.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.99979168176651,
+   "seconds": 0.6318
+  },
+  {
+   "key": "26859.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997633099555969,
+   "seconds": 0.6301
+  },
+  {
+   "key": "20163.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997488856315613,
+   "seconds": 0.6763
+  },
+  {
+   "key": "597.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997802376747131,
+   "seconds": 0.6546
+  },
+  {
+   "key": "24612.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997974038124084,
+   "seconds": 0.676
+  },
+  {
+   "key": "2623.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997667670249939,
+   "seconds": 0.6536
+  },
+  {
+   "key": "5804.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997509121894836,
+   "seconds": 0.6604
+  },
+  {
+   "key": "11631.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997908473014832,
+   "seconds": 0.6622
+  },
+  {
+   "key": "8120.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997227787971497,
+   "seconds": 0.6372
+  },
+  {
+   "key": "27617.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997490048408508,
+   "seconds": 0.6504
+  },
+  {
+   "key": "28013.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997815489768982,
+   "seconds": 0.7064
+  },
+  {
+   "key": "22625.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997846484184265,
+   "seconds": 0.6464
+  },
+  {
+   "key": "8659.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997920393943787,
+   "seconds": 0.6698
+  },
+  {
+   "key": "23311.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Orson Welles",
+   "score": 0.9944174289703369,
+   "seconds": 0.6704
+  },
+  {
+   "key": "6977.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997730851173401,
+   "seconds": 0.6355
+  },
+  {
+   "key": "2886.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997939467430115,
+   "seconds": 0.64
+  },
+  {
+   "key": "21602.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997782111167908,
+   "seconds": 0.659
+  },
+  {
+   "key": "19382.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bob Ross",
+   "score": 0.6527723670005798,
+   "seconds": 0.6081
+  },
+  {
+   "key": "11690.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997734427452087,
+   "seconds": 0.6725
+  },
+  {
+   "key": "14140.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997214674949646,
+   "seconds": 0.6488
+  },
+  {
+   "key": "11896.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997346997261047,
+   "seconds": 0.6292
+  },
+  {
+   "key": "2483.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997602105140686,
+   "seconds": 0.6447
+  },
+  {
+   "key": "1297.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997697472572327,
+   "seconds": 0.6271
+  },
+  {
+   "key": "15560.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997784495353699,
+   "seconds": 0.6562
+  },
+  {
+   "key": "23183.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.9997856020927429,
+   "seconds": 0.6274
+  },
+  {
+   "key": "23781.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Orson Welles",
+   "score": 0.9997548460960388,
+   "seconds": 0.6375
+  },
+  {
+   "key": "13764.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997766613960266,
+   "seconds": 0.6518
+  },
+  {
+   "key": "797.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Scarlett Johansson",
+   "score": 0.9997881054878235,
+   "seconds": 0.6418
+  },
+  {
+   "key": "23878.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997803568840027,
+   "seconds": 0.688
+  },
+  {
+   "key": "19266.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9996104836463928,
+   "seconds": 0.6769
+  },
+  {
+   "key": "15182.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997854828834534,
+   "seconds": 0.6313
+  },
+  {
+   "key": "12575.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "John Cleese",
+   "score": 0.99978107213974,
+   "seconds": 0.6381
+  },
+  {
+   "key": "28707.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997548460960388,
+   "seconds": 0.7213
+  },
+  {
+   "key": "3257.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997820258140564,
+   "seconds": 0.6585
+  },
+  {
+   "key": "11213.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997350573539734,
+   "seconds": 0.6876
+  },
+  {
+   "key": "4293.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.999707043170929,
+   "seconds": 0.655
+  },
+  {
+   "key": "15591.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997660517692566,
+   "seconds": 0.6239
+  },
+  {
+   "key": "28867.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997829794883728,
+   "seconds": 0.6248
+  },
+  {
+   "key": "17325.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997841715812683,
+   "seconds": 0.6492
+  },
+  {
+   "key": "20695.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997768998146057,
+   "seconds": 0.6225
+  },
+  {
+   "key": "7024.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9997217059135437,
+   "seconds": 0.6178
+  },
+  {
+   "key": "4570.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997438788414001,
+   "seconds": 0.6497
+  },
+  {
+   "key": "14329.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9997995495796204,
+   "seconds": 0.6283
+  },
+  {
+   "key": "3554.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997939467430115,
+   "seconds": 0.6647
+  },
+  {
+   "key": "21184.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.999789297580719,
+   "seconds": 0.653
+  },
+  {
+   "key": "27074.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997761845588684,
+   "seconds": 0.6425
+  },
+  {
+   "key": "22181.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Tucker Carlson",
+   "score": 0.9997596144676208,
+   "seconds": 0.631
+  },
+  {
+   "key": "8374.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9997392296791077,
+   "seconds": 0.6452
+  },
+  {
+   "key": "26384.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997895359992981,
+   "seconds": 0.6205
+  },
+  {
+   "key": "635.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997281432151794,
+   "seconds": 0.6278
+  },
+  {
+   "key": "0.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997606873512268,
+   "seconds": 0.6501
+  },
+  {
+   "key": "13302.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997816681861877,
+   "seconds": 0.6429
+  },
+  {
+   "key": "1150.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997772574424744,
+   "seconds": 0.6231
+  },
+  {
+   "key": "19995.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997450709342957,
+   "seconds": 0.631
+  },
+  {
+   "key": "27674.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997653365135193,
+   "seconds": 0.6549
+  },
+  {
+   "key": "7144.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "George W. Bush",
+   "score": 0.9997785687446594,
+   "seconds": 0.6296
+  },
+  {
+   "key": "30467.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997366070747375,
+   "seconds": 0.6266
+  },
+  {
+   "key": "28481.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Robert Kardashian",
+   "score": 0.9996680021286011,
+   "seconds": 0.6806
+  },
+  {
+   "key": "24291.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997320771217346,
+   "seconds": 0.6265
+  },
+  {
+   "key": "24091.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997431635856628,
+   "seconds": 0.6668
+  },
+  {
+   "key": "18366.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.999789297580719,
+   "seconds": 0.6609
+  },
+  {
+   "key": "3325.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997792840003967,
+   "seconds": 0.6184
+  },
+  {
+   "key": "10951.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997661709785461,
+   "seconds": 0.6381
+  },
+  {
+   "key": "20716.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997650980949402,
+   "seconds": 0.6519
+  },
+  {
+   "key": "8191.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997764229774475,
+   "seconds": 0.6261
+  },
+  {
+   "key": "20154.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997814297676086,
+   "seconds": 0.6278
+  },
+  {
+   "key": "13247.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997598528862,
+   "seconds": 0.6195
+  },
+  {
+   "key": "24194.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997928738594055,
+   "seconds": 0.6622
+  },
+  {
+   "key": "10863.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "George W. Bush",
+   "score": 0.9997897744178772,
+   "seconds": 0.8483
+  },
+  {
+   "key": "24392.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997811913490295,
+   "seconds": 0.959
+  },
+  {
+   "key": "28395.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997507929801941,
+   "seconds": 308.5218
+  },
+  {
+   "key": "5653.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997956156730652,
+   "seconds": 3627.6932
+  },
+  {
+   "key": "13281.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997782111167908,
+   "seconds": 4.2912
+  },
+  {
+   "key": "31334.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Orson Welles",
+   "score": 0.9997242093086243,
+   "seconds": 2.5196
+  },
+  {
+   "key": "20367.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Scarlett Johansson",
+   "score": 0.9997819066047668,
+   "seconds": 1.3026
+  },
+  {
+   "key": "12439.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997803568840027,
+   "seconds": 1.1678
+  },
+  {
+   "key": "8566.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997848868370056,
+   "seconds": 1.213
+  },
+  {
+   "key": "23703.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "FDR",
+   "score": 0.999739944934845,
+   "seconds": 1.1245
+  },
+  {
+   "key": "15254.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Frank Sinatra",
+   "score": 0.9996470212936401,
+   "seconds": 1.1547
+  },
+  {
+   "key": "26650.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.999778687953949,
+   "seconds": 1.0857
+  },
+  {
+   "key": "7293.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "FDR",
+   "score": 0.9997482895851135,
+   "seconds": 1.0694
+  },
+  {
+   "key": "26664.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997544884681702,
+   "seconds": 0.8918
+  },
+  {
+   "key": "10786.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997290968894958,
+   "seconds": 0.8978
+  },
+  {
+   "key": "13396.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997292160987854,
+   "seconds": 0.9734
+  },
+  {
+   "key": "12760.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997633099555969,
+   "seconds": 0.9194
+  },
+  {
+   "key": "7142.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997592568397522,
+   "seconds": 0.8886
+  },
+  {
+   "key": "9451.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.99977046251297,
+   "seconds": 0.9896
+  },
+  {
+   "key": "23016.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997650980949402,
+   "seconds": 0.9188
+  },
+  {
+   "key": "12546.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997127652168274,
+   "seconds": 0.9105
+  },
+  {
+   "key": "19305.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997865557670593,
+   "seconds": 0.98
+  },
+  {
+   "key": "18772.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997714161872864,
+   "seconds": 1.1384
+  },
+  {
+   "key": "6792.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997350573539734,
+   "seconds": 1.0829
+  },
+  {
+   "key": "13896.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.999736487865448,
+   "seconds": 1.8794
+  },
+  {
+   "key": "25321.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997435212135315,
+   "seconds": 1.2284
+  },
+  {
+   "key": "10583.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9997618794441223,
+   "seconds": 1.3528
+  },
+  {
+   "key": "29705.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997860789299011,
+   "seconds": 1.1088
+  },
+  {
+   "key": "18032.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.999234676361084,
+   "seconds": 1.28
+  },
+  {
+   "key": "11063.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997691512107849,
+   "seconds": 1.0927
+  },
+  {
+   "key": "1859.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997822642326355,
+   "seconds": 1.1537
+  },
+  {
+   "key": "14912.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "FDR",
+   "score": 0.999755322933197,
+   "seconds": 1.0448
+  },
+  {
+   "key": "14683.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997894167900085,
+   "seconds": 1.0069
+  },
+  {
+   "key": "20401.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997863173484802,
+   "seconds": 1.0794
+  },
+  {
+   "key": "14686.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Scarlett Johansson",
+   "score": 0.9997633099555969,
+   "seconds": 0.8747
+  },
+  {
+   "key": "7437.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.9997598528862,
+   "seconds": 0.9049
+  },
+  {
+   "key": "17448.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "George W. Bush",
+   "score": 0.9997661709785461,
+   "seconds": 0.8288
+  },
+  {
+   "key": "7128.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997716546058655,
+   "seconds": 0.8046
+  },
+  {
+   "key": "2366.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997909665107727,
+   "seconds": 0.7125
+  },
+  {
+   "key": "3616.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997658133506775,
+   "seconds": 0.6931
+  },
+  {
+   "key": "28235.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997286200523376,
+   "seconds": 0.7524
+  },
+  {
+   "key": "19208.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997431635856628,
+   "seconds": 0.7221
+  },
+  {
+   "key": "30364.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "2Pac",
+   "score": 0.9997768998146057,
+   "seconds": 0.6831
+  },
+  {
+   "key": "1827.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Tucker Carlson",
+   "score": 0.9997768998146057,
+   "seconds": 0.6459
+  },
+  {
+   "key": "30149.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997512698173523,
+   "seconds": 0.7077
+  },
+  {
+   "key": "31264.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9997349381446838,
+   "seconds": 0.6669
+  },
+  {
+   "key": "57.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997679591178894,
+   "seconds": 0.7151
+  },
+  {
+   "key": "29343.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997512698173523,
+   "seconds": 0.6671
+  },
+  {
+   "key": "21073.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997534155845642,
+   "seconds": 0.6341
+  },
+  {
+   "key": "30695.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9997702240943909,
+   "seconds": 0.7026
+  },
+  {
+   "key": "7597.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997839331626892,
+   "seconds": 0.7649
+  },
+  {
+   "key": "29523.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997889399528503,
+   "seconds": 0.7502
+  },
+  {
+   "key": "24764.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997920393943787,
+   "seconds": 0.7521
+  },
+  {
+   "key": "5094.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Burr",
+   "score": 0.9997664093971252,
+   "seconds": 0.6884
+  },
+  {
+   "key": "19968.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997962117195129,
+   "seconds": 0.7373
+  },
+  {
+   "key": "2784.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997640252113342,
+   "seconds": 0.7077
+  },
+  {
+   "key": "13146.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Norm MacDonald",
+   "score": 0.9997672438621521,
+   "seconds": 0.6715
+  },
+  {
+   "key": "28695.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Kanye West",
+   "score": 0.9997748732566833,
+   "seconds": 0.7114
+  },
+  {
+   "key": "20303.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997844099998474,
+   "seconds": 0.8435
+  },
+  {
+   "key": "18509.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "John Cleese",
+   "score": 0.9997988343238831,
+   "seconds": 0.6656
+  },
+  {
+   "key": "19172.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997487664222717,
+   "seconds": 0.6899
+  },
+  {
+   "key": "7032.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997765421867371,
+   "seconds": 0.6619
+  },
+  {
+   "key": "29726.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997866749763489,
+   "seconds": 0.6374
+  },
+  {
+   "key": "29076.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "John Cleese",
+   "score": 0.9997472167015076,
+   "seconds": 0.7041
+  },
+  {
+   "key": "7835.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997548460960388,
+   "seconds": 0.7057
+  },
+  {
+   "key": "27878.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997802376747131,
+   "seconds": 0.6632
+  },
+  {
+   "key": "5399.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997649788856506,
+   "seconds": 0.7006
+  },
+  {
+   "key": "3862.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997193217277527,
+   "seconds": 0.6791
+  },
+  {
+   "key": "29159.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.999721348285675,
+   "seconds": 1.0078
+  },
+  {
+   "key": "30233.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997801184654236,
+   "seconds": 0.9024
+  },
+  {
+   "key": "24266.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997491240501404,
+   "seconds": 0.7995
+  },
+  {
+   "key": "20013.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997738003730774,
+   "seconds": 0.7742
+  },
+  {
+   "key": "30048.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997876286506653,
+   "seconds": 0.7388
+  },
+  {
+   "key": "8346.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997019171714783,
+   "seconds": 0.8454
+  },
+  {
+   "key": "421.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997804760932922,
+   "seconds": 0.9879
+  },
+  {
+   "key": "30409.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997735619544983,
+   "seconds": 1.1013
+  },
+  {
+   "key": "25293.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9996961355209351,
+   "seconds": 0.9822
+  },
+  {
+   "key": "21806.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9997543692588806,
+   "seconds": 0.9837
+  },
+  {
+   "key": "31767.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.999702513217926,
+   "seconds": 1.0475
+  },
+  {
+   "key": "3459.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997702240943909,
+   "seconds": 1.1183
+  },
+  {
+   "key": "15516.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997649788856506,
+   "seconds": 0.9097
+  },
+  {
+   "key": "25508.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Norm MacDonald",
+   "score": 0.9997616410255432,
+   "seconds": 0.936
+  },
+  {
+   "key": "23697.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9996652603149414,
+   "seconds": 0.9404
+  },
+  {
+   "key": "28955.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.9993057250976562,
+   "seconds": 0.9158
+  },
+  {
+   "key": "21445.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.999761164188385,
+   "seconds": 0.8954
+  },
+  {
+   "key": "26381.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "FDR",
+   "score": 0.9997851252555847,
+   "seconds": 0.9308
+  },
+  {
+   "key": "26508.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.999767005443573,
+   "seconds": 0.9082
+  },
+  {
+   "key": "7149.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997572302818298,
+   "seconds": 1.0085
+  },
+  {
+   "key": "27703.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997885823249817,
+   "seconds": 0.9195
+  },
+  {
+   "key": "17249.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997901320457458,
+   "seconds": 0.9616
+  },
+  {
+   "key": "20324.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Boris Johnson",
+   "score": 0.9997560381889343,
+   "seconds": 0.9395
+  },
+  {
+   "key": "24955.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997807145118713,
+   "seconds": 0.9546
+  },
+  {
+   "key": "29527.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.999755322933197,
+   "seconds": 0.9094
+  },
+  {
+   "key": "17816.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.99970942735672,
+   "seconds": 0.9127
+  },
+  {
+   "key": "19264.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9996228218078613,
+   "seconds": 0.9201
+  },
+  {
+   "key": "31445.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.99977046251297,
+   "seconds": 0.9125
+  },
+  {
+   "key": "27200.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.99978107213974,
+   "seconds": 0.9055
+  },
+  {
+   "key": "29621.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997816681861877,
+   "seconds": 0.9698
+  },
+  {
+   "key": "15552.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997326731681824,
+   "seconds": 1.0053
+  },
+  {
+   "key": "21163.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9996758699417114,
+   "seconds": 0.936
+  },
+  {
+   "key": "1799.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997779726982117,
+   "seconds": 0.8195
+  },
+  {
+   "key": "5164.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997938275337219,
+   "seconds": 0.7083
+  },
+  {
+   "key": "30455.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9996598958969116,
+   "seconds": 0.6719
+  },
+  {
+   "key": "8366.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9998003840446472,
+   "seconds": 0.6585
+  },
+  {
+   "key": "8525.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.9998018145561218,
+   "seconds": 0.9529
+  },
+  {
+   "key": "13446.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997665286064148,
+   "seconds": 0.7213
+  },
+  {
+   "key": "30768.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997493624687195,
+   "seconds": 0.6979
+  },
+  {
+   "key": "19687.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997602105140686,
+   "seconds": 0.7096
+  },
+  {
+   "key": "3369.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997474551200867,
+   "seconds": 0.6925
+  },
+  {
+   "key": "25274.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997815489768982,
+   "seconds": 0.6729
+  },
+  {
+   "key": "4447.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997760653495789,
+   "seconds": 0.7961
+  },
+  {
+   "key": "5842.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.9997519850730896,
+   "seconds": 0.7068
+  },
+  {
+   "key": "1719.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997581839561462,
+   "seconds": 0.7314
+  },
+  {
+   "key": "13134.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.999785840511322,
+   "seconds": 0.6672
+  },
+  {
+   "key": "557.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997174143791199,
+   "seconds": 0.6502
+  },
+  {
+   "key": "20264.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997370839118958,
+   "seconds": 0.6536
+  },
+  {
+   "key": "27880.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997479319572449,
+   "seconds": 0.6794
+  },
+  {
+   "key": "14178.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Robert Kardashian",
+   "score": 0.9997063279151917,
+   "seconds": 0.6857
+  },
+  {
+   "key": "7627.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alan Watts",
+   "score": 0.9997851252555847,
+   "seconds": 0.6809
+  },
+  {
+   "key": "9485.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997666478157043,
+   "seconds": 0.6527
+  },
+  {
+   "key": "23783.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9996980428695679,
+   "seconds": 0.6498
+  },
+  {
+   "key": "11751.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997852444648743,
+   "seconds": 0.6779
+  },
+  {
+   "key": "18556.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997720122337341,
+   "seconds": 0.6987
+  },
+  {
+   "key": "13488.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997674822807312,
+   "seconds": 0.6551
+  },
+  {
+   "key": "18280.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997807145118713,
+   "seconds": 0.6715
+  },
+  {
+   "key": "8645.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997965693473816,
+   "seconds": 0.6582
+  },
+  {
+   "key": "30735.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Billie Eilish",
+   "score": 0.9997872710227966,
+   "seconds": 0.6354
+  },
+  {
+   "key": "12968.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.999758780002594,
+   "seconds": 0.6877
+  },
+  {
+   "key": "1446.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9997487664222717,
+   "seconds": 0.6426
+  },
+  {
+   "key": "14454.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997970461845398,
+   "seconds": 0.6495
+  },
+  {
+   "key": "17702.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Donald Trump",
+   "score": 0.999536395072937,
+   "seconds": 0.6483
+  },
+  {
+   "key": "26497.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9997536540031433,
+   "seconds": 0.8058
+  },
+  {
+   "key": "3857.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997770190238953,
+   "seconds": 0.689
+  },
+  {
+   "key": "15399.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997730851173401,
+   "seconds": 0.689
+  },
+  {
+   "key": "1932.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997469782829285,
+   "seconds": 0.6991
+  },
+  {
+   "key": "4591.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997653365135193,
+   "seconds": 0.667
+  },
+  {
+   "key": "12709.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997624754905701,
+   "seconds": 0.6813
+  },
+  {
+   "key": "31629.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997794032096863,
+   "seconds": 0.6355
+  },
+  {
+   "key": "23506.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997690320014954,
+   "seconds": 0.6314
+  },
+  {
+   "key": "22597.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997937083244324,
+   "seconds": 0.7172
+  },
+  {
+   "key": "21410.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997730851173401,
+   "seconds": 0.6441
+  },
+  {
+   "key": "20944.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "George W. Bush",
+   "score": 0.9997566342353821,
+   "seconds": 0.6802
+  },
+  {
+   "key": "16072.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997249245643616,
+   "seconds": 0.6495
+  },
+  {
+   "key": "27101.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997467398643494,
+   "seconds": 0.6405
+  },
+  {
+   "key": "5294.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9996534585952759,
+   "seconds": 0.7117
+  },
+  {
+   "key": "16894.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Milton Friedman",
+   "score": 0.9997736811637878,
+   "seconds": 0.7063
+  },
+  {
+   "key": "1274.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9997648596763611,
+   "seconds": 0.6503
+  },
+  {
+   "key": "8266.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Richard Nixon",
+   "score": 0.9997096657752991,
+   "seconds": 0.6342
+  },
+  {
+   "key": "2342.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997422099113464,
+   "seconds": 0.6795
+  },
+  {
+   "key": "22773.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Louis C.K.",
+   "score": 0.9996997117996216,
+   "seconds": 0.6443
+  },
+  {
+   "key": "9197.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Winston Churchill",
+   "score": 0.999792754650116,
+   "seconds": 0.7174
+  },
+  {
+   "key": "27997.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997900128364563,
+   "seconds": 0.6456
+  },
+  {
+   "key": "8545.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997653365135193,
+   "seconds": 0.6765
+  },
+  {
+   "key": "12265.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997884631156921,
+   "seconds": 0.6391
+  },
+  {
+   "key": "21050.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mitch Hedberg",
+   "score": 0.9997798800468445,
+   "seconds": 0.7275
+  },
+  {
+   "key": "7123.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Martin Luther King",
+   "score": 0.9997701048851013,
+   "seconds": 0.632
+  },
+  {
+   "key": "3286.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997938275337219,
+   "seconds": 0.6249
+  },
+  {
+   "key": "27462.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9997683167457581,
+   "seconds": 0.6846
+  },
+  {
+   "key": "3455.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9997661709785461,
+   "seconds": 0.6367
+  },
+  {
+   "key": "4566.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9997723698616028,
+   "seconds": 0.6715
+  },
+  {
+   "key": "3668.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "JFK",
+   "score": 0.9997907280921936,
+   "seconds": 0.7147
+  },
+  {
+   "key": "20908.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9997683167457581,
+   "seconds": 0.6301
+  },
+  {
+   "key": "22819.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997654557228088,
+   "seconds": 0.6319
+  },
+  {
+   "key": "23655.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997794032096863,
+   "seconds": 0.6657
+  },
+  {
+   "key": "22558.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997863173484802,
+   "seconds": 0.6341
+  },
+  {
+   "key": "2537.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997432827949524,
+   "seconds": 0.635
+  },
+  {
+   "key": "23503.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997674822807312,
+   "seconds": 0.651
+  },
+  {
+   "key": "30595.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.999786913394928,
+   "seconds": 0.6886
+  },
+  {
+   "key": "16140.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9997723698616028,
+   "seconds": 0.6985
+  },
+  {
+   "key": "12486.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997485280036926,
+   "seconds": 0.7854
+  },
+  {
+   "key": "22846.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Kanye West",
+   "score": 0.9997559189796448,
+   "seconds": 0.7759
+  },
+  {
+   "key": "14844.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9996658563613892,
+   "seconds": 0.6822
+  },
+  {
+   "key": "14815.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997885823249817,
+   "seconds": 0.6521
+  },
+  {
+   "key": "21251.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9998034834861755,
+   "seconds": 0.679
+  },
+  {
+   "key": "6925.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997829794883728,
+   "seconds": 0.6843
+  },
+  {
+   "key": "21590.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Adam Driver",
+   "score": 0.9996969699859619,
+   "seconds": 0.715
+  },
+  {
+   "key": "24598.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ayn Rand",
+   "score": 0.9997679591178894,
+   "seconds": 0.6679
+  },
+  {
+   "key": "26715.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Boris Johnson",
+   "score": 0.9997571110725403,
+   "seconds": 0.6888
+  },
+  {
+   "key": "15095.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Alec Guinness",
+   "score": 0.9997562766075134,
+   "seconds": 0.6998
+  },
+  {
+   "key": "19192.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997448325157166,
+   "seconds": 0.7313
+  },
+  {
+   "key": "31247.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Bill Clinton",
+   "score": 0.9997285008430481,
+   "seconds": 0.6359
+  },
+  {
+   "key": "19367.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Queen Elizabeth II",
+   "score": 0.9997687935829163,
+   "seconds": 0.6366
+  },
+  {
+   "key": "26581.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Barack Obama",
+   "score": 0.9997527003288269,
+   "seconds": 0.6377
+  },
+  {
+   "key": "1252.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "The Notorious B.I.G.",
+   "score": 0.9997349381446838,
+   "seconds": 0.7131
+  },
+  {
+   "key": "7572.wav",
+   "label": 1,
+   "group": "spoof",
+   "speaker": "Ronald Reagan",
+   "score": 0.9997830986976624,
+   "seconds": 0.7258
+  },
+  {
+   "key": "21843.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9996021389961243,
+   "seconds": 0.6513
+  },
+  {
+   "key": "5956.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.982275128364563,
+   "seconds": 0.6374
+  },
+  {
+   "key": "26854.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.6425929069519043,
+   "seconds": 0.6806
+  },
+  {
+   "key": "2934.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0006849751225672662,
+   "seconds": 0.6461
+  },
+  {
+   "key": "2179.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 3.5090753954136744e-05,
+   "seconds": 0.6337
+  },
+  {
+   "key": "31238.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.999579131603241,
+   "seconds": 0.7219
+  },
+  {
+   "key": "28291.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0002690309484023601,
+   "seconds": 0.6226
+  },
+  {
+   "key": "30844.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997063279151917,
+   "seconds": 0.6418
+  },
+  {
+   "key": "28597.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.9845237731933594,
+   "seconds": 0.6953
+  },
+  {
+   "key": "25997.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.6772109270095825,
+   "seconds": 0.6362
+  },
+  {
+   "key": "1089.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9697899222373962,
+   "seconds": 0.7302
+  },
+  {
+   "key": "7199.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0026090529281646013,
+   "seconds": 0.6937
+  },
+  {
+   "key": "19277.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9996933937072754,
+   "seconds": 0.6425
+  },
+  {
+   "key": "28163.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9994156360626221,
+   "seconds": 0.6755
+  },
+  {
+   "key": "17324.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.999240517616272,
+   "seconds": 0.6927
+  },
+  {
+   "key": "22555.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0048766531981527805,
+   "seconds": 0.7573
+  },
+  {
+   "key": "17973.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997240900993347,
+   "seconds": 0.759
+  },
+  {
+   "key": "24692.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9959349632263184,
+   "seconds": 0.7222
+  },
+  {
+   "key": "18806.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996734857559204,
+   "seconds": 0.6508
+  },
+  {
+   "key": "13690.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.7452005743980408,
+   "seconds": 0.7491
+  },
+  {
+   "key": "23443.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997490048408508,
+   "seconds": 0.708
+  },
+  {
+   "key": "15959.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997606873512268,
+   "seconds": 0.6782
+  },
+  {
+   "key": "5204.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.8562366962432861,
+   "seconds": 0.6715
+  },
+  {
+   "key": "4221.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9996713399887085,
+   "seconds": 0.6594
+  },
+  {
+   "key": "27359.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.00362693564966321,
+   "seconds": 0.6478
+  },
+  {
+   "key": "5504.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9992974996566772,
+   "seconds": 0.6511
+  },
+  {
+   "key": "26267.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.07933712005615234,
+   "seconds": 0.6511
+  },
+  {
+   "key": "25723.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.868453860282898,
+   "seconds": 0.6755
+  },
+  {
+   "key": "27255.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9995309114456177,
+   "seconds": 0.7024
+  },
+  {
+   "key": "27202.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9997370839118958,
+   "seconds": 0.6422
+  },
+  {
+   "key": "17978.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Nick Offerman",
+   "score": 0.9993517994880676,
+   "seconds": 0.6591
+  },
+  {
+   "key": "16653.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9972984194755554,
+   "seconds": 0.6681
+  },
+  {
+   "key": "12734.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.007381394971162081,
+   "seconds": 0.648
+  },
+  {
+   "key": "12582.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.002830111887305975,
+   "seconds": 0.6563
+  },
+  {
+   "key": "2160.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0006080893217585981,
+   "seconds": 0.6677
+  },
+  {
+   "key": "13830.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9996483325958252,
+   "seconds": 0.6734
+  },
+  {
+   "key": "25961.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.3334636688232422,
+   "seconds": 0.6507
+  },
+  {
+   "key": "11840.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.191261425614357,
+   "seconds": 0.6829
+  },
+  {
+   "key": "25735.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 6.937295984243974e-05,
+   "seconds": 0.6705
+  },
+  {
+   "key": "25832.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Lyndon Johnson",
+   "score": 4.6312383346958086e-05,
+   "seconds": 0.6512
+  },
+  {
+   "key": "22578.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 2.559969107096549e-05,
+   "seconds": 0.6645
+  },
+  {
+   "key": "4537.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 6.0995760577498004e-05,
+   "seconds": 0.6499
+  },
+  {
+   "key": "23762.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9024879336357117,
+   "seconds": 0.6383
+  },
+  {
+   "key": "11124.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George Carlin",
+   "score": 0.9995693564414978,
+   "seconds": 0.6995
+  },
+  {
+   "key": "196.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.640792727470398,
+   "seconds": 0.6871
+  },
+  {
+   "key": "1608.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "2Pac",
+   "score": 0.9997460246086121,
+   "seconds": 0.6766
+  },
+  {
+   "key": "14507.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9871035218238831,
+   "seconds": 0.7438
+  },
+  {
+   "key": "24529.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.0002468171587679535,
+   "seconds": 0.6979
+  },
+  {
+   "key": "4678.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9996644258499146,
+   "seconds": 0.6716
+  },
+  {
+   "key": "15677.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9322116374969482,
+   "seconds": 0.688
+  },
+  {
+   "key": "18599.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.02966129407286644,
+   "seconds": 0.6703
+  },
+  {
+   "key": "27458.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 4.7803619963815436e-05,
+   "seconds": 0.6747
+  },
+  {
+   "key": "31206.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 7.22294716979377e-05,
+   "seconds": 0.6868
+  },
+  {
+   "key": "3527.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.00013255617523100227,
+   "seconds": 0.7048
+  },
+  {
+   "key": "24126.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 4.453019209904596e-05,
+   "seconds": 0.7137
+  },
+  {
+   "key": "9779.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9995874762535095,
+   "seconds": 0.7124
+  },
+  {
+   "key": "6903.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.7574416399002075,
+   "seconds": 0.6308
+  },
+  {
+   "key": "15947.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 3.521106191328727e-05,
+   "seconds": 0.634
+  },
+  {
+   "key": "10360.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996241331100464,
+   "seconds": 0.7213
+  },
+  {
+   "key": "24052.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.04867756739258766,
+   "seconds": 0.633
+  },
+  {
+   "key": "28731.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.0003637665358837694,
+   "seconds": 0.734
+  },
+  {
+   "key": "27543.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.03218155726790428,
+   "seconds": 0.6776
+  },
+  {
+   "key": "22666.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.00014906586147844791,
+   "seconds": 0.6826
+  },
+  {
+   "key": "30347.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9992197751998901,
+   "seconds": 0.6931
+  },
+  {
+   "key": "17807.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9997761845588684,
+   "seconds": 0.6412
+  },
+  {
+   "key": "539.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.00036085397005081177,
+   "seconds": 0.9226
+  },
+  {
+   "key": "25595.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.00011899306264240295,
+   "seconds": 0.6553
+  },
+  {
+   "key": "17699.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9112608432769775,
+   "seconds": 0.6611
+  },
+  {
+   "key": "14210.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9973093271255493,
+   "seconds": 0.6331
+  },
+  {
+   "key": "23496.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Milton Friedman",
+   "score": 0.0026978293899446726,
+   "seconds": 0.6293
+  },
+  {
+   "key": "5075.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.0689232125878334,
+   "seconds": 0.6398
+  },
+  {
+   "key": "7933.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9995019435882568,
+   "seconds": 0.685
+  },
+  {
+   "key": "20502.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 6.285646668402478e-05,
+   "seconds": 0.6561
+  },
+  {
+   "key": "14812.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.006100828293710947,
+   "seconds": 0.6926
+  },
+  {
+   "key": "7538.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9991055130958557,
+   "seconds": 0.6557
+  },
+  {
+   "key": "693.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.924738883972168,
+   "seconds": 0.7029
+  },
+  {
+   "key": "23935.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9996669292449951,
+   "seconds": 0.6597
+  },
+  {
+   "key": "8898.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.9739406108856201,
+   "seconds": 0.6789
+  },
+  {
+   "key": "7710.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997010231018066,
+   "seconds": 0.6936
+  },
+  {
+   "key": "30293.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.007873148657381535,
+   "seconds": 0.6698
+  },
+  {
+   "key": "24685.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9843899607658386,
+   "seconds": 0.6551
+  },
+  {
+   "key": "2405.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9964304566383362,
+   "seconds": 0.666
+  },
+  {
+   "key": "14701.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Nelson Mandela",
+   "score": 0.7894139885902405,
+   "seconds": 0.6898
+  },
+  {
+   "key": "27280.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9996740818023682,
+   "seconds": 0.6604
+  },
+  {
+   "key": "11182.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.16304223239421844,
+   "seconds": 0.6284
+  },
+  {
+   "key": "6837.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9997751116752625,
+   "seconds": 0.6499
+  },
+  {
+   "key": "22394.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Robert Kardashian",
+   "score": 0.9987468719482422,
+   "seconds": 0.6339
+  },
+  {
+   "key": "19467.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9939957857131958,
+   "seconds": 0.6409
+  },
+  {
+   "key": "26713.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996746778488159,
+   "seconds": 0.6589
+  },
+  {
+   "key": "4523.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9991337656974792,
+   "seconds": 0.6337
+  },
+  {
+   "key": "20690.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bob Ross",
+   "score": 0.06296802312135696,
+   "seconds": 0.6336
+  },
+  {
+   "key": "3774.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 5.405406409408897e-05,
+   "seconds": 0.6491
+  },
+  {
+   "key": "28692.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.11814990639686584,
+   "seconds": 0.6334
+  },
+  {
+   "key": "31321.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.027523672208189964,
+   "seconds": 0.6957
+  },
+  {
+   "key": "27433.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.5792728066444397,
+   "seconds": 0.6829
+  },
+  {
+   "key": "26931.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9997926354408264,
+   "seconds": 0.6216
+  },
+  {
+   "key": "26953.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9994475245475769,
+   "seconds": 0.6829
+  },
+  {
+   "key": "18314.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9991324543952942,
+   "seconds": 0.7869
+  },
+  {
+   "key": "5502.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.999665379524231,
+   "seconds": 0.6936
+  },
+  {
+   "key": "105.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9996989965438843,
+   "seconds": 0.738
+  },
+  {
+   "key": "28357.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996795654296875,
+   "seconds": 0.7183
+  },
+  {
+   "key": "20021.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9992142915725708,
+   "seconds": 0.7001
+  },
+  {
+   "key": "21072.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9994112253189087,
+   "seconds": 0.7059
+  },
+  {
+   "key": "27652.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9939655661582947,
+   "seconds": 0.6531
+  },
+  {
+   "key": "27464.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.22606074810028076,
+   "seconds": 0.6416
+  },
+  {
+   "key": "2401.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9934519529342651,
+   "seconds": 0.6638
+  },
+  {
+   "key": "1894.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.999704897403717,
+   "seconds": 0.6539
+  },
+  {
+   "key": "10184.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9990230798721313,
+   "seconds": 0.6191
+  },
+  {
+   "key": "11535.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 3.563656719052233e-05,
+   "seconds": 0.6338
+  },
+  {
+   "key": "13207.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9989897608757019,
+   "seconds": 0.6591
+  },
+  {
+   "key": "13404.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.006937021855264902,
+   "seconds": 0.7994
+  },
+  {
+   "key": "2017.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9994081258773804,
+   "seconds": 0.6503
+  },
+  {
+   "key": "15695.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.0018019207054749131,
+   "seconds": 0.6496
+  },
+  {
+   "key": "24334.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9995250701904297,
+   "seconds": 0.6663
+  },
+  {
+   "key": "18373.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.07279617339372635,
+   "seconds": 0.6868
+  },
+  {
+   "key": "26033.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9994309544563293,
+   "seconds": 0.6489
+  },
+  {
+   "key": "11907.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9940740466117859,
+   "seconds": 0.6213
+  },
+  {
+   "key": "13629.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 3.5627665056381375e-05,
+   "seconds": 0.6194
+  },
+  {
+   "key": "26739.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.8008063435554504,
+   "seconds": 0.7363
+  },
+  {
+   "key": "3202.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9995600581169128,
+   "seconds": 0.6699
+  },
+  {
+   "key": "12011.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9997052550315857,
+   "seconds": 0.6416
+  },
+  {
+   "key": "30179.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9988850951194763,
+   "seconds": 0.7602
+  },
+  {
+   "key": "22742.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.5080780386924744,
+   "seconds": 0.6779
+  },
+  {
+   "key": "14286.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9993786811828613,
+   "seconds": 0.6384
+  },
+  {
+   "key": "3780.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 0.3450099527835846,
+   "seconds": 0.6502
+  },
+  {
+   "key": "31624.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 3.590294363675639e-05,
+   "seconds": 0.6282
+  },
+  {
+   "key": "12938.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9995037317276001,
+   "seconds": 0.6478
+  },
+  {
+   "key": "8795.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.0002535607200115919,
+   "seconds": 0.7084
+  },
+  {
+   "key": "22469.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "FDR",
+   "score": 0.9997226595878601,
+   "seconds": 0.6467
+  },
+  {
+   "key": "10865.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9993583559989929,
+   "seconds": 0.6418
+  },
+  {
+   "key": "15075.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9995923638343811,
+   "seconds": 0.6903
+  },
+  {
+   "key": "2263.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.00038655195385217667,
+   "seconds": 0.6465
+  },
+  {
+   "key": "25399.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9776846766471863,
+   "seconds": 0.6461
+  },
+  {
+   "key": "13854.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.00016146816778928041,
+   "seconds": 0.696
+  },
+  {
+   "key": "19725.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9986874461174011,
+   "seconds": 0.6485
+  },
+  {
+   "key": "4377.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9977866411209106,
+   "seconds": 0.6296
+  },
+  {
+   "key": "8716.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9988981485366821,
+   "seconds": 0.6965
+  },
+  {
+   "key": "29385.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 3.294111957075074e-05,
+   "seconds": 0.6377
+  },
+  {
+   "key": "14557.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 6.795371155021712e-05,
+   "seconds": 0.6385
+  },
+  {
+   "key": "16448.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997578263282776,
+   "seconds": 0.652
+  },
+  {
+   "key": "14900.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9996901750564575,
+   "seconds": 0.6369
+  },
+  {
+   "key": "26499.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9995831847190857,
+   "seconds": 0.6638
+  },
+  {
+   "key": "28423.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.00034845806658267975,
+   "seconds": 0.6486
+  },
+  {
+   "key": "18313.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9997332692146301,
+   "seconds": 0.646
+  },
+  {
+   "key": "5769.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.010166001506149769,
+   "seconds": 0.6674
+  },
+  {
+   "key": "1780.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.24565577507019043,
+   "seconds": 0.702
+  },
+  {
+   "key": "6664.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9988435506820679,
+   "seconds": 0.6842
+  },
+  {
+   "key": "11918.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.8235050439834595,
+   "seconds": 0.641
+  },
+  {
+   "key": "30434.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997041821479797,
+   "seconds": 0.6793
+  },
+  {
+   "key": "31069.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996010661125183,
+   "seconds": 0.6436
+  },
+  {
+   "key": "95.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9921182990074158,
+   "seconds": 0.6319
+  },
+  {
+   "key": "178.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.16114921867847443,
+   "seconds": 0.6791
+  },
+  {
+   "key": "8075.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 5.139837594470009e-05,
+   "seconds": 0.6352
+  },
+  {
+   "key": "11266.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9994675517082214,
+   "seconds": 0.6272
+  },
+  {
+   "key": "2595.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9997393488883972,
+   "seconds": 0.6495
+  },
+  {
+   "key": "23839.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.00032602553255856037,
+   "seconds": 0.6304
+  },
+  {
+   "key": "359.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9834343194961548,
+   "seconds": 0.6415
+  },
+  {
+   "key": "13443.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.09233654290437698,
+   "seconds": 0.6645
+  },
+  {
+   "key": "30854.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9984849095344543,
+   "seconds": 0.6346
+  },
+  {
+   "key": "28992.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.999724805355072,
+   "seconds": 0.6393
+  },
+  {
+   "key": "29.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.0021021191496402025,
+   "seconds": 0.6581
+  },
+  {
+   "key": "13522.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9993958473205566,
+   "seconds": 0.6612
+  },
+  {
+   "key": "12694.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9829154014587402,
+   "seconds": 0.6377
+  },
+  {
+   "key": "28892.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9990867376327515,
+   "seconds": 0.6668
+  },
+  {
+   "key": "8609.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.004329216200858355,
+   "seconds": 0.6565
+  },
+  {
+   "key": "29334.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.999575674533844,
+   "seconds": 0.6394
+  },
+  {
+   "key": "14728.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.00029178400291129947,
+   "seconds": 0.6458
+  },
+  {
+   "key": "18893.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9500634670257568,
+   "seconds": 0.6996
+  },
+  {
+   "key": "14882.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.999546468257904,
+   "seconds": 0.6804
+  },
+  {
+   "key": "15228.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.0006013422971591353,
+   "seconds": 0.6649
+  },
+  {
+   "key": "10447.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.06089849770069122,
+   "seconds": 0.6478
+  },
+  {
+   "key": "28027.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9995535016059875,
+   "seconds": 0.6486
+  },
+  {
+   "key": "8440.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.06094222515821457,
+   "seconds": 0.6259
+  },
+  {
+   "key": "5960.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9931150078773499,
+   "seconds": 0.6493
+  },
+  {
+   "key": "25918.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9987867474555969,
+   "seconds": 0.6277
+  },
+  {
+   "key": "16365.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 5.320907075656578e-05,
+   "seconds": 0.6221
+  },
+  {
+   "key": "28995.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 9.400128328707069e-05,
+   "seconds": 0.6199
+  },
+  {
+   "key": "16195.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9994913339614868,
+   "seconds": 0.6744
+  },
+  {
+   "key": "26120.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9992862343788147,
+   "seconds": 0.6602
+  },
+  {
+   "key": "11140.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Adam Driver",
+   "score": 0.9989941716194153,
+   "seconds": 0.6999
+  },
+  {
+   "key": "23554.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.988318145275116,
+   "seconds": 0.6488
+  },
+  {
+   "key": "18250.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9996507167816162,
+   "seconds": 0.6819
+  },
+  {
+   "key": "25016.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.00016751517250668257,
+   "seconds": 0.657
+  },
+  {
+   "key": "9929.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996603727340698,
+   "seconds": 0.6335
+  },
+  {
+   "key": "30458.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.008364246226847172,
+   "seconds": 0.6573
+  },
+  {
+   "key": "11080.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George Carlin",
+   "score": 0.9995989203453064,
+   "seconds": 0.6571
+  },
+  {
+   "key": "18015.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9995076656341553,
+   "seconds": 0.628
+  },
+  {
+   "key": "24715.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996428489685059,
+   "seconds": 0.6771
+  },
+  {
+   "key": "14347.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.12890219688415527,
+   "seconds": 0.732
+  },
+  {
+   "key": "21826.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.06062188744544983,
+   "seconds": 0.6764
+  },
+  {
+   "key": "2467.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9996218681335449,
+   "seconds": 0.6802
+  },
+  {
+   "key": "11947.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9947729706764221,
+   "seconds": 0.6781
+  },
+  {
+   "key": "20139.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.08493976294994354,
+   "seconds": 0.6403
+  },
+  {
+   "key": "1792.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.992842435836792,
+   "seconds": 0.6611
+  },
+  {
+   "key": "14661.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.20989736914634705,
+   "seconds": 0.6754
+  },
+  {
+   "key": "17992.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9787286520004272,
+   "seconds": 0.6276
+  },
+  {
+   "key": "12571.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Nelson Mandela",
+   "score": 0.9997398257255554,
+   "seconds": 0.6479
+  },
+  {
+   "key": "26402.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.999024510383606,
+   "seconds": 0.6554
+  },
+  {
+   "key": "2680.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.00019653482013382018,
+   "seconds": 0.6319
+  },
+  {
+   "key": "17355.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.00011984699813183397,
+   "seconds": 0.6709
+  },
+  {
+   "key": "4758.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 4.7156554501270875e-05,
+   "seconds": 0.7028
+  },
+  {
+   "key": "31640.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.9753711223602295,
+   "seconds": 0.6316
+  },
+  {
+   "key": "30095.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0017890349263325334,
+   "seconds": 0.6905
+  },
+  {
+   "key": "12180.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.08357474207878113,
+   "seconds": 0.6268
+  },
+  {
+   "key": "11427.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9938347339630127,
+   "seconds": 0.6381
+  },
+  {
+   "key": "15423.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9995033740997314,
+   "seconds": 0.624
+  },
+  {
+   "key": "830.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 3.506158464006148e-05,
+   "seconds": 0.6376
+  },
+  {
+   "key": "16103.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.9996428489685059,
+   "seconds": 0.628
+  },
+  {
+   "key": "10141.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.00034460669849067926,
+   "seconds": 0.6115
+  },
+  {
+   "key": "1112.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.8836238384246826,
+   "seconds": 0.7139
+  },
+  {
+   "key": "828.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.6424461007118225,
+   "seconds": 0.6202
+  },
+  {
+   "key": "12707.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 2.822885289788246e-05,
+   "seconds": 0.6181
+  },
+  {
+   "key": "424.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9994277358055115,
+   "seconds": 0.6473
+  },
+  {
+   "key": "3451.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 8.297915337607265e-05,
+   "seconds": 0.6511
+  },
+  {
+   "key": "27166.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Malcolm X",
+   "score": 0.9997323155403137,
+   "seconds": 0.6418
+  },
+  {
+   "key": "3849.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9994907379150391,
+   "seconds": 0.6496
+  },
+  {
+   "key": "23259.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9837407469749451,
+   "seconds": 0.6756
+  },
+  {
+   "key": "31124.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.10585015267133713,
+   "seconds": 0.6968
+  },
+  {
+   "key": "27801.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9996447563171387,
+   "seconds": 0.6631
+  },
+  {
+   "key": "31554.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 0.0020520896650850773,
+   "seconds": 0.6642
+  },
+  {
+   "key": "7062.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.6029521822929382,
+   "seconds": 0.6602
+  },
+  {
+   "key": "23731.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.9996867179870605,
+   "seconds": 0.6574
+  },
+  {
+   "key": "18385.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.96739262342453,
+   "seconds": 0.6754
+  },
+  {
+   "key": "27156.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9851043820381165,
+   "seconds": 0.6601
+  },
+  {
+   "key": "11521.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9997530579566956,
+   "seconds": 0.6472
+  },
+  {
+   "key": "22448.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9993886947631836,
+   "seconds": 0.6978
+  },
+  {
+   "key": "5731.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.9997401833534241,
+   "seconds": 0.6507
+  },
+  {
+   "key": "16984.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Lyndon Johnson",
+   "score": 0.9780082106590271,
+   "seconds": 0.7424
+  },
+  {
+   "key": "19058.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996316432952881,
+   "seconds": 0.6875
+  },
+  {
+   "key": "28860.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9993946552276611,
+   "seconds": 0.6651
+  },
+  {
+   "key": "23132.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9991815686225891,
+   "seconds": 0.6885
+  },
+  {
+   "key": "9850.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George Carlin",
+   "score": 0.9997376799583435,
+   "seconds": 0.6348
+  },
+  {
+   "key": "27470.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.8835135102272034,
+   "seconds": 0.664
+  },
+  {
+   "key": "17571.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9983866214752197,
+   "seconds": 0.6455
+  },
+  {
+   "key": "30461.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.02029082179069519,
+   "seconds": 0.6258
+  },
+  {
+   "key": "15652.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9997581839561462,
+   "seconds": 0.6403
+  },
+  {
+   "key": "12497.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Nelson Mandela",
+   "score": 0.9996654987335205,
+   "seconds": 0.6652
+  },
+  {
+   "key": "20880.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.13887400925159454,
+   "seconds": 0.6373
+  },
+  {
+   "key": "24031.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.10530915856361389,
+   "seconds": 0.632
+  },
+  {
+   "key": "29405.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9973153471946716,
+   "seconds": 0.6833
+  },
+  {
+   "key": "18470.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.8778212070465088,
+   "seconds": 0.625
+  },
+  {
+   "key": "16727.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Lyndon Johnson",
+   "score": 0.8852723836898804,
+   "seconds": 0.7127
+  },
+  {
+   "key": "25029.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 3.7776611861772835e-05,
+   "seconds": 0.6325
+  },
+  {
+   "key": "30555.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.46803155541419983,
+   "seconds": 0.6596
+  },
+  {
+   "key": "26965.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9997325539588928,
+   "seconds": 0.6355
+  },
+  {
+   "key": "13561.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 2.5585048206266947e-05,
+   "seconds": 0.6269
+  },
+  {
+   "key": "13248.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 8.216913556680083e-05,
+   "seconds": 0.6742
+  },
+  {
+   "key": "16919.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.998921275138855,
+   "seconds": 0.643
+  },
+  {
+   "key": "7281.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.004152458161115646,
+   "seconds": 0.6827
+  },
+  {
+   "key": "28887.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "John Cleese",
+   "score": 0.9997467398643494,
+   "seconds": 0.6541
+  },
+  {
+   "key": "28800.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9843621253967285,
+   "seconds": 0.6821
+  },
+  {
+   "key": "8131.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "FDR",
+   "score": 0.9996311664581299,
+   "seconds": 0.6842
+  },
+  {
+   "key": "27345.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 7.517891936004162e-05,
+   "seconds": 0.636
+  },
+  {
+   "key": "18147.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.3083512783050537,
+   "seconds": 0.6763
+  },
+  {
+   "key": "23930.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.999488353729248,
+   "seconds": 0.6792
+  },
+  {
+   "key": "10767.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.00027501650038175285,
+   "seconds": 0.6738
+  },
+  {
+   "key": "1394.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9634014368057251,
+   "seconds": 0.6026
+  },
+  {
+   "key": "3126.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9994947910308838,
+   "seconds": 0.6508
+  },
+  {
+   "key": "17865.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 4.7191017074510455e-05,
+   "seconds": 0.7073
+  },
+  {
+   "key": "26754.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9986542463302612,
+   "seconds": 0.7443
+  },
+  {
+   "key": "552.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 7.52251798985526e-05,
+   "seconds": 0.621
+  },
+  {
+   "key": "31547.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9993155002593994,
+   "seconds": 0.6729
+  },
+  {
+   "key": "23364.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Robert Kardashian",
+   "score": 0.9832173585891724,
+   "seconds": 0.6372
+  },
+  {
+   "key": "1002.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Adam Driver",
+   "score": 0.9886192083358765,
+   "seconds": 0.6259
+  },
+  {
+   "key": "15413.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9992399215698242,
+   "seconds": 0.649
+  },
+  {
+   "key": "15374.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.09817025810480118,
+   "seconds": 0.6431
+  },
+  {
+   "key": "8866.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George W. Bush",
+   "score": 0.9997517466545105,
+   "seconds": 0.6342
+  },
+  {
+   "key": "27510.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alan Watts",
+   "score": 0.0011756719322875142,
+   "seconds": 0.64
+  },
+  {
+   "key": "10776.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "2Pac",
+   "score": 0.9991348385810852,
+   "seconds": 0.7047
+  },
+  {
+   "key": "24198.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.0004166936269029975,
+   "seconds": 0.7019
+  },
+  {
+   "key": "2398.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9954460859298706,
+   "seconds": 0.648
+  },
+  {
+   "key": "29101.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0003214941534679383,
+   "seconds": 0.6293
+  },
+  {
+   "key": "6260.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9997159838676453,
+   "seconds": 0.6079
+  },
+  {
+   "key": "29039.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Arnold Schwarzenegger",
+   "score": 0.9995689988136292,
+   "seconds": 0.6792
+  },
+  {
+   "key": "29763.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9680439233779907,
+   "seconds": 0.7169
+  },
+  {
+   "key": "2345.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.9994539618492126,
+   "seconds": 0.697
+  },
+  {
+   "key": "16749.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.04102303087711334,
+   "seconds": 0.6554
+  },
+  {
+   "key": "30094.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.999785840511322,
+   "seconds": 0.6243
+  },
+  {
+   "key": "13855.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 6.385628512362018e-05,
+   "seconds": 0.6261
+  },
+  {
+   "key": "2746.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.14501047134399414,
+   "seconds": 0.6304
+  },
+  {
+   "key": "13081.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.999756395816803,
+   "seconds": 0.6522
+  },
+  {
+   "key": "31105.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George W. Bush",
+   "score": 0.9997736811637878,
+   "seconds": 0.7085
+  },
+  {
+   "key": "3864.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Burr",
+   "score": 0.03416156768798828,
+   "seconds": 0.6411
+  },
+  {
+   "key": "20389.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997528195381165,
+   "seconds": 0.7512
+  },
+  {
+   "key": "31135.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9977486729621887,
+   "seconds": 0.687
+  },
+  {
+   "key": "27893.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.996193528175354,
+   "seconds": 0.6855
+  },
+  {
+   "key": "28166.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9996246099472046,
+   "seconds": 0.6338
+  },
+  {
+   "key": "29025.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.8918349742889404,
+   "seconds": 0.6303
+  },
+  {
+   "key": "30691.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9435006976127625,
+   "seconds": 0.6328
+  },
+  {
+   "key": "4966.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9983962178230286,
+   "seconds": 0.7207
+  },
+  {
+   "key": "24969.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9926706552505493,
+   "seconds": 0.6265
+  },
+  {
+   "key": "21695.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Boris Johnson",
+   "score": 0.07587840408086777,
+   "seconds": 0.8878
+  },
+  {
+   "key": "12690.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.04135316237807274,
+   "seconds": 0.6744
+  },
+  {
+   "key": "15979.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9995856881141663,
+   "seconds": 0.6635
+  },
+  {
+   "key": "876.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "FDR",
+   "score": 0.9997561573982239,
+   "seconds": 0.7132
+  },
+  {
+   "key": "28614.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Winston Churchill",
+   "score": 0.7481291890144348,
+   "seconds": 0.6528
+  },
+  {
+   "key": "2086.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.999698281288147,
+   "seconds": 0.6549
+  },
+  {
+   "key": "16346.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9642075896263123,
+   "seconds": 0.6662
+  },
+  {
+   "key": "12550.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George W. Bush",
+   "score": 0.9996849298477173,
+   "seconds": 0.6516
+  },
+  {
+   "key": "14642.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9993891716003418,
+   "seconds": 0.6743
+  },
+  {
+   "key": "6908.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.0976862832903862,
+   "seconds": 0.6989
+  },
+  {
+   "key": "26277.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9991459846496582,
+   "seconds": 0.6577
+  },
+  {
+   "key": "21335.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 3.1504794606007636e-05,
+   "seconds": 0.6205
+  },
+  {
+   "key": "314.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.00017050511087290943,
+   "seconds": 0.6674
+  },
+  {
+   "key": "3413.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9994986057281494,
+   "seconds": 0.6801
+  },
+  {
+   "key": "325.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.004614490550011396,
+   "seconds": 0.6552
+  },
+  {
+   "key": "1179.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997300505638123,
+   "seconds": 0.6432
+  },
+  {
+   "key": "18332.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Dwight Eisenhower",
+   "score": 0.9997692704200745,
+   "seconds": 0.6387
+  },
+  {
+   "key": "29877.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Burr",
+   "score": 0.9988691210746765,
+   "seconds": 0.6338
+  },
+  {
+   "key": "24632.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9973337650299072,
+   "seconds": 0.6524
+  },
+  {
+   "key": "14619.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.0002173596731154248,
+   "seconds": 0.6332
+  },
+  {
+   "key": "24526.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9996471405029297,
+   "seconds": 0.626
+  },
+  {
+   "key": "29140.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9983042478561401,
+   "seconds": 0.6464
+  },
+  {
+   "key": "14738.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9996681213378906,
+   "seconds": 0.6691
+  },
+  {
+   "key": "22401.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.999607264995575,
+   "seconds": 0.6435
+  },
+  {
+   "key": "14376.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 8.603747846791521e-05,
+   "seconds": 0.6678
+  },
+  {
+   "key": "28171.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.0027863692957907915,
+   "seconds": 0.6505
+  },
+  {
+   "key": "19850.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9996720552444458,
+   "seconds": 0.6829
+  },
+  {
+   "key": "26637.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "JFK",
+   "score": 0.9997075200080872,
+   "seconds": 0.6396
+  },
+  {
+   "key": "8670.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.583864152431488,
+   "seconds": 0.6416
+  },
+  {
+   "key": "10187.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Harry Truman",
+   "score": 0.9993525147438049,
+   "seconds": 0.6561
+  },
+  {
+   "key": "164.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 2.419417432975024e-05,
+   "seconds": 0.6294
+  },
+  {
+   "key": "15222.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.06162477657198906,
+   "seconds": 0.6422
+  },
+  {
+   "key": "19662.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9708532691001892,
+   "seconds": 0.6279
+  },
+  {
+   "key": "23796.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9953136444091797,
+   "seconds": 0.6299
+  },
+  {
+   "key": "19046.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.0015757777728140354,
+   "seconds": 0.6663
+  },
+  {
+   "key": "2624.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Kamala Harris",
+   "score": 0.9996527433395386,
+   "seconds": 0.6298
+  },
+  {
+   "key": "27044.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 7.545630069216713e-05,
+   "seconds": 0.6445
+  },
+  {
+   "key": "9554.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 9.216379839926958e-05,
+   "seconds": 0.6853
+  },
+  {
+   "key": "7984.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.001006941543892026,
+   "seconds": 0.6962
+  },
+  {
+   "key": "6765.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Tucker Carlson",
+   "score": 0.0003195659373886883,
+   "seconds": 0.6768
+  },
+  {
+   "key": "4404.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.00014175089017953724,
+   "seconds": 0.6462
+  },
+  {
+   "key": "10812.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.00011341344361426309,
+   "seconds": 0.6357
+  },
+  {
+   "key": "2434.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9996737241744995,
+   "seconds": 0.633
+  },
+  {
+   "key": "6919.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9997498393058777,
+   "seconds": 0.668
+  },
+  {
+   "key": "6296.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9997010827064514,
+   "seconds": 0.673
+  },
+  {
+   "key": "28909.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9996833801269531,
+   "seconds": 0.6806
+  },
+  {
+   "key": "31772.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.35981279611587524,
+   "seconds": 0.6708
+  },
+  {
+   "key": "25377.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0300923902541399,
+   "seconds": 0.6167
+  },
+  {
+   "key": "19971.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.9995604157447815,
+   "seconds": 0.6238
+  },
+  {
+   "key": "160.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996509552001953,
+   "seconds": 0.6564
+  },
+  {
+   "key": "2841.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.9996527433395386,
+   "seconds": 0.6495
+  },
+  {
+   "key": "1334.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9982154369354248,
+   "seconds": 0.6335
+  },
+  {
+   "key": "11073.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9982081651687622,
+   "seconds": 0.6499
+  },
+  {
+   "key": "887.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 2.462941120029427e-05,
+   "seconds": 0.6303
+  },
+  {
+   "key": "28884.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.0005569832283072174,
+   "seconds": 0.6756
+  },
+  {
+   "key": "5614.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.09521029889583588,
+   "seconds": 0.6713
+  },
+  {
+   "key": "28925.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Gilbert Gottfried",
+   "score": 0.8412925004959106,
+   "seconds": 0.6446
+  },
+  {
+   "key": "11044.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Nick Offerman",
+   "score": 0.9513015151023865,
+   "seconds": 0.6253
+  },
+  {
+   "key": "4507.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9991888403892517,
+   "seconds": 0.6487
+  },
+  {
+   "key": "6602.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.010725850239396095,
+   "seconds": 0.6531
+  },
+  {
+   "key": "9902.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.999638557434082,
+   "seconds": 0.6765
+  },
+  {
+   "key": "640.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.0008232253021560609,
+   "seconds": 0.6192
+  },
+  {
+   "key": "5161.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.7839617729187012,
+   "seconds": 0.6859
+  },
+  {
+   "key": "5023.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.0022768171038478613,
+   "seconds": 0.6288
+  },
+  {
+   "key": "25451.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.0638025775551796,
+   "seconds": 0.6512
+  },
+  {
+   "key": "13234.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9995574355125427,
+   "seconds": 0.6743
+  },
+  {
+   "key": "6391.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9997091889381409,
+   "seconds": 0.6407
+  },
+  {
+   "key": "11037.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9992546439170837,
+   "seconds": 0.6242
+  },
+  {
+   "key": "10434.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9990718364715576,
+   "seconds": 0.6428
+  },
+  {
+   "key": "14052.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Milton Friedman",
+   "score": 0.6812372207641602,
+   "seconds": 0.6233
+  },
+  {
+   "key": "31460.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9970377683639526,
+   "seconds": 0.6604
+  },
+  {
+   "key": "9175.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bill Clinton",
+   "score": 0.9997578263282776,
+   "seconds": 0.6489
+  },
+  {
+   "key": "26768.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Louis Farrakhan",
+   "score": 0.009361146949231625,
+   "seconds": 0.6243
+  },
+  {
+   "key": "29870.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.6042917966842651,
+   "seconds": 0.6423
+  },
+  {
+   "key": "8409.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.17878761887550354,
+   "seconds": 0.6456
+  },
+  {
+   "key": "21899.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Bernie Sanders",
+   "score": 0.9996122717857361,
+   "seconds": 0.6318
+  },
+  {
+   "key": "12583.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.009081050753593445,
+   "seconds": 0.6454
+  },
+  {
+   "key": "25465.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996823072433472,
+   "seconds": 0.633
+  },
+  {
+   "key": "21587.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.9827389717102051,
+   "seconds": 0.635
+  },
+  {
+   "key": "19037.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9811830520629883,
+   "seconds": 0.6293
+  },
+  {
+   "key": "12861.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9994489550590515,
+   "seconds": 0.6295
+  },
+  {
+   "key": "8072.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.021480334922671318,
+   "seconds": 0.6374
+  },
+  {
+   "key": "3340.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "George Carlin",
+   "score": 0.9955527186393738,
+   "seconds": 0.6178
+  },
+  {
+   "key": "29040.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 8.186348713934422e-05,
+   "seconds": 0.6261
+  },
+  {
+   "key": "3378.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9996354579925537,
+   "seconds": 0.6627
+  },
+  {
+   "key": "8526.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ronald Reagan",
+   "score": 0.008565790951251984,
+   "seconds": 0.6366
+  },
+  {
+   "key": "9188.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Mark Zuckerberg",
+   "score": 0.000341743667377159,
+   "seconds": 0.6535
+  },
+  {
+   "key": "28929.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.0037291983608156443,
+   "seconds": 0.7071
+  },
+  {
+   "key": "25277.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9996602535247803,
+   "seconds": 0.6264
+  },
+  {
+   "key": "5985.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.999536395072937,
+   "seconds": 0.6325
+  },
+  {
+   "key": "17406.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 4.047003312734887e-05,
+   "seconds": 0.65
+  },
+  {
+   "key": "26517.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9977771639823914,
+   "seconds": 0.6487
+  },
+  {
+   "key": "15090.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Martin Luther King",
+   "score": 0.9993098974227905,
+   "seconds": 0.6925
+  },
+  {
+   "key": "22641.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.9982308745384216,
+   "seconds": 0.6663
+  },
+  {
+   "key": "7231.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.00011141548020532355,
+   "seconds": 0.6307
+  },
+  {
+   "key": "21197.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9967212080955505,
+   "seconds": 0.6291
+  },
+  {
+   "key": "4515.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9325531125068665,
+   "seconds": 0.6509
+  },
+  {
+   "key": "30194.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 3.6989596992498264e-05,
+   "seconds": 0.6234
+  },
+  {
+   "key": "10047.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 5.3375046263681725e-05,
+   "seconds": 0.623
+  },
+  {
+   "key": "17210.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.9992344379425049,
+   "seconds": 0.6325
+  },
+  {
+   "key": "12263.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Dwight Eisenhower",
+   "score": 0.9997159838676453,
+   "seconds": 0.6379
+  },
+  {
+   "key": "13937.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Christopher Hitchens",
+   "score": 0.9995208978652954,
+   "seconds": 0.6557
+  },
+  {
+   "key": "29731.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alec Guinness",
+   "score": 0.999340832233429,
+   "seconds": 0.6393
+  },
+  {
+   "key": "100.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Alexandria Ocasio-Cortez",
+   "score": 0.04774312302470207,
+   "seconds": 0.6307
+  },
+  {
+   "key": "28383.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 5.088788748253137e-05,
+   "seconds": 0.6255
+  },
+  {
+   "key": "15330.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Richard Nixon",
+   "score": 0.9997486472129822,
+   "seconds": 0.6648
+  },
+  {
+   "key": "10810.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Barack Obama",
+   "score": 0.00021005487360525876,
+   "seconds": 0.6214
+  },
+  {
+   "key": "17635.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Ayn Rand",
+   "score": 0.6923648715019226,
+   "seconds": 0.6385
+  },
+  {
+   "key": "30710.wav",
+   "label": 0,
+   "group": "bona-fide",
+   "speaker": "Donald Trump",
+   "score": 0.9996381998062134,
+   "seconds": 0.6834
+  }
+ ],
+ "peak_memory_note": "measured separately (load + 20 items) because the original run's reading failed"
+}

@@ -204,3 +204,55 @@ def workers(request: Request, session: Session = Depends(get_db_session)) -> Suc
     alive = sum(1 for w in items if w.alive)
     message = f"{alive} worker{'s' if alive != 1 else ''} running" if alive else "No worker is running: queued jobs will wait"
     return envelope(WorkersStatus(alive=alive, workers=items, lease_seconds=settings.JOB_LEASE_SECONDS, checked_at=now), message)
+
+
+class ProjectionStatus(BaseModel):
+    consumer: str
+    configured: bool
+    reachable: bool | None
+    checkpoint: int
+    latest_sequence: int
+    lag_events: int
+    snapshots_pending: bool
+    nodes: int | None
+    relationships: int | None
+    server_version: str | None
+    error: str | None
+
+
+@router.get("/projections", response_model=SuccessEnvelope[list[ProjectionStatus]],
+            summary="Read projections of PostgreSQL (Neo4j graph): checkpoint, lag and reachability")
+def projections(request: Request, session: Session = Depends(get_db_session)) -> SuccessEnvelope[list[ProjectionStatus]]:
+    return envelope([ProjectionStatus(**request.app.state.graph.status(session))], "Projection status retrieved successfully")
+
+
+@router.post("/projections/neo4j/rebuild", response_model=SuccessEnvelope[dict],
+             responses={503: {"model": ErrorEnvelope, "description": "PROJECTION_UNAVAILABLE"}},
+             summary="Rebuild the Neo4j graph from PostgreSQL (every case's latest snapshot)")
+def rebuild_graph(request: Request) -> SuccessEnvelope[dict]:
+    graph = request.app.state.graph
+    if not graph.configured:
+        raise NextronError(503, ErrorCode.PROJECTION_UNAVAILABLE, "NEO4J_URI is not set; the projection is disabled")
+    try:
+        result = graph.rebuild()
+    except Exception as exc:  # noqa: BLE001
+        graph.close()
+        raise NextronError(503, ErrorCode.PROJECTION_UNAVAILABLE, "Neo4j is unreachable", {"error_type": type(exc).__name__}) from exc
+    return envelope(result, f"Rebuilt the graph for {result['cases_projected']} cases")
+
+
+@router.get("/config", response_model=SuccessEnvelope[dict], summary="Non-secret server configuration (read-only)")
+def system_config(request: Request) -> SuccessEnvelope[dict]:
+    """What the server is configured to do. Credentials, database addresses and paths are never included."""
+    st = request.app.state.settings
+    return envelope({
+        "environment": st.ENVIRONMENT, "version": st.APP_VERSION, "operator": st.OPERATOR_NAME,
+        "uploads": {"max_bytes": st.MAX_UPLOAD_SIZE_BYTES, "auto_analyze_default": st.AUTO_ANALYZE_ON_UPLOAD},
+        "jobs": {"lease_seconds": st.JOB_LEASE_SECONDS, "max_attempts": st.JOB_MAX_ATTEMPTS, "job_timeout_seconds": st.JOB_TIMEOUT_SECONDS,
+                 "module_timeout_seconds": st.MODULE_TIMEOUT_SECONDS},
+        "detectors": {"enabled": st.DETECTORS_ENABLED, "image": st.IMAGE_DETECTOR or None, "speech": st.SPEECH_DETECTOR or None,
+                      "timeout_seconds": st.DETECTOR_TIMEOUT_SECONDS},
+        "projections": {"neo4j": bool(st.NEO4J_URI), "qdrant": bool(st.QDRANT_URL)},
+        "web_visual_search": {"enabled": st.WEB_VISUAL_SEARCH_ENABLED, "key_configured": bool(getattr(st.SERPAPI_API_KEY, "get_secret_value", lambda: st.SERPAPI_API_KEY)())},
+        "cors_origins": list(st.CORS_ORIGINS),
+    }, "Configuration retrieved successfully")

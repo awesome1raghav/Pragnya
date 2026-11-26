@@ -20,12 +20,12 @@ logger = logging.getLogger("nextron.dispatcher")
 
 
 class Dispatcher:
-    def __init__(self, session_factory: sessionmaker[Session], hub: Hub, *, poll_seconds: float):
+    def __init__(self, session_factory: sessionmaker[Session], hub: Hub, *, poll_seconds: float, operator: str | None = None):
         self.factory = session_factory
         self.hub = hub
         self.poll_seconds = poll_seconds
         self.cursor: GapSafeCursor | None = None
-        self.notifications = NotificationConsumer()
+        self.notifications = NotificationConsumer(operator=operator)
         self.delivered = 0
         self.healthy = False
 

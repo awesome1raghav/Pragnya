@@ -67,7 +67,7 @@ def test_global_evidence_list_filters_and_names_the_case(client, media):
     assert missing.status_code == 404 and missing.json()["error"]["code"] == "CASE_NOT_FOUND"
 
 
-def test_search_finds_cases_and_evidence_and_names_unsearched_types(client, media):
+def test_search_finds_cases_and_evidence_and_names_searched_types(client, media):
     marker = uuid.uuid4().hex[:8]
     case = make_case(client, title=f"Search {marker} case")
     evidence = upload_png(client, case["case_id"], media, f"{marker}-frame.png")
@@ -75,8 +75,8 @@ def test_search_finds_cases_and_evidence_and_names_unsearched_types(client, medi
     body = client.get(f"{API}/search", params={"q": marker}).json()["data"]
     types = {(h["type"], h["id"]) for h in body["hits"]}
     assert ("CASE", case["case_id"]) in types and ("EVIDENCE", evidence["evidence_id"]) in types
-    assert body["searched_types"] == ["CASE", "EVIDENCE"]
-    assert body["not_searchable_yet"] == ["SOURCE", "FINDING", "REPORT"]
+    assert body["searched_types"] == ["CASE", "EVIDENCE", "SOURCE", "FINDING", "REPORT", "REVIEW"]  # Step 8
+    assert body["not_searchable_yet"] == []
 
     archived = make_case(client, title=f"Archived {marker}")
     client.post(f"{API}/cases/{archived['case_id']}/archive")

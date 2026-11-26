@@ -1,0 +1,89 @@
+{
+ "bases": 60,
+ "variants_per_base": 5,
+ "distractors": 120,
+ "positive_pairs": 900,
+ "negative_pairs": 114060,
+ "chosen": {
+  "phash_le": 12,
+  "dhash_le": 16
+ },
+ "thresholds": [
+  {
+   "phash_le": 6,
+   "dhash_le": 10,
+   "recall": 0.6567,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 591
+  },
+  {
+   "phash_le": 8,
+   "dhash_le": 12,
+   "recall": 0.7378,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 664
+  },
+  {
+   "phash_le": 10,
+   "dhash_le": 14,
+   "recall": 0.8233,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 741
+  },
+  {
+   "phash_le": 12,
+   "dhash_le": 16,
+   "recall": 0.9111,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 820
+  },
+  {
+   "phash_le": 14,
+   "dhash_le": 18,
+   "recall": 0.97,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 873
+  },
+  {
+   "phash_le": 16,
+   "dhash_le": 20,
+   "recall": 0.99,
+   "precision": 1.0,
+   "false_positives": 0,
+   "true_positives": 891
+  }
+ ],
+ "by_variant": {
+  "half_size": {
+   "pairs": 300,
+   "recall_at_chosen": 0.9567,
+   "median_phash": 2.0
+  },
+  "jpeg_q60": {
+   "pairs": 240,
+   "recall_at_chosen": 0.9417,
+   "median_phash": 2.0
+  },
+  "crop_90": {
+   "pairs": 180,
+   "recall_at_chosen": 0.7056,
+   "median_phash": 10.0
+  },
+  "brighter_20": {
+   "pairs": 120,
+   "recall_at_chosen": 1.0,
+   "median_phash": 4.0
+  },
+  "border_5px": {
+   "pairs": 60,
+   "recall_at_chosen": 1.0,
+   "median_phash": 2.0
+  }
+ },
+ "source": "real photographs from CommunityForensics-Eval (label 0), CC BY-NC-SA 4.0, internal evaluation"
+}

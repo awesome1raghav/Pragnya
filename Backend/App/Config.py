@@ -8,7 +8,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Annotated, Literal
 
-from pydantic import Field, field_validator
+from pydantic import SecretStr, Field, field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
 
 BACKEND_ROOT = Path(__file__).resolve().parent.parent
@@ -46,6 +46,13 @@ class Settings(BaseSettings):
     CORS_ORIGINS: Annotated[list[str], NoDecode] = ["http://localhost:8080", "http://127.0.0.1:8080"]
 
     LOG_LEVEL: Literal["DEBUG", "INFO", "WARNING", "ERROR"] = "INFO"
+    # Step 9 hardening. There is no authentication yet (single local operator), so production is refused unless the
+    # deployment explicitly accepts that; state-changing requests per client per minute (0 disables the limit).
+    ALLOW_UNAUTHENTICATED_PRODUCTION: bool = False
+    RATE_LIMIT_MUTATIONS_PER_MINUTE: int = Field(default=600, ge=0, le=100_000)
+    # Backups (Scripts/Database): always encrypted with this key (32 random bytes, base64). Keep a copy elsewhere.
+    BACKUP_DIR: Path = BACKEND_ROOT.parent / "Backups"
+    BACKUP_ENCRYPTION_KEY: SecretStr = SecretStr("")
 
     # Recorded as the actor on events. There is no authentication yet: the API is a
     # single-operator local service bound to 127.0.0.1 (archive §3.1, §17.1).
@@ -58,6 +65,13 @@ class Settings(BaseSettings):
     # FFprobe/FFmpeg executables: a name looked up on PATH, or an absolute path.
     FFPROBE_PATH: str = "ffprobe"
     FPCALC_PATH: str = "fpcalc"  # Chromaprint, optional: NEX-AUD reports its absence
+
+    # Pretrained detectors (Documentation/Testing/Detector Benchmark.md). They run in a separate host process;
+    # an empty name, or weights that are not installed, leaves the engine's result PARTIALLY_COMPLETED and says why.
+    DETECTORS_ENABLED: bool = True
+    IMAGE_DETECTOR: str = "CommunityForensics"
+    SPEECH_DETECTOR: str = "SSL-AASIST-DF"
+    DETECTOR_TIMEOUT_SECONDS: float = Field(default=120.0, gt=0, le=3600)
     MEDIA_PROBE_TIMEOUT_SECONDS: float = Field(default=30.0, gt=0, le=600)
 
     # T-MIR, jobs and workers (plan Step 3)
@@ -70,6 +84,20 @@ class Settings(BaseSettings):
     MODULE_TIMEOUT_SECONDS: float = Field(default=600.0, gt=0, le=86_400)
     WORKER_POLL_SECONDS: float = Field(default=1.0, gt=0, le=60)
     OUTBOX_POLL_SECONDS: float = Field(default=0.5, gt=0, le=60)
+
+    # Neo4j graph projection (Step 7): a rebuildable copy of each case's latest evidence graph. Empty URI disables it.
+    NEO4J_URI: str = ""
+    NEO4J_USER: str = "neo4j"
+    NEO4J_PASSWORD: SecretStr = SecretStr("")
+
+    # Visual retrieval: optional, independent of forensic detector availability.
+    QDRANT_URL: str = ""
+    QDRANT_API_KEY: SecretStr = SecretStr("")
+    VISUAL_MODEL_PATH: Path = BACKEND_ROOT / "Models" / "Siglip2Base224"
+    VISUAL_SEARCH_MAX_BYTES: int = Field(default=10 * 1024 * 1024, ge=1024, le=20 * 1024 * 1024)
+    GOOGLE_VISION_API_KEY: SecretStr = SecretStr("")
+    WEB_VISUAL_SEARCH_ENABLED: bool = False
+    SERPAPI_API_KEY: SecretStr = SecretStr("")
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod

@@ -18,6 +18,7 @@ ORIGINAL_KEY = re.compile(r"^Originals/[0-9a-f-]{36}/[0-9a-f-]{36}$")
 
 
 DERIVED_KEY = re.compile(r"^Derived/[0-9a-f-]{36}/[0-9a-f-]{36}/[0-9a-f-]{36}\.(png|json|wav)$")
+REPORT_KEY = re.compile(r"^Reports/[0-9a-f-]{36}/[0-9a-f-]{36}\.(json|pdf)$")
 
 
 def original_key(case_id: uuid.UUID, evidence_id: uuid.UUID) -> str:

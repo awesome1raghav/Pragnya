@@ -40,6 +40,7 @@ export function EvidenceOverview() {
   const ev = useLoadedEvidence();
   const md = useMetadata(ev.evidence_id);
   return <div className={s.page}>
+    <h1 className={s.srOnly}>{ev.evidence_number} overview: {ev.filename}</h1>
     <div className={p.grid2}>
       <div className={p.stack}>
         <MediaViewer ev={ev} compact />

@@ -79,3 +79,8 @@ button, input, select, textarea { font: inherit; }
   outline: 2px solid #e9a23b;
   outline-offset: 3px;
 }
+
+/* Step 10 audit: checkboxes and radios at a usable size */
+input[type='checkbox'], input[type='radio'] { width: 18px; height: 18px; accent-color: #e9a23b; }
+/* phones: standalone text links get a 24 px tall hit area (WCAG 2.5.8) without moving the text */
+@media (max-width: 760px) { main a { padding-block: 4px; } }

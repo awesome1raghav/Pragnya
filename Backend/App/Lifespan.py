@@ -12,6 +12,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
+from Backend.App.Projections.Neo4jGraph import Neo4jGraph
 from Backend.App.Realtime.Dispatcher import Dispatcher
 from Backend.App.Realtime.Hub import Hub
 from Backend.App.Storage.LocalStorage import LocalStorage
@@ -38,8 +39,10 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     except OSError:
         pass  # reported by /health/ready and /system/storage rather than blocking startup
     app.state.last_database_success = None
+    app.state.graph = Neo4jGraph(settings, app.state.session_factory)  # status and rebuild; the worker keeps it current
     app.state.hub = Hub()
-    app.state.dispatcher = Dispatcher(app.state.session_factory, app.state.hub, poll_seconds=settings.OUTBOX_POLL_SECONDS)
+    app.state.dispatcher = Dispatcher(app.state.session_factory, app.state.hub, poll_seconds=settings.OUTBOX_POLL_SECONDS,
+                                    operator=settings.OPERATOR_NAME)
     dispatch_task = asyncio.create_task(app.state.dispatcher.run(), name="outbox-dispatcher")
     try:
         yield
@@ -47,4 +50,5 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
         dispatch_task.cancel()
         with contextlib.suppress(asyncio.CancelledError):
             await dispatch_task
+        app.state.graph.close()
         app.state.engine.dispose()

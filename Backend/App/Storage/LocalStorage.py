@@ -9,10 +9,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import BinaryIO
 
-from Backend.App.Storage.StorageInterface import DERIVED_KEY, ORIGINAL_KEY, StagingFile, StorageError, StorageHealth
+from Backend.App.Storage.StorageInterface import DERIVED_KEY, ORIGINAL_KEY, REPORT_KEY, StagingFile, StorageError, StorageHealth
 
 ORIGINALS = "Originals"
 DERIVED = "Derived"
+REPORTS = "Reports"
 STAGING = "Temporary"
 
 
@@ -97,11 +98,29 @@ class LocalStorage:
 
     def write_derived(self, key: str, data: bytes) -> None:
         """Writes a derived artifact once (atomically, via a temporary name) and makes it read-only."""
-        path = self._derived_path(key)
+        self._write_once(self._derived_path(key), data)
+
+    def _report_path(self, key: str) -> Path:
+        if not REPORT_KEY.fullmatch(key):
+            raise StorageError("Invalid report key")
+        path = (self.root / key).resolve()
+        if (self.root / REPORTS).resolve() not in path.parents:
+            raise StorageError("Report key escapes the reports directory")
+        return path
+
+    def write_report(self, key: str, data: bytes) -> None:
+        """Writes a generated report file once and makes it read-only (report versions are never rewritten)."""
+        self._write_once(self._report_path(key), data)
+
+    def report_path(self, key: str) -> Path:
+        return self._report_path(key)
+
+    @staticmethod
+    def _write_once(path: Path, data: bytes) -> None:
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
             if path.exists():
-                raise StorageError("A derived artifact already exists at this key")
+                raise StorageError("A file already exists at this key")
             temporary = path.with_suffix(path.suffix + ".part")
             temporary.write_bytes(data)
             os.rename(temporary, path)
@@ -109,7 +128,7 @@ class LocalStorage:
         except StorageError:
             raise
         except OSError as exc:
-            raise StorageError(f"Could not write derived artifact: {type(exc).__name__}") from exc
+            raise StorageError(f"Could not write file: {type(exc).__name__}") from exc
 
     def derived_path(self, key: str) -> Path:
         return self._derived_path(key)

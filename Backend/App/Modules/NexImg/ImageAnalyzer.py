@@ -10,7 +10,8 @@ Methods (each reports what it measured; none decides "manipulated" or "authentic
              Mahdian & Saic 2008). Integer factors (exactly 2x) and strong recompression hide the trace.
   JPEG_QT    for JPEG files, the luminance quantisation table and the IJG quality it best matches.
   HASHES     average, difference and DCT perceptual hashes (features for NEX-FPM; not evidence by themselves).
-An evaluated synthetic-image detector is not installed, so the result is PARTIALLY_COMPLETED and says so.
+DETECTOR   the configured pretrained synthetic-image detector (Detectors/Host.py, benchmarked locally), reported as an
+             INFERENCE with the model's own score. Without it the result is PARTIALLY_COMPLETED and says why.
 """
 
 import io
@@ -23,7 +24,8 @@ from PIL import Image, ImageOps
 from Backend.App.Contracts.Artifacts import ArtifactKind
 from Backend.App.Contracts.ExecutionStates import ExecutionState
 from Backend.App.Contracts.Findings import Assertion, Finding, Region, ScoreKind
-from Backend.App.Modules.Engine import DETECTOR_NOT_INSTALLED, ArtifactOut, EngineOutput, heatmap, png, r, robust_z
+from Backend.App.Detectors import Benchmarks
+from Backend.App.Modules.Engine import ArtifactOut, EngineOutput, detector_finding, heatmap, png, r, robust_z, run_detector
 
 VERSION = "nextron-img/1"
 MODULE = "NEX-IMG"
@@ -112,9 +114,7 @@ def _ijg_table(q: int) -> np.ndarray:
 
 
 def analyze(path: Path, evidence_id, *, settings=None) -> EngineOutput:
-    out = EngineOutput(ExecutionState.PARTIALLY_COMPLETED, DETECTOR_NOT_INSTALLED,
-                       "No evaluated synthetic-image detector is installed, so no AI-generation assessment was made; "
-                       "the measurement methods below ran.")
+    out = EngineOutput(ExecutionState.PARTIALLY_COMPLETED)  # the detector step below decides the final status
     out.tool_versions = {"pillow": PIL.__version__, "numpy": np.__version__}
     original, rgb, notes = _load(path)
     out.limitations += notes
@@ -214,5 +214,13 @@ def analyze(path: Path, evidence_id, *, settings=None) -> EngineOutput:
     out.findings.append(Finding(module_id=MODULE, evidence_ids=ev, assertion=Assertion.OBSERVATION, finding_type="PERCEPTUAL_HASHES",
                                 title="Perceptual hashes computed", description="Features for similarity search (NEX-FPM); not evidence on their own.",
                                 measurement=_perceptual(gray), parameters=PARAMETERS))
-    out.limitations.append("No evaluated synthetic-image detector is installed: AI generation was not assessed")
+    run = run_detector(settings, getattr(settings, "IMAGE_DETECTOR", ""), path, what="synthetic-image")
+    if run.score is not None:
+        out.status = ExecutionState.COMPLETED
+        out.findings.append(detector_finding(MODULE, evidence_id, run, kind="SYNTHETIC_IMAGE_DETECTOR", subject="image",
+                                             benchmark=Benchmarks.summary(run.info.name)))
+        out.tool_versions[run.info.name] = run.info.version
+    else:
+        out.reason, out.detail = run.reason, run.detail + " The measurement methods below ran."
+        out.limitations.append(run.detail)
     return out

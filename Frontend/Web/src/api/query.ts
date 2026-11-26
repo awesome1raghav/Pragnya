@@ -76,6 +76,14 @@ export function invalidate(...prefixes: string[]) {
   }
 }
 
+/** Refetch everything: after the live stream could not account for what changed (e.g. the event history restarted). */
+export function invalidateAll() {
+  for (const [key, entry] of cache) {
+    if (listeners.get(key)?.size && entry.fetcher) load(key, entry.fetcher);
+    else cache.delete(key);
+  }
+}
+
 /** Put a known-fresh value in the cache (e.g. the record a successful write returned). */
 export function prime<T>(key: string, data: T) {
   const prev = cache.get(key);

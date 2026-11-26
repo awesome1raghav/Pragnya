@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from Backend.App.Core.Exceptions import ErrorCode, NextronError
 from Backend.App.Realtime import Outbox
 from Backend.App.Realtime.Cursor import GapSafeCursor
+from Backend.App.Services import Preferences
 from Database.PostgreSQL.Models import Notification, OutboxCheckpoint, OutboxEvent
 
 CONSUMER = "notifications"
@@ -52,6 +53,13 @@ def describe(event: OutboxEvent) -> tuple[str, str, str | None, str | None] | No
         return "ALERT", f"{job} failed", message + _counts(p), _link(event)
     if t == "job.cancelled":
         return "INFO", f"{job} cancelled", "Modules that had not started were not run.", _link(event)
+    if t == "source.retrieval_ended" and p.get("outcome") in ("FAILED", "BLOCKED", "NOT_FOUND", "UNAVAILABLE", "RESTRICTED", "RATE_LIMITED"):
+        return ("WARNING", f"{p.get('source_number', 'A source')} not retrieved", f"{p.get('outcome', '').replace('_', ' ').lower()}: {p.get('detail') or ''}".strip(),
+                f"/sources?case={event.case_id}" if event.case_id else "/sources")
+    if t == "report.generated":
+        return "INFO", f"{p.get('report_number', 'Report')} v{p.get('version')} generated", f"{p.get('kind', '').title()} report, JSON and PDF.",             f"/investigations/{event.case_id}/report" if event.case_id else "/reports"
+    if t == "report.failed":
+        return "ALERT", f"{p.get('report_number', 'Report')} v{p.get('version')} failed", p.get("error") or "The report could not be generated.",             f"/investigations/{event.case_id}/report" if event.case_id else "/reports"
     if t in ("evidence.integrity_mismatch", "evidence.integrity_missing"):
         what = "do not match the recorded SHA-256" if t.endswith("mismatch") else "are missing from storage"
         return ("ALERT", f"{p.get('evidence_number', 'Evidence')}: integrity check failed",
@@ -59,10 +67,16 @@ def describe(event: OutboxEvent) -> tuple[str, str, str | None, str | None] | No
     return None
 
 
+# event type → the preference that turns it off (integrity failures have none: they are always notified)
+CATEGORY = {"job.completed": "runs_completed", "job.partially_completed": "runs_partial", "job.failed": "runs_failed",
+            "job.cancelled": "runs_cancelled", "source.retrieval_ended": "sources", "report.generated": "reports", "report.failed": "reports"}
+
+
 class NotificationConsumer:
-    def __init__(self, *, gap_timeout: float = 15.0):
+    def __init__(self, *, gap_timeout: float = 15.0, operator: str | None = None):
         self.cursor: GapSafeCursor | None = None
         self.gap_timeout = gap_timeout
+        self.operator = operator  # whose notification preferences apply (single local operator)
 
     def process(self, session: Session, *, batch: int = 500) -> int:
         """Handles one batch; returns how many notifications were created. Commits."""
@@ -73,11 +87,12 @@ class NotificationConsumer:
         if self.cursor is None or self.cursor.position < checkpoint.last_sequence:
             self.cursor = GapSafeCursor(checkpoint.last_sequence, gap_timeout=self.gap_timeout)
         created = 0
+        wanted = Preferences.document(session, self.operator).notifications.model_dump() if self.operator else {}
         for event in Outbox.events_after(session, self.cursor.position, limit=batch):
             if not self.cursor.is_new(event.sequence):
                 continue
             described = describe(event)
-            if described:
+            if described and wanted.get(CATEGORY.get(event.event_type, ""), True):
                 severity, title, body, link = described
                 created += session.execute(
                     insert(Notification).values(id=uuid.uuid4(), event_id=event.id, event_type=event.event_type, severity=severity,
@@ -139,11 +154,15 @@ def mark_read(session: Session, notification_id: uuid.UUID) -> NotificationRead:
         raise NextronError(404, ErrorCode.NOTIFICATION_NOT_FOUND, "The requested notification does not exist")
     if n.read_at is None:
         n.read_at = datetime.now(timezone.utc)
+        Outbox.publish(session, "notification.read", aggregate_type="notification", aggregate_id=n.id, case_id=n.case_id,
+                       payload={"count": 1})  # other open tabs refresh their badge and list
         session.commit()
     return NotificationRead.of(n)
 
 
 def mark_all_read(session: Session) -> int:
     count = session.execute(update(Notification).where(Notification.read_at.is_(None)).values(read_at=datetime.now(timezone.utc))).rowcount
+    if count:
+        Outbox.publish(session, "notification.read", aggregate_type="notification", aggregate_id=Preferences.NAMESPACE, payload={"count": count})
     session.commit()
     return count
