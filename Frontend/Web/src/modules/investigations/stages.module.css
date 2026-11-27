@@ -1,0 +1,20 @@
+/* Investigation stage track (Stages.tsx). Done: quiet green check. Now: amber, the one place the eye should land.
+   Next: muted. Only the "now" marker changes over time, with a short transition when the stage really changes. */
+.full, .compact { display: grid; gap: 12px; }
+.track { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 0; padding: 0; list-style: none; }
+.track li { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 8px; padding-top: 10px; color: #8d877c; font-size: 13px; }
+.track li::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px; border-radius: 2px; background: #2a2722; transition: background-color .4s cubic-bezier(.22, 1, .36, 1); }
+.track li[data-state='done']::before { background: #8fbf7a66; }
+.track li[data-state='now']::before { background: #e9a23b; }
+.track i { display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid #3a362f; color: #0b0a09; }
+.track li[data-state='done'] i { border-color: #8fbf7a; background: #8fbf7a; }
+.track li[data-state='now'] i { border-color: #e9a23b; box-shadow: 0 0 0 3px #e9a23b26; }
+.track li[data-state='now'] { color: #f3eee6; }
+.track span { display: grid; min-width: 0; }
+.track small { font: 400 11px/1.4 var(--font-jb), ui-monospace, monospace; color: #8d877c; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.next { display: inline-flex; align-items: center; gap: 6px; color: #f0b85c; font-size: 13px; font-weight: 500; }
+.action { justify-self: start; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; border-radius: 9px; background: #e9a23b; color: #1a1408 !important; font-weight: 600; font-size: 14px; transition: transform .16s cubic-bezier(.22, 1, .36, 1), background-color .16s; }
+.action:hover { background: #f0b85c; transform: translateY(-1px); }
+.compact .track li { font-size: 12px; gap: 6px; padding-top: 8px; }
+.compact .track i { width: 14px; height: 14px; }
+@media (prefers-reduced-motion: reduce) { .track li::before, .action { transition: none; } }

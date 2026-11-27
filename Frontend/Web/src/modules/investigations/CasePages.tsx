@@ -5,12 +5,14 @@
    shown as such, with the module that will provide them. */
 import { CaseGraph, CaseReport, CaseReview, ReconstructionPanel } from '@/modules/investigation/Investigation';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { ArrowRight, FileText, Film, GitBranch, Globe2, LoaderCircle, Network, Pencil, Plus, Save, Share2 } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import cs from './case.module.css';
 import { ApiError, CASE_CATEGORIES, CASE_PRIORITIES, api, type Case, type CaseCategory, type CasePriority, type InvestigationEvent } from '@/api';
-import { useCase, useCaseEvidence, useCaseRuns, useCaseSummary, useRun } from '@/api/hooks';
+import { useCase, useCaseEvidence, useCaseRuns, useCaseSummary, useProgress, useRun } from '@/api/hooks';
+import { StageTrack } from './Stages';
 import { invalidate, prime, useQuery } from '@/api/query';
 import { Dot, Empty, ErrorState, Load, PageHead, SecHead, Unavailable } from '@/components/ui';
 import { CaseAnalysisPage, ModuleResultsPage } from '@/modules/analysis/Analysis';
@@ -31,6 +33,7 @@ export function CaseOverview() {
   const archived = c.status === 'ARCHIVED';
   return <div className={s.page}>
     <h1 className={s.srOnly}>{c.case_number} overview: {c.title}</h1>
+    <CaseStage caseId={c.case_id} />
     <div className={p.grid2}>
       <div className={p.stack}>
         <Details c={c} archived={archived} />
@@ -55,6 +58,7 @@ export function CaseOverview() {
             <Link href={paths.lineage(c.case_id)}><GitBranch size={15} />Lineage</Link>
             <Link href={paths.intelligence(c.case_id)}><Network size={15} />Intelligence</Link>
             <Link href={paths.graph(c.case_id)}><Share2 size={15} />Evidence graph</Link>
+            <Link href={paths.caseBacktracking(c.case_id)}><GitBranch size={15} />Backtracking</Link>
             <Link href={paths.reports(c.case_id)}><FileText size={15} />Reports</Link>
           </nav>
         </section>
@@ -104,18 +108,22 @@ function Details({ c, archived }: { c: Case; archived: boolean }) {
 
   return <section className={s.panel} aria-label='Investigation details'>
     <SecHead title='Details'>{!archived && <button className={`${s.btn} ${s.sm} ${s.ghost}`} onClick={open}><Pencil size={14} />Edit</button>}</SecHead>
-    <div><p className={s.cap}>Objectives</p><p className={p.notes} style={{ marginTop: 4 }}>{c.objectives || <span className={s.muted}>No objectives recorded yet.</span>}</p></div>
-    {c.description && <div><p className={s.cap}>Description</p><p className={p.notes} style={{ marginTop: 4 }}>{c.description}</p></div>}
-    <dl className={p.facts}>
+    <div className={cs.lead}><small>Objectives</small><p data-empty={!c.objectives || undefined}>{c.objectives || 'No objectives recorded yet. Say what this investigation must establish.'}</p></div>
+    {c.description && <div className={cs.lead}><small>Description</small><p>{c.description}</p></div>}
+    <dl className={cs.facts}>
       <div><dt>Category</dt><dd>{categoryLabel[c.category]}</dd></div>
       <div><dt>Priority</dt><dd>{priorityLabel[c.priority]}</dd></div>
-      <div><dt>Created</dt><dd title={c.created_at}>{utc(c.created_at)}</dd></div>
-      <div><dt>Created by</dt><dd>{c.created_by}</dd></div>
       <div><dt>Last activity</dt><dd title={c.last_activity_at}>{ago(c.last_activity_at)}</dd></div>
-      <div><dt>Revision</dt><dd>{c.revision}</dd></div>
-      {c.tags.length > 0 && <div style={{ gridColumn: '1 / -1' }}><dt>Tags</dt><dd className={p.chips}>{c.tags.map(t => <span key={t}>{t}</span>)}</dd></div>}
-      {c.archived_at && <div><dt>Archived</dt><dd>{utc(c.archived_at)}</dd></div>}
     </dl>
+    <details className={cs.more}><summary>Record details</summary>
+      <dl className={cs.facts} style={{ marginTop: 10 }}>
+        <div><dt>Created</dt><dd title={c.created_at}>{utc(c.created_at)}</dd></div>
+        <div><dt>Created by</dt><dd>{c.created_by}</dd></div>
+        <div><dt>Revision</dt><dd>{c.revision}</dd></div>
+        {c.archived_at && <div><dt>Archived</dt><dd>{utc(c.archived_at)}</dd></div>}
+        {c.tags.length > 0 && <div style={{ gridColumn: '1 / -1' }}><dt>Tags</dt><dd className={p.chips}>{c.tags.map(t => <span key={t}>{t}</span>)}</dd></div>}
+      </dl>
+    </details>
   </section>;
 }
 
@@ -146,6 +154,15 @@ function Notes({ c, archived }: { c: Case; archived: boolean }) {
 function RecentEvidence({ caseId }: { caseId: string }) {
   const q = useCaseEvidence(caseId);
   return <Load q={q} rows={2}>{page => page.data.length ? <EvidenceRows items={page.data.slice(0, 5)} /> : <p className={s.cap}>No evidence yet. Add the original files you need to examine.</p>}</Load>;
+}
+
+/** Level 1 of the workspace: where the investigation stands and the one thing to do next, from its records. */
+function CaseStage({ caseId }: { caseId: string }) {
+  const q = useProgress([caseId]);
+  const x = q.data?.[0];
+  return <section className={s.panel} aria-label='Where this investigation stands' style={{ marginBottom: 20, padding: '18px 20px' }}>
+    {x ? <StageTrack progress={x} /> : <Load q={q} rows={1}>{() => null}</Load>}
+  </section>;
 }
 
 function ModuleOverview({ caseId }: { caseId: string }) {
@@ -208,15 +225,24 @@ export function CaseTimeline() {
     return all;
   });
   return <div className={s.page}>
-    <PageHead title='Timeline' desc={`What has happened in ${c.case_number}, in order, from its recorded history. Times are when NEXTRON recorded each event.`} />
-    <div className={s.tlPage}>
-      <Load q={q} rows={6}>{events => events.length ? <ol className={s.chron}>{events.map(e => <li key={e.event_id} style={{ ['--c' as string]: toneColor[eventTone(e.event_type)] }}>
-        <time>{e.occurred_at.slice(0, 10)}<span>{e.occurred_at.slice(11, 19)} UTC</span></time>
-        <div>{e.evidence_id ? <Link href={paths.evidence(e.evidence_id, 'timeline')}><b>{eventLabel(e.event_type)}</b></Link> : <b>{eventLabel(e.event_type)}</b>}<small>{eventDetail(e.event_type, e.payload) ?? ''} · {e.actor}</small></div>
-      </li>)}</ol> : <Empty title='Nothing recorded yet' />}</Load>
-      <aside>
+    <PageHead title='Timeline' desc={`Two different histories of ${c.case_number}: what is claimed and measured about the media, and what was done in NEXTRON.`} />
+    <div className={cs.lanes}>
+      <div className={cs.lane}>
+        <div className={cs.laneHead} data-lane='media'><b>The media’s history</b><p>Dated statements about the evidence: times files and sources claim, and when NEXTRON received or retrieved them. Claims can be wrong; conflicts are flagged.</p></div>
         <ReconstructionPanel caseId={c.case_id} />
-      </aside>
+      </div>
+      <div className={cs.lane}>
+        <div className={cs.laneHead} data-lane='record'><b>The investigation record</b><p>What happened in NEXTRON, in order, from the append-only case history. Every time here was recorded by NEXTRON.</p></div>
+        <section className={s.panel} aria-label='Investigation record'>
+          <Load q={q} rows={6}>{events => events.length ? <ol className={cs.record}>{events.map((e, i) => <Fragment key={e.event_id}>
+            {(i === 0 || events[i - 1].occurred_at.slice(0, 10) !== e.occurred_at.slice(0, 10)) && <li className={cs.day} aria-hidden='true'>{e.occurred_at.slice(0, 10)}</li>}
+            <li className={cs.entry} style={{ ['--c' as string]: toneColor[eventTone(e.event_type)] }}>
+              <time>{e.occurred_at.slice(11, 19)}</time>
+              <div>{e.evidence_id ? <Link href={paths.evidence(e.evidence_id, 'timeline')}><b>{eventLabel(e.event_type)}</b></Link> : <b>{eventLabel(e.event_type)}</b>}<small>{eventDetail(e.event_type, e.payload) ?? ''} · {e.actor}</small></div>
+            </li></Fragment>)}</ol> : <Empty title='Nothing recorded yet' />}</Load>
+          <p className={s.cap}>Times in UTC.</p>
+        </section>
+      </div>
     </div>
   </div>;
 }
@@ -251,11 +277,13 @@ export function CaseEvents() {
     <PageHead title='Events' desc={`The append-only record of ${c.case_number}: lifecycle changes and the chain of custody of its evidence. Entries cannot be edited or deleted.`} />
     <div className={s.listBar}><div className={s.seg} role='tablist' aria-label='Event type'>{(['all', 'case', 'evidence'] as const).map(k => <button key={k} role='tab' aria-selected={kind === k} onClick={() => setKind(k)}>{k === 'all' ? 'All' : k === 'case' ? 'Investigation' : 'Evidence custody'}</button>)}</div></div>
     {err && <ErrorState error={err} onRetry={cursor !== null ? more : undefined} />}
-    {shown.length ? <section className={s.ledger}>{shown.map(e => <div key={e.event_id} className={s.eventWrap}><div className={s.event}>
+    {shown.length ? <section className={s.ledger}>{shown.map((e, i) => <Fragment key={e.event_id}>
+      {(i === 0 || shown[i - 1].occurred_at.slice(0, 10) !== e.occurred_at.slice(0, 10)) && <p className={cs.ledgerDay}>{e.occurred_at.slice(0, 10)}</p>}
+      <div className={s.eventWrap}><div className={s.event}>
       <i style={{ background: toneColor[eventTone(e.event_type)] }} />
       <span className={s.eventMain}><b>{eventLabel(e.event_type)}</b><small>#{e.sequence} · {utc(e.occurred_at)} · {e.actor}{eventDetail(e.event_type, e.payload) ? ` · ${eventDetail(e.event_type, e.payload)}` : ''}</small></span>
       {e.evidence_id ? <Link className={s.cap} href={paths.evidence(e.evidence_id, 'timeline')}>Evidence</Link> : <span className={s.cap}>Case</span>}
-    </div></div>)}</section> : !busy && !err && <Empty title='No events of this kind' />}
+    </div></div></Fragment>)}</section> : !busy && !err && <Empty title='No events of this kind' />}
     <div className={p.pager}><span>{loaded.length} loaded</span>{cursor !== null && <button className={`${s.btn} ${s.sm}`} onClick={more} disabled={busy}>{busy ? 'Loading…' : 'Load more'}</button>}</div>
   </div>;
 }

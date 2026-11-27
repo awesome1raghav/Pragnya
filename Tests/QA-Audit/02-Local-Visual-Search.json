@@ -1,0 +1,57 @@
+{
+  "status": 200,
+  "response": {
+    "success": true,
+    "message": "Local related images",
+    "data": {
+      "provider": "qdrant_siglip2",
+      "scope": "case",
+      "query_sha256": "4a359a04645fc79cb264ae37b341d60bc87b05146fca1b67c5e4e86d7a7e6c9b",
+      "matches": [
+        {
+          "evidence_id": "d62f46c7-0d53-485c-bc21-8e1d4f2a16cb",
+          "image_url": null,
+          "page_url": null,
+          "title": "IMG-01.jpg",
+          "match_type": "LOCAL_RELATED_IMAGE",
+          "score": 1.0,
+          "score_kind": "COSINE_SIMILARITY"
+        },
+        {
+          "evidence_id": "c3d57d1e-dbf5-4d91-b13b-ffb742bdcc45",
+          "image_url": null,
+          "page_url": null,
+          "title": "IMG-03.jpg",
+          "match_type": "LOCAL_RELATED_IMAGE",
+          "score": 0.980025,
+          "score_kind": "COSINE_SIMILARITY"
+        },
+        {
+          "evidence_id": "c4559d40-d974-4a20-bcca-d1ff75fa5b2a",
+          "image_url": null,
+          "page_url": null,
+          "title": "IMG-02.jpg",
+          "match_type": "LOCAL_RELATED_IMAGE",
+          "score": 0.951069,
+          "score_kind": "COSINE_SIMILARITY"
+        },
+        {
+          "evidence_id": "78c78c48-54ee-4efe-ab40-2bd820fe43cd",
+          "image_url": null,
+          "page_url": null,
+          "title": "IMG-04.png",
+          "match_type": "LOCAL_RELATED_IMAGE",
+          "score": 0.758979,
+          "score_kind": "COSINE_SIMILARITY"
+        }
+      ],
+      "limitations": [
+        "Searches indexed images in this investigation only; similarity does not prove common origin."
+      ]
+    },
+    "meta": {
+      "request_id": "req_3760948f41704a659701a25cad9a973b",
+      "timestamp": "2026-11-27T00:37:36.385Z"
+    }
+  }
+}

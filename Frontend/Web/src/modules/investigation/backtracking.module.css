@@ -1,0 +1,18 @@
+.controls { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 8px; }
+.metric { display: block; margin: 12px 0 4px; font-size: 42px; line-height: 1; letter-spacing: -.04em; }
+.edges, .history, .sources { display: grid; gap: 8px; margin: 12px 0 0; padding: 0; list-style: none; }
+.edges { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.edge, .history button { width: 100%; text-align: left; border: 1px solid #f3eee61c; border-radius: 9px; background: #171511; color: #f3eee6; cursor: pointer; }
+.edge { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 10px 12px; }
+.edge small { margin-left: auto; color: #e9a23b; }
+.history button { display: grid; gap: 4px; padding: 10px 12px; }
+.history button[aria-pressed='true'] { border-color: #e9a23b; }
+.history small, .sources small { color: #8d877c; overflow-wrap: anywhere; }
+.sources li { display: grid; gap: 3px; padding: 10px 0; border-bottom: 1px solid #f3eee61c; }
+.inspector { display: grid; gap: 12px; margin-top: 12px; }
+.inspector dl { display: grid; gap: 4px; margin: 0; }
+.inspector dt { color: #8d877c; font-size: 12px; }
+.inspector dd { margin: 0 0 8px; overflow-wrap: anywhere; font: 12px/1.5 ui-monospace, monospace; }
+.inspector pre { max-height: 240px; overflow: auto; padding: 12px; background: #0b0a09; font-size: 11px; }
+@media (max-width: 680px) { .controls { grid-template-columns: 1fr; } }

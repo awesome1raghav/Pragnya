@@ -67,7 +67,7 @@ def case_reconstruction(case_id: uuid.UUID, session: Session = Depends(get_db_se
 
 
 class ReviewCreate(BaseModel):
-    subject_type: Literal["FINDING", "RELATIONSHIP", "CASE_CONCLUSION"]
+    subject_type: Literal["FINDING", "RELATIONSHIP", "CASE_CONCLUSION", "BACKTRACK_COMPARISON"]
     subject_id: uuid.UUID = Field(description="A finding id, a relationship id, or the case id for a case conclusion")
     decision: Literal["ACCEPTED", "REJECTED", "INCONCLUSIVE", "NEEDS_MORE_EVIDENCE"]
     rationale: str = Field(min_length=3, max_length=4000)

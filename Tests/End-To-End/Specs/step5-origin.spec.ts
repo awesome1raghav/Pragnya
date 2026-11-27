@@ -4,7 +4,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import path from 'node:path';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 const SHOTS = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'Screenshots');
 const shot = (page: Page, name: string) => page.screenshot({ path: path.join(SHOTS, `${name}.png`), fullPage: true });
 

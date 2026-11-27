@@ -8,6 +8,7 @@ import { useRef, useState } from 'react';
 import { Check, LoaderCircle, Upload, X } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import x from './evidence.module.css';
 import { ACQUISITION_METHODS, ApiError, SOURCE_TYPES, api, type AcquisitionMethod, type SourceType, type UploadedEvidence } from '@/api';
 import { useStorageStatus } from '@/api/hooks';
 import { invalidate } from '@/api/query';
@@ -65,15 +66,23 @@ export default function Uploader({ caseId, onDone }: { caseId: string; onDone?: 
   }
 
   const pending = items.filter(i => i.state === 'waiting' || i.state === 'error').length;
-  return <div className={s.intake}>
+  return <div className={`${s.intake} ${x.ev}`}>
     <div className={s.side}>
       <label className={`${s.drop} ${over ? s.dropOver : ''}`} onDragOver={e => { e.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={e => { e.preventDefault(); setOver(false); add(e.dataTransfer.files); }}>
         <Upload size={30} /><b>Drop original images, video or audio</b>
         <small>JPEG, PNG, GIF, WebP, BMP, TIFF · MP4, MOV, WebM, MKV, AVI · WAV, MP3, FLAC, OGG, AAC, M4A</small>
         <input type='file' multiple accept='image/*,video/*,audio/*' onChange={e => { add(e.target.files); e.target.value = ''; }} aria-label='Choose evidence files' disabled={running} />
         <span className={s.dropActions}><span className={`${s.btn} ${s.primary}`} aria-hidden='true'>Choose files</span></span>
-        <small className={s.dropNext}>The server streams each file into storage, computes its SHA-256, checks that it really is the media it claims to be, keeps the original read-only, then queues its analysis for a worker.</small>
+        <small className={s.dropNext}>Preserved read-only with a server-side SHA-256, then analysed by a worker.</small>
       </label>
+      <details className={x.disclose}><summary>What happens to each file<small>intake, preservation, analysis</small></summary>
+        <ol className={s.cap} style={{ paddingLeft: 18, display: 'grid', gap: 4 }}>
+          <li>This browser hashes files up to 256 MB, to compare with the server.</li>
+          <li>The server streams the file into storage, computes its SHA-256 and checks it really is the media it claims to be.</li>
+          <li>The original is kept read-only; nothing in NEXTRON ever changes it.</li>
+          <li>Its analysis run is queued for a worker; results arrive live.</li>
+        </ol>
+      </details>
       {items.length > 0 && <section className={s.panel} aria-label='Upload queue'>
         <p className={s.title}>Files <span className={s.muted} style={{ fontWeight: 400 }}>{items.length}</span></p>
         <ul className={p.queue}>{items.map(i => <li key={i.key} className={p.qItem} data-s={i.state}>

@@ -1,0 +1,19 @@
+/* System overview (SystemPages.tsx): one quiet tile per dependency. Green only means "operational", never "authentic". */
+.tiles { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin: 0 0 24px; padding: 0; list-style: none; }
+.tile { display: grid; gap: 4px; align-content: start; padding: 14px 16px; border-radius: 14px; background: #100f0d; border: 1px solid #f3eee60b; }
+.tileLabel { display: flex; align-items: center; gap: 8px; color: #8d877c; font-size: 12.5px; }
+.tileLabel i { width: 7px; height: 7px; border-radius: 50%; background: #8d877c; }
+.tile[data-tone='ok'] .tileLabel i { background: #8fbf7a; }
+.tile[data-tone='gold'] .tileLabel i { background: #e9a23b; }
+.tile[data-tone='alert'] .tileLabel i { background: #f0604d; }
+.tile[data-tone='alert'] { border-color: #f0604d40; }
+.tile b { font-weight: 600; font-size: 17px; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.tile small { color: #8d877c; font-size: 12px; overflow-wrap: anywhere; }
+.details summary { cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 10px; font-weight: 500; }
+.details summary::-webkit-details-marker { display: none; }
+.details summary::before { content: '›'; color: #8d877c; transition: transform .2s; display: inline-block; }
+.details[open] summary::before { transform: rotate(90deg); }
+.details summary small { color: #8d877c; font-weight: 400; font-size: 12.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 1280px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (prefers-reduced-motion: reduce) { .details summary::before { transition: none; } }

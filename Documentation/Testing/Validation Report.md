@@ -3,6 +3,24 @@
 Results of test runs that actually executed. Machine: Windows 11, Ryzen 7 260, 23 GB RAM; Python 3.11.9;
 PostgreSQL 17.12 (Docker); Node 24.22; Next.js 16.4.6; Playwright 1.65.1 (Chromium).
 
+## Experience transformation and Universal Forensic Evidence Viewer — 27 November 2026
+
+| Check | Actual result |
+|---|---|
+| Backend suite | **276 passed** (adds result supersession, workspace summaries, test-record filter) |
+| Playwright, isolated stack (`Scripts/Testing/StartE2EStack.ps1`: database `nextron_e2e`, API :8002, web :8090) | **23 of 23**: 20 in the full run, then the 3 that failed for test reasons (hydration wait, a [E2E] title now hidden by default, one unnamed link) passed after fixes |
+| UI audit (`step10-audit.spec.ts`), 32 routes × 1440 and 390 px | **0 hard findings** after the redesign |
+| Viewer on real data | Spliced photo: choosing the noise finding focused its recorded region, overlaid the method's own NOISE heatmap and showed the limitation that flat areas such as sky have less noise |
+
+Fixed along the way:
+- **Results were never superseded** (since Step 3): re-runs left earlier results current and findings repeated (30 listed, 18 distinct on one photo). Recording now supersedes, and migration 0010 applied the rule to history after an encrypted backup; nothing was deleted.
+- **Browser tests wrote into the operator's database.** They now run on an isolated stack with their own database, storage and Qdrant collection.
+- 284 of 288 dev investigations are test records; lists hide `[E2E]`/`[Bench]`/`[Drill]`/`[Test]`/`[Smoke]` titles by default, always with the count and a one-click "Show". Nothing was changed or deleted.
+
+Screenshots: before in `Tests/Test Reports/End-To-End/Before Transformation/`, after in `Tests/Test Reports/End-To-End/UI Audit/` (64 each).
+
+Not done: colour-contrast measurement, a screen-reader walkthrough, face-level video localisation (no face detector installed), a pixel-localisation model (TruFor, gap 7), shared-element route transitions.
+
 ## Visual search with real photographs — 27 November 2026
 
 Five real camera photographs (RAISE, from the Community Forensics evaluation set already on disk, label "real"). Case

@@ -4,5 +4,30 @@
     "desktop",
     "phone"
   ],
-  "findings": []
+  "findings": [
+    {
+      "route": "/dashboard",
+      "width": "phone",
+      "check": "small-tap-target",
+      "detail": "1: button \"Show them\" 68×21"
+    },
+    {
+      "route": "/investigations",
+      "width": "phone",
+      "check": "small-tap-target",
+      "detail": "1: button \"Show them\" 68×21"
+    },
+    {
+      "route": "/investigations/:caseId/graph",
+      "width": "phone",
+      "check": "small-tap-target",
+      "detail": "2: g \"evidence EVD-0047\" 71×14; g \"finding SYNTHETIC_IMAGE_\" 188×14"
+    },
+    {
+      "route": "/evidence/:evidenceId/analysis",
+      "width": "phone",
+      "check": "small-tap-target",
+      "detail": "1: button \"Region recorded by NEX-I\" 64×14"
+    }
+  ]
 }

@@ -1,0 +1,51 @@
+/* Review, report and reconstruction (Investigation.tsx). Investigator decisions carry a person mark and a warm
+   surface; machine findings never do. Claimed times are amber and dashed; measured times are blue and solid. */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 22px 24px; margin-bottom: 20px; border-radius: 18px; background: linear-gradient(180deg, #16140f, #100f0d); border: 1px solid #e9a23b26; }
+.hero[data-empty] { border-color: #f3eee612; background: #100f0d; }
+.hero small { color: #8d877c; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.hero h2 { margin: 6px 0 4px; font: 600 22px/1.25 var(--font-host), system-ui, sans-serif; letter-spacing: -.02em; }
+.hero p { color: #bdb6aa; font-size: 14px; max-width: 72ch; }
+.hero .by { color: #8d877c; font-size: 12.5px; margin-top: 6px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px; align-items: start; }
+.note { color: #8d877c; font-size: 12.5px; line-height: 1.5; }
+.decisions { display: grid; margin: 0; padding: 0; list-style: none; }
+.decisions li + li { border-top: 1px solid #f3eee60d; }
+.decision { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 12px; padding: 12px 4px; }
+.person { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #e9a23b1a; color: #f0b85c; }
+.decision b { font-weight: 500; font-size: 14px; }
+.decision small { display: block; color: #8d877c; font-size: 12.5px; }
+.decision p { margin-top: 4px; font-size: 13.5px; color: #f3eee6; white-space: pre-wrap; }
+.subject { color: #bdb6aa; font-size: 13px; overflow-wrap: anywhere; }
+.history { margin-top: 20px; }
+.history summary { cursor: pointer; color: #bdb6aa; font-size: 14px; }
+
+.contents { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin: 4px 0 0; padding: 0; list-style: none; }
+.contents li { display: grid; gap: 2px; padding: 12px 14px; border-radius: 12px; background: #141310; font-size: 13px; color: #bdb6aa; }
+.contents li b { color: #f3eee6; font-weight: 500; font-size: 14px; }
+.ready { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; font-size: 13px; color: #bdb6aa; }
+.ready span[data-ok='true'] { color: #8fbf7a; }
+.ready span[data-ok='false'] { color: #f0b85c; }
+.version { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px; align-items: start; padding: 14px 4px; }
+.version + .version { border-top: 1px solid #f3eee60d; }
+.version > div { display: grid; gap: 4px; min-width: 0; }
+.version b { font-weight: 500; }
+.version small { color: #8d877c; font-size: 12.5px; }
+.links { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; }
+.links a { color: #f0b85c; text-decoration: underline; text-underline-offset: 3px; }
+.hashes summary { cursor: pointer; color: #8d877c; font-size: 12.5px; }
+.hashes > div { display: grid; gap: 6px; margin-top: 6px; }
+.dl { display: flex; gap: 6px; }
+
+.timeline { display: grid; margin: 0; padding: 0; list-style: none; }
+.point { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 9px 4px 9px 14px; border-left: 2px solid #7fa6bf; }
+.point[data-claimed] { border-left-style: dashed; border-left-color: #e9a23b; }
+.point time { font: 400 12px/1.5 var(--font-jb), ui-monospace, monospace; color: #8d877c; }
+.point time span { display: block; }
+.point b { font-weight: 500; font-size: 14px; }
+.point small { display: block; color: #8d877c; font-size: 12.5px; overflow-wrap: anywhere; }
+.tag { display: inline-block; margin-left: 8px; padding: 1px 6px; border-radius: 5px; font-size: 11px; vertical-align: 1px; }
+.point[data-claimed] .tag { background: #e9a23b1a; color: #f0b85c; }
+.point:not([data-claimed]) .tag { background: #7fa6bf1f; color: #9cc0d6; }
+.conflict { padding: 10px 12px; border-radius: 10px; border: 1px solid #f0604d55; background: #f0604d0f; color: #ffb0a4; font-size: 13px; }
+
+@media (max-width: 1100px) { .grid { grid-template-columns: minmax(0, 1fr); } .hero { grid-template-columns: minmax(0, 1fr); } }

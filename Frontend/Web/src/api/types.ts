@@ -37,7 +37,7 @@ export type Case = {
 export type CaseInput = { title: string; description?: string | null; objectives?: string | null; category?: CaseCategory; priority?: CasePriority; tags?: string[]; notes?: string | null };
 export type CasePatch = Partial<CaseInput>;
 export type CaseSortKey = 'created_at' | 'updated_at' | 'last_activity_at' | 'title' | 'priority' | 'case_number' | 'status';
-export type CaseQuery = { search?: string; status?: CaseStatus[]; priority?: CasePriority[]; sort_by?: CaseSortKey; sort_order?: 'asc' | 'desc'; page?: number; page_size?: number };
+export type CaseQuery = { search?: string; status?: CaseStatus[]; priority?: CasePriority[]; sort_by?: CaseSortKey; sort_order?: 'asc' | 'desc'; page?: number; page_size?: number; hide_test_records?: boolean };
 
 export type CaseStatistics = { total_cases: number; active_cases: number; by_status: Record<CaseStatus, number>; by_priority: Record<CasePriority, number>; total_evidence: number };
 export type CaseEvidenceStatistics = { case_id: string; evidence_total: number; evidence_by_media_type: Record<MediaType, number>; evidence_total_bytes: number; event_count: number };
@@ -185,7 +185,11 @@ export type GraphEdge = { from: string; to: string; type: 'CONTAINS' | 'RETRIEVE
 export type GraphSnapshot = { snapshot_id: string; case_id: string; execution_id: string; nodes: GraphNode[]; edges: GraphEdge[]; counts: Record<string, number>; created_at: string };
 export type TimelineEntry = { time: string; kind: 'RECEIVED' | 'RETRIEVED' | 'CLAIMED_CREATION' | 'CLAIMED_PUBLICATION'; label: string; by: string; evidence_id?: string | null; source_id?: string; raw?: string };
 export type Reconstruction = { result_id: string | null; produced_at: string | null; timeline: TimelineEntry[]; conflicts: { finding_id: string; title: string; description: string | null; evidence_ids: string[]; assertion: string }[] };
-export type ReviewSubject = 'FINDING' | 'RELATIONSHIP' | 'CASE_CONCLUSION';
+export type ReviewSubject = 'FINDING' | 'RELATIONSHIP' | 'CASE_CONCLUSION' | 'BACKTRACK_COMPARISON';
+export type BacktrackingCandidate = { evidence_id: string; display_number: string; filename: string; media_type: 'IMAGE' | 'VIDEO' | 'AUDIO'; sha256: string; size_bytes: number; fingerprint_indexed: boolean };
+export type BacktrackingComparison = { id: string; case_id: string; seed_evidence_id: string; candidate_evidence_id: string; seed_sha256: string; candidate_sha256: string; created_at: string; current: boolean; algorithm: string; status: string; submitted_coverage_percent?: number | null; candidate_coverage_percent?: number | null; checks?: Record<string, Record<string, unknown>>; frame_pairs?: Record<string, unknown>[]; limitations: string[]; review?: { decision: ReviewDecision; rationale: string; reviewer: string; review_id: string; version: number } | null };
+export type BacktrackingOverview = { case_id: string; nodes: { evidence_id: string; label: string; filename: string }[]; edges: { comparison_id: string; from: string; to: string; status: string; review_decision: ReviewDecision | null; algorithm: string; coverage_seed_percent: number | null; coverage_candidate_percent: number | null }[]; coverage: { compared_pairs: number; possible_video_pairs: number; pair_percent: number | null }; comparison_records: number; shown_records: number; truncated: boolean };
+export type BacktrackingOccurrence = { source_id: string; source_number: string; observation_id: string | null; revision: number; url: string; final_url: string | null; platform: string; outcome: string; detail: string | null; claimed_publication_time: string | null; observed_at: string | null; preserved_evidence_id: string | null; backtracking_access: 'LOCAL_VIDEO' | 'UNSUPPORTED_MEDIA' | 'METADATA_ONLY' };
 export type ReviewDecision = 'ACCEPTED' | 'REJECTED' | 'INCONCLUSIVE' | 'NEEDS_MORE_EVIDENCE';
 export type Review = { review_id: string; review_number: string; case_id: string; subject_type: ReviewSubject; subject_id: string; version: number; decision: ReviewDecision; rationale: string; reconstruction_result_id: string | null; reviewer: string; created_at: string };
 export type ReviewInput = { subject_type: ReviewSubject; subject_id: string; decision: ReviewDecision; rationale: string };
@@ -201,3 +205,12 @@ export type SystemConfig = {
   detectors: { enabled: boolean; image: string | null; speech: string | null; timeout_seconds: number }; projections: { neo4j: boolean; qdrant: boolean }; web_visual_search?: { enabled: boolean; key_configured: boolean }; cors_origins: string[];
 };
 export type RecentFinding = { finding_id: string; module_id: string; finding_type: string; assertion: 'OBSERVATION' | 'INFERENCE' | 'INCONCLUSIVE'; title: string; score: number | null; score_kind: string | null; created_at: string; case_id: string; case_number: string; evidence: { evidence_id: string; evidence_number: string | null }[] };
+
+/* ── workspace summaries (UX transformation): derived from records at request time ── */
+export type Stage = 'ACQUIRE' | 'ANALYSE' | 'REVIEW' | 'REPORT' | 'DONE';
+export type Progress = {
+  case_id: string; case_number: string; title: string; status: CaseStatus; test_record: boolean; evidence: number; by_media: Partial<Record<MediaType, number>>;
+  image_evidence_id: string | null; runs_active: number; last_run_state: string | null; inferences: number; conclusion: string | null; reports: number;
+  final_report: boolean; stage: Stage; next_action: string;
+};
+export type AttentionItem = { kind: 'RUN_FAILED' | 'ALERT' | 'WARNING' | 'AWAITING_REVIEW'; title: string; detail: string | null; link: string | null; case_id: string | null; at: string };

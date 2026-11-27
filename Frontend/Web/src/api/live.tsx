@@ -46,6 +46,7 @@ function affectedKeys(e: LiveEvent): string[] {
   if (e.module_id === 'NEX-MOC' || e.module_id === 'NEX-FPM') { if (e.case_id) keys.add(`case:${e.case_id}:lineage`); }
   if ((domain === 'review' || domain === 'report' || domain === 'graph') && e.case_id) keys.add(`case:${e.case_id}`);  // reviews, reports, graph, reconstruction
   if (e.event_type.startsWith('analysis.module.')) keys.add('findings');  // the dashboard's recent inferences
+  if (['job', 'analysis', 'review', 'report', 'evidence', 'notification'].includes(domain)) { keys.add('cases:progress'); keys.add('cases:attention'); }
   if (domain === 'preferences') keys.add('preferences');  // changed in another tab or window
   if (domain === 'notification' || domain === 'report' || domain === 'source') keys.add('notifications');  // read elsewhere; new kinds
   if (e.event_type.startsWith('job.') && !e.event_type.endsWith('.started')) keys.add('notifications');

@@ -1,0 +1,4 @@
+/* Job monitor drawer sections (JobMonitor.tsx). */
+.section { display: grid; gap: 6px; }
+.section + .section { margin-top: 18px; padding-top: 14px; border-top: 1px solid #f3eee60f; }
+.note { color: #8d877c; font-size: 12.5px; line-height: 1.5; margin: 2px 0 4px; }

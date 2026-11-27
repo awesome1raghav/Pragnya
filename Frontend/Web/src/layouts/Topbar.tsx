@@ -13,7 +13,7 @@ export default function Topbar({ menuRef, onMenu, menuOpen, onPalette, onJobs }:
   return <header className={s.top}>
     <button ref={menuRef} className={`${s.iconBtn} ${s.menuBtn}`} onClick={onMenu} aria-label='Open navigation' aria-expanded={menuOpen}><Menu size={18} /></button>
     <Breadcrumbs />
-    <button className={s.cmdk} onClick={onPalette} aria-label='Search investigations, evidence, sources, findings, reports and reviews, or run a command'><Search size={15} /><span>Search or run a command</span><kbd>Ctrl K</kbd></button>
+    <button className={s.cmdk} onClick={onPalette} title='Search everything, or run a command (Ctrl K)' aria-label='Search investigations, evidence, sources, findings, reports and reviews, or run a command'><Search size={15} /><span>Search or run a command</span><kbd>Ctrl K</kbd></button>
     <SystemStatus />
     <button className={s.iconBtn} onClick={onJobs} aria-label='Open the job monitor' title='Job monitor'><Activity size={17} /></button>
     <NotificationsLink />

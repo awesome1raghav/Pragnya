@@ -1,52 +1,73 @@
 'use client';
 
-/* /system, /system/health and /system/logs. Every value is a measurement the API just made (readiness,
-   PostgreSQL probe, storage probe) or a fact it reports (version, module status). Nothing here estimates
-   CPU, memory or latency. Workers are reported from their own heartbeats; logs are not available yet. */
+/* /system, /system/health and /system/logs: the operational context, kept off the investigative pages. The overview
+   leads with one readiness tile per dependency (API, database, storage, workers, graph projection, detectors); details
+   are one click down. Every value is a measurement the API just made or a fact it reports; nothing is estimated. */
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
 import { API_BASE } from '@/api';
-import { useDatabaseStatus, useJobs, useLiveness, useModules, useReadiness, useStorageStatus, useWorkers } from '@/api/hooks';
+import { useDatabaseStatus, useJobs, useLiveness, useModules, useReadiness, useStorageStatus, useSystemConfig, useWorkers } from '@/api/hooks';
+import { request } from '@/api/http';
+import { useQuery } from '@/api/query';
+import sy from './system.module.css';
 import { useLive } from '@/api/live';
 import { Dot, ErrorState, Load, PageHead, SecHead, Unavailable } from '@/components/ui';
 import { paths } from '@/config/routes';
 import { useSystemState } from '@/layouts/SystemStatus';
-import { ago, bytes, moduleStatusLabel, moduleStatusTone, utc } from '@/utils/labels';
+import { ago, bytes, moduleStatusLabel, moduleStatusTone, utc, type Tone } from '@/utils/labels';
 
 const Tabs = ({ on }: { on: 'all' | 'health' | 'logs' }) => <nav className={`${s.seg} ${s.subTabs}`} aria-label='System sections' style={{ marginBottom: 24 }}>
   <Link href={paths.system()} aria-selected={on === 'all'}>Overview</Link><Link href={paths.systemHealth()} aria-selected={on === 'health'}>Health checks</Link><Link href={paths.systemLogs()} aria-selected={on === 'logs'}>Logs</Link>
 </nav>;
+
+type Projection = { consumer: string; configured: boolean; reachable: boolean | null; lag_events: number; nodes: number | null; relationships: number | null; error: string | null };
+type Tile = { key: string; label: string; tone: Tone; value: string; note?: string };
 
 export function SystemOverview() {
   const st = useSystemState();
   const live = useLiveness();
   const db = useDatabaseStatus();
   const storage = useStorageStatus();
+  const workers = useWorkers();
+  const cfg = useSystemConfig();
+  const proj = useQuery('system:projections', () => request<Projection[]>('/system/projections'), { refreshMs: 30_000 });
   const modules = useModules();
-  const refresh = () => { st.q.reload(); live.reload(); db.reload(); storage.reload(); };
+  const refresh = () => { st.q.reload(); live.reload(); db.reload(); storage.reload(); workers.reload(); proj.reload(); };
+  const neo = proj.data?.[0];
+  const tiles: Tile[] = [
+    { key: 'api', label: 'API', tone: live.data ? 'ok' : live.error ? 'alert' : 'mute', value: live.data ? `v${live.data.version}` : live.error ? 'Unreachable' : '…', note: live.data?.environment },
+    { key: 'db', label: 'Database', tone: db.data ? (db.data.status === 'HEALTHY' ? 'ok' : 'gold') : db.error ? 'alert' : 'mute', value: db.data ? `${db.data.latency_ms} ms` : db.error ? db.error.code.toLowerCase().replace(/_/g, ' ') : '…', note: db.data ? `PostgreSQL ${db.data.server_version} · migration ${db.data.migrations.current.join(', ')}` : undefined },
+    { key: 'storage', label: 'Evidence storage', tone: storage.data ? 'ok' : storage.error ? 'alert' : 'mute', value: storage.data ? `${bytes(storage.data.free_bytes)} free` : storage.error ? 'Not writable' : '…', note: storage.data ? 'writable, originals read-only' : undefined },
+    { key: 'workers', label: 'Workers', tone: workers.data ? (workers.data.alive ? 'ok' : 'gold') : 'mute', value: workers.data ? `${workers.data.alive} running` : '…', note: workers.data && !workers.data.alive ? 'queued jobs wait for one' : 'heartbeating' },
+    { key: 'graph', label: 'Graph projection', tone: !neo || !neo.configured ? 'mute' : neo.reachable ? (neo.lag_events ? 'gold' : 'ok') : 'gold', value: !neo ? '…' : !neo.configured ? 'Off' : neo.reachable ? (neo.lag_events ? `${neo.lag_events} behind` : 'Up to date') : 'Unreachable', note: neo?.reachable ? `${neo.nodes} nodes · Neo4j` : neo?.configured ? 'evidence intake is not affected' : 'Neo4j not configured' },
+    { key: 'detectors', label: 'Detectors', tone: cfg.data ? (cfg.data.detectors.enabled ? 'ok' : 'mute') : 'mute', value: cfg.data ? (cfg.data.detectors.enabled ? 'On' : 'Off') : '…', note: cfg.data?.detectors.enabled ? [cfg.data.detectors.image, cfg.data.detectors.speech].filter(Boolean).join(' · ') : 'measurements still run' },
+  ];
   return <div className={s.page}>
-    <PageHead title='System' desc='Measured state of the NEXTRON backend and its dependencies.'><button className={s.btn} onClick={refresh}><RotateCcw size={15} />Check again</button></PageHead>
+    <PageHead title='System' desc={st.tone === 'ok' ? 'Everything NEXTRON needs is ready. Measured just now.' : st.detail}><button className={s.btn} onClick={refresh}><RotateCcw size={15} />Check again</button></PageHead>
     <Tabs on='all' />
-    <div className={p.statGrid} style={{ marginBottom: 20 }}>
-      <div className={p.stat}><span>Overall</span><b style={{ fontSize: 18 }}><Dot tone={st.tone}>{st.label}</Dot></b><small>{st.detail}</small></div>
-      <div className={p.stat}><span>API version</span><b style={{ fontSize: 18 }}>{live.data ? `v${live.data.version}` : live.error ? '—' : '…'}</b><small>{live.data?.environment ?? (live.error ? 'unreachable' : '')}</small></div>
-      <div className={p.stat}><span>Database round trip</span><b style={{ fontSize: 18 }}>{db.data ? `${db.data.latency_ms} ms` : db.error ? '—' : '…'}</b><small>{db.data ? `measured ${utc(db.data.checked_at)}` : db.error?.code}</small></div>
-      <div className={p.stat}><span>Evidence storage free</span><b style={{ fontSize: 18 }}>{storage.data ? bytes(storage.data.free_bytes) : storage.error ? '—' : '…'}</b><small>{storage.data ? 'local filesystem, writable' : storage.error?.code}</small></div>
-    </div>
+    <ul className={sy.tiles} aria-label='Readiness'>{tiles.map((t, i) => <motion.li key={t.key} className={sy.tile} data-tone={t.tone}
+      initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.04, duration: .22, ease: [.22, 1, .36, 1] }}>
+      <span className={sy.tileLabel}><i aria-hidden='true' />{t.label}</span><b>{t.value}</b>{t.note && <small>{t.note}</small>}
+    </motion.li>)}</ul>
     <div className={p.grid2}>
       <div className={p.stack}>
-        <section className={s.panel} aria-label='Backend connectivity'>
-          <SecHead title='Backend' />
+        <WorkersPanel />
+        <p className={s.cap}>The API and workers log errors with a request or job ID to their own consoles; a failed job keeps its error on the job (open the job monitor). There is no log API yet.</p>
+      </div>
+      <div className={p.stack}>
+        <details className={`${s.panel} ${sy.details}`} aria-label='Backend connectivity'>
+          <summary>Backend <small>{API_BASE}</small></summary>
           {live.error ? <ErrorState error={live.error} onRetry={live.reload} /> : <dl className={s.kv}>
             <div><dt>API base address</dt><dd className={s.mono} style={{ fontSize: 12 }}>{API_BASE}</dd></div>
             <div><dt>Service</dt><dd>{live.data?.service ?? '…'}</dd></div>
             <div><dt>Mode</dt><dd>Single local operator, no sign-in</dd></div>
           </dl>}
-        </section>
-        <section className={s.panel} aria-label='Database'>
-          <SecHead title='PostgreSQL (authoritative store)' />
+        </details>
+        <details className={`${s.panel} ${sy.details}`} aria-label='Database'>
+          <summary>PostgreSQL <small>authoritative store</small></summary>
           <Load q={db} rows={3}>{d => <dl className={s.kv}>
             <div><dt>Status</dt><dd><Dot tone={d.status === 'HEALTHY' ? 'ok' : 'gold'}>{d.status === 'HEALTHY' ? 'Healthy' : 'Reachable, not migrated to head'}</Dot></dd></div>
             <div><dt>Server</dt><dd>PostgreSQL {d.server_version} · {d.database_name}</dd></div>
@@ -54,26 +75,21 @@ export function SystemOverview() {
             <div><dt>Connection pool (this API process)</dt><dd>{d.connection_pool.checked_out} in use · {d.connection_pool.idle} idle · max {d.connection_pool.maximum}</dd></div>
             <div><dt>Last successful check</dt><dd>{utc(d.last_successful_check)}</dd></div>
           </dl>}</Load>
-        </section>
-        <section className={s.panel} aria-label='Storage'>
-          <SecHead title='Evidence storage' />
+        </details>
+        <details className={`${s.panel} ${sy.details}`} aria-label='Storage'>
+          <summary>Evidence storage</summary>
           <Load q={storage} rows={2}>{st2 => <dl className={s.kv}>
             <div><dt>Backend</dt><dd>Local filesystem (read-only originals)</dd></div>
             <div><dt>Writable</dt><dd><Dot tone='ok'>Yes, probe write succeeded</Dot></dd></div>
             <div><dt>Free space</dt><dd>{bytes(st2.free_bytes)}</dd></div>
             <div><dt>Checked</dt><dd>{utc(st2.checked_at)}</dd></div>
           </dl>}</Load>
-        </section>
-      </div>
-      <div className={p.stack}>
-        <section className={s.panel} aria-label='Module availability'>
-          <SecHead title='Module availability'><Link href={paths.intelligence()} className={s.secLink}>Intelligence</Link></SecHead>
+        </details>
+        <details className={`${s.panel} ${sy.details}`} aria-label='Module availability'>
+          <summary>Modules <small>{modules.data ? `${modules.data.modules.filter(m => m.status === 'IMPLEMENTED').length} implemented · ${modules.data.modules.filter(m => m.status === 'PARTIAL').length} partial` : ''}</small></summary>
           <Load q={modules} rows={4}>{cat => <ul className={s.miniList}>{cat.modules.map(m => <li key={m.module_id} style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}><span><span className={s.mono}>{m.module_id}</span> {m.name}</span><Dot tone={moduleStatusTone[m.status]}>{moduleStatusLabel[m.status]}</Dot></li>)}</ul>}</Load>
-        </section>
-        <WorkersPanel />
-        <Unavailable title='Recent system errors' modules={['Observability']} step='plan Step 8'>
-          <p>The API and workers log errors with a request or job ID to their consoles; failed jobs keep their error on the job (see the job monitor). A queryable system error record arrives with observability in Step 8.</p>
-        </Unavailable>
+          <Link href={paths.intelligence()} className={s.secLink} aria-label='Module intelligence'>Module intelligence</Link>
+        </details>
       </div>
     </div>
   </div>;
@@ -106,8 +122,8 @@ export function SystemLogs() {
   return <div className={s.page}>
     <PageHead title='Logs' desc='Operational log access for authorised operators, redacted of secrets.' />
     <Tabs on='logs' />
-    <Unavailable title='Log access' modules={['Event outbox', 'Events API']} step='plan Step 3'>
-      <p>No log API exists yet. Until then the API writes its log to the console where it runs; investigation and custody records are available, append-only, on each investigation’s Events tab and each evidence item’s Custody timeline.</p>
+    <Unavailable title='Log access' modules={['Event outbox', 'Events API']} step='not built'>
+      <p>No log API exists. The API and workers write their logs to the consoles where they run, or to the files they were started with; investigation and custody records are available, append-only, on each investigation’s Events tab and each evidence item’s Custody timeline.</p>
     </Unavailable>
   </div>;
 }

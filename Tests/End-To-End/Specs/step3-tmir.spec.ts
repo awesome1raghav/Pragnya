@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import { execFileSync } from 'node:child_process';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 const SHOTS = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'Screenshots');
 const shot = (page: Page, name: string) => page.screenshot({ path: path.join(SHOTS, `${name}.png`), fullPage: true });
 
@@ -45,7 +45,8 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
 
   const uploadedJob = (await queue.getByRole('link', { name: /JOB-\d+/ }).innerText()).trim();
   await queue.getByRole('link', { name: uploadedJob }).click();
-  await expect(page.getByRole('heading', { level: 1, name: 'Analysis' })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: /^Analysis of EVD-\d+/ })).toBeAttached();
+  await page.getByRole('button', { name: /Execution record/ }).click();  // the viewer keeps the execution tables one level down
   const modules = page.getByRole('region', { name: 'Modules for this evidence' });
   // arrives through the WebSocket: the page is not reloaded
   await expect(modules.getByRole('row', { name: /^NEX-MET / })).toContainText('Completed');
@@ -64,6 +65,7 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
 
   // a second run: NEX-MET's inputs are unchanged, so its result is reused, not recomputed
   await page.getByRole('link', { name: 'Analysis', exact: true }).click();
+  await page.getByRole('button', { name: /Execution record/ }).click();  // collapsed again on a fresh visit
   await page.getByRole('button', { name: 'Run analysis' }).click();
   await expect(runs.getByRole('listitem')).toHaveCount(2);
   await expect(runs.getByRole('listitem').first()).toContainText(/Completed/);
@@ -76,6 +78,9 @@ test('upload → worker runs T-MIR → live module states, reuse on re-run, noti
   await shot(page, '20-case-analysis');
 
   await page.goto('/notifications');
+  await page.getByRole('button', { name: /^Analysis/ }).click();  // run outcomes are not 'needs action'
+  const grouped = page.getByRole('button', { name: /× completed/ });
+  if (await grouped.count()) await grouped.first().click();  // consecutive completed runs are collapsed into one line
   await expect(page.locator('main')).toContainText(`${uploadedJob} completed`);
   await shot(page, '21-notifications');
 

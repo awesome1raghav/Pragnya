@@ -1,0 +1,4 @@
+/* Grouped finished jobs (Jobs.tsx GroupedJobList). */
+.more { display: block; padding: 2px 0 8px; }
+.more button { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px; border: 0; border-radius: 6px; background: none; color: #8d877c; font-size: 12.5px; cursor: pointer; }
+.more button:hover { color: #f3eee6; background: #f3eee608; }

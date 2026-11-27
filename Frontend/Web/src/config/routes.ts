@@ -23,6 +23,7 @@ export const paths = {
   caseAnalysis: (id: string, branch?: AnalysisBranch) => `/investigations/${e(id)}/analysis${branch ? `/${branch}` : ''}`,
   caseTimeline: (id: string) => `/investigations/${e(id)}/timeline`,
   caseGraph: (id: string) => `/investigations/${e(id)}/graph`,
+  caseBacktracking: (id: string) => `/investigations/${e(id)}/backtracking`,
   caseReview: (id: string) => `/investigations/${e(id)}/review`,
   caseReport: (id: string) => `/investigations/${e(id)}/report`,
   caseEvents: (id: string) => `/investigations/${e(id)}/events`,

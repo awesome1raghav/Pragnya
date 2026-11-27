@@ -49,7 +49,7 @@ def test_system_database_reports_measured_values(client, migrated_database):
     assert data["database"] == "postgresql"
     assert data["server_version"].startswith("17.")
     assert data["database_name"] == migrated_database[0]
-    assert data["migrations"] == {"current": ["0009"], "head": ["0009"], "up_to_date": True}
+    assert data["migrations"] == {"current": ["0013"], "head": ["0013"], "up_to_date": True}
     assert data["latency_ms"] > 0
     assert data["connection_pool"]["maximum"] == 10  # pool_size 5 + max_overflow 5
     assert data["last_successful_check"] == data["checked_at"]

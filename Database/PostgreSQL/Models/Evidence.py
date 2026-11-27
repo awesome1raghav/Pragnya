@@ -33,6 +33,7 @@ class Evidence(Base):
         CheckConstraint("sha256 ~ '^[0-9a-f]{64}$'", name="sha256_hex"),
         CheckConstraint("size_bytes > 0", name="size_positive"),
         Index("ix_evidence_case_id_received_at", "case_id", "received_at"),
+        Index("ix_evidence_case_media_number", "case_id", "media_type", "evidence_number"),
         Index("ix_evidence_sha256", "sha256"),
     )
 

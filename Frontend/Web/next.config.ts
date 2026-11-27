@@ -28,6 +28,8 @@ const always = [
 
 const config: NextConfig = {
   poweredByHeader: false,
+  // a second dev server (the isolated browser-test stack, Scripts/Testing/StartE2EStack.ps1) needs its own build folder
+  ...(process.env.NEXT_DIST_DIR ? { distDir: process.env.NEXT_DIST_DIR } : {}),
   // the Docker image runs the self-contained server (Infrastructure/Docker/Frontend.Dockerfile); `next start` stays as it is locally
   ...(process.env.NEXT_OUTPUT === 'standalone' ? { output: 'standalone' as const } : {}),
   async headers() {

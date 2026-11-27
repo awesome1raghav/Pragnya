@@ -1,0 +1,4607 @@
+{
+  "case": {
+    "case": "CASE-0016",
+    "description": "Self-generated media, isolated E2E database",
+    "status": "EVIDENCE_COLLECTION",
+    "title": "NEXTRON-QA-001 controlled audit"
+  },
+  "conclusion": {
+    "at": "2026-11-27T00:42:13.123154+00:00",
+    "decision": "INCONCLUSIVE",
+    "rationale": "Controlled fixtures show candidate links and unresolved audio discrepancy; no verified source or calibrated accuracy",
+    "reconstruction_result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+    "review": "REV-0007",
+    "reviewer": "local-operator",
+    "subject_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "subject_type": "CASE_CONCLUSION",
+    "version": 1
+  },
+  "evidence": [
+    {
+      "evidence": "EVD-0010",
+      "filename": "IMG-01.jpg",
+      "media_type": "IMAGE",
+      "mime_type": "image/jpeg",
+      "received_at": "2026-11-27T00:28:02.244453+00:00",
+      "sha256": "4a359a04645fc79cb264ae37b341d60bc87b05146fca1b67c5e4e86d7a7e6c9b",
+      "size_bytes": 112864,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0011",
+      "filename": "IMG-02.jpg",
+      "media_type": "IMAGE",
+      "mime_type": "image/jpeg",
+      "received_at": "2026-11-27T00:28:02.332364+00:00",
+      "sha256": "b5b63242644ea7e47c36a9fc91a006776be7e7d696932a266b7f2dd2e5e1f185",
+      "size_bytes": 112088,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0012",
+      "filename": "IMG-03.jpg",
+      "media_type": "IMAGE",
+      "mime_type": "image/jpeg",
+      "received_at": "2026-11-27T00:28:02.421904+00:00",
+      "sha256": "43d5a9cf201c973f5a11f11f3f80268ed33ae571b3f70d18fa99e863a527d1e9",
+      "size_bytes": 13332,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0013",
+      "filename": "IMG-04.png",
+      "media_type": "IMAGE",
+      "mime_type": "image/png",
+      "received_at": "2026-11-27T00:28:02.501255+00:00",
+      "sha256": "d44131af5800320621a7c77a20b1c9fa26b6484505eb6cfc0c05fbe83dcd41ef",
+      "size_bytes": 4321,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0014",
+      "filename": "VID-01.mp4",
+      "media_type": "VIDEO",
+      "mime_type": "video/mp4",
+      "received_at": "2026-11-27T00:28:02.571233+00:00",
+      "sha256": "0e727f6b40db9e8e4d30ad665ea1b853dccd0fb655c9fef1fa6a76c5f23dda56",
+      "size_bytes": 1029928,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0015",
+      "filename": "VID-02.mp4",
+      "media_type": "VIDEO",
+      "mime_type": "video/mp4",
+      "received_at": "2026-11-27T00:28:02.816189+00:00",
+      "sha256": "e55f2243f5d02c9dc5dc9b9e19754df28185fa57ef3e243a2f4591d7395f7758",
+      "size_bytes": 868284,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0016",
+      "filename": "VID-03.mp4",
+      "media_type": "VIDEO",
+      "mime_type": "video/mp4",
+      "received_at": "2026-11-27T00:28:03.092820+00:00",
+      "sha256": "8e04e1de5fea45873572cb32de9bf5c3b12dd768850cb456b080e8c8aeee7da6",
+      "size_bytes": 841326,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0017",
+      "filename": "VID-04.mp4",
+      "media_type": "VIDEO",
+      "mime_type": "video/mp4",
+      "received_at": "2026-11-27T00:28:03.466951+00:00",
+      "sha256": "73f00f41465de44c8830d06efbe3d79a6aad2b09aa56f1e3a46ef4d2650cb979",
+      "size_bytes": 6168,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0018",
+      "filename": "VID-05.mp4",
+      "media_type": "VIDEO",
+      "mime_type": "video/mp4",
+      "received_at": "2026-11-27T00:28:03.747176+00:00",
+      "sha256": "d40e5a47007ba5a11d1e27994aafaf528ece3aaf2f613a4e6bcc3d34edee7618",
+      "size_bytes": 920908,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0019",
+      "filename": "AUD-01.wav",
+      "media_type": "AUDIO",
+      "mime_type": "audio/wav",
+      "received_at": "2026-11-27T00:28:03.970141+00:00",
+      "sha256": "d07a288d61af49e9f914933a4a2367c3e39acd23029fd9a60b28ec9703de3653",
+      "size_bytes": 1152078,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0020",
+      "filename": "AUD-02.wav",
+      "media_type": "AUDIO",
+      "mime_type": "audio/wav",
+      "received_at": "2026-11-27T00:28:04.162284+00:00",
+      "sha256": "9f049a38a4436782c17b158a5b44c0090c4b939ba6b367a71105d04706130e7e",
+      "size_bytes": 1152078,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0021",
+      "filename": "AUD-03.wav",
+      "media_type": "AUDIO",
+      "mime_type": "audio/wav",
+      "received_at": "2026-11-27T00:28:04.364162+00:00",
+      "sha256": "080edd1995e393aa687f5f870b767ed3640937f5872db4e0ac4ce6cf28f988c5",
+      "size_bytes": 1152078,
+      "source_type": "USER_UPLOAD"
+    },
+    {
+      "evidence": "EVD-0022",
+      "filename": "AUD-04.wav",
+      "media_type": "AUDIO",
+      "mime_type": "audio/wav",
+      "received_at": "2026-11-27T00:28:04.625041+00:00",
+      "sha256": "57be311a3e8129ad400bd37c7415c22c1f1f7c2ac772b632eb63d8b6b9dfdd76",
+      "size_bytes": 1152078,
+      "source_type": "USER_UPLOAD"
+    }
+  ],
+  "format": "nextron-report/1",
+  "generated_by": "local-operator",
+  "graph": {
+    "built_at": "2026-11-27T00:28:49.537177+00:00",
+    "counts": {
+      "edges": 214,
+      "edges_about": 186,
+      "edges_candidate_version": 15,
+      "edges_cites": 0,
+      "edges_retrieved_as": 0,
+      "nodes": 134,
+      "nodes_evidence": 13,
+      "nodes_finding": 120,
+      "nodes_source": 0
+    },
+    "snapshot_id": "9d6231f5-efa0-4198-923c-0fafc74d399d"
+  },
+  "kind": "FINAL",
+  "lineage": [
+    {
+      "a": "EVD-0010",
+      "b": "EVD-0012",
+      "earlier_observed": null,
+      "kind": "SAME_CONTENT_VARIANT",
+      "similarity": 0.9375,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0013",
+      "b": "EVD-0017",
+      "earlier_observed": null,
+      "kind": "FRAME_OF_VIDEO",
+      "similarity": 0.8125,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0014",
+      "b": "EVD-0015",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0014",
+      "b": "EVD-0016",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0014",
+      "b": "EVD-0018",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0014",
+      "b": "EVD-0019",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.7893,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0014",
+      "b": "EVD-0020",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.7754,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0015",
+      "b": "EVD-0016",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0015",
+      "b": "EVD-0018",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0015",
+      "b": "EVD-0019",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.771,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0015",
+      "b": "EVD-0020",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.7561,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0016",
+      "b": "EVD-0018",
+      "earlier_observed": null,
+      "kind": "SHARED_VIDEO_SEGMENT",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0016",
+      "b": "EVD-0019",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.7998,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0016",
+      "b": "EVD-0020",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 0.8176,
+      "status": "CANDIDATE"
+    },
+    {
+      "a": "EVD-0019",
+      "b": "EVD-0020",
+      "earlier_observed": null,
+      "kind": "SHARED_AUDIO",
+      "similarity": 1.0,
+      "status": "CANDIDATE"
+    }
+  ],
+  "modules": [
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0020"
+          ],
+          "finding_id": "dd827f46-0286-4244-81bf-c73799905c1c",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0016 → EVD-0020: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0019"
+          ],
+          "finding_id": "eafcb514-da7f-4af0-a335-b4e72ee58aa0",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0015 → EVD-0019: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0019",
+            "EVD-0020"
+          ],
+          "finding_id": "57ff6924-cd57-4a50-a03c-1b47df423593",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0019 → EVD-0020: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0018"
+          ],
+          "finding_id": "647fd671-711b-4e78-9380-04132fb1bcc2",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0015 → EVD-0018: video offset +0.00 s at speed 1.000",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0016"
+          ],
+          "finding_id": "4f084554-b167-4a0e-92e4-5eabfe3f743e",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0014 → EVD-0016: video offset -2.00 s at speed 1.000; audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0019"
+          ],
+          "finding_id": "910d6f8e-1842-4ed0-840b-dfff63f5cd12",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0016 → EVD-0019: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0018"
+          ],
+          "finding_id": "dd59bc17-a56a-493a-a030-b34e65f8b8b5",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0014 → EVD-0018: video offset +0.00 s at speed 1.000",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0019"
+          ],
+          "finding_id": "092367ae-93eb-4ae1-83a6-e10b58e04796",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0014 → EVD-0019: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0020"
+          ],
+          "finding_id": "96675a27-c901-406c-ae19-6912ab7826c4",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0014 → EVD-0020: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0018"
+          ],
+          "finding_id": "a9506bae-3693-491d-8398-f5d49abc4884",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0016 → EVD-0018: video offset +2.00 s at speed 1.000",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0010",
+            "EVD-0012"
+          ],
+          "finding_id": "3df04b95-f458-460f-bfe9-3344281dedae",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0010 → EVD-0012: scale 0.500 × 0.500",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0013",
+            "EVD-0017"
+          ],
+          "finding_id": "d13d816b-e26e-4817-b6bc-0faa5ea69434",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0013 → EVD-0017: scale 0.250 × 0.250",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0015"
+          ],
+          "finding_id": "8628d4b4-1e2e-4715-a69b-ba16dfeffb68",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0014 → EVD-0015: video offset +0.00 s at speed 1.000; audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0020"
+          ],
+          "finding_id": "3ffa9d78-dc48-47dd-8a0c-719e1166390a",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Aligned EVD-0015 → EVD-0020: audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Where the two versions line up: a time in the first maps to time × speed + offset in the second.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "834195ab-2ed0-4bcc-9e43-79c57312831d",
+          "limitations": [
+            "Video alignment uses one frame per second (±0.5 s)",
+            "Static footage aligns poorly: few distinct frames to match"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Aligned EVD-0015 → EVD-0016: video offset -2.00 s at speed 1.000; audio offset +0.000 s",
+          "type": "ALIGNMENT"
+        }
+      ],
+      "module": "NEX-ALN",
+      "produced_at": "2026-11-27T00:28:49.033701+00:00",
+      "result_id": "df9e88dc-b97d-4971-8afa-cb1239c96238",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "12.00 s at 48000 Hz (aac, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "593efa09-b379-447e-8249-a2e49fc9f4df",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "5a39b0e2-3f51-44d7-8797-f29c7cb30033",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 4.118e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 4.118e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "0 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "02dcb186-06d5-4ebe-87a0-6f81340015ff",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 32.77,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The average spectrum before and after this moment differs much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "474eedd9-89fc-45e9-a595-7c7a888b11ff",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 99.32,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Change of sound character at 0.50 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "24d8fcd5-0b41-4149-888a-009b6b3dd1a4",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0195,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 0.5 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:11.149863+00:00",
+      "result_id": "a583824d-b95a-4a98-98d5-1846ed9a1d1f",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "0 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "f59896d7-667c-4ed9-a100-cddb7f4db802",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 32.31,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "12.00 s at 48000 Hz (aac, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "59203c2e-de98-40e7-84b1-5384aaf8ba8b",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "c944b665-e731-4a70-aed4-983a3e7a7b7a",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0195,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 0.5 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "d97f888d-9fbf-41ef-8f1d-7ec701a5dd54",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 4.127e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 4.127e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The average spectrum before and after this moment differs much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "e70672da-dab2-4ed3-ac4d-80e128c12792",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 125.26,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Change of sound character at 0.50 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:12.342819+00:00",
+      "result_id": "14aa59d5-8e76-4d26-939b-722327c65a7c",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "d0e5e098-f16f-41b4-8002-96c380663153",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 289.75,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.98 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "e62cab50-5ece-425b-9e08-2d4da65eb929",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 10.03,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.96 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "986cc766-465b-412c-a9b3-e907019d147d",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 26.67,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.99 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "7 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "fa28eacc-182c-42ac-950f-885cb1f9fc54",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 596.82,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "b73a18c2-8b76-460b-b322-f99d9f84d870",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0371,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 0.9 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "063daa3c-c0a9-4681-a0a3-14e5d942197c",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 3.53e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 3.53e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "10.00 s at 48000 Hz (aac, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "36f48159-42de-44c7-b9f7-1f7024c1286c",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "b08dfbe4-fa4c-4ea6-b2a8-c00df8ddbcb4",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 484.31,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.97 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "90e0c627-dd8e-48d0-9def-23dafe0f2dec",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 17.75,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.99 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "2a5676c7-2326-4ef6-bdf4-23ff7ea86c37",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 189.77,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.98 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "27b770cc-5196-42cf-a61e-cabcdf201135",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 596.82,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.97 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:18.180814+00:00",
+      "result_id": "5d470f16-b9b2-4967-9f39-b81497aa4111",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "The average spectrum before and after this moment differs much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "4685ba73-90f3-40b7-9c07-c94096187d9a",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 99.54,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Change of sound character at 0.50 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "12.00 s at 48000 Hz (pcm_s16le, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "9c81fc2b-08da-40ab-8fc5-1804e77d6cef",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "0 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "48e97c68-9204-4dc1-97db-aaedeb53518a",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 32.7,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "c573ab23-efb3-4fa6-b9fc-4e23d101dda1",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 4.118e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 4.118e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "a4631f39-2981-4d21-8c6e-1e2cca2ddf5f",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0195,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 0.5 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:25.083814+00:00",
+      "result_id": "c33b4474-4b26-4131-a7c7-fa184a2fb87f",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "587aaa82-30f1-4a5a-8622-bfde8204b890",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 195.77,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.98 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "12.00 s at 48000 Hz (pcm_s16le, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "4a441cff-35ae-497b-851c-f608da307fd4",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "20d460f0-7d40-4c61-b238-086f830421ca",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0371,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 0.9 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "0bffb6ef-6aef-4388-8609-9e5aec8de451",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 407.78,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.97 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "baa27812-411a-4a1a-9d36-046c9db0436e",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 128.53,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.98 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "e58df4d3-bcff-47bd-9094-0cc34cd981e1",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 12.22,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 3.99 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "d7f61824-21dc-4927-95e4-340766dc8dc2",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 326.85,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.97 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The short-time spectrum changes much more than elsewhere in the recording.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "c9d4567b-7436-4e6a-bb64-9fc281676b61",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 18.25,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Abrupt spectral change at 6.99 s",
+          "type": "SPECTRAL_DISCONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "6 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "faf13bac-c2dc-44f2-a0f7-b24703987f60",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 407.78,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "b717490f-db9f-424a-a58d-d08814fbd710",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 4.118e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 4.118e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:25.783462+00:00",
+      "result_id": "4a4f80cd-6dbd-428f-849b-f4e99c8dd4af",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "12.00 s at 48000 Hz (pcm_s16le, 1 ch), analysed mixed to mono.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "b422027a-5805-443c-be23-b5eb8ef56937",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Audio levels measured",
+          "type": "AUDIO_LEVELS"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Nyquist frequency of the analysed rate is 24.0 kHz.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "69e10a88-1cc4-483d-8119-50e7da13633e",
+          "limitations": [
+            "Speech and many sounds are naturally band-limited; a low ratio is a clue to processing history, not proof"
+          ],
+          "score": 0.0557,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "99 % of the energy lies below 1.3 kHz",
+          "type": "EFFECTIVE_BANDWIDTH"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "0 abrupt spectral change(s) above the threshold.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "214b09c0-8c24-449c-864d-bebab250883a",
+          "limitations": [
+            "Plosives, music onsets and door slams change the spectrum abruptly too",
+            "The first and last 0.25 s are not searched (encoder transients)",
+            "Located to one analysis hop (11 ms)"
+          ],
+          "score": 1.29,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Spectral continuity measured",
+          "type": "SPECTRAL_CONTINUITY"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "SSL-AASIST-DF returns a score between 0 and 1. It is compared with 0.999709, the equal-error-rate threshold measured on In-the-Wild (the model's own 0.5 flags most real speech). The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "c43c1936-26d8-43da-9d10-501445884646",
+          "limitations": [
+            "Trained on: ASVspoof 2019 LA (bona fide speech and 2019-era TTS/VC attacks)",
+            "Measured locally: ROC AUC 0.966, EER 8.0 % on 800 In-the-Wild clips (real-world celebrity and politician deepfakes); at this threshold 8.5 % of real clips were flagged and 92.5 % of fakes; scores are saturated, so small processing differences can move a clip across it",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 4.06e-05,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "SSL-AASIST-DF scores this speech 4.06e-05: below its operating threshold",
+          "type": "SYNTHETIC_SPEECH_DETECTOR"
+        }
+      ],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:31.495196+00:00",
+      "result_id": "0f83a5f7-3dd1-4bb0-9d24-9281ce7a4187",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:32.818808+00:00",
+      "result_id": "0582dcf9-a412-456b-a27f-da43ccaf4a5f",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:32.854896+00:00",
+      "result_id": "eb29004c-39ef-4298-b425-b4128b67e3c5",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:32.889515+00:00",
+      "result_id": "2c29ff93-b9ad-449b-8c86-4157bdafff22",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:32.926947+00:00",
+      "result_id": "c59ac048-2202-4410-abd3-9f5a049e437f",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:33.198614+00:00",
+      "result_id": "382a8b4d-f8e2-4b3e-b174-377f12389b3c",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:33.363865+00:00",
+      "result_id": "8833f729-9d3e-4e05-a551-9d40b0caf019",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [],
+      "module": "NEX-AUD",
+      "produced_at": "2026-11-27T00:28:48.696904+00:00",
+      "result_id": "d4e3a262-1576-4f6a-9efb-92c97807e1eb",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [],
+      "module": "NEX-CMC",
+      "produced_at": "2026-11-27T00:28:49.461974+00:00",
+      "result_id": "906c6c83-2ccc-407d-a088-1c54f5d004a2",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Built from stored records only; every edge names the record that supports it.",
+          "evidence": [
+            "EVD-0010",
+            "EVD-0011",
+            "EVD-0012",
+            "EVD-0013",
+            "EVD-0014",
+            "EVD-0015",
+            "EVD-0016",
+            "EVD-0017",
+            "EVD-0018",
+            "EVD-0019",
+            "EVD-0020",
+            "EVD-0021",
+            "EVD-0022"
+          ],
+          "finding_id": "b4424b75-b351-4aa1-9ef1-bf62003ef5ba",
+          "limitations": [
+            "Candidate relationships and hypotheses are drawn as such; the graph shows what is recorded, not what is true"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Evidence graph: 134 nodes, 214 edges",
+          "type": "EVIDENCE_GRAPH"
+        }
+      ],
+      "module": "NEX-EGC",
+      "produced_at": "2026-11-27T00:28:49.537177+00:00",
+      "result_id": "b67cde71-d26e-4ea1-8cfb-7a0eb7ecd99a",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "32e46f69-7145-4cbf-8491-1d6e8a4bd21c",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: IMAGE_DHASH, IMAGE_PHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:03.856546+00:00",
+      "result_id": "55fa31dd-e075-4b6c-8fe4-57e4f75c7845",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0012",
+            "EVD-0010"
+          ],
+          "finding_id": "e77f5daf-a165-40c5-ae20-4fa147098669",
+          "limitations": [
+            "On the controlled set, 9 % of benign variants (mostly 10 % crops) were not matched; heavy crops, overlays and mirroring are missed"
+          ],
+          "score": 4.0,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Same content variant candidate: EVD-0010 (similarity 0.94)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "15c2b9d3-7ce2-4c84-a0ca-bf8e3ed9ed05",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: IMAGE_DHASH, IMAGE_PHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:04.153984+00:00",
+      "result_id": "cb617cd7-23a1-42c0-918f-3f5a750373ab",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "dff80975-3972-453d-b7a8-5529a546c39b",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: IMAGE_DHASH, IMAGE_PHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:05.308437+00:00",
+      "result_id": "ee609da6-6eb7-47d2-84c5-b00af6650da2",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "3ff156e5-067a-4246-a08f-61eb903e0657",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: IMAGE_DHASH, IMAGE_PHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:20.697416+00:00",
+      "result_id": "c4d43fc1-61d9-44f0-9657-3d01feb8780f",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0019",
+            "EVD-0014"
+          ],
+          "finding_id": "687b8b95-b498-435e-b3b3-e322e989cf7c",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2107,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0014 (similarity 0.79)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0019",
+            "EVD-0016"
+          ],
+          "finding_id": "8dd1b05f-9e39-4da4-b383-47745b6c07f0",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2002,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0016 (similarity 0.80)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0019",
+            "EVD-0015"
+          ],
+          "finding_id": "d89aeed0-1287-44ee-9807-c14f6f1666be",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.229,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0015 (similarity 0.77)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "4a568616-9082-4d82-b509-8e0477201c09",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:25.751387+00:00",
+      "result_id": "5eabec41-7c31-4792-a8f7-5df14ef09fc0",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0020",
+            "EVD-0019"
+          ],
+          "finding_id": "7ca0659d-dd1e-4b91-9644-944c99585b10",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.0,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0019 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0020",
+            "EVD-0016"
+          ],
+          "finding_id": "ab4d1ec6-12ff-42db-b5d8-855eed3b41ef",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.1824,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0016 (similarity 0.82)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "c62b068b-7e8a-4042-9d4a-8efbe3f19309",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT",
+          "type": "FINGERPRINTS_RECORDED"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0020",
+            "EVD-0014"
+          ],
+          "finding_id": "61c9ebe6-2a81-45f5-a4dd-83323b233c7e",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2246,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0014 (similarity 0.78)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0020",
+            "EVD-0015"
+          ],
+          "finding_id": "df84826e-c80b-46c5-9395-249ba5c6aaa5",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2439,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0015 (similarity 0.76)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:26.164328+00:00",
+      "result_id": "ba229f02-7944-4e95-a08c-74f00fe525f9",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "da32853e-8d77-43bb-960b-9011451d71ba",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:31.898591+00:00",
+      "result_id": "4f9ca198-4b18-430d-b0c7-c137cc5478c1",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0015"
+          ],
+          "finding_id": "9bcbe36c-9dfa-44ec-9a48-c6fa3ed14762",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0015 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0015"
+          ],
+          "finding_id": "189724ab-6ed6-427f-a368-5e7fc52e8d17",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.032,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0015 (similarity 0.97)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0020"
+          ],
+          "finding_id": "561d3e50-e1ce-400e-8cce-45f14e4b27c0",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2246,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0020 (similarity 0.78)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0016"
+          ],
+          "finding_id": "cc735125-b452-4989-b4a2-a2462cb45a7d",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0016 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0016"
+          ],
+          "finding_id": "1a89f3c4-11f2-4429-b29b-35fa54d16f31",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2952,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0016 (similarity 0.70)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0019"
+          ],
+          "finding_id": "9bb24354-58cb-4bc8-9ac3-060b1634f3a6",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2107,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0019 (similarity 0.79)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0018"
+          ],
+          "finding_id": "f0e41831-a6a3-4b73-8921-a3a3f492be0e",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0018 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "b74a237e-8535-4a70-9be7-233f3d32c401",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT, VIDEO_FRAME_DHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:39.500406+00:00",
+      "result_id": "b02d2eb2-9131-4e77-965d-06873ab4398e",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "755f6af2-72d2-4424-baa3-9681b113d54a",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT, VIDEO_FRAME_DHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0019"
+          ],
+          "finding_id": "03c80ab2-dbe1-462f-b21e-c3944a97f911",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.229,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0019 (similarity 0.77)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0018"
+          ],
+          "finding_id": "db7fda64-c42c-4a8a-bdb5-e7f930a4cada",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0018 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0014"
+          ],
+          "finding_id": "4ed254b0-5e61-4de8-a7ab-b3be97f13e05",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0014 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0014"
+          ],
+          "finding_id": "4f30daeb-2e62-40f3-8ca9-ab2044b2e7c6",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.032,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0014 (similarity 0.97)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0020"
+          ],
+          "finding_id": "dc786fff-e845-4f2f-9290-952ddbec8e1c",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2439,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0020 (similarity 0.76)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "4576898f-c81f-4cb5-be7c-a308601686d6",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2974,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0016 (similarity 0.70)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "74c43079-f0c1-440d-b79c-fb389f8599f2",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0016 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:39.980022+00:00",
+      "result_id": "23011511-ff27-4e86-97c9-e2d77daea557",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0015"
+          ],
+          "finding_id": "a9357174-1eaa-45d1-9e12-e9efd98bfe1a",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0015 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0014"
+          ],
+          "finding_id": "ee318f31-6f4f-42ce-a040-27d74391e5e3",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0014 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0014"
+          ],
+          "finding_id": "74fd474d-0594-4827-9846-29d6d06ca372",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2952,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0014 (similarity 0.70)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0015"
+          ],
+          "finding_id": "101a601b-40c2-4110-a07a-f3e461d1aafe",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2974,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0015 (similarity 0.70)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0020"
+          ],
+          "finding_id": "f3f6f465-6eb3-4f96-8efb-0235de92cc7f",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.1824,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0020 (similarity 0.82)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0019"
+          ],
+          "finding_id": "9d1b1b2b-5ff2-4e7b-b412-d49bb8182761",
+          "limitations": [
+            "The same music or broadcast audio in different videos also matches"
+          ],
+          "score": 0.2002,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Shared audio candidate: EVD-0019 (similarity 0.80)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0018"
+          ],
+          "finding_id": "418efc34-a7e3-4e4b-99f3-ea02056c30df",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0018 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "7207f49c-ecf2-413e-9840-2615dc9d3f46",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT, VIDEO_FRAME_DHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:40.426199+00:00",
+      "result_id": "0028a321-a2e3-4046-95b8-e5e491db0c92",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0017",
+            "EVD-0013"
+          ],
+          "finding_id": "56fc1d7a-09b6-4e5b-bb23-a9994c257f53",
+          "limitations": [
+            "Frames are sampled once per second; a still taken between samples can be missed, and flat graphics (slides, test patterns) give unstable hashes"
+          ],
+          "score": 12.0,
+          "score_kind": "DISTANCE",
+          "threshold": null,
+          "title": "Frame of video candidate: EVD-0013 (similarity 0.81)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0017"
+          ],
+          "finding_id": "1de6aa32-baf0-410e-a623-493571b6fbc1",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: VIDEO_FRAME_DHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:40.796294+00:00",
+      "result_id": "5d088982-c78c-466a-93b1-ea8cd0ecabb8",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0018",
+            "EVD-0015"
+          ],
+          "finding_id": "43db00ed-4a77-4bff-a123-a08a45f6e5ae",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0015 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0018"
+          ],
+          "finding_id": "b4eef733-825c-4124-a014-8d5d36ca4d72",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: VIDEO_FRAME_DHASH",
+          "type": "FINGERPRINTS_RECORDED"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0018",
+            "EVD-0016"
+          ],
+          "finding_id": "0541a573-89cd-4101-a96a-6ebea88ef096",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0016 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fingerprints of the two items are close. That shows similar content, not that one was made from the other.",
+          "evidence": [
+            "EVD-0018",
+            "EVD-0014"
+          ],
+          "finding_id": "c5c88559-1f23-4578-ada9-ccd46a193fe3",
+          "limitations": [
+            "Static or slowly changing footage matches easily; the offset is a median over matched frames"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Shared video segment candidate: EVD-0014 (similarity 1.00)",
+          "type": "SIMILAR_MEDIA_CANDIDATE"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:41.148718+00:00",
+      "result_id": "cbcde784-0332-4908-bc4c-649756b3a2fe",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Canonical fingerprints used for similarity search in this investigation.",
+          "evidence": [
+            "EVD-0021"
+          ],
+          "finding_id": "f6a87ac0-226a-40c9-aea5-7c4f2989b4b5",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Fingerprints recorded: AUDIO_SUBFINGERPRINT",
+          "type": "FINGERPRINTS_RECORDED"
+        }
+      ],
+      "module": "NEX-FPM",
+      "produced_at": "2026-11-27T00:28:41.585388+00:00",
+      "result_id": "00efcad3-0caf-4cb2-b3a9-bdebb9a5d039",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [
+        {
+          "assertion": "INFERENCE",
+          "description": "CommunityForensics-ViT-S16-384 returns a score between 0 and 1. It is compared with 0.5, the model's own threshold. The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "12e94a79-d56d-4bb1-852b-db4f864a126c",
+          "limitations": [
+            "Trained on: Community Forensics: 4,800+ generators (Park & Owens, CVPR 2025)",
+            "Measured locally: ROC AUC 0.997, EER 2.6 % on 500 CommunityForensics-Eval images (GAN fakes only; the authors' own evaluation set); at 0.5, 4.5 % of real images and 8 % of RAISE camera photos were flagged",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 0.02783411,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "CommunityForensics-ViT-S16-384 scores this image 0.02783: below its operating threshold",
+          "type": "SYNTHETIC_IMAGE_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No sharp periodicity in the second derivative along either axis.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "fe647771-50a0-45a4-9a73-146b786b8121",
+          "limitations": [
+            "Exact integer factors (such as 2x) and strong recompression can hide the trace",
+            "Periodic textures (fabric, grilles, screens) can produce a similar peak"
+          ],
+          "score": 6.52,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No periodic interpolation traces",
+          "type": "NO_RESAMPLING_TRACES"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The luminance table matches the IJG reference table scaled to this quality.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "9fa6cb21-2f17-4651-873e-20f48bbfa024",
+          "limitations": [
+            "The table shows the last encoder only; earlier compressions are not visible here"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "JPEG quantisation consistent with IJG quality 95",
+          "type": "JPEG_QUANTIZATION"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "17 of 256 grid cells re-compress very differently from the rest of the image.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "ccbb6031-652f-4330-9239-96f0364da044",
+          "limitations": [
+            "ELA is a limited heuristic: re-encoding, resizing, sharpening and texture all change it",
+            "It cannot tell a manipulated region from one that simply has more detail"
+          ],
+          "score": 8.83,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Localised error-level response",
+          "type": "ELA_LOCAL_RESPONSE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Features for similarity search (NEX-FPM); not evidence on their own.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "ef26f69b-2947-496b-aaa6-60e13ca98e3f",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Perceptual hashes computed",
+          "type": "PERCEPTUAL_HASHES"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No block's residual noise differs strongly from the rest.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "efac0a96-e345-4b0a-894c-63b064f84c26",
+          "limitations": [
+            "Flat or blurred areas (sky, walls, bokeh) legitimately have less noise than textured ones"
+          ],
+          "score": 24.47,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Noise level consistent across blocks",
+          "type": "NOISE_LEVEL_CONSISTENT"
+        }
+      ],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:03.429566+00:00",
+      "result_id": "38fe5127-f529-454a-ba30-f8509c519ba9",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [
+        {
+          "assertion": "INFERENCE",
+          "description": "CommunityForensics-ViT-S16-384 returns a score between 0 and 1. It is compared with 0.5, the model's own threshold. The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "35cf64c2-0901-4de8-a359-7310e706f304",
+          "limitations": [
+            "Trained on: Community Forensics: 4,800+ generators (Park & Owens, CVPR 2025)",
+            "Measured locally: ROC AUC 0.997, EER 2.6 % on 500 CommunityForensics-Eval images (GAN fakes only; the authors' own evaluation set); at 0.5, 4.5 % of real images and 8 % of RAISE camera photos were flagged",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 0.0054234,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "CommunityForensics-ViT-S16-384 scores this image 0.005423: below its operating threshold",
+          "type": "SYNTHETIC_IMAGE_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Re-compression error is spread evenly across the image at this grid size.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "c2c53e67-1fda-4469-9ed2-eeb471a10807",
+          "limitations": [
+            "ELA is a limited heuristic: re-encoding, resizing, sharpening and texture all change it",
+            "It cannot tell a manipulated region from one that simply has more detail"
+          ],
+          "score": 3.35,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No localised error-level response",
+          "type": "ELA_UNIFORM_RESPONSE"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No block's residual noise differs strongly from the rest.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "18eacfc9-8bf1-4457-b2a7-407df6553b7c",
+          "limitations": [
+            "Flat or blurred areas (sky, walls, bokeh) legitimately have less noise than textured ones"
+          ],
+          "score": 162.56,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Noise level consistent across blocks",
+          "type": "NOISE_LEVEL_CONSISTENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No sharp periodicity in the second derivative along either axis.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "c6c142bf-5d8b-41b3-be08-a9e3fd7d4709",
+          "limitations": [
+            "Exact integer factors (such as 2x) and strong recompression can hide the trace",
+            "Periodic textures (fabric, grilles, screens) can produce a similar peak"
+          ],
+          "score": 6.72,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No periodic interpolation traces",
+          "type": "NO_RESAMPLING_TRACES"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "The luminance table matches the IJG reference table scaled to this quality.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "9bc817ca-0f5c-494b-8447-528075de8cfe",
+          "limitations": [
+            "The table shows the last encoder only; earlier compressions are not visible here"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "JPEG quantisation consistent with IJG quality 45",
+          "type": "JPEG_QUANTIZATION"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Features for similarity search (NEX-FPM); not evidence on their own.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "f917e30d-68dd-4780-907f-7f01dce9554f",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Perceptual hashes computed",
+          "type": "PERCEPTUAL_HASHES"
+        }
+      ],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:03.862948+00:00",
+      "result_id": "e40d01f2-3c72-432e-93b5-4b482b88b9a3",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No block's residual noise differs strongly from the rest.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "0614a20a-2764-4e11-ad07-8a57a24c3a4a",
+          "limitations": [
+            "Flat or blurred areas (sky, walls, bokeh) legitimately have less noise than textured ones"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Noise level consistent across blocks",
+          "type": "NOISE_LEVEL_CONSISTENT"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Features for similarity search (NEX-FPM); not evidence on their own.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "24ea93e9-dfdb-4072-af1d-e4da547f9757",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Perceptual hashes computed",
+          "type": "PERCEPTUAL_HASHES"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No sharp periodicity in the second derivative along either axis.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "4d4ed4c6-9a73-4d9f-8c9d-c68743eec8f4",
+          "limitations": [
+            "Exact integer factors (such as 2x) and strong recompression can hide the trace",
+            "Periodic textures (fabric, grilles, screens) can produce a similar peak"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No periodic interpolation traces",
+          "type": "NO_RESAMPLING_TRACES"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "CommunityForensics-ViT-S16-384 returns a score between 0 and 1. It is compared with 0.5, the model's own threshold. The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "f51c0d72-5da2-497d-b065-0fd3e9b37691",
+          "limitations": [
+            "Trained on: Community Forensics: 4,800+ generators (Park & Owens, CVPR 2025)",
+            "Measured locally: ROC AUC 0.997, EER 2.6 % on 500 CommunityForensics-Eval images (GAN fakes only; the authors' own evaluation set); at 0.5, 4.5 % of real images and 8 % of RAISE camera photos were flagged",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 0.00836497,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "CommunityForensics-ViT-S16-384 scores this image 0.008365: below its operating threshold",
+          "type": "SYNTHETIC_IMAGE_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Re-compression error is spread evenly across the image at this grid size.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "6b00c0ae-b2ae-4df0-9b88-6610d4bc9b0b",
+          "limitations": [
+            "ELA is a limited heuristic: re-encoding, resizing, sharpening and texture all change it",
+            "It cannot tell a manipulated region from one that simply has more detail"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No localised error-level response",
+          "type": "ELA_UNIFORM_RESPONSE"
+        }
+      ],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:05.079341+00:00",
+      "result_id": "06559522-84df-4bb8-adcd-ef690825fc3c",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "The luminance table matches the IJG reference table scaled to this quality.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "b478dc27-3de5-4a4b-81c1-63dcad86da9b",
+          "limitations": [
+            "The table shows the last encoder only; earlier compressions are not visible here"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "JPEG quantisation consistent with IJG quality 95",
+          "type": "JPEG_QUANTIZATION"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "No sharp periodicity in the second derivative along either axis.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "c1ce67b2-dfe6-4097-b6ed-ff24e5253c3a",
+          "limitations": [
+            "Exact integer factors (such as 2x) and strong recompression can hide the trace",
+            "Periodic textures (fabric, grilles, screens) can produce a similar peak"
+          ],
+          "score": 5.5,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "No periodic interpolation traces",
+          "type": "NO_RESAMPLING_TRACES"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "29 of 880 blocks have a residual noise level far from the image's typical level.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "156acdb1-20f3-4601-a18f-402762374a87",
+          "limitations": [
+            "Flat or blurred areas (sky, walls, bokeh) legitimately have less noise than textured ones"
+          ],
+          "score": 4.14,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Region with a different noise level",
+          "type": "NOISE_LEVEL_INCONSISTENCY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "18 of 256 grid cells re-compress very differently from the rest of the image.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "938b18cf-dc82-4ffb-a038-48c08c826fb6",
+          "limitations": [
+            "ELA is a limited heuristic: re-encoding, resizing, sharpening and texture all change it",
+            "It cannot tell a manipulated region from one that simply has more detail"
+          ],
+          "score": 8.83,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Localised error-level response",
+          "type": "ELA_LOCAL_RESPONSE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "CommunityForensics-ViT-S16-384 returns a score between 0 and 1. It is compared with 0.5, the model's own threshold. The score is the model's own output, not a probability that this file is synthetic.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "74535c10-e486-44be-96fb-e50953d2cb2d",
+          "limitations": [
+            "Trained on: Community Forensics: 4,800+ generators (Park & Owens, CVPR 2025)",
+            "Measured locally: ROC AUC 0.997, EER 2.6 % on 500 CommunityForensics-Eval images (GAN fakes only; the authors' own evaluation set); at 0.5, 4.5 % of real images and 8 % of RAISE camera photos were flagged",
+            "Generators and voice-cloning tools released after the model was trained may not be recognised",
+            "Recompression, resizing, screenshots and re-recording change the score"
+          ],
+          "score": 0.00384674,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "CommunityForensics-ViT-S16-384 scores this image 0.003847: below its operating threshold",
+          "type": "SYNTHETIC_IMAGE_DETECTOR"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Features for similarity search (NEX-FPM); not evidence on their own.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "db46064a-efd8-481c-aadd-d01eadd5328e",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Perceptual hashes computed",
+          "type": "PERCEPTUAL_HASHES"
+        }
+      ],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:20.162154+00:00",
+      "result_id": "58a3c676-99cc-4928-8d75-018a994f6812",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.139804+00:00",
+      "result_id": "919783bb-4221-4316-93be-9c83c559b845",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.242521+00:00",
+      "result_id": "bd615d59-799f-4d41-b277-a52f08406a6a",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.320055+00:00",
+      "result_id": "adbb37ec-3bf5-4829-9042-e75e44e500c2",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.409479+00:00",
+      "result_id": "3090184d-2e59-4c31-a135-cf18cee81c9e",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.480776+00:00",
+      "result_id": "ed1a97f9-c32e-4cc0-873c-1d0a09646509",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.569023+00:00",
+      "result_id": "131e1a55-6949-464c-b7cb-27a896bba41b",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.643790+00:00",
+      "result_id": "dba496b4-5c64-4d6a-824f-25f328f34653",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.727947+00:00",
+      "result_id": "d86e8719-91e8-4d7b-b32c-aafebc9335de",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [],
+      "module": "NEX-IMG",
+      "produced_at": "2026-11-27T00:28:29.930130+00:00",
+      "result_id": "a0651690-0cc7-4e9a-9ce3-1e249e5f5234",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "b9c5792c-3312-4430-bf1f-3e9ba22c0ef7",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:02.507642+00:00",
+      "result_id": "e3a4d818-44d5-4ed7-a00c-c5dbb4ad33d5",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "77274542-3e69-4cbb-a865-54e93750ce3b",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:02.651090+00:00",
+      "result_id": "3162afc8-4d16-4bd2-b872-e7de3b9e90db",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "2b971250-8ce5-4597-b788-98519fe2c5e2",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:03.136626+00:00",
+      "result_id": "6837109d-c59f-4c2f-9521-2176d90c4371",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "faf91efe-3bfe-4b61-8a6f-f0bdb4b4867d",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:04.603959+00:00",
+      "result_id": "5dec9eae-3e91-4847-8330-38ca3ae5124a",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "885e8c71-a8ab-4556-996b-f4f1587b40f7",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:05.184753+00:00",
+      "result_id": "32de404e-fb2d-46ef-9ec6-4c1e079ab43f",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "0004a6df-896a-4717-8ec7-4401880e8e4b",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:06.140531+00:00",
+      "result_id": "585420e6-4694-46d1-aa36-556a1a05bc2a",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "01c8c637-16d5-485a-9d91-c3a74b3b1077",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:13.384659+00:00",
+      "result_id": "6cff5e65-1637-4349-bed9-b27a51878028",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0017"
+          ],
+          "finding_id": "4fd058b3-de79-4d52-a648-622f36c9838c",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:15.085038+00:00",
+      "result_id": "06287138-5b16-4a01-999d-d41d0a5fcec1",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0018"
+          ],
+          "finding_id": "cb291203-3c36-4576-a6f8-4ea8bd67ef0f",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:18.216665+00:00",
+      "result_id": "3ff0b8eb-13ab-4f5f-bde0-1fb10b73021a",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "b2002408-de40-43a5-af39-5c6177d217d1",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:19.317048+00:00",
+      "result_id": "d4168ed4-a10e-4ce0-adb5-f2e55de9278e",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "5bbe90fa-3157-4c2f-b62b-688331b8f6ea",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:19.750646+00:00",
+      "result_id": "3be05f63-93d8-4d81-bd1c-0079a62ece61",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0021"
+          ],
+          "finding_id": "af58eac8-29c8-4d03-9217-606bf392bd56",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:24.297275+00:00",
+      "result_id": "8bc9dfe3-72f0-46c3-abb4-7759adfcc841",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Fields read from the preserved original. Embedded timestamps are claims made by the file, not evidence of when the content was created.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "de0a795b-0865-49ff-a33d-3c066ac4bbce",
+          "limitations": [],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Container and embedded metadata recorded",
+          "type": "METADATA_RECORDED"
+        }
+      ],
+      "module": "NEX-MET",
+      "produced_at": "2026-11-27T00:28:27.120472+00:00",
+      "result_id": "d508ebb1-464d-43a9-b86e-ddf1cda869d8",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0013",
+            "EVD-0017"
+          ],
+          "finding_id": "dd5d3c61-8e69-4afa-a93f-d8f8fb2e3fec",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.8125,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Frame of video: EVD-0013 and EVD-0017",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0010",
+            "EVD-0012"
+          ],
+          "finding_id": "9e1299c2-0c62-4efb-9090-ee8f5d560c9a",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.9375,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Same content variant: EVD-0010 and EVD-0012",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0015"
+          ],
+          "finding_id": "b2f88b83-7cb4-455f-8f0d-4e787b457272",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0014 and EVD-0015",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0016"
+          ],
+          "finding_id": "f953cc57-9e33-4893-bc60-a98eb240107e",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0014 and EVD-0016",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0018"
+          ],
+          "finding_id": "48592081-1254-460e-ad59-5fcc1c6a2cd7",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0014 and EVD-0018",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0019"
+          ],
+          "finding_id": "31d6733c-6a75-47f0-8d16-fb3ce7ad4b8d",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.7893,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0014 and EVD-0019",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0020"
+          ],
+          "finding_id": "a874e99f-38b9-46d2-a3fe-08648913f038",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.7754,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0014 and EVD-0020",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "13c8ab92-6154-4efe-9f60-8fc4e24a2bc9",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0015 and EVD-0016",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0018"
+          ],
+          "finding_id": "0a30c5a3-31fe-4da7-aad1-5977fb300819",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0015 and EVD-0018",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0019"
+          ],
+          "finding_id": "eaa429f5-3528-4279-aa02-07baa3c25fde",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.771,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0015 and EVD-0019",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0020"
+          ],
+          "finding_id": "4446bc23-cf8a-4313-886e-18fc9bb7114a",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.7561,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0015 and EVD-0020",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0018"
+          ],
+          "finding_id": "af5caa03-0e99-4ccb-a4de-2b118bae0e87",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared video segment: EVD-0016 and EVD-0018",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0019"
+          ],
+          "finding_id": "96a0ede3-47f9-49f0-bcef-7c35ddad266f",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.7998,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0016 and EVD-0019",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0020"
+          ],
+          "finding_id": "3fe86bee-844a-43c6-8b2d-786844c32168",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 0.8176,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0016 and EVD-0020",
+          "type": "LINEAGE_CANDIDATE"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+          "evidence": [
+            "EVD-0019",
+            "EVD-0020"
+          ],
+          "finding_id": "2c3c2f87-c1b7-4c82-96cb-4c78d4d18e4b",
+          "limitations": [
+            "Similarity is not proof of common origin or of who copied whom",
+            "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+          ],
+          "score": 1.0,
+          "score_kind": "SIMILARITY",
+          "threshold": null,
+          "title": "Shared audio: EVD-0019 and EVD-0020",
+          "type": "LINEAGE_CANDIDATE"
+        }
+      ],
+      "module": "NEX-MOC",
+      "produced_at": "2026-11-27T00:28:48.855229+00:00",
+      "result_id": "170d48cb-4555-4bdd-99b9-7824648385e3",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0010"
+          ],
+          "finding_id": "d5b91509-3bc1-47c2-b7c4-2f6ce705b8bb",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:03.734592+00:00",
+      "result_id": "f24290d4-ebc8-4493-be81-e9ad2c48c68a",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0012"
+          ],
+          "finding_id": "6ce06bf5-69f3-4413-b512-baed7af0bcb5",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:04.054418+00:00",
+      "result_id": "539aa60e-ee06-4ff1-9e71-88e670a7c007",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0013"
+          ],
+          "finding_id": "a4dcec2b-b16f-4880-bc2d-014e0947c010",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:05.244902+00:00",
+      "result_id": "2414d540-5b3c-4d29-9b48-353b06d60900",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "b7361709-1415-4e3a-b5d6-a5dfa98b9468",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:11.288762+00:00",
+      "result_id": "71b7f14c-8821-49a8-bb7a-adbd0151e7e9",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "afeea174-c9d1-4fc2-937e-5f9f5bbe0706",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:12.444089+00:00",
+      "result_id": "6315e274-8c22-44ff-9299-93f338f31209",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0017"
+          ],
+          "finding_id": "33b8eb9e-5149-4a91-a613-341b5574b0f1",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:16.255222+00:00",
+      "result_id": "e40ea337-f2b9-4223-acc9-52a9f8f041f1",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "2d35640d-ae0d-4d05-b230-8b4992718857",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:18.260211+00:00",
+      "result_id": "16c1a6ea-a697-4310-afd0-ac1711834dd3",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0018"
+          ],
+          "finding_id": "ecc30ee3-50d6-4e00-a240-c17328f848ed",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:18.734184+00:00",
+      "result_id": "f4e4b378-0566-4c4f-808b-45189d9dd186",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0011"
+          ],
+          "finding_id": "89117d97-bd44-48ad-8433-728f1834fa0d",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:20.553333+00:00",
+      "result_id": "7a42c334-7ff1-49cb-b29b-d1c97d9321ff",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0019"
+          ],
+          "finding_id": "85325b12-9f7a-4920-99d4-afffe422c7f7",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:25.248558+00:00",
+      "result_id": "3a00528c-55a1-4022-8e71-90fe97883352",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0020"
+          ],
+          "finding_id": "4fc9fde0-feb2-451a-b395-8aaecc3a99b8",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:25.897564+00:00",
+      "result_id": "0cc69664-a4b2-4a6e-aded-21a795ac3ad0",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0022"
+          ],
+          "finding_id": "f21c1b21-1f91-4a08-98a5-8cf2b784b0b5",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:31.637317+00:00",
+      "result_id": "3a06258d-9ef7-4c77-91b7-69e4e6a0d5c6",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "No C2PA manifest is embedded in this file.",
+          "evidence": [
+            "EVD-0021"
+          ],
+          "finding_id": "d47b4262-ea9f-4c56-961d-38f28684aaf9",
+          "limitations": [
+            "Most cameras, apps and platforms do not add credentials, and many strip them; absence is not evidence of manipulation"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "No content credentials",
+          "type": "NO_CONTENT_CREDENTIALS"
+        }
+      ],
+      "module": "NEX-PRV",
+      "produced_at": "2026-11-27T00:28:38.928995+00:00",
+      "result_id": "f6aefb8d-4a62-4de7-9d7a-2676d55a2954",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Dated statements in order. Claimed times are the file's or the source's own claims; only NEXTRON's times are measured.",
+          "evidence": [
+            "EVD-0010",
+            "EVD-0011",
+            "EVD-0012",
+            "EVD-0013",
+            "EVD-0014",
+            "EVD-0015",
+            "EVD-0016",
+            "EVD-0017",
+            "EVD-0018",
+            "EVD-0019",
+            "EVD-0020",
+            "EVD-0021",
+            "EVD-0022"
+          ],
+          "finding_id": "4e2bbd6f-29d3-4325-8c69-55801d06faae",
+          "limitations": [
+            "Embedded and published times can be missing, wrong or edited",
+            "Times without a zone are read as UTC"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Timeline of 13 dated statements",
+          "type": "RECONSTRUCTION"
+        }
+      ],
+      "module": "NEX-REC",
+      "produced_at": "2026-11-27T00:28:49.641074+00:00",
+      "result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → mov,mp4,m4a,3gp,3g2,mj2/h264/None). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0018"
+          ],
+          "finding_id": "cd78d784-6b63-493f-9a84-3e097e371fbb",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0015 / EVD-0018",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0020"
+          ],
+          "finding_id": "c98ab2a4-d408-4877-9927-7f79adabb7d2",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0015 / EVD-0020",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Only 2.0–11.0 s of b (12.0 s) appears in a: a looks like a trimmed copy. A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0018"
+          ],
+          "finding_id": "15a2e53c-27b1-4e5f-8d9d-e995dafee567",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Trimmed: EVD-0016 / EVD-0018",
+          "type": "TRIMMED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → mov,mp4,m4a,3gp,3g2,mj2/h264/None). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0018"
+          ],
+          "finding_id": "91f6a46d-c268-48c6-871c-e89703ad8784",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0016 / EVD-0018",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0020"
+          ],
+          "finding_id": "17416240-b416-469b-b414-cfd5743e7c66",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0016 / EVD-0020",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Resized by 0.500 ([1280, 720] → [640, 360]). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0010",
+            "EVD-0012"
+          ],
+          "finding_id": "6f4becc9-0125-43de-9007-f1f15ccf2568",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Resized: EVD-0010 / EVD-0012",
+          "type": "RESIZED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Resized by 0.750 ([320, 180] → [240, 136]). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0015"
+          ],
+          "finding_id": "977a337b-274c-4cd9-a4b2-755dc4e01c91",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Resized: EVD-0014 / EVD-0015",
+          "type": "RESIZED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Only 2.0–11.0 s of a (12.0 s) appears in b: b looks like a trimmed copy. A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0016"
+          ],
+          "finding_id": "46ecc963-2430-437b-98db-f7bb5e21c98f",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Trimmed: EVD-0014 / EVD-0016",
+          "type": "TRIMMED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0016",
+            "EVD-0019"
+          ],
+          "finding_id": "78beeac0-d416-48d3-b98c-ceb01525dfd2",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0016 / EVD-0019",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → mov,mp4,m4a,3gp,3g2,mj2/h264/None). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0018"
+          ],
+          "finding_id": "2e330fd7-4eb6-4af1-b20d-2da6c57d4c65",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0014 / EVD-0018",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0019"
+          ],
+          "finding_id": "ffcb2807-04a7-498a-91f5-8c33b41da88d",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0014 / EVD-0019",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0014",
+            "EVD-0020"
+          ],
+          "finding_id": "9a20c75b-cfaf-4c12-a2fe-d0680b538216",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0014 / EVD-0020",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Only 2.0–11.0 s of a (12.0 s) appears in b: b looks like a trimmed copy. A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "9142a5e7-8ce6-44eb-b6d2-419f15e210cb",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Trimmed: EVD-0015 / EVD-0016",
+          "type": "TRIMMED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Resized by 1.333 ([240, 136] → [320, 180]). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0016"
+          ],
+          "finding_id": "6b1edf3a-fd3a-4504-9490-402ea8739afa",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Resized: EVD-0015 / EVD-0016",
+          "type": "RESIZED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Resized by 1.333 ([240, 136] → [320, 180]). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0018"
+          ],
+          "finding_id": "f8e31fbd-7dd9-4062-9ee8-8f578dba85c3",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Resized: EVD-0015 / EVD-0018",
+          "type": "RESIZED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (mov,mp4,m4a,3gp,3g2,mj2/h264/aac → wav/None/pcm_s16le). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0015",
+            "EVD-0019"
+          ],
+          "finding_id": "0913c89f-88a7-4c0e-82eb-5df232f53ff2",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0015 / EVD-0019",
+          "type": "RE_ENCODED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Resized by 0.250 ([1280, 720] → [320, 180]). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0013",
+            "EVD-0017"
+          ],
+          "finding_id": "979c600c-33a2-4510-8436-732fe05422f6",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Resized: EVD-0013 / EVD-0017",
+          "type": "RESIZED"
+        },
+        {
+          "assertion": "INFERENCE",
+          "description": "Container or codecs differ (PNG/None/None → mov,mp4,m4a,3gp,3g2,mj2/h264/None). A hypothesis from measured alignment and metadata, not an observed edit.",
+          "evidence": [
+            "EVD-0013",
+            "EVD-0017"
+          ],
+          "finding_id": "dac1e051-36d8-45fc-87c7-516feaf62acd",
+          "limitations": [
+            "Direction is not established: either version could be the edited one",
+            "Hypotheses rest on one-frame-per-second alignment and container metadata"
+          ],
+          "score": null,
+          "score_kind": null,
+          "threshold": null,
+          "title": "Re encoded: EVD-0013 / EVD-0017",
+          "type": "RE_ENCODED"
+        }
+      ],
+      "module": "NEX-TRN",
+      "produced_at": "2026-11-27T00:28:49.276363+00:00",
+      "result_id": "75dab673-3f1a-4787-859d-b597f4118545",
+      "status": "COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0010"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:30.116208+00:00",
+      "result_id": "d40325af-9e65-41b3-9040-abfd365de993",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0011"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:30.183266+00:00",
+      "result_id": "4074e771-0924-449d-ae51-e1f10fd920fd",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0012"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:30.259092+00:00",
+      "result_id": "0222154d-77a6-43e2-8573-ce9520733307",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0013"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:30.441265+00:00",
+      "result_id": "449e31c7-2339-4d13-936e-f26843293b6f",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0014"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Regular frame intervals.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "fd9935c6-dfbe-4c3c-a54f-7cc8e0e96178",
+          "limitations": [
+            "B-frames reorder decode timestamps legitimately; only presentation order is assessed for gaps",
+            "Variable frame rate is normal for phone cameras and screen recordings"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Frame timing measured",
+          "type": "FRAME_TIMING"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "48 samples over 11.75 s; 0 abrupt change(s) above the threshold.",
+          "evidence": [
+            "EVD-0014"
+          ],
+          "finding_id": "ce2523ad-d986-43b5-b427-42f0d82f0d01",
+          "limitations": [
+            "Scene cuts, camera motion, flashes and fades also produce abrupt changes",
+            "Samples are 0.25 s apart; a change is located only to that precision"
+          ],
+          "score": 1.56,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Visual continuity measured",
+          "type": "VISUAL_CONTINUITY"
+        }
+      ],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:31.290919+00:00",
+      "result_id": "ad5f06e2-0dac-4b3c-8b3f-480b3973f7fb",
+      "status": "PARTIALLY_COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0015"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Regular frame intervals.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "0d4f2001-9b0b-48f1-8e53-ac0e9112c8c2",
+          "limitations": [
+            "B-frames reorder decode timestamps legitimately; only presentation order is assessed for gaps",
+            "Variable frame rate is normal for phone cameras and screen recordings"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Frame timing measured",
+          "type": "FRAME_TIMING"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "48 samples over 11.75 s; 0 abrupt change(s) above the threshold.",
+          "evidence": [
+            "EVD-0015"
+          ],
+          "finding_id": "200e3392-d9d0-4b29-8e7d-76b73e1c3e36",
+          "limitations": [
+            "Scene cuts, camera motion, flashes and fades also produce abrupt changes",
+            "Samples are 0.25 s apart; a change is located only to that precision"
+          ],
+          "score": 1.4,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Visual continuity measured",
+          "type": "VISUAL_CONTINUITY"
+        }
+      ],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:31.802402+00:00",
+      "result_id": "4ff48fdc-14e7-4492-81a3-5d30c263446f",
+      "status": "PARTIALLY_COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0016"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "40 samples over 9.75 s; 0 abrupt change(s) above the threshold.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "abc8fde8-54b6-4cad-a153-318e11d13bcc",
+          "limitations": [
+            "Scene cuts, camera motion, flashes and fades also produce abrupt changes",
+            "Samples are 0.25 s apart; a change is located only to that precision"
+          ],
+          "score": 1.37,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Visual continuity measured",
+          "type": "VISUAL_CONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Regular frame intervals.",
+          "evidence": [
+            "EVD-0016"
+          ],
+          "finding_id": "a6b76436-7b01-4959-afc7-938f5c8cd863",
+          "limitations": [
+            "B-frames reorder decode timestamps legitimately; only presentation order is assessed for gaps",
+            "Variable frame rate is normal for phone cameras and screen recordings"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Frame timing measured",
+          "type": "FRAME_TIMING"
+        }
+      ],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.079936+00:00",
+      "result_id": "4575a9ac-f9df-4220-a31a-827188db1113",
+      "status": "PARTIALLY_COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0017"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "48 samples over 11.75 s; 0 abrupt change(s) above the threshold.",
+          "evidence": [
+            "EVD-0017"
+          ],
+          "finding_id": "d6de15a4-d1dd-4d95-904b-095d6fe969da",
+          "limitations": [
+            "Scene cuts, camera motion, flashes and fades also produce abrupt changes",
+            "Samples are 0.25 s apart; a change is located only to that precision"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Visual continuity measured",
+          "type": "VISUAL_CONTINUITY"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "Regular frame intervals.",
+          "evidence": [
+            "EVD-0017"
+          ],
+          "finding_id": "c094fdd2-4708-4e54-aaea-af2b657111f4",
+          "limitations": [
+            "B-frames reorder decode timestamps legitimately; only presentation order is assessed for gaps",
+            "Variable frame rate is normal for phone cameras and screen recordings"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Frame timing measured",
+          "type": "FRAME_TIMING"
+        }
+      ],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.327694+00:00",
+      "result_id": "e1ba0e7a-f045-48d3-8fd5-5b3dd66ce11f",
+      "status": "PARTIALLY_COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0018"
+      ],
+      "findings": [
+        {
+          "assertion": "OBSERVATION",
+          "description": "Regular frame intervals.",
+          "evidence": [
+            "EVD-0018"
+          ],
+          "finding_id": "c1100f8d-4a52-423c-9b87-1e1cd5cfd834",
+          "limitations": [
+            "B-frames reorder decode timestamps legitimately; only presentation order is assessed for gaps",
+            "Variable frame rate is normal for phone cameras and screen recordings"
+          ],
+          "score": 0.0,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Frame timing measured",
+          "type": "FRAME_TIMING"
+        },
+        {
+          "assertion": "OBSERVATION",
+          "description": "48 samples over 11.75 s; 0 abrupt change(s) above the threshold.",
+          "evidence": [
+            "EVD-0018"
+          ],
+          "finding_id": "5830c212-4e92-4553-9a1f-82269cd55055",
+          "limitations": [
+            "Scene cuts, camera motion, flashes and fades also produce abrupt changes",
+            "Samples are 0.25 s apart; a change is located only to that precision"
+          ],
+          "score": 1.56,
+          "score_kind": "METHOD_SPECIFIC",
+          "threshold": null,
+          "title": "Visual continuity measured",
+          "type": "VISUAL_CONTINUITY"
+        }
+      ],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.616261+00:00",
+      "result_id": "d6348a1d-61d4-4408-afa2-6a19ddf843a4",
+      "status": "PARTIALLY_COMPLETED"
+    },
+    {
+      "evidence": [
+        "EVD-0019"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.661244+00:00",
+      "result_id": "8783804d-450f-470b-a6ca-04ed68b71baa",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0020"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.698681+00:00",
+      "result_id": "1679b309-eee3-4a04-9dc9-e99b2ffcf6ec",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0021"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.732231+00:00",
+      "result_id": "7f902e62-9f02-4e30-9d53-c001ac55ff18",
+      "status": "SKIPPED"
+    },
+    {
+      "evidence": [
+        "EVD-0022"
+      ],
+      "findings": [],
+      "module": "NEX-VID",
+      "produced_at": "2026-11-27T00:28:32.777685+00:00",
+      "result_id": "df212ba0-a616-4197-8b67-f5ab7c76f867",
+      "status": "SKIPPED"
+    }
+  ],
+  "report": "RPT-0004",
+  "reviews": [
+    {
+      "at": "2026-11-27T00:42:13.123154+00:00",
+      "decision": "INCONCLUSIVE",
+      "rationale": "Controlled fixtures show candidate links and unresolved audio discrepancy; no verified source or calibrated accuracy",
+      "reconstruction_result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+      "review": "REV-0007",
+      "reviewer": "local-operator",
+      "subject_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+      "subject_type": "CASE_CONCLUSION",
+      "version": 1
+    },
+    {
+      "at": "2026-11-27T00:42:13.101398+00:00",
+      "decision": "NEEDS_MORE_EVIDENCE",
+      "rationale": "Controlled QA audit: NEEDS_MORE_EVIDENCE revision; not a forensic conclusion",
+      "reconstruction_result_id": null,
+      "review": "REV-0006",
+      "reviewer": "local-operator",
+      "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+      "subject_type": "FINDING",
+      "version": 4
+    }
+  ],
+  "sources": [],
+  "statement": "Findings are reported at their assertion level: OBSERVATION (measured), INFERENCE (a method's reading with its stated threshold and limitations), CANDIDATE (proposed, not established). Investigator decisions are listed separately and do not alter findings.",
+  "timeline": [
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "d62f46c7-0d53-485c-bc21-8e1d4f2a16cb",
+      "kind": "RECEIVED",
+      "label": "EVD-0010",
+      "time": "2026-11-27T00:28:02.244453+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "c4559d40-d974-4a20-bcca-d1ff75fa5b2a",
+      "kind": "RECEIVED",
+      "label": "EVD-0011",
+      "time": "2026-11-27T00:28:02.332364+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "c3d57d1e-dbf5-4d91-b13b-ffb742bdcc45",
+      "kind": "RECEIVED",
+      "label": "EVD-0012",
+      "time": "2026-11-27T00:28:02.421904+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "78c78c48-54ee-4efe-ab40-2bd820fe43cd",
+      "kind": "RECEIVED",
+      "label": "EVD-0013",
+      "time": "2026-11-27T00:28:02.501255+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "18c56c19-ab5a-43f6-bdbf-3bccd5d243f9",
+      "kind": "RECEIVED",
+      "label": "EVD-0014",
+      "time": "2026-11-27T00:28:02.571233+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "4ef1297c-2594-4225-8c1b-eb013871326f",
+      "kind": "RECEIVED",
+      "label": "EVD-0015",
+      "time": "2026-11-27T00:28:02.816189+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "4b4e5c3f-912f-45a5-979c-2fef76846623",
+      "kind": "RECEIVED",
+      "label": "EVD-0016",
+      "time": "2026-11-27T00:28:03.092820+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "99d0a5f9-ebc1-40cf-8d75-baecd35560f7",
+      "kind": "RECEIVED",
+      "label": "EVD-0017",
+      "time": "2026-11-27T00:28:03.466951+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "4bd50618-e45c-466f-bd38-ce05c52dac98",
+      "kind": "RECEIVED",
+      "label": "EVD-0018",
+      "time": "2026-11-27T00:28:03.747176+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "525791ea-7f3d-459c-a207-d7af99ae9dc6",
+      "kind": "RECEIVED",
+      "label": "EVD-0019",
+      "time": "2026-11-27T00:28:03.970141+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "0e8f519a-1cfd-4b85-80af-db23e96888ab",
+      "kind": "RECEIVED",
+      "label": "EVD-0020",
+      "time": "2026-11-27T00:28:04.162284+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "fdf9b6f9-08e0-4c2e-9f7d-6028f0faa3c5",
+      "kind": "RECEIVED",
+      "label": "EVD-0021",
+      "time": "2026-11-27T00:28:04.364162+00:00"
+    },
+    {
+      "by": "NEXTRON (measured)",
+      "evidence_id": "aaf9e705-d130-4a09-b7c1-930bf0eae02f",
+      "kind": "RECEIVED",
+      "label": "EVD-0022",
+      "time": "2026-11-27T00:28:04.625041+00:00"
+    }
+  ],
+  "version": 2
+}

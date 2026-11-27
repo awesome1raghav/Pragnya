@@ -1,0 +1,4 @@
+/* Intelligence (Intelligence.tsx): one summary line in place of four stat cards. */
+.summary { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; margin: 0 0 18px; color: #bdb6aa; font-size: 14px; }
+.summary b { color: #f3eee6; font-weight: 600; }
+.sep { color: #3a362f; }

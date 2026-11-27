@@ -44,3 +44,5 @@ export const useGraph = (caseId: string | null) => useQuery(caseId ? `case:${cas
 export const useReconstruction = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:reconstruction` : null, () => api.reconstruction(caseId!));
 export const useReviews = (caseId: string | null, current = false) => useQuery(caseId ? `case:${caseId}:reviews:${current}` : null, () => api.reviews.list(caseId!, current));
 export const useReports = (caseId: string | null) => useQuery(caseId ? `case:${caseId}:reports` : null, () => api.reports.list(caseId!));
+export const useProgress = (caseIds: string[]) => useQuery(caseIds.length ? `cases:progress:${caseIds.join(',')}` : null, () => api.workspace.progress(caseIds));
+export const useAttention = (hide: boolean) => useQuery(`cases:attention:${hide}`, () => api.workspace.attention(hide));

@@ -1,0 +1,31 @@
+/* Investigations list and board (InvestigationList.tsx). The title leads; identifiers and times are one quiet line. */
+.tools { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.notice { margin: 12px 2px 4px; color: #8d877c; font-size: 13px; }
+.notice button { margin-left: 4px; padding: 0; border: 0; background: none; color: #f0b85c; font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+
+.list { display: grid; margin: 14px 0 0; padding: 0; list-style: none; }
+.list li + li { border-top: 1px solid #f3eee60b; }
+.row { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 240px) 18px; align-items: center; gap: 20px; padding: 14px 14px; border-radius: 12px; color: inherit; transition: background-color .16s; }
+.row:hover { background: #f3eee608; }
+.main { display: grid; gap: 3px; min-width: 0; }
+.main b { font-weight: 500; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.main small { color: #8d877c; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.state { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: flex-end; font-size: 13px; }
+.next { font-size: 13px; color: #8d877c; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+.next[data-stage='REVIEW'], .next[data-stage='REPORT'] { color: #f0b85c; }
+
+.board { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+.tile { display: grid; grid-template-rows: 150px auto; height: 100%; overflow: hidden; border-radius: 16px; background: #100f0d; border: 1px solid #f3eee60d; color: inherit; transition: border-color .2s, transform .24s cubic-bezier(.22, 1, .36, 1); }
+.tile:hover { border-color: #e9a23b40; transform: translateY(-2px); }
+.media { display: grid; place-items: center; overflow: hidden; background: #141310; color: #3a362f; }
+.media img { width: 100%; height: 100%; max-width: none; object-fit: cover; }
+.tileBody { display: grid; gap: 8px; align-content: start; padding: 14px 16px 16px; }
+.tileBody small { color: #8d877c; font-size: 12px; }
+.tileBody > b { font-weight: 600; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+.tileState { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; }
+
+@media (max-width: 900px) {
+  .row { grid-template-columns: minmax(0, 1fr) 18px; gap: 8px; }
+  .state, .next { grid-column: 1; justify-content: flex-start; text-align: left; }
+}
+@media (prefers-reduced-motion: reduce) { .tile { transition: none; } }

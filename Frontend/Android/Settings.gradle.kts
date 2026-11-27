@@ -14,4 +14,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "NEXTRON-Android"
 include(":App")
-include(":FloatingBubble")

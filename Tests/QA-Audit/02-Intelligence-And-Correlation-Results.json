@@ -1,0 +1,825 @@
+{
+  "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+  "summary": {
+    "modules_tested": 6,
+    "feature_assertions_defined": 82,
+    "executed": 35,
+    "passed": 28,
+    "failed": 7,
+    "blocked": 44,
+    "partial": 3,
+    "verified_feature_coverage": 0.427,
+    "pass_rate_of_executed": 0.8,
+    "critical_issues": [
+      "Unrelated solid-color image/video false lineage candidate",
+      "Audio alignment of trimmed VID-03 reports 0s where video reports -2s",
+      "Controlled audio replacement produces no CMC finding",
+      "Graph API snapshot differs from latest run's graph result"
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "NEX-FPM",
+      "module_name": "Fingerprint and Similarity",
+      "test_case_id": "TC-10",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "31 persisted findings; states ['COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED', 'COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "exact hash matching",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "13 recorded SHA-256 values match fixture manifest",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "perceptual image hashes",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-01/03 candidate similarity 0.9375; pHash distance 4",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "video fingerprints",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-01/03 share 10 sampled frames; offset -2s",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "audio fingerprints",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "AUD-01/02 SHARED_AUDIO candidate",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "real embedding inference",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "local SigLIP2/Qdrant query returned input-dependent scores",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "Qdrant indexing and retrieval",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "status: 15 PostgreSQL records and 15 Qdrant points; case query returned four images",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "candidate ranking/top-K",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-01: self 1.0, IMG-03 0.980025, IMG-02 0.951069",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "unrelated rejection",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-04\u2194VID-04 unrelated solid colors became FRAME_OF_VIDEO candidate, similarity 0.8125",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "case boundary",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "search response scope=case; cross-case rejection not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PARTIAL"
+        },
+        {
+          "feature": "score semantics",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "raw cosine scores returned; no calibrated probability claim; no acceptance threshold shown",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PARTIAL"
+        },
+        {
+          "feature": "similarity thresholds",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "duplicate matching",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "crop robustness",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "empty corpus",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "index persistence after restart",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "search filters",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "search latency",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        410,
+        394,
+        380,
+        306,
+        298,
+        306
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "unrelated rejection"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-MOC",
+      "module_name": "Media Lineage",
+      "test_case_id": "TC-11",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "15 persisted findings; states ['COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "candidate generation and persistence",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "15 candidate relationships with UUIDs returned from lineage API",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "known derivative grouping",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-01/03 and VID-01/02/03 have candidate edges",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "relationship direction",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "earlier_observed=null without claimed publication time",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "unrelated-pair rejection",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-04\u2194VID-04 candidate despite unrelated fixture truth",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "supporting references",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "each edge has evidence IDs, method and distances",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend visualization",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "Lineage.png renders case candidates and uncertainty labels",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "version comparison controls",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "controls not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "earliest appearance",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "no local source records supplied",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "shared segment identification",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "conflicting timestamps",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "uncertainty calibration",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frontend comparison controls",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        59
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "unrelated-pair rejection"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-ALN",
+      "module_name": "Temporal Alignment",
+      "test_case_id": "TC-12",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "15 persisted findings; states ['COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "video offset",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-01/03 video offset -2.0s; expected -2.0 \u00b10.5s",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "frame overlap",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-01 2..11s aligns VID-03 0..9s, RMS 0.0s",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "audio offset",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-01/03 audio offset 0.0s conflicts with known 2s trim; BER 0.2952 near threshold 0.3",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "spatial scaling",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "IMG-01/03 scale 0.5x0.5",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "unrelated rejection",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "unrelated IMG-04/VID-04 candidate inherited from FPM",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "speed change",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "no speed-change fixture",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "persistence",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "15 ALIGNMENT findings in result envelope",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend alignment view",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "added/removed portions",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "different frame rates",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "missing segments",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "confidence calibration",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        143
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "audio offset",
+        "unrelated rejection"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-TRN",
+      "module_name": "Transformation Analysis",
+      "test_case_id": "TC-13",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "18 persisted findings; states ['COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "resize",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "five RESIZED findings; IMG-01/03 scale 0.5x0.5",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "re-encoding",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "ten RE_ENCODED findings",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "trim",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-01/03 TRIMMED, shared original span 2..11s",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "audio replacement",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "no audio-replacement finding for VID-03 despite controlled replacement 4..7s",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "crop",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "no cropped image fixture",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "editing localization",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not observed in this run",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "malicious intent avoided",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "findings state transformations without intent claims",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "persistence",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "18 findings in result envelope",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend transformation view",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "compression parameters",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frame editing",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "segment insertion",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "combined transformations",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "sequence hypotheses",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "alternative explanations",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        123
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "audio replacement"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-CMC",
+      "module_name": "Cross-Modal Correlation",
+      "test_case_id": "TC-14",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "0 persisted findings; states ['COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "result persistence",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "COMPLETED result envelope persisted",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "audio replacement correlation",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "zero findings; controlled VID-03 audio interval 4..7s unreported",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "visual/audio discrepancy",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "upstream detector produced no matching discontinuity finding",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "metadata conflicts",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not an implemented CMC rule in this run",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "provenance conflicts",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "no signed C2PA fixture",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "missing modality",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "VID-05 audio module skipped as NOT_APPLICABLE; CMC did not invent audio",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "partial analysis",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "envelope lists NEX-VID partial limitation",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend correlation view",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "raw score preservation",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "confidence aggregation",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "contradictory detectors",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "legitimate dubbing alternative",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        39
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "audio replacement correlation"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-EGC",
+      "module_name": "Evidence Graph Construction",
+      "test_case_id": "TC-15",
+      "purpose": "Controlled intelligence and correlation validation",
+      "input_fixtures": [
+        "NEXTRON-QA-001 shared 13 preserved media items"
+      ],
+      "preconditions": "Part 1 case, persisted run and local-only corpus",
+      "execution_steps": [
+        "Inspect actual module envelope and API",
+        "Compare labeled related and unrelated pairs",
+        "Inspect case-scoped frontend where available"
+      ],
+      "expected_output": "Traceable input-dependent results matching controlled transformations",
+      "actual_output": "1 persisted findings; states ['COMPLETED']",
+      "feature_validation_table": [
+        {
+          "feature": "evidence nodes",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "13 fixture evidence IDs occur in graph",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "relationship edges",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "15 candidate-version edges reported in graph result",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "stable node/edge IDs",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "graph API returns IDs and references",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "case isolation",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "case-scoped API; cross-case data test not executed",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PARTIAL"
+        },
+        {
+          "feature": "snapshot consistency",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "graph API snapshot 9d6231f5-efa0-4198-923c-0fafc74d399d has 134/214 nodes/edges; latest run result snapshot efa5772c-c80b-4079-a314-f940ea7d3b1c reports 135/215",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "FAIL"
+        },
+        {
+          "feature": "frontend selection",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "clicked EVD-0010 and detail panel showed IMG-01.jpg",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "PASS"
+        },
+        {
+          "feature": "zoom/pan/filter",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "Neo4j projection",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "disabled in isolated API; no consistency/rebuild drill",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "outbox recovery",
+          "expected_behavior": "Match fixture truth or state a limitation",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "02-Raw-Intelligence-Results.json; 02-Local-Visual-Search.json; 02-Unrelated-Visual-Search.json; screenshots",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "graph statistics",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "node expansion",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "projection recovery",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "duplicate prevention",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "refresh persistence",
+          "expected_behavior": "Functional and traceable",
+          "actual_behavior": "Not independently executed",
+          "verification_evidence": "No observation captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Lineage and graph rendered; module-specific controls only where stated in table",
+      "api_status": "GET /runs, /analyses, /lineage, /graph; POST local visual-search only",
+      "backend_status": "Persisted executor results inspected; no worker launched in Part 2",
+      "database_storage_status": "PostgreSQL results; Qdrant local status; Neo4j not verified",
+      "algorithm_model_status": "See features and raw result envelopes",
+      "error_handling_status": "Unrelated-control and missing-input behavior recorded",
+      "execution_time": [
+        1058
+      ],
+      "peak_memory": null,
+      "failed_assertions": [
+        "snapshot consistency"
+      ],
+      "root_cause": "See failed feature rows; no product code modified",
+      "affected_files_and_functions": [],
+      "severity": "HIGH",
+      "recommended_fix": "Investigate failed pair handling and rerun controlled assertions",
+      "final_module_verdict": "PARTIAL"
+    }
+  ],
+  "raw_exports": "02-Raw-Intelligence-Results.json"
+}

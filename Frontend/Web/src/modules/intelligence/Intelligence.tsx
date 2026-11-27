@@ -8,6 +8,8 @@ import Link from 'next/link';
 import { useLayoutEffect, useMemo, useRef, useState } from 'react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import ix from './intelligence.module.css';
+import { motion } from 'framer-motion';
 import type { ModuleCatalogue, ModuleEdge, ModuleInfo } from '@/api';
 import { useCaseRuns, useJobs, useModules, useRun } from '@/api/hooks';
 import { useCaseContext } from '@/state/CaseContext';
@@ -23,7 +25,7 @@ const EXEC: Record<ModuleInfo['executed_by'], string> = {
 export default function Intelligence() {
   const q = useModules();
   return <div className={s.page}>
-    <PageHead title='Intelligence' desc='The investigation modules, how they depend on one another, and what each can do in this build. Solid lines are data flow from the canonical module connectivity flowchart.' />
+    <PageHead title='Intelligence' desc='The investigation modules, how data flows between them, and what each can do in this build. Select a module to trace it.' />
     <CaseScope />
     <Load q={q} rows={6}>{cat => <Catalogue cat={cat} />}</Load>
   </div>;
@@ -37,12 +39,11 @@ function Catalogue({ cat }: { cat: ModuleCatalogue }) {
   const related = useMemo(() => new Set(selected ? [selected.module_id, ...selected.upstream, ...selected.downstream] : []), [selected]);
 
   return <>
-    <div className={p.statGrid} style={{ marginBottom: 20 }}>
-      <div className={p.stat}><span>Implemented</span><b>{counts('IMPLEMENTED')}</b><small>of {cat.modules.length} modules</small></div>
-      <div className={p.stat}><span>Partial</span><b>{counts('PARTIAL')}</b></div>
-      <div className={p.stat}><span>Not built yet</span><b>{counts('NOT_IMPLEMENTED')}</b></div>
-      <div className={p.stat}><span>T-MIR orchestration</span><b style={{ fontSize: 18 }}>{moduleStatusLabel[cat.tmir.status]}</b><small>coordinates {cat.tmir.coordinates.length} modules</small></div>
-    </div>
+    <motion.p className={ix.summary} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: .2 }}>
+      <b>{cat.modules.length}</b> modules: <Dot tone='ok'>{counts('IMPLEMENTED')} implemented</Dot> <Dot tone='gold'>{counts('PARTIAL')} partial</Dot>
+      {counts('NOT_IMPLEMENTED') > 0 && <Dot tone='mute'>{counts('NOT_IMPLEMENTED')} not built yet</Dot>}
+      <span className={ix.sep}>·</span> T-MIR {moduleStatusLabel[cat.tmir.status].toLowerCase()}, coordinating {cat.tmir.coordinates.length}
+    </motion.p>
     <section className={s.panel} aria-label='Module dependency map'>
       <SecHead title='Module connectivity'><span className={s.cap}>{cat.source}</span></SecHead>
       <ModuleMap cat={cat} sel={sel} onSel={setSel} related={related} />

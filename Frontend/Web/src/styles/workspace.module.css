@@ -919,3 +919,23 @@ select.input { appearance: none; padding-right: 32px; background: var(--bg) url(
   .kv dd { text-align: left; }
   .secLink, .seg button, .seg a { min-height: 32px; }
 }
+
+/* ── shell: grouped navigation and the investigation in context ── */
+.railNav { display: grid; gap: 14px; margin-top: 4px; }
+.railGroup { display: grid; gap: 2px; }
+.railGroup > .railLabel { height: 18px; padding: 0 10px; font: 500 11px/18px var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--faint); white-space: nowrap; overflow: hidden; }
+.app:not(.railOpen) .rail:not(.railMobile) .railGroup + .railGroup { border-top: 1px solid var(--line); padding-top: 10px; }
+.app:not(.railOpen) .rail:not(.railMobile) .railGroup > .railLabel { display: none; }
+.railCase { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 10px; margin: 0 0 6px; border-radius: 10px; border: 1px solid #e9a23b2e; background: #e9a23b0c; transition: background-color var(--fast), border-color var(--fast); }
+.railCase:hover { background: #e9a23b16; border-color: #e9a23b55; }
+.railCase i { flex: none; width: 8px; height: 8px; margin: 0 6px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px #e9a23b22; }
+.railCase span { display: grid; min-width: 0; opacity: 0; transition: opacity var(--fast); }
+.railOpen .railCase span, .railMobile .railCase span { opacity: 1; }
+.railCase small { font: 400 11px/1.3 var(--mono); color: var(--gold-2); }
+.railCase b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; font-size: 13px; }
+
+/* ── density (Settings → Interface): comfortable is the default; compact tightens spacing, never the type ── */
+:global(html[data-density='compact']) .page { padding: 24px 28px 48px; }
+:global(html[data-density='compact']) .pageHead { margin-bottom: 18px; }
+:global(html[data-density='compact']) .panel { padding: 12px; gap: 8px; }
+:global(html[data-density='compact']) .railItem { height: 34px; }

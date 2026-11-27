@@ -128,6 +128,7 @@ def close_execution(
     )
     session.add(result)
     session.flush()
+    _supersede_earlier(session, result, execution)
     for f in envelope.findings:
         session.add(AnalysisFinding(
             id=f.finding_id, result_id=result.id, case_id=job.case_id, module_id=f.module_id, evidence_ids=f.evidence_ids,
@@ -139,6 +140,20 @@ def close_execution(
                  state=status.value, reason=reason, detail=detail, attempt=execution.attempt, duration_ms=duration,
                  findings=len(envelope.findings))
     return result
+
+
+def _supersede_earlier(session: Session, result: AnalysisResult, execution) -> None:
+    """The newest result for a module and scope is the current one; earlier ones stay, marked superseded (the
+    database allows exactly that change, once). Before this, every re-run left its predecessors current too."""
+    from sqlalchemy import func, select, update
+
+    from Database.PostgreSQL.Models import AnalysisExecution
+
+    earlier = select(AnalysisResult.id).join(AnalysisExecution, AnalysisExecution.id == AnalysisResult.execution_id).where(
+        AnalysisResult.case_id == result.case_id, AnalysisResult.module_id == result.module_id, AnalysisResult.id != result.id,
+        AnalysisExecution.scope_ref == execution.scope_ref, AnalysisResult.superseded_at.is_(None))
+    session.execute(update(AnalysisResult).where(AnalysisResult.id.in_(earlier))
+                    .values(superseded_at=func.now(), superseded_by=result.id).execution_options(synchronize_session=False))
 
 
 def find_entry(plan: dict[str, Any], key: str) -> dict[str, Any]:

@@ -1,0 +1,618 @@
+{
+  "dataset": "NEXTRON-QA-001",
+  "generation": "Self-generated patterns and FFmpeg lavfi; no external source calls",
+  "fixtures": [
+    {
+      "id": "AUD-01",
+      "filename": "AUD-01.wav",
+      "sha256": "d07a288d61af49e9f914933a4a2367c3e39acd23029fd9a60b28ec9703de3653",
+      "size_bytes": 1152078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 768052,
+          "format_name": "wav",
+          "major_brand": null,
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "WAV / WAVE (Waveform Audio)"
+        },
+        "has_audio": true,
+        "has_video": false,
+        "audio_streams": [
+          {
+            "codec": "pcm_s16le",
+            "index": 0,
+            "bit_rate": 768000,
+            "channels": 1,
+            "sample_format": "s16",
+            "channel_layout": null,
+            "sample_rate_hz": 48000,
+            "codec_long_name": "PCM signed 16-bit little-endian",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "AUD-02",
+      "filename": "AUD-02.wav",
+      "sha256": "9f049a38a4436782c17b158a5b44c0090c4b939ba6b367a71105d04706130e7e",
+      "size_bytes": 1152078,
+      "ground_truth": "440Hz replaced by 880Hz at 4-7s",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 768052,
+          "format_name": "wav",
+          "major_brand": null,
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "WAV / WAVE (Waveform Audio)"
+        },
+        "has_audio": true,
+        "has_video": false,
+        "audio_streams": [
+          {
+            "codec": "pcm_s16le",
+            "index": 0,
+            "bit_rate": 768000,
+            "channels": 1,
+            "sample_format": "s16",
+            "channel_layout": null,
+            "sample_rate_hz": 48000,
+            "codec_long_name": "PCM signed 16-bit little-endian",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [
+        "spliced derivative of AUD-01"
+      ],
+      "modified_region_or_interval": "t=4..7 seconds",
+      "ground_truth_label": "controlled benign edit"
+    },
+    {
+      "id": "AUD-03",
+      "filename": "AUD-03.wav",
+      "sha256": "080edd1995e393aa687f5f870b767ed3640937f5872db4e0ac4ce6cf28f988c5",
+      "size_bytes": 1152078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 768052,
+          "format_name": "wav",
+          "major_brand": null,
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "WAV / WAVE (Waveform Audio)"
+        },
+        "has_audio": true,
+        "has_video": false,
+        "audio_streams": [
+          {
+            "codec": "pcm_s16le",
+            "index": 0,
+            "bit_rate": 768000,
+            "channels": 1,
+            "sample_format": "s16",
+            "channel_layout": null,
+            "sample_rate_hz": 48000,
+            "codec_long_name": "PCM signed 16-bit little-endian",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "AUD-04",
+      "filename": "AUD-04.wav",
+      "sha256": "57be311a3e8129ad400bd37c7415c22c1f1f7c2ac772b632eb63d8b6b9dfdd76",
+      "size_bytes": 1152078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 768052,
+          "format_name": "wav",
+          "major_brand": null,
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "WAV / WAVE (Waveform Audio)"
+        },
+        "has_audio": true,
+        "has_video": false,
+        "audio_streams": [
+          {
+            "codec": "pcm_s16le",
+            "index": 0,
+            "bit_rate": 768000,
+            "channels": 1,
+            "sample_format": "s16",
+            "channel_layout": null,
+            "sample_rate_hz": 48000,
+            "codec_long_name": "PCM signed 16-bit little-endian",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "base",
+      "filename": "base.wav",
+      "sha256": "2db93d3bdc2ea22bd94a32da3e16038c6c284a98ddc3e92445394bb19e2bb5da",
+      "size_bytes": 960078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated"
+    },
+    {
+      "id": "IMG-01",
+      "filename": "IMG-01.jpg",
+      "sha256": "4a359a04645fc79cb264ae37b341d60bc87b05146fca1b67c5e4e86d7a7e6c9b",
+      "size_bytes": 112864,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "dpi": [
+          72,
+          72
+        ],
+        "gps": {},
+        "exif": {},
+        "mode": "RGB",
+        "width": 1280,
+        "format": "JPEG",
+        "height": 720,
+        "animated": false,
+        "frame_count": 1,
+        "exif_present": false,
+        "has_icc_profile": false,
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "IMG-02",
+      "filename": "IMG-02.jpg",
+      "sha256": "b5b63242644ea7e47c36a9fc91a006776be7e7d696932a266b7f2dd2e5e1f185",
+      "size_bytes": 112088,
+      "ground_truth": "local rectangle x500:780 y300:470",
+      "license": "self-generated",
+      "media_properties": {
+        "dpi": null,
+        "gps": {},
+        "exif": {},
+        "mode": "RGB",
+        "width": 1280,
+        "format": "JPEG",
+        "height": 720,
+        "animated": false,
+        "frame_count": 1,
+        "exif_present": false,
+        "has_icc_profile": false,
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [
+        "derivative of IMG-01"
+      ],
+      "modified_region_or_interval": "x=500..780, y=300..470",
+      "ground_truth_label": "controlled benign edit"
+    },
+    {
+      "id": "IMG-03",
+      "filename": "IMG-03.jpg",
+      "sha256": "43d5a9cf201c973f5a11f11f3f80268ed33ae571b3f70d18fa99e863a527d1e9",
+      "size_bytes": 13332,
+      "ground_truth": "resized 640x360 JPEG quality45",
+      "license": "self-generated",
+      "media_properties": {
+        "dpi": null,
+        "gps": {},
+        "exif": {},
+        "mode": "RGB",
+        "width": 640,
+        "format": "JPEG",
+        "height": 360,
+        "animated": false,
+        "frame_count": 1,
+        "exif_present": false,
+        "has_icc_profile": false,
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [
+        "derivative of IMG-01"
+      ],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled benign edit"
+    },
+    {
+      "id": "IMG-04",
+      "filename": "IMG-04.png",
+      "sha256": "d44131af5800320621a7c77a20b1c9fa26b6484505eb6cfc0c05fbe83dcd41ef",
+      "size_bytes": 4321,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "dpi": null,
+        "gps": {},
+        "exif": {},
+        "mode": "RGB",
+        "width": 1280,
+        "format": "PNG",
+        "height": 720,
+        "animated": false,
+        "frame_count": 1,
+        "exif_present": false,
+        "has_icc_profile": false,
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "NEG-01",
+      "filename": "NEG-01.jpg",
+      "sha256": "0fb81ebc8c715229636f5dc69b7faef1b8eafdc12ed67a449af6954333a63a7c",
+      "size_bytes": 11,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated"
+    },
+    {
+      "id": "NEG-02",
+      "filename": "NEG-02.jpg",
+      "sha256": "bc1724e8be0d67e0089605ffe1754f32b17b22197f0e86003d0c8c48b76f738d",
+      "size_bytes": 38,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated"
+    },
+    {
+      "id": "splice",
+      "filename": "splice.wav",
+      "sha256": "d4eb679725ca2adf042c2f8142fa75f49dd13cb79ede9446a341f5bfeff197f3",
+      "size_bytes": 288078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated"
+    },
+    {
+      "id": "tone",
+      "filename": "tone.wav",
+      "sha256": "91d69c705a4d007a2bf573d0b001c11df14cedc56ad05b868460175145216f97",
+      "size_bytes": 960078,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated"
+    },
+    {
+      "id": "VID-01",
+      "filename": "VID-01.mp4",
+      "sha256": "0e727f6b40db9e8e4d30ad665ea1b853dccd0fb655c9fef1fa6a76c5f23dda56",
+      "size_bytes": 1029928,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 686618,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "major_brand": "isom",
+          "stream_count": 2,
+          "duration_seconds": 12.0,
+          "format_long_name": "QuickTime / MOV"
+        },
+        "has_audio": true,
+        "has_video": true,
+        "audio_streams": [
+          {
+            "codec": "aac",
+            "index": 1,
+            "bit_rate": 68869,
+            "channels": 1,
+            "sample_format": "fltp",
+            "channel_layout": "mono",
+            "sample_rate_hz": 48000,
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [
+          {
+            "codec": "h264",
+            "index": 0,
+            "width": 320,
+            "height": 180,
+            "bit_rate": 612600,
+            "time_base": "1/12288",
+            "frame_count": 288,
+            "pixel_format": "yuv420p",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "duration_seconds": 12.0,
+            "rotation_degrees": null,
+            "average_frame_rate": 24.0,
+            "nominal_frame_rate": 24.0,
+            "variable_frame_rate_suspected": false
+          }
+        ],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "VID-02",
+      "filename": "VID-02.mp4",
+      "sha256": "e55f2243f5d02c9dc5dc9b9e19754df28185fa57ef3e243a2f4591d7395f7758",
+      "size_bytes": 868284,
+      "ground_truth": "resized 240x136 and reencoded",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 578856,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "major_brand": "isom",
+          "stream_count": 2,
+          "duration_seconds": 12.0,
+          "format_long_name": "QuickTime / MOV"
+        },
+        "has_audio": true,
+        "has_video": true,
+        "audio_streams": [
+          {
+            "codec": "aac",
+            "index": 1,
+            "bit_rate": 68868,
+            "channels": 1,
+            "sample_format": "fltp",
+            "channel_layout": "mono",
+            "sample_rate_hz": 48000,
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "duration_seconds": 12.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [
+          {
+            "codec": "h264",
+            "index": 0,
+            "width": 240,
+            "height": 136,
+            "bit_rate": 504835,
+            "time_base": "1/12288",
+            "frame_count": 288,
+            "pixel_format": "yuv420p",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "duration_seconds": 12.0,
+            "rotation_degrees": null,
+            "average_frame_rate": 24.0,
+            "nominal_frame_rate": 24.0,
+            "variable_frame_rate_suspected": false
+          }
+        ],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [
+        "derivative of VID-01"
+      ],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled benign edit"
+    },
+    {
+      "id": "VID-03",
+      "filename": "VID-03.mp4",
+      "sha256": "8e04e1de5fea45873572cb32de9bf5c3b12dd768850cb456b080e8c8aeee7da6",
+      "size_bytes": 841326,
+      "ground_truth": "first two seconds trimmed; audio replacement intended at derived 4-7s",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 673060,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "major_brand": "isom",
+          "stream_count": 2,
+          "duration_seconds": 10.0,
+          "format_long_name": "QuickTime / MOV"
+        },
+        "has_audio": true,
+        "has_video": true,
+        "audio_streams": [
+          {
+            "codec": "aac",
+            "index": 1,
+            "bit_rate": 68834,
+            "channels": 1,
+            "sample_format": "fltp",
+            "channel_layout": "mono",
+            "sample_rate_hz": 48000,
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "duration_seconds": 10.0
+          }
+        ],
+        "other_streams": [],
+        "video_streams": [
+          {
+            "codec": "h264",
+            "index": 0,
+            "width": 320,
+            "height": 180,
+            "bit_rate": 598887,
+            "time_base": "1/12288",
+            "frame_count": 240,
+            "pixel_format": "yuv420p",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "duration_seconds": 10.0,
+            "rotation_degrees": null,
+            "average_frame_rate": 24.0,
+            "nominal_frame_rate": 24.0,
+            "variable_frame_rate_suspected": false
+          }
+        ],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [
+        "trimmed derivative of VID-01"
+      ],
+      "modified_region_or_interval": "derived audio t=4..7 seconds",
+      "ground_truth_label": "controlled benign edit"
+    },
+    {
+      "id": "VID-04",
+      "filename": "VID-04.mp4",
+      "sha256": "73f00f41465de44c8830d06efbe3d79a6aad2b09aa56f1e3a46ef4d2650cb979",
+      "size_bytes": 6168,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 4112,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "major_brand": "isom",
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "QuickTime / MOV"
+        },
+        "has_audio": false,
+        "has_video": true,
+        "audio_streams": [],
+        "other_streams": [],
+        "video_streams": [
+          {
+            "codec": "h264",
+            "index": 0,
+            "width": 320,
+            "height": 180,
+            "bit_rate": 2774,
+            "time_base": "1/12288",
+            "frame_count": 288,
+            "pixel_format": "yuv420p",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "duration_seconds": 12.0,
+            "rotation_degrees": null,
+            "average_frame_rate": 24.0,
+            "nominal_frame_rate": 24.0,
+            "variable_frame_rate_suspected": false
+          }
+        ],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "VID-05",
+      "filename": "VID-05.mp4",
+      "sha256": "d40e5a47007ba5a11d1e27994aafaf528ece3aaf2f613a4e6bcc3d34edee7618",
+      "size_bytes": 920908,
+      "ground_truth": "original, unrelated, silent, or negative as named",
+      "license": "self-generated",
+      "media_properties": {
+        "container": {
+          "encoder": "Lavf63.16.100",
+          "bit_rate": 613938,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "major_brand": "isom",
+          "stream_count": 1,
+          "duration_seconds": 12.0,
+          "format_long_name": "QuickTime / MOV"
+        },
+        "has_audio": false,
+        "has_video": true,
+        "audio_streams": [],
+        "other_streams": [],
+        "video_streams": [
+          {
+            "codec": "h264",
+            "index": 0,
+            "width": 320,
+            "height": 180,
+            "bit_rate": 612600,
+            "time_base": "1/12288",
+            "frame_count": 288,
+            "pixel_format": "yuv420p",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "duration_seconds": 12.0,
+            "rotation_degrees": null,
+            "average_frame_rate": 24.0,
+            "nominal_frame_rate": 24.0,
+            "variable_frame_rate_suspected": false
+          }
+        ],
+        "embedded_timestamps": {},
+        "embedded_timestamps_note": "Taken from the file; may be absent, wrong or edited."
+      },
+      "expected_output_conditions": "Preserved byte hash matches fixture; technical metadata agrees with local probe; forensic inference requires separate validation",
+      "expected_relationships": [],
+      "modified_region_or_interval": null,
+      "ground_truth_label": "controlled original or unrelated sample"
+    },
+    {
+      "id": "PRV-03",
+      "filename": "PRV-03.jpg",
+      "sha256": "4a359a04645fc79cb264ae37b341d60bc87b05146fca1b67c5e4e86d7a7e6c9b",
+      "size_bytes": 112864,
+      "ground_truth": "unsigned copy of IMG-01; no C2PA credential",
+      "license": "self-generated",
+      "expected_relationships": [
+        "byte-identical copy of IMG-01"
+      ],
+      "expected_output_conditions": "ABSENT credential, no fake assertion"
+    }
+  ]
+}

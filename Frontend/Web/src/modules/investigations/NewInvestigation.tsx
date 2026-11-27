@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { LoaderCircle, Plus } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import cs from './case.module.css';
 import { ApiError, CASE_CATEGORIES, CASE_PRIORITIES, api, type CaseCategory, type CasePriority } from '@/api';
 import { invalidate, prime } from '@/api/query';
 import { ErrorState, PageHead } from '@/components/ui';
@@ -65,30 +66,46 @@ export default function NewInvestigation() {
   }
 
   const Err = ({ k }: { k: string }) => errs[k] ? <span className={p.fieldError} role='alert'>{errs[k]}</span> : null;
-  return <div className={s.page} style={{ maxWidth: 980 }}>
-    <PageHead title='New investigation' desc='Open a case first; evidence is added to it next. Only the title is required.' />
-    <form className={`${s.panel} ${p.form}`} onSubmit={submit} noValidate style={{ padding: 24 }}>
-      <div className={p.formGrid}>
-        <label className={`${s.field} ${p.formWide}`}><span>Title<span className={p.req} aria-hidden='true'>*</span></span>
-          <input className={s.input} value={f.title} onChange={set('title')} maxLength={LIMITS.title + 20} required aria-invalid={!!errs.title} placeholder='e.g. Viral clip of the harbour fire' autoFocus />
-          <Err k='title' /></label>
-        <label className={s.field}><span>Category</span><select className={s.input} value={f.category} onChange={set('category')}>{CASE_CATEGORIES.map(c => <option key={c} value={c}>{categoryLabel[c]}</option>)}</select><Err k='category' /></label>
-        <label className={s.field}><span>Priority</span><select className={s.input} value={f.priority} onChange={set('priority')}>{CASE_PRIORITIES.map(x => <option key={x} value={x}>{priorityLabel[x]}</option>)}</select><Err k='priority' /></label>
-        <label className={`${s.field} ${p.formWide}`}><span>Objectives</span>
-          <textarea className={`${s.input} ${p.textarea}`} value={f.objectives} onChange={set('objectives')} maxLength={LIMITS.objectives} placeholder='What must this investigation establish? e.g. whether the audio was replaced; where the clip first appeared' />
-          <span className={p.fieldHint}>{f.objectives.length} / {LIMITS.objectives}</span><Err k='objectives' /></label>
-        <label className={`${s.field} ${p.formWide}`}><span>Description</span>
-          <textarea className={`${s.input} ${p.textarea}`} value={f.description} onChange={set('description')} maxLength={LIMITS.description} placeholder='How the media reached you and why it needs examining' /><Err k='description' /></label>
-        <label className={s.field}><span>Tags <span className={s.muted}>(comma-separated)</span></span><input className={s.input} value={f.tags} onChange={set('tags')} placeholder='video, harbour, viral' aria-invalid={!!errs.tags} /><Err k='tags' /></label>
-        <label className={s.field}><span>Investigator notes</span><input className={s.input} value={f.notes} onChange={set('notes')} maxLength={LIMITS.notes} placeholder='Optional' /><Err k='notes' /></label>
-      </div>
-      {error && !Object.keys(server).length && <ErrorState error={error} title='The investigation was not created' />}
-      <div className={p.formFoot}>
-        <button className={`${s.btn} ${s.primary}`} type='submit' disabled={busy}>{busy ? <><LoaderCircle size={15} className={s.spin} />Creating…</> : <><Plus size={15} />Create investigation</>}</button>
-        <Link className={`${s.btn} ${s.ghost}`} href={paths.investigations()}>Cancel</Link>
-        <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--soft)' }}><input type='checkbox' checked={addEvidence} onChange={e => setAddEvidence(e.target.checked)} />Add evidence next</label>
-        <p>Recorded as the local operator; the creation is logged as the case’s first event.</p>
-      </div>
-    </form>
+  return <div className={s.page} style={{ maxWidth: 1120 }}>
+    <PageHead title='New investigation' desc='Name what you are examining and what it must establish. Only the title is required; everything else can be added later.' />
+    <div className={cs.newWrap}>
+      <form className={`${p.form} ${cs.steps}`} onSubmit={submit} noValidate>
+        <section className={cs.step} aria-label='What this investigation is'>
+          <div className={cs.stepHead}><span>1</span><div><b>What is this investigation?</b> <small>The title others will recognise it by, and its purpose.</small></div></div>
+          <label className={s.field}><span>Title<span className={p.req} aria-hidden='true'>*</span></span>
+            <input className={s.input} value={f.title} onChange={set('title')} maxLength={LIMITS.title + 20} required aria-invalid={!!errs.title} placeholder='e.g. Viral clip of the harbour fire' autoFocus />
+            <Err k='title' /></label>
+          <label className={s.field}><span>Objectives</span>
+            <textarea className={`${s.input} ${p.textarea}`} value={f.objectives} onChange={set('objectives')} maxLength={LIMITS.objectives} placeholder='What must this investigation establish? e.g. whether the audio was replaced; where the clip first appeared' />
+            <span className={p.fieldHint}>{f.objectives.length} / {LIMITS.objectives}</span><Err k='objectives' /></label>
+        </section>
+        <section className={cs.step} aria-label='Context'>
+          <div className={cs.stepHead}><span>2</span><div><b>Context</b> <small>How it reached you and how urgent it is.</small></div></div>
+          <div className={p.formGrid}>
+            <label className={s.field}><span>Category</span><select className={s.input} value={f.category} onChange={set('category')}>{CASE_CATEGORIES.map(c => <option key={c} value={c}>{categoryLabel[c]}</option>)}</select><Err k='category' /></label>
+            <label className={s.field}><span>Priority</span><select className={s.input} value={f.priority} onChange={set('priority')}>{CASE_PRIORITIES.map(x => <option key={x} value={x}>{priorityLabel[x]}</option>)}</select><Err k='priority' /></label>
+            <label className={`${s.field} ${p.formWide}`}><span>Description</span>
+              <textarea className={`${s.input} ${p.textarea}`} value={f.description} onChange={set('description')} maxLength={LIMITS.description} placeholder='How the media reached you and why it needs examining' /><Err k='description' /></label>
+            <label className={s.field}><span>Tags <span className={s.muted}>(comma-separated)</span></span><input className={s.input} value={f.tags} onChange={set('tags')} placeholder='video, harbour, viral' aria-invalid={!!errs.tags} /><Err k='tags' /></label>
+            <label className={s.field}><span>Investigator notes</span><input className={s.input} value={f.notes} onChange={set('notes')} maxLength={LIMITS.notes} placeholder='Optional' /><Err k='notes' /></label>
+          </div>
+        </section>
+        {error && !Object.keys(server).length && <ErrorState error={error} title='The investigation was not created' />}
+        <div className={p.formFoot}>
+          <button className={`${s.btn} ${s.primary}`} type='submit' disabled={busy}>{busy ? <><LoaderCircle size={15} className={s.spin} />Creating…</> : <><Plus size={15} />Create investigation</>}</button>
+          <Link className={`${s.btn} ${s.ghost}`} href={paths.investigations()}>Cancel</Link>
+          <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: 'var(--soft)' }}><input type='checkbox' checked={addEvidence} onChange={e => setAddEvidence(e.target.checked)} />Add evidence next</label>
+        </div>
+      </form>
+      <aside className={cs.aside} aria-label='What happens next'>
+        <b>What happens next</b>
+        <ol>
+          <li>The investigation is created and logged as its first event, by the local operator.</li>
+          <li>You add the original files. Each is hashed on the server and stored read-only.</li>
+          <li>Analysis runs on each file; findings appear as modules finish.</li>
+          <li>You review the findings, record a conclusion and generate the report.</li>
+        </ol>
+      </aside>
+    </div>
   </div>;
 }

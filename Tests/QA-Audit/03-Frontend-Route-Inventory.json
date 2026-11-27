@@ -1,0 +1,364 @@
+[
+  {
+    "route": "/",
+    "actual_url": "http://localhost:8090/",
+    "status": 200,
+    "title": "NEXTRON — Seeing isn’t believing",
+    "heading": [
+      "Seeing isn’tbelieving."
+    ],
+    "buttons": 4,
+    "links": 12,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1750
+  },
+  {
+    "route": "/dashboard",
+    "actual_url": "http://localhost:8090/dashboard",
+    "status": 200,
+    "title": "Dashboard — NEXTRON",
+    "heading": [
+      "Dashboard"
+    ],
+    "buttons": 9,
+    "links": 28,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1268
+  },
+  {
+    "route": "/investigations",
+    "actual_url": "http://localhost:8090/investigations",
+    "status": 200,
+    "title": "Investigations — NEXTRON",
+    "heading": [
+      "Investigations"
+    ],
+    "buttons": 7,
+    "links": 23,
+    "inputs": 3,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1259
+  },
+  {
+    "route": "/investigations/new",
+    "actual_url": "http://localhost:8090/investigations/new",
+    "status": 200,
+    "title": "New investigation — NEXTRON",
+    "heading": [
+      "New investigation"
+    ],
+    "buttons": 5,
+    "links": 18,
+    "inputs": 8,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1336
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Investigation — NEXTRON",
+    "heading": [
+      "CASE-0016 overview: NEXTRON-QA-001 controlled audit"
+    ],
+    "buttons": 7,
+    "links": 49,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1307
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/evidence",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/evidence",
+    "status": 200,
+    "title": "Investigation evidence — NEXTRON",
+    "heading": [
+      "Evidence"
+    ],
+    "buttons": 5,
+    "links": 41,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 2321
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/analysis",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/analysis",
+    "status": 200,
+    "title": "Analysis — NEXTRON",
+    "heading": [
+      "Forensic analysis"
+    ],
+    "buttons": 71,
+    "links": 40,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 2119
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/timeline",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/timeline",
+    "status": 200,
+    "title": "Timeline — NEXTRON",
+    "heading": [
+      "Timeline"
+    ],
+    "buttons": 5,
+    "links": 105,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1856
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/graph",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/graph",
+    "status": 200,
+    "title": "Evidence graph — NEXTRON",
+    "heading": [
+      "Evidence graph"
+    ],
+    "buttons": 21,
+    "links": 27,
+    "inputs": 2,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1833
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/review",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/review",
+    "status": 200,
+    "title": "Review — NEXTRON",
+    "heading": [
+      "Review and decisions"
+    ],
+    "buttons": 6,
+    "links": 27,
+    "inputs": 4,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1757
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/report",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/report",
+    "status": 200,
+    "title": "Report — NEXTRON",
+    "heading": [
+      "Reports"
+    ],
+    "buttons": 7,
+    "links": 38,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1812
+  },
+  {
+    "route": "/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/events",
+    "actual_url": "http://localhost:8090/investigations/5f9a809e-281f-4a5d-adc3-82070ebc3f8c/events",
+    "status": 200,
+    "title": "Events — NEXTRON",
+    "heading": [
+      "Events"
+    ],
+    "buttons": 6,
+    "links": 75,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1703
+  },
+  {
+    "route": "/evidence?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/evidence?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Evidence — NEXTRON",
+    "heading": [
+      "Evidence"
+    ],
+    "buttons": 7,
+    "links": 32,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1169
+  },
+  {
+    "route": "/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb",
+    "actual_url": "http://localhost:8090/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb",
+    "status": 200,
+    "title": "Evidence — NEXTRON",
+    "heading": [
+      "EVD-0010 overview: IMG-01.jpg"
+    ],
+    "buttons": 4,
+    "links": 30,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1164
+  },
+  {
+    "route": "/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb/metadata",
+    "actual_url": "http://localhost:8090/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb/metadata",
+    "status": 200,
+    "title": "Evidence metadata — NEXTRON",
+    "heading": [
+      "Metadata"
+    ],
+    "buttons": 5,
+    "links": 28,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1233
+  },
+  {
+    "route": "/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb/analysis",
+    "actual_url": "http://localhost:8090/evidence/d62f46c7-0d53-485c-bc21-8e1d4f2a16cb/analysis",
+    "status": 200,
+    "title": "Evidence analysis — NEXTRON",
+    "heading": [
+      "Analysis of EVD-0010: IMG-01.jpg"
+    ],
+    "buttons": 31,
+    "links": 28,
+    "inputs": 2,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1838
+  },
+  {
+    "route": "/sources?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/sources?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Sources — NEXTRON",
+    "heading": [
+      "Sources"
+    ],
+    "buttons": 9,
+    "links": 18,
+    "inputs": 6,
+    "console_errors": [],
+    "request_failures": [
+      "GET http://localhost:8002/api/v1/visual-search/status net::ERR_ABORTED"
+    ],
+    "load_ms": 1313
+  },
+  {
+    "route": "/lineage?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/lineage?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Lineage — NEXTRON",
+    "heading": [
+      "Lineage"
+    ],
+    "buttons": 5,
+    "links": 60,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1154
+  },
+  {
+    "route": "/intelligence?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/intelligence?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Intelligence — NEXTRON",
+    "heading": [
+      "Intelligence"
+    ],
+    "buttons": 29,
+    "links": 19,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1321
+  },
+  {
+    "route": "/graph?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/graph?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Evidence graph — NEXTRON",
+    "heading": [
+      "Evidence graph"
+    ],
+    "buttons": 21,
+    "links": 18,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1108
+  },
+  {
+    "route": "/reports?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "actual_url": "http://localhost:8090/reports?case=5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+    "status": 200,
+    "title": "Reports — NEXTRON",
+    "heading": [
+      "Reports"
+    ],
+    "buttons": 7,
+    "links": 29,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1135
+  },
+  {
+    "route": "/notifications",
+    "actual_url": "http://localhost:8090/notifications",
+    "status": 200,
+    "title": "Notifications — NEXTRON",
+    "heading": [
+      "Notifications"
+    ],
+    "buttons": 10,
+    "links": 17,
+    "inputs": 1,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1078
+  },
+  {
+    "route": "/system",
+    "actual_url": "http://localhost:8090/system",
+    "status": 200,
+    "title": "System — NEXTRON",
+    "heading": [
+      "System"
+    ],
+    "buttons": 5,
+    "links": 19,
+    "inputs": 0,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1058
+  },
+  {
+    "route": "/settings",
+    "actual_url": "http://localhost:8090/settings",
+    "status": 200,
+    "title": "Settings — NEXTRON",
+    "heading": [
+      "Settings"
+    ],
+    "buttons": 6,
+    "links": 19,
+    "inputs": 10,
+    "console_errors": [],
+    "request_failures": [],
+    "load_ms": 1116
+  }
+]

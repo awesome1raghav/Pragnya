@@ -6,7 +6,7 @@
    - global search reaches sources and reviews. Preferences are restored afterwards. */
 import { expect, test, type Page, type WebSocketRoute } from '@playwright/test';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 
 let problems: string[] = [];
 const watch = (page: Page) => {
@@ -58,7 +58,7 @@ test('a dropped live connection reconnects, resumes after its last event and sho
 
   await sockets[before - 1].close({ code: 1012, reason: 'test: connection dropped' });
   await expect(page.getByRole('link', { name: /System status: Reconnecting/ })).toBeVisible();
-  const title = `[E2E] Missed while offline ${Date.now()}`;
+  const title = `Missed while offline ${Date.now()}`;  // no test prefix: lists hide [E2E] records by default (this runs in the isolated database)
   await fetch(`${API}/cases`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title }) });
 
   await expect.poll(() => sockets.length, { timeout: 15_000 }).toBeGreaterThan(before);

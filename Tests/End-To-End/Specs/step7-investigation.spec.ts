@@ -5,7 +5,7 @@ import { expect, test, type Page } from '@playwright/test';
 import crypto from 'node:crypto';
 import path from 'node:path';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 const SHOTS = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'Screenshots');
 const shot = (page: Page, name: string) => page.screenshot({ path: path.join(SHOTS, `${name}.png`), fullPage: true });
 
@@ -32,9 +32,11 @@ test('graph, reconstruction, review and a final report', async ({ page }) => {
   await expect(page.getByRole('region', { name: 'Upload queue' })).toContainText(/analysis JOB-\d+ queued/);
 
   await page.goto(`/investigations/${c.case_id}/graph`);
-  await expect(page.getByRole('region', { name: 'Graph edges' })).toBeVisible({ timeout: 90_000 });  // built at the end of the run
+  const edges = page.getByRole('group', { name: 'Graph edges' });
+  await expect(edges).toBeVisible({ timeout: 90_000 });  // built at the end of the run
+  await edges.locator('summary').click();  // the edge list is one level down, behind the drawing
   await expect(page.getByRole('img', { name: /nodes, \d+ edges/ })).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Graph edges' })).toContainText('analysis_findings:');
+  await expect(edges).toContainText('analysis_findings:');
   await shot(page, '30-graph');
 
   await page.goto(`/investigations/${c.case_id}/timeline`);

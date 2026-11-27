@@ -17,9 +17,10 @@ from Database.PostgreSQL.Models.Lineage import MediaFingerprint, MediaRelationsh
 from Database.PostgreSQL.Models.Investigation import GraphSnapshot, Report, Review
 from Database.PostgreSQL.Models.Visual import VisualEmbedding
 from Database.PostgreSQL.Models.Preferences import OperatorPreferences
+from Database.PostgreSQL.Models.Backtracking import BacktrackingComparison
 
 __all__ = [
-    "VisualEmbedding", "OperatorPreferences",
+    "VisualEmbedding", "OperatorPreferences", "BacktrackingComparison",
     "Case", "Evidence", "EvidenceMetadata", "InvestigationEvent",
     "AnalysisJob", "AnalysisExecution", "AnalysisResult", "AnalysisFinding", "ArtifactRecord",
     "OutboxEvent", "OutboxCheckpoint", "WorkerProcess", "Notification",

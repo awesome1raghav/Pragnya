@@ -16,7 +16,7 @@ from Backend.App.Core.Exceptions import ErrorCode, NextronError
 from Backend.App.Modules.NexCm import Lifecycle
 from Backend.App.Modules.NexCm.Service import get_case
 from Backend.App.Realtime import Outbox
-from Database.PostgreSQL.Models import AnalysisFinding, AnalysisResult, MediaRelationship, Review
+from Database.PostgreSQL.Models import AnalysisFinding, AnalysisResult, BacktrackingComparison, MediaRelationship, Review
 
 
 def current_reconstruction(session: Session, case_id: uuid.UUID) -> AnalysisResult | None:
@@ -33,7 +33,8 @@ def _check_subject(session: Session, case_id: uuid.UUID, subject_type: str, subj
         if rec is None:
             raise NextronError(409, ErrorCode.RECONSTRUCTION_REQUIRED, "A case conclusion needs a completed reconstruction (NEX-REC) first")
         return rec.id
-    model = AnalysisFinding if subject_type == "FINDING" else MediaRelationship
+    model = {"FINDING": AnalysisFinding, "RELATIONSHIP": MediaRelationship,
+             "BACKTRACK_COMPARISON": BacktrackingComparison}[subject_type]
     row = session.get(model, subject_id)
     if row is None or row.case_id != case_id:
         raise NextronError(404, ErrorCode.REVIEW_SUBJECT_NOT_FOUND, f"No {subject_type.lower()} with this id in this case")

@@ -1,0 +1,1166 @@
+{
+  "dataset": "NEXTRON-QA-001",
+  "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+  "job_id": "1d193b46-232f-4ab4-a3bf-e6e820fd151c",
+  "run_state": "PARTIALLY_COMPLETED",
+  "summary": {
+    "modules_tested": 8,
+    "feature_assertions_defined": 107,
+    "passed": 23,
+    "failed": 0,
+    "blocked": 84,
+    "verified_feature_coverage": 0.215,
+    "pass_rate_of_executed": 1.0,
+    "critical_issues": [
+      "Isolated E2E worker consumed pre-existing SOURCE_RESOLUTION queue item; future audit requires a fresh unique database",
+      "No signed C2PA or licensed deepfake positive fixtures",
+      "Frontend interactions not executed"
+    ]
+  },
+  "modules": [
+    {
+      "module_id": "NEX-CM",
+      "module_name": "NEX-CM",
+      "test_case_id": "TC-01",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04",
+        "VID-01",
+        "VID-02",
+        "VID-03",
+        "VID-04",
+        "VID-05",
+        "AUD-01",
+        "AUD-02",
+        "AUD-03",
+        "AUD-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "0 persisted execution records; Counter()",
+      "feature_validation_table": [
+        {
+          "feature": "creation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "unique ID",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "validation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "listing/search/pagination",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "update",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "statistics/summary",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "archive/reopen",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "events",
+          "expected": "Functional, traceable result where supported",
+          "actual": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "evidence": "QA-State.json observations: case_create/update/list/statistics/summary/archive/reopen/events",
+          "status": "PASS"
+        },
+        {
+          "feature": "restart persistence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "authorization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frontend actions",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-CAP",
+      "module_name": "NEX-CAP",
+      "test_case_id": "TC-02",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04",
+        "VID-01",
+        "VID-02",
+        "VID-03",
+        "VID-04",
+        "VID-05",
+        "AUD-01",
+        "AUD-02",
+        "AUD-03",
+        "AUD-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "0 persisted execution records; Counter()",
+      "feature_validation_table": [
+        {
+          "feature": "image/video/audio upload",
+          "expected": "Functional, traceable result where supported",
+          "actual": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "evidence": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "multiple upload",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "drag/drop and picker",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "screenshot capture",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "upload progress",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "signature/MIME validation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "size limit",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "filename safety",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "cancellation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "OCR",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "acquisition metadata",
+          "expected": "Functional, traceable result where supported",
+          "actual": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "evidence": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "consent",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "invalid media rejection",
+          "expected": "Functional, traceable result where supported",
+          "actual": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "evidence": "13 uploads returned 201; NEG-01/02 returned 415; upload responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "temporary cleanup",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "Android capture",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-EVD",
+      "module_name": "NEX-EVD",
+      "test_case_id": "TC-03",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04",
+        "VID-01",
+        "VID-02",
+        "VID-03",
+        "VID-04",
+        "VID-05",
+        "AUD-01",
+        "AUD-02",
+        "AUD-03",
+        "AUD-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "0 persisted execution records; Counter()",
+      "feature_validation_table": [
+        {
+          "feature": "SHA-256",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "evidence": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "byte preservation/download",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "evidence": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "IDs/storage references",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "evidence": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "manifest",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "custody/history",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "evidence": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "integrity verification",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "evidence": "Independent hashlib and downloaded-byte hashes agree for all uploaded fixtures; history and integrity responses in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "duplicates",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "derivative links/hashes",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "storage failure",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "disposable mismatch",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "overwrite protection",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "restart persistence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-MET",
+      "module_name": "NEX-MET",
+      "test_case_id": "TC-04",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04",
+        "VID-01",
+        "VID-02",
+        "VID-03",
+        "VID-04",
+        "VID-05",
+        "AUD-01",
+        "AUD-02",
+        "AUD-03",
+        "AUD-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "13 persisted execution records; Counter({'COMPLETED': 13})",
+      "feature_validation_table": [
+        {
+          "feature": "EXIF",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "image dimensions/format",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "evidence": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "video duration/resolution/fps/codec",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "evidence": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "audio sample rate/channels",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "evidence": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "bitrate",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "timestamps",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "missing/malformed metadata",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "tool versions",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "evidence": "Independent Pillow/FFprobe comparison in QA-State.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "persistence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Persisted module execution records via evidence analysis API",
+          "evidence": "Persisted module execution records via evidence analysis API",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend presentation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [
+        23,
+        47,
+        68,
+        32,
+        128,
+        161,
+        228,
+        231,
+        129,
+        90,
+        190,
+        390,
+        244
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-IMG",
+      "module_name": "NEX-IMG",
+      "test_case_id": "TC-05",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "13 persisted execution records; Counter({'SKIPPED': 9, 'COMPLETED': 4})",
+      "feature_validation_table": [
+        {
+          "feature": "decode/preprocess",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "ELA",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "FFT/frequency",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "compression",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "noise",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "resampling",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "perceptual hash",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "manipulation inference",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "AI detector",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "localization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "heatmaps",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "score semantics",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "model load/failure",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "persistence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Persisted module execution records via evidence analysis API",
+          "evidence": "Persisted module execution records via evidence analysis API",
+          "status": "PASS"
+        },
+        {
+          "feature": "frontend visualization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [
+        848,
+        17434,
+        465,
+        420,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-VID",
+      "module_name": "NEX-VID",
+      "test_case_id": "TC-06",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "VID-01",
+        "VID-02",
+        "VID-03",
+        "VID-04",
+        "VID-05"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "13 persisted execution records; Counter({'SKIPPED': 8, 'PARTIALLY_COMPLETED': 5})",
+      "feature_validation_table": [
+        {
+          "feature": "decode",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frame/keyframe extraction",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "timestamps",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "temporal analysis",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "fingerprints",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "scene/segment",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "splice",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "compression",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "deepfake model",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "localization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frame previews",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "audio extraction",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "missing audio",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "VFR",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "playback/seek",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "progress/artifacts",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "memory/time",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [
+        null,
+        null,
+        null,
+        null,
+        728,
+        274,
+        220,
+        211,
+        248,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "UNDETERMINED",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "BLOCKED"
+    },
+    {
+      "module_id": "NEX-AUD",
+      "module_name": "NEX-AUD",
+      "test_case_id": "TC-07",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "AUD-01",
+        "AUD-02",
+        "AUD-03",
+        "AUD-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "13 persisted execution records; Counter({'COMPLETED': 7, 'SKIPPED': 6})",
+      "feature_validation_table": [
+        {
+          "feature": "decode/extract",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "waveform",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "spectrogram",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "spectral analysis",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "normalization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "voice analysis",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "fingerprint",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "splice",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "manipulation",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "synthetic speech detector",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "model inference",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "localization",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "playback/seek",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "silence/missing audio",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "persistence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "Persisted module execution records via evidence analysis API",
+          "evidence": "Persisted module execution records via evidence analysis API",
+          "status": "PASS"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [
+        null,
+        null,
+        null,
+        null,
+        5576,
+        5361,
+        3638,
+        118,
+        114,
+        5710,
+        5833,
+        4986,
+        4105
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-PRV",
+      "module_name": "NEX-PRV",
+      "test_case_id": "TC-08",
+      "purpose": "Controlled functional validation",
+      "input_fixtures": [
+        "IMG-01",
+        "IMG-02",
+        "IMG-03",
+        "IMG-04"
+      ],
+      "preconditions": "Isolated E2E stack and self-generated media",
+      "execution_steps": [
+        "Upload applicable fixtures",
+        "Inspect API records and worker output",
+        "Compare independent file hashes"
+      ],
+      "expected_output": "Input-dependent persisted observations with traceability",
+      "actual_output": "13 persisted execution records; Counter({'COMPLETED': 13})",
+      "feature_validation_table": [
+        {
+          "feature": "manifest extraction",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "credential presence",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "signature verification",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "content binding",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "assertions",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "history",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "trust policy",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "invalid credentials",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "evidence": "No licensed labeled detector/C2PA positive fixture in NEXTRON-QA-001",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "absent credentials",
+          "expected": "Functional, traceable result where supported",
+          "actual": "NEX-PRV execution on unsigned self-generated media",
+          "evidence": "NEX-PRV execution on unsigned self-generated media",
+          "status": "PASS"
+        },
+        {
+          "feature": "unsupported format",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "evidence association",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frontend display",
+          "expected": "Functional, traceable result where supported",
+          "actual": "No isolated execution evidence captured",
+          "evidence": "No isolated execution evidence captured",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "BLOCKED: browser interactions not executed in this run",
+      "api_status": "Executed in isolated API",
+      "backend_status": "Observed via API and worker",
+      "database_storage_status": "Isolated nextron_e2e; stored records and downloads",
+      "algorithm_model_status": "See individual feature rows; no positive model ground truth",
+      "error_handling_status": "Negative files rejected 415; other negative paths unverified",
+      "execution_time": [
+        48,
+        42,
+        19,
+        18,
+        24,
+        30,
+        25,
+        36,
+        15,
+        32,
+        19,
+        21,
+        25
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": "Missing controlled positive fixtures and incomplete browser validation",
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete missing controlled tests and collect licensed positive fixtures",
+      "final_module_verdict": "PARTIAL"
+    }
+  ]
+}

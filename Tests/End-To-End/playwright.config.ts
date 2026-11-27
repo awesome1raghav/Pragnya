@@ -1,8 +1,9 @@
 import { defineConfig, devices } from '@playwright/test';
 
-/* Runs against the real stack: the frontend on :8080 and the API on :8000 must already be running
-   (see Backend/README.md and Frontend/Web/README.md). Nothing here mocks the API, except the one test
-   that deliberately blocks it to check the unreachable state. */
+/* Runs against a real but isolated stack: start it with Scripts/Testing/StartE2EStack.ps1 (web :8090, API :8002,
+   database nextron_e2e), so the tests never write into the operator's investigations. NEXTRON_WEB and NEXTRON_API
+   override the addresses. Nothing here mocks the API, except the tests that deliberately block or fake a response. */
+process.env.NEXTRON_API ??= 'http://localhost:8002/api/v1';
 export default defineConfig({
   testDir: './Specs',
   outputDir: '../Test Reports/End-To-End/Artifacts',
@@ -12,7 +13,7 @@ export default defineConfig({
   workers: 1,
   reporter: [['list'], ['html', { outputFolder: '../Test Reports/End-To-End/Html', open: 'never' }]],
   use: {
-    baseURL: process.env.NEXTRON_WEB ?? 'http://localhost:8080',
+    baseURL: process.env.NEXTRON_WEB ?? 'http://localhost:8090',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     viewport: { width: 1440, height: 900 },

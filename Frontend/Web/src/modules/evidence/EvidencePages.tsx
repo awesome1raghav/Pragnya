@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { ArrowRight, LoaderCircle, ShieldCheck, TriangleAlert } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import x from './evidence.module.css';
 import { ApiError, api, type Evidence, type InvestigationEvent, type IntegrityVerification, type Metadata } from '@/api';
 import { useIntegrity, useMetadata } from '@/api/hooks';
 import { invalidate, prime, useQuery } from '@/api/query';
@@ -17,7 +18,8 @@ import { useWorkspace } from '@/layouts/MainLayout';
 import { paths } from '@/config/routes';
 import { bytes, duration, eventDetail, eventLabel, eventTone, mediaLabel, metadataLabel, methodLabel, sourceTypeLabel, toneColor, utc } from '@/utils/labels';
 import { useLoadedEvidence } from './EvidenceShell';
-import { EvidenceAnalysisPage, EvidenceAnalysisSummary } from '@/modules/analysis/Analysis';
+import { EvidenceAnalysisSummary } from '@/modules/analysis/Analysis';
+import { EvidenceViewer } from '@/modules/viewer/Viewer';
 
 /* ── media viewer: the stored original, never a stand-in ── */
 export function MediaViewer({ ev, compact }: { ev: Evidence; compact?: boolean }) {
@@ -35,43 +37,51 @@ export function MediaViewer({ ev, compact }: { ev: Evidence; compact?: boolean }
   </figure>;
 }
 
-/* ── /evidence/:id ── */
+/* ── /evidence/:id: the original first, the facts that matter beside it, the full acquisition record on request ── */
 export function EvidenceOverview() {
   const ev = useLoadedEvidence();
   const md = useMetadata(ev.evidence_id);
-  return <div className={s.page}>
+  const integrity = useIntegrity(ev.evidence_id);
+  const last = integrity.data?.last_verification;
+  return <div className={`${s.page} ${x.ev}`}>
     <h1 className={s.srOnly}>{ev.evidence_number} overview: {ev.filename}</h1>
-    <div className={p.grid2}>
+    <div className={x.hero}>
+      <MediaViewer ev={ev} compact />
       <div className={p.stack}>
-        <MediaViewer ev={ev} compact />
-        <section className={s.panel} aria-label='Acquisition record'>
-          <SecHead title='Acquisition and preservation' />
-          <dl className={s.kv}>
-            <div><dt>Evidence</dt><dd className={s.mono}>{ev.evidence_number}</dd></div>
-            <div><dt>File name (as supplied)</dt><dd style={{ overflowWrap: 'anywhere' }}>{ev.filename}</dd></div>
-            <div><dt>Detected type</dt><dd>{mediaLabel[ev.media_type]} · {ev.detected_format} · {ev.mime_type}</dd></div>
-            <div><dt>Type claimed by the uploader</dt><dd>{ev.declared_content_type ?? '—'}</dd></div>
-            <div><dt>Size</dt><dd>{bytes(ev.file_size)} ({ev.file_size.toLocaleString()} bytes)</dd></div>
-            <div><dt>Obtained as</dt><dd>{sourceTypeLabel[ev.source_type]} · {methodLabel[ev.acquisition_method]}</dd></div>
-            <div><dt>Received</dt><dd>{utc(ev.received_at)}</dd></div>
-            <div><dt>Preserved</dt><dd>{utc(ev.preserved_at)}</dd></div>
-            <div><dt>Recorded by</dt><dd>{ev.acquired_by}</dd></div>
-          </dl>
-          {ev.description && <p className={p.notes}>{ev.description}</p>}
-        </section>
-      </div>
-      <div className={p.stack}>
-        <section className={s.panel} aria-label='Integrity'>
-          <SecHead title='Integrity'><Link href={paths.evidence(ev.evidence_id, 'integrity')} className={s.secLink}>Verify <ArrowRight size={13} /></Link></SecHead>
-          <Hash value={ev.sha256} />
-          <p className={s.cap}>Computed by the server from the received bytes. A matching hash proves the stored bytes are unchanged; it does not prove the content is authentic.</p>
-        </section>
+        <div className={x.facts} aria-label='Key facts'>
+          <div className={x.fact}><span>Type</span><b>{mediaLabel[ev.media_type]} · {ev.detected_format}</b></div>
+          <div className={x.fact}><span>Size</span><b>{bytes(ev.file_size)}</b></div>
+          <div className={x.fact}><span>Received</span><b>{utc(ev.received_at)}</b></div>
+          <div className={x.fact}><span>Integrity</span><b data-tone={last ? (last.result === 'MATCH' ? 'ok' : 'alert') : undefined}>{last ? (last.result === 'MATCH' ? 'Bytes match' : last.result === 'MISMATCH' ? 'BYTES DIFFER' : 'ORIGINAL MISSING') : 'Not re-verified yet'}</b></div>
+        </div>
+        <EvidenceAnalysisSummary ev={ev} />
         <section className={s.panel} aria-label='Metadata summary'>
           <SecHead title='Metadata'><Link href={paths.evidence(ev.evidence_id, 'metadata')} className={s.secLink}>All metadata <ArrowRight size={13} /></Link></SecHead>
           <Load q={md} rows={3} notFound={<p className={s.cap}>No metadata extraction is recorded for this evidence.</p>}>{m => <MetadataHighlights ev={ev} m={m} />}</Load>
         </section>
-        <EvidenceAnalysisSummary ev={ev} />
       </div>
+    </div>
+    <div className={p.stack} style={{ marginTop: 20 }}>
+      <details className={x.disclose} aria-label='Acquisition record'>
+        <summary>Acquisition and preservation<small>how it was obtained, by whom, when</small></summary>
+        <dl className={s.kv}>
+          <div><dt>Evidence</dt><dd className={s.mono}>{ev.evidence_number}</dd></div>
+          <div><dt>File name (as supplied)</dt><dd style={{ overflowWrap: 'anywhere' }}>{ev.filename}</dd></div>
+          <div><dt>Detected type</dt><dd>{mediaLabel[ev.media_type]} · {ev.detected_format} · {ev.mime_type}</dd></div>
+          <div><dt>Type claimed by the uploader</dt><dd>{ev.declared_content_type ?? '—'}</dd></div>
+          <div><dt>Size</dt><dd>{bytes(ev.file_size)} ({ev.file_size.toLocaleString()} bytes)</dd></div>
+          <div><dt>Obtained as</dt><dd>{sourceTypeLabel[ev.source_type]} · {methodLabel[ev.acquisition_method]}</dd></div>
+          <div><dt>Received</dt><dd>{utc(ev.received_at)}</dd></div>
+          <div><dt>Preserved</dt><dd>{utc(ev.preserved_at)}</dd></div>
+          <div><dt>Recorded by</dt><dd>{ev.acquired_by}</dd></div>
+        </dl>
+        {ev.description && <p className={p.notes}>{ev.description}</p>}
+      </details>
+      <details className={x.disclose} aria-label='Integrity'>
+        <summary>SHA-256<small><Link href={paths.evidence(ev.evidence_id, 'integrity')} className={s.secLink}>Verify <ArrowRight size={13} /></Link></small></summary>
+        <Hash value={ev.sha256} />
+        <p className={s.cap}>Computed by the server from the received bytes. A matching hash proves the stored bytes are unchanged; it does not prove the content is authentic.</p>
+      </details>
     </div>
   </div>;
 }
@@ -113,7 +123,7 @@ export function EvidenceMetadata() {
   const q = useMetadata(ev.evidence_id);
   return <div className={s.page}>
     <PageHead title='Metadata' desc='What the file says about itself. Metadata can be missing, wrong or edited, so none of it is treated as fact.' />
-    <Load q={q} rows={6} notFound={<Empty title='No metadata recorded'>No extraction has been recorded for this evidence.</Empty>}>{m => <div className={p.grid2}>
+    <Load q={q} rows={6} notFound={<Empty title='No metadata recorded'>No extraction has been recorded for this evidence.</Empty>}>{m => <div className={`${p.grid2} ${x.ev}`}>
       <div className={p.stack}>
         {m.status !== 'EXTRACTED' && <p className={p.warnLine}><TriangleAlert size={15} />{metadataLabel[m.status]}{m.error ? `: ${m.error}` : ''}</p>}
         {Object.entries(m.summary).filter(([k]) => !['embedded_timestamps', 'embedded_timestamps_note', 'exif', 'gps'].includes(k)).map(([k, v]) => <MetaGroup key={k} name={k} value={v} />)}
@@ -150,10 +160,13 @@ function MetaGroup({ name, value }: { name: string; value: unknown }) {
     if (!value.length) return null;
     return <>{value.map((item, i) => <MetaGroup key={i} name={`${name.replace(/s$/, '')} ${i + 1}`} value={item} />)}</>;
   }
-  if (value && typeof value === 'object') return <section className={s.panel} aria-label={titleOf(name)}>
-    <p className={s.title}>{titleOf(name)}</p>
-    <table className={p.metaTable}><tbody>{Object.entries(value as Record<string, unknown>).map(([k, v]) => <tr key={k}><th>{k}</th><td>{show(v)}</td></tr>)}</tbody></table>
-  </section>;
+  if (value && typeof value === 'object') {
+    const entries = Object.entries(value as Record<string, unknown>);
+    return <details className={x.disclose} aria-label={titleOf(name)} open={entries.length <= 8}>
+      <summary>{titleOf(name)}<small>{entries.length} field{entries.length === 1 ? '' : 's'}</small></summary>
+      <table className={p.metaTable}><tbody>{entries.map(([k, v]) => <tr key={k}><th>{k}</th><td>{show(v)}</td></tr>)}</tbody></table>
+    </details>;
+  }
   return <section className={s.panel}><table className={p.metaTable}><tbody><tr><th>{titleOf(name)}</th><td>{show(value)}</td></tr></tbody></table></section>;
 }
 
@@ -182,7 +195,13 @@ export function EvidenceIntegrity() {
       <button className={`${s.btn} ${s.primary}`} onClick={verify} disabled={busy}>{busy ? <><LoaderCircle size={15} className={s.spin} />Hashing stored bytes…</> : <><ShieldCheck size={15} />Verify integrity now</>}</button>
     </PageHead>
     {err && <ErrorState error={err} title='Verification did not run' />}
-    <div className={p.grid2} style={{ marginTop: err ? 16 : 0 }}>
+    <div className={`${x.verdict} ${x.ev}`} data-r={last?.result ?? 'NONE'} role='status' style={{ marginTop: err ? 16 : 0 }}>
+      {last?.result === 'MATCH' ? <ShieldCheck size={26} /> : last ? <TriangleAlert size={26} /> : <ShieldCheck size={26} />}
+      <div><b>{last ? (last.result === 'MATCH' ? 'The stored original is unchanged' : last.result === 'MISMATCH' ? 'The stored original has CHANGED since preservation' : 'The stored original is MISSING') : 'Not checked since preservation'}</b>
+        <small>{last ? `Last checked ${utc(last.verified_at)}. A match proves the bytes are unchanged; it does not prove the content is authentic.` : 'Recompute the SHA-256 to confirm the stored bytes still match the digest recorded at preservation.'}</small></div>
+      <span />
+    </div>
+    <div className={p.grid2}>
       <section className={s.panel} aria-label='Recorded digest'>
         <SecHead title='Recorded at preservation' />
         <Hash value={ev.sha256} />
@@ -215,14 +234,17 @@ export function EvidenceTimeline() {
   });
   return <div className={s.page}>
     <PageHead title='Custody timeline' desc='Every recorded action on this evidence since it arrived, oldest first. The record is append-only: entries cannot be edited or deleted.' />
-    <Load q={q} rows={5}>{events => events.length ? <ol className={s.chron}>{events.map(e => <li key={e.event_id} style={{ ['--c' as string]: toneColor[eventTone(e.event_type)] }}>
-      <time>{e.occurred_at.slice(0, 10)}<span>{e.occurred_at.slice(11, 19)} UTC</span></time>
-      <div><b>{eventLabel(e.event_type)}</b><small>#{e.sequence} · {e.actor}{eventDetail(e.event_type, e.payload) ? ` · ${eventDetail(e.event_type, e.payload)}` : ''}</small></div>
-    </li>)}</ol> : <Empty title='No custody events' />}</Load>
+    <Load q={q} rows={5}>{events => events.length ? <div className={x.ev}>{[...new Set(events.map(e => e.occurred_at.slice(0, 10)))].map(day => <section key={day} aria-label={`Custody on ${day}`}>
+      <p className={x.day}>{day}</p>
+      <ol className={x.chain}>{events.filter(e => e.occurred_at.startsWith(day)).map(e => <li key={e.event_id} style={{ ['--c' as string]: toneColor[eventTone(e.event_type)] }}>
+        <time>{e.occurred_at.slice(11, 19)} UTC</time>
+        <div><b>{eventLabel(e.event_type)}</b><small>#{e.sequence} · {e.actor}{eventDetail(e.event_type, e.payload) ? ` · ${eventDetail(e.event_type, e.payload)}` : ''}</small></div>
+      </li>)}</ol>
+    </section>)}</div> : <Empty title='No custody events' />}</Load>
   </div>;
 }
 
 /* ── /evidence/:id/analysis ── */
 export function EvidenceAnalysis() {
-  return <EvidenceAnalysisPage ev={useLoadedEvidence()} />;
+  return <div className={s.page} style={{ maxWidth: 'none' }}><EvidenceViewer ev={useLoadedEvidence()} /></div>;
 }

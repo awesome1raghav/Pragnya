@@ -4,7 +4,7 @@
 import { expect, test, type Page } from '@playwright/test';
 import path from 'node:path';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 const SHOTS = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'Screenshots');
 const shot = (page: Page, name: string) => page.screenshot({ path: path.join(SHOTS, `${name}.png`), fullPage: true });
 
@@ -43,25 +43,28 @@ test('image engines: findings, measured region, heatmaps, provenance, case image
   const queue = page.getByRole('region', { name: 'Upload queue' });
   await queue.getByRole('link', { name: /JOB-\d+/ }).click();
 
+  await page.getByRole('button', { name: /Execution record/ }).click();
   const modules = page.getByRole('region', { name: 'Modules for this evidence' });
   await expect(modules.getByRole('row', { name: /^NEX-IMG / })).toContainText('Completed');  // measurements + the pinned detector
   await expect(modules.getByRole('row', { name: /^NEX-PRV / })).toContainText('Completed');
 
+  // the viewer: choosing the noise finding opens its details, marks the recorded region and shows its own heatmap
   const findings = page.getByRole('region', { name: 'Findings' });
-  const noise = findings.locator('[data-finding="NOISE_LEVEL_INCONSISTENCY"]');
-  await expect(noise).toContainText('Region with a different noise level');
-  await expect(noise).toContainText(/region x \d+% y \d+%/);
-  await expect(noise.getByRole('img', { name: /with the measured region marked/ })).toBeVisible();
-  const heatmap = noise.getByRole('img', { name: /NEX-IMG noise/ });
+  const details = page.getByRole('complementary', { name: 'Finding details' });
+  await findings.getByRole('button', { name: /Region with a different noise level/ }).click();
+  await expect(details).toContainText(/x \d+%, y \d+%/);
+  await expect(details).toContainText('not a probability');
+  await expect(page.getByRole('button', { name: 'Region recorded by NEX-IMG: Region with a different noise level' })).toBeVisible();
+  const heatmap = page.getByRole('img', { name: /NOISE heatmap produced by the analysis/ });
   await expect(heatmap).toBeVisible();
   expect(await heatmap.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBeGreaterThan(0);  // the artifact really loaded
-  await expect(findings.locator('[data-finding="NO_CONTENT_CREDENTIALS"]')).toContainText('No content credentials');
-  await expect(findings.locator('[data-finding="JPEG_QUANTIZATION"]')).toContainText('IJG quality');
-  await expect(findings).toContainText('not a probability');
-  const detector = findings.locator('[data-finding="SYNTHETIC_IMAGE_DETECTOR"]');
-  await expect(detector).toContainText(/CommunityForensics-ViT-S16-384 scores this image [0-9.e-]+: (above|below) its operating threshold/);
-  await expect(detector).toContainText('inference');
-  await expect(detector).toContainText('Measured locally: ROC AUC');
+  await expect(findings).toContainText('No content credentials');
+  await expect(findings).toContainText('IJG quality');
+  await findings.getByRole('button', { name: /CommunityForensics-ViT-S16-384 scores this image/ }).click();
+  await expect(details).toContainText(/CommunityForensics-ViT-S16-384 scores this image [0-9.e-]+: (above|below) its operating threshold/);
+  await expect(details).toContainText('Inference');
+  await expect(details).toContainText('Threshold');
+  await expect(details).toContainText('Measured locally: ROC AUC');
   await shot(page, '23-evidence-engine-findings');
 
   // the artifact API serves the heatmap with its recorded hash

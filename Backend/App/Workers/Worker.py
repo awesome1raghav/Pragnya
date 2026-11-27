@@ -139,6 +139,12 @@ class Worker:
                 state = ReportService.generate(self.factory, self.storage, self.settings, job_id, self.worker_id)
                 logger.info("Report job %s ended %s", job_id, state.value if state else "elsewhere (lease lost)")
                 return
+            if job_type == JobType.BACKTRACK_EXPANSION.value:
+                from Backend.App.Modules.NexBtk.Expansion import run
+
+                state = run(self.factory, self.storage, self.settings, job_id, self.worker_id)
+                logger.info("Backtracking job %s ended %s", job_id, state.value if state else "elsewhere (lease lost)")
+                return
             with self.factory() as session:  # job types whose services are built in later steps
                 job = JobService.get_job(session, job_id)
                 JobService.finish(session, job, self.worker_id, JobState.FAILED,

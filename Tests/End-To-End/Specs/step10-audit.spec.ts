@@ -6,7 +6,7 @@ import { expect, test, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8000/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 const OUT = path.join(__dirname, '..', '..', 'Test Reports', 'End-To-End', 'UI Audit');
 const WIDTHS = { desktop: { width: 1440, height: 900 }, phone: { width: 390, height: 844 } } as const;
 const STATIC = ['/', '/about', '/dashboard', '/investigations', '/investigations/new', '/evidence', '/sources', '/lineage', '/intelligence',
@@ -98,6 +98,7 @@ test('switching form modes raises no console errors', async ({ page }) => {
   const c = (await (await fetch(`${API}/cases`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ title: `[E2E] Form modes ${Date.now()}` }) })).json()).data;
 
   await page.goto(`/sources?case=${c.case_id}`);
+  await expect(page.getByRole('link', { name: /System status: System ready/ })).toBeVisible();  // hydrated: React owns the form now
   const vs = page.getByRole('region', { name: 'Visual search' });
   const mode = vs.getByRole('combobox').filter({ has: page.locator('option[value=url]') });
   await expect(mode).toBeVisible();

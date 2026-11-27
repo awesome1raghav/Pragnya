@@ -72,6 +72,7 @@ class JobType(StrEnum):
     SOURCE_RESOLUTION = "SOURCE_RESOLUTION"      # Source Service: NEX-SRC retrieval
     REPORT_GENERATION = "REPORT_GENERATION"      # Report Service: NEX-RPT
     PROJECTION_REBUILD = "PROJECTION_REBUILD"    # Neo4j / Qdrant rebuild from PostgreSQL
+    BACKTRACK_EXPANSION = "BACKTRACK_EXPANSION"  # bounded local video comparison
 
 
 class ScopeKind(StrEnum):

@@ -26,8 +26,8 @@ from Backend.App.Modules.NexInv import Service as ReviewService
 from Backend.App.Realtime import Outbox
 from Backend.App.Storage.LocalStorage import LocalStorage
 from Backend.App.Workers import JobService
-from Database.PostgreSQL.Models import (AnalysisFinding, AnalysisResult, Case, Evidence, GraphSnapshot, MediaRelationship, Report,
-                                        SourceRecord)
+from Database.PostgreSQL.Models import (AnalysisFinding, AnalysisResult, BacktrackingComparison, Case, Evidence, GraphSnapshot, MediaRelationship, Report,
+                                        SourceObservation, SourceRecord)
 
 FORMAT = "nextron-report/1"
 
@@ -90,6 +90,13 @@ def gather(session: Session, report: Report) -> dict:
     timeline = (row.payload.get("measurement") or {}).get("timeline", []) if row else []
     relationships = session.scalars(select(MediaRelationship).where(MediaRelationship.case_id == case.id, MediaRelationship.superseded_at.is_(None))).all()
     sources = session.scalars(select(SourceRecord).where(SourceRecord.case_id == case.id).order_by(SourceRecord.source_number)).all()
+    source_ids = {s.id: s.display_number for s in sources}
+    occurrences = session.scalars(select(SourceObservation).where(SourceObservation.source_id.in_(source_ids))
+                                  .order_by(SourceObservation.source_id, SourceObservation.revision)).all() if source_ids else []
+    comparisons = session.scalars(select(BacktrackingComparison).where(BacktrackingComparison.case_id == case.id)
+                                  .order_by(BacktrackingComparison.created_at)).all()
+    current_reviews = ReviewService.list_reviews(session, case.id, current_only=True)
+    comparison_reviews = {r.subject_id: r for r in current_reviews if r.subject_type == "BACKTRACK_COMPARISON"}
     conclusion = ReviewService.current_conclusion(session, case.id)
     return {
         "format": FORMAT, "report": report.display_number, "version": report.version, "kind": report.kind,
@@ -100,12 +107,23 @@ def gather(session: Session, report: Report) -> dict:
                      for e in evidence],
         "sources": [{"source": s.display_number, "url": s.normalized_url, "state": s.state, "title": s.title,
                      "claimed_publication_time": s.claimed_publication_time, "evidence": numbers.get(s.evidence_id)} for s in sources],
+        "source_occurrences": [{"source": source_ids[o.source_id], "revision": o.revision,
+                                "outcome": o.outcome, "evidence": numbers.get(o.evidence_id),
+                                "observed_at": o.retrieved_at.isoformat()} for o in occurrences],
         "modules": modules,
         "lineage": [{"a": numbers.get(r.evidence_a), "b": numbers.get(r.evidence_b), "kind": r.kind, "status": r.status,
                      "similarity": r.similarity, "earlier_observed": numbers.get(r.earlier_observed)} for r in relationships],
+        "backtracking": [{"comparison_id": str(r.id), "seed": numbers.get(r.seed_evidence_id),
+                          "candidate": numbers.get(r.candidate_evidence_id), "seed_sha256": r.seed_sha256,
+                          "candidate_sha256": r.candidate_sha256, "algorithm": r.algorithm,
+                          "fingerprint_algorithm": r.fingerprint_algorithm, "status": r.status,
+                          "coverage_seed_percent": r.result.get("submitted_coverage_percent"),
+                          "coverage_candidate_percent": r.result.get("candidate_coverage_percent"),
+                          "review": _review(comparison_reviews[r.id]) if r.id in comparison_reviews else None}
+                         for r in comparisons],
         "graph": {"snapshot_id": str(graph.id), "counts": graph.counts, "built_at": graph.created_at.isoformat()} if graph else None,
         "timeline": timeline,
-        "reviews": [_review(r) for r in ReviewService.list_reviews(session, case.id, current_only=True)],
+        "reviews": [_review(r) for r in current_reviews],
         "conclusion": _review(conclusion) if conclusion else None,
         "statement": ("Findings are reported at their assertion level: OBSERVATION (measured), INFERENCE (a method's reading with its stated "
                       "threshold and limitations), CANDIDATE (proposed, not established). Investigator decisions are listed separately "
@@ -160,6 +178,12 @@ def render_pdf(doc: dict) -> bytes:
         story += [p("Candidate version relationships", "Heading2"), table([["A", "B", "Kind", "Status", "Similarity", "Earlier observed"]] +
                   [[r["a"], r["b"], r["kind"], r["status"], f"{r['similarity']:.3f}", r["earlier_observed"]] for r in doc["lineage"]],
                   [20 * mm, 20 * mm, 30 * mm, 26 * mm, 24 * mm, 30 * mm])]
+    if doc["backtracking"]:
+        story += [p("Local backtracking comparisons", "Heading2"),
+                  table([["Comparison", "Seed", "Candidate", "Status", "Coverage seed", "Review"]] +
+                        [[r["comparison_id"], r["seed"], r["candidate"], r["status"],
+                          r["coverage_seed_percent"], r["review"]["decision"] if r["review"] else "Unreviewed"]
+                         for r in doc["backtracking"]], [38 * mm, 22 * mm, 22 * mm, 37 * mm, 29 * mm, 30 * mm])]
     if doc["timeline"]:
         story += [p("Timeline (claimed and measured times)", "Heading2"), table([["Time", "Kind", "Item", "Stated by"]] +
                   [[t["time"], t["kind"], t["label"], t["by"]] for t in doc["timeline"]], [44 * mm, 34 * mm, 60 * mm, 40 * mm])]
@@ -201,6 +225,7 @@ def generate(factory: sessionmaker[Session], storage: LocalStorage, settings: Se
             report.json_sha256, report.pdf_sha256 = hashlib.sha256(data).hexdigest(), hashlib.sha256(pdf).hexdigest()
             report.summary = {"evidence": len(doc["evidence"]), "sources": len(doc["sources"]), "modules": len(doc["modules"]),
                               "findings": sum(len(m["findings"]) for m in doc["modules"]), "reviews": len(doc["reviews"]),
+                              "backtracking_comparisons": len(doc["backtracking"]),
                               "conclusion": doc["conclusion"]["decision"] if doc["conclusion"] else None}
         else:
             report.state, report.error = "FAILED", error

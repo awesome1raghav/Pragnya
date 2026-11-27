@@ -5,26 +5,40 @@
    version the form was loaded from; if another tab saved first, the save is refused and the form shows what is stored
    now. Interface choices stay in this browser. Server configuration is read-only and never includes secrets. */
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import st from './settings.module.css';
 import { API_BASE, api, ApiError, type NotificationPrefs, type PreferenceDocument } from '@/api';
 import { usePreferences, useSystemConfig } from '@/api/hooks';
 import { invalidate } from '@/api/query';
 import { Load, PageHead, SecHead } from '@/components/ui';
 import { bytes } from '@/utils/labels';
-import { useWorkspace } from '@/layouts/MainLayout';
+import { applyDensity, useWorkspace } from '@/layouts/MainLayout';
 
 const NOTIFY: [keyof NotificationPrefs, string][] = [
   ['runs_completed', 'An analysis run completed'], ['runs_partial', 'A run completed partially'], ['runs_failed', 'A run failed'],
   ['runs_cancelled', 'A run was cancelled'], ['sources', 'A source could not be retrieved'], ['reports', 'A report was generated or failed'],
 ];
 
+const GROUPS = [
+  { id: 'work', title: 'How NEXTRON works for you', note: 'Stored on the server and applied there, so every tab and window follows them.' },
+  { id: 'browser', title: 'This browser', note: 'Kept in this browser only.' },
+  { id: 'install', title: 'This installation', note: 'Read-only facts. Server settings live in Backend/.env and never reach the browser.' },
+] as const;
+
 export default function Settings() {
-  return <div className={s.page} style={{ maxWidth: 1100 }}>
+  return <div className={s.page} style={{ maxWidth: 1040 }}>
     <PageHead title='Settings' desc='Your preferences, applied by the backend, and read-only facts about this installation.' />
-    <div className={p.grid2}>
-      <div className={p.stack}><PreferencesForm /><Interface /></div>
-      <div className={p.stack}><Installation /></div>
+    <div className={st.layout}>
+      <nav className={st.index} aria-label='Settings sections'>{GROUPS.map(g => <a key={g.id} href={`#${g.id}`}>{g.title}</a>)}</nav>
+      <div className={st.groups}>
+        {GROUPS.map((g, i) => <motion.section key={g.id} id={g.id} className={st.group} aria-labelledby={`${g.id}-title`}
+          initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05, duration: .22, ease: [.22, 1, .36, 1] }}>
+          <header><h2 id={`${g.id}-title`}>{g.title}</h2><p>{g.note}</p></header>
+          {g.id === 'work' ? <PreferencesForm /> : g.id === 'browser' ? <Interface /> : <Installation />}
+        </motion.section>)}
+      </div>
     </div>
   </div>;
 }
@@ -87,8 +101,9 @@ function Interface() {
   const { notify } = useWorkspace();
   const [railPref, setRailPref] = useState<'auto' | 'open' | 'closed'>('auto');
   const [remembered, setRemembered] = useState<string | null>(null);
+  const [density, setDensity] = useState<'comfortable' | 'compact'>('comfortable');
   useEffect(() => {
-    const read = () => { try { const v = localStorage.getItem('nx-rail'); setRailPref(v === '1' ? 'open' : v === '0' ? 'closed' : 'auto'); setRemembered(sessionStorage.getItem('nx-last-case')); } catch { /* storage unavailable */ } };
+    const read = () => { try { const v = localStorage.getItem('nx-rail'); setRailPref(v === '1' ? 'open' : v === '0' ? 'closed' : 'auto'); setRemembered(sessionStorage.getItem('nx-last-case')); setDensity(localStorage.getItem('nx-density') === 'compact' ? 'compact' : 'comfortable'); } catch { /* storage unavailable */ } };
     read();
     window.addEventListener('storage', read);  // another tab changed it
     return () => window.removeEventListener('storage', read);
@@ -97,12 +112,17 @@ function Interface() {
     setRailPref(v);
     try { if (v === 'auto') localStorage.removeItem('nx-rail'); else localStorage.setItem('nx-rail', v === 'open' ? '1' : '0'); notify('Saved in this browser; applies on the next page load'); } catch { notify('This browser blocks local storage', 'alert'); }
   };
+  const saveDensity = (v: typeof density) => { setDensity(v); try { localStorage.setItem('nx-density', v); applyDensity(); notify(v === 'compact' ? 'Compact spacing on' : 'Comfortable spacing on'); } catch { notify('This browser blocks local storage', 'alert'); } };
   const forget = () => { try { sessionStorage.removeItem('nx-last-case'); setRemembered(null); notify('Forgot the last opened investigation'); } catch { /* ignore */ } };
   return <section className={s.panel} aria-label='Interface'>
     <SecHead title='Interface'><span className={s.cap}>Stored in this browser only</span></SecHead>
     <label className={s.field}><span>Sidebar</span>
       <select className={s.input} value={railPref} onChange={e => saveRail(e.target.value as typeof railPref)}>
         <option value='auto'>Labelled on wide screens, icons otherwise</option><option value='open'>Always labelled</option><option value='closed'>Icons only</option>
+      </select></label>
+    <label className={s.field}><span>Density</span>
+      <select className={s.input} value={density} onChange={e => saveDensity(e.target.value as typeof density)} aria-label='Density'>
+        <option value='comfortable'>Comfortable: more space, easier reading</option><option value='compact'>Compact: more on screen, same text size</option>
       </select></label>
     <div className={p.formFoot}><span className={s.cap}>Last opened investigation remembered for this tab: <span className={s.mono}>{remembered ?? 'none'}</span></span>{remembered && <button className={`${s.btn} ${s.sm}`} onClick={forget}>Forget it</button>}</div>
     <p className={s.cap}>Times are shown in UTC throughout, matching the recorded evidence history.</p>

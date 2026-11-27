@@ -29,38 +29,7 @@ function RunButton({ label, start, invalidates, disabled }: { label: string; sta
   return <button className={`${s.btn} ${s.primary}`} onClick={go} disabled={busy || disabled}><Play size={14} />{busy ? 'Queuing…' : label}</button>;
 }
 
-/* ── /evidence/:id/analysis ── */
-export function EvidenceAnalysisPage({ ev }: { ev: Evidence }) {
-  const q = useEvidenceAnalysis(ev.evidence_id);
-  const running = q.data?.latest_job && ['QUEUED', 'RUNNING'].includes(q.data.latest_job.state);
-  return <div className={s.page}>
-    <PageHead title='Analysis' desc={`${ev.evidence_number} · ${ev.filename}. Each T-MIR module either ran, did not apply, is not built yet, or failed, and says which.`}>
-      <RunButton label={running ? 'Run in progress' : 'Run analysis'} disabled={!!running} start={() => api.analysis.analyze(ev.evidence_id)} invalidates={[`ev:${ev.evidence_id}`]} />
-    </PageHead>
-    <WorkerNotice quietWhenAlive />
-    <Load q={q} rows={5}>{a => <div className={p.grid2}>
-      <div className={p.stack}>
-        <section className={s.panel} aria-label='Modules for this evidence'>
-          <SecHead title='Modules' />
-          {a.modules.some(m => m.latest) ? <ModuleTable a={a} /> : <Empty title='Not analysed yet'>Run analysis to plan and execute the T-MIR modules for this {ev.media_type.toLowerCase()}.</Empty>}
-        </section>
-        <section className={s.panel} aria-label='Findings'>
-          <SecHead title='Findings' count={a.findings.length} />
-          {a.findings.length ? <FindingList findings={a.findings} artifacts={a.artifacts} image={ev.media_type === 'IMAGE' ? ev : undefined} /> : <p className={s.cap}>No current findings. Findings appear when a module has produced a result.</p>}
-        </section>
-      </div>
-      <div className={p.stack}>
-        <section className={s.panel} aria-label='Runs for this evidence'>
-          <SecHead title='Runs' count={a.jobs.length} />
-          {a.jobs.length ? <JobList jobs={a.jobs} /> : <p className={s.cap}>No run has included this evidence.</p>}
-        </section>
-        {a.latest_job && <LatestRunCaseModules jobId={a.latest_job.job_id} />}
-      </div>
-    </div>}</Load>
-  </div>;
-}
-
-function ModuleTable({ a }: { a: EvidenceAnalysis }) {
+export function ModuleTable({ a }: { a: EvidenceAnalysis }) {
   return <div className={p.planWrap}><table className={p.planTable}>
     <thead><tr><th>Module</th><th>State</th><th>Why / detail</th><th>Time</th></tr></thead>
     <tbody>{a.modules.map(m => {
@@ -76,7 +45,7 @@ function ModuleTable({ a }: { a: EvidenceAnalysis }) {
   </table></div>;
 }
 
-function LatestRunCaseModules({ jobId }: { jobId: string }) {
+export function LatestRunCaseModules({ jobId }: { jobId: string }) {
   const run = useRun(jobId);
   return <section className={s.panel} aria-label='Case-level modules of the latest run'>
     <SecHead title='Case-level modules (latest run)' />

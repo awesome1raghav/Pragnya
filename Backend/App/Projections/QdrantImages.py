@@ -6,7 +6,10 @@ import httpx
 
 from Backend.App.Modules.NexFpm.Embeddings import DIMENSIONS, MODEL_KEY
 
-COLLECTION = "nextron_images_siglip2_b16_224_v1"
+import os
+
+# QDRANT_COLLECTION lets an isolated stack (the browser-test environment) keep its points apart from the operator's.
+COLLECTION = os.environ.get("QDRANT_COLLECTION") or "nextron_images_siglip2_b16_224_v1"
 
 
 class QdrantImages:

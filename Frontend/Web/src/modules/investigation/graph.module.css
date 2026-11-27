@@ -1,0 +1,21 @@
+/* Evidence graph explorer (Investigation.tsx). */
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips button { display: inline-flex; align-items: center; gap: 7px; height: 30px; padding: 0 10px; border: 1px solid #f3eee614; border-radius: 8px; background: none; color: #8d877c; font-size: 12.5px; cursor: pointer; }
+.chips button[aria-pressed='true'] { border-color: #f3eee633; background: #1b1915; color: #f3eee6; }
+.chips i { width: 10px; height: 3px; border-radius: 2px; }
+.chips small { font: 400 11px/1 var(--font-jb), ui-monospace, monospace; color: #8d877c; }
+.find { display: flex; align-items: center; gap: 8px; height: 30px; padding: 0 10px; border: 1px solid #f3eee614; border-radius: 8px; color: #8d877c; }
+.find input { width: 160px; border: 0; outline: 0; background: none; color: #f3eee6; font-size: 13px; }
+.stageWrap { position: relative; overflow-x: auto; }
+.stage { width: 100%; min-width: 680px; display: block; cursor: grab; touch-action: none; user-select: none; }
+.stage:active { cursor: grabbing; }
+.node { position: absolute; top: 8px; right: 8px; width: min(300px, 46%); display: grid; gap: 6px; padding: 12px 14px; border-radius: 12px; border: 1px solid #f3eee61f; background: #141310f2; font-size: 13px; box-shadow: 0 16px 40px -16px #000; }
+.node header { display: flex; justify-content: space-between; align-items: center; }
+.node header small { text-transform: uppercase; letter-spacing: .08em; color: #8d877c; font-size: 11px; }
+.node header button { display: grid; place-items: center; width: 24px; height: 24px; border: 0; border-radius: 6px; background: none; color: #bdb6aa; cursor: pointer; }
+.node b { font-weight: 500; overflow-wrap: anywhere; }
+.node small { color: #8d877c; }
+.node ul { margin: 4px 0 0; padding-left: 16px; color: #bdb6aa; font-size: 12.5px; }
+.open { display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; color: #f0b85c !important; font-weight: 500; }
+.summary { cursor: pointer; color: #bdb6aa; font-size: 14px; }

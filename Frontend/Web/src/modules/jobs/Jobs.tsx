@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { ChevronDown, RotateCcw, Square, TriangleAlert } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import p from '@/styles/platform.module.css';
+import jm from './jobs.module.css';
 import { api, ApiError, type Job, type PlanEntry } from '@/api';
 import { useWorkers } from '@/api/hooks';
 import { invalidate, useQuery } from '@/api/query';
@@ -62,6 +63,32 @@ export function JobRow({ job }: { job: Job }) {
 }
 
 export const JobList = ({ jobs }: { jobs: Job[] }) => <ul className={p.jobList}>{jobs.map(j => <JobRow key={j.job_id} job={j} />)}</ul>;
+
+/** Finished background work, grouped: consecutive jobs of the same type and outcome show their newest job and
+    collapse the rest behind "N more like this". Active and failed work should use JobList, never grouped away. */
+export function GroupedJobList({ jobs }: { jobs: Job[] }) {
+  const groups: Job[][] = [];
+  for (const j of jobs) {
+    const last = groups.at(-1);
+    if (last && last[0].job_type === j.job_type && last[0].state === j.state) last.push(j); else groups.push([j]);
+  }
+  return <ul className={p.jobList}>{groups.map(g => <JobGroup key={g[0].job_id} jobs={g} />)}</ul>;
+}
+
+function JobGroup({ jobs }: { jobs: Job[] }) {
+  const [open, setOpen] = useState(false);
+  const [first, ...rest] = jobs;
+  return <>
+    <JobRow job={first} />
+    {rest.length > 0 && <li className={jm.more}>
+      <button onClick={() => setOpen(v => !v)} aria-expanded={open}>
+        <ChevronDown size={13} style={{ transform: open ? 'rotate(180deg)' : undefined, transition: 'transform .2s' }} aria-hidden='true' />
+        {open ? 'Show fewer' : `${rest.length} more ${jobTypeLabel[first.job_type].toLowerCase()}${rest.length === 1 ? '' : 's'}, ${jobStateLabel[first.state].toLowerCase()}`}
+      </button>
+    </li>}
+    {open && rest.map(j => <JobRow key={j.job_id} job={j} />)}
+  </>;
+}
 
 /** Says plainly when no worker is running, since queued work then waits. */
 export function WorkerNotice({ quietWhenAlive }: { quietWhenAlive?: boolean }) {

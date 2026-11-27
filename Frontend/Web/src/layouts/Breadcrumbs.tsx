@@ -18,6 +18,9 @@ const TOP: Record<string, [string, string]> = {
 };
 const SUB: Record<string, string> = { new: 'New investigation', active: 'Active', completed: 'Completed', archived: 'Archived', health: 'Health', logs: 'Logs', preview: 'Preview' };
 
+/** Long investigation titles shortened in the bar; the full title stays on hover and on the page itself. */
+const short = (t: string) => (t.length > 36 ? `${t.slice(0, 34).trimEnd()}…` : t);
+
 export default function Breadcrumbs() {
   const seg = usePathname().split('/').filter(Boolean).map(decodeURIComponent);
   const caseId = seg[0] === 'investigations' && seg[1] && !SUB[seg[1]] ? seg[1] : null;
@@ -34,7 +37,7 @@ export default function Breadcrumbs() {
     if (seg[2]) crumbs.push({ label: EV_TAB[seg[2]] ?? seg[2] });
   } else if (caseId) {
     crumbs.push({ label: 'Investigations', href: paths.investigations() });
-    crumbs.push({ label: c.data ? `${c.data.case_number} · ${c.data.title}` : '…', href: paths.case(caseId) });
+    crumbs.push({ label: c.data ? <span title={`${c.data.case_number} · ${c.data.title}`}><span className={s.mono}>{c.data.case_number}</span> · {short(c.data.title)}</span> : '…', href: paths.case(caseId) });
     const tab = seg[2] === 'evidence' && seg[3] === 'add' ? 'add' : seg[2];
     crumbs.push({ label: tab ? (seg[2] === 'analysis' && seg[3] ? `${ANALYSIS_LABEL[seg[3] as AnalysisBranch] ?? seg[3]} analysis` : CASE_TAB[tab] ?? tab) : 'Overview' });
   } else {

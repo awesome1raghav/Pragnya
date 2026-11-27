@@ -54,6 +54,7 @@ def list_cases(
     sort_order: Literal["asc", "desc"] = "desc",
     page: int = Query(default=1, ge=1),
     page_size: int = Query(default=20, ge=1, le=MAX_PAGE_SIZE),
+    hide_test_records: bool = Query(default=False, description="Leave out records the automated tests, benchmarks and drills created ([E2E], [Bench], [Drill], [Test], [Smoke] titles)"),
     session: Session = Depends(get_db_session),
 ):
     statuses, priorities = _split(status_filter), _split(priority)
@@ -68,6 +69,7 @@ def list_cases(
         created_to=created_to,
         sort_by=sort_by,
         sort_order=sort_order,
+        hide_test_records=hide_test_records,
     )
     items, total = Service.list_cases(session, filters, page=page, page_size=page_size)
     return paginated(items, "Investigations retrieved successfully", page=page, page_size=page_size, total_items=total)

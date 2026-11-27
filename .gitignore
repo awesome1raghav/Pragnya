@@ -49,3 +49,12 @@ Benchmarks/Results/*.partial.jsonl
 
 # Encrypted backups (Scripts/Database); never committed
 /Backups/
+
+# isolated browser-test stack (Scripts/Testing/StartE2EStack.ps1)
+Frontend/Web/.next-e2e/
+
+# Android local build outputs and IDE state
+Frontend/Android/.gradle/
+Frontend/Android/.idea/
+Frontend/Android/App/build/
+Frontend/Android/build/

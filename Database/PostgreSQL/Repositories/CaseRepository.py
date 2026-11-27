@@ -44,6 +44,16 @@ class CaseFilters:
     created_to: datetime | None = None
     sort_by: str = "created_at"
     sort_order: str = "desc"
+    hide_test_records: bool = False
+
+
+# Titles the automated suites, benchmarks and drills give the records they create (Tests/, Benchmarks/, Scripts/Testing).
+# Hiding them is an explicit, reversible list filter; the records themselves are never changed.
+TEST_RECORD_PREFIXES = ("[E2E]", "[Bench]", "[Drill]", "[Test]", "[Smoke]")
+
+
+def is_test_record(title: str) -> bool:
+    return title.startswith(TEST_RECORD_PREFIXES)
 
 
 def get(session: Session, case_id: uuid.UUID, *, for_update: bool = False) -> Case | None:
@@ -71,6 +81,9 @@ def _filtered(filters: CaseFilters) -> Select:
         query = query.where(Case.created_at >= filters.created_from)
     if filters.created_to:
         query = query.where(Case.created_at < filters.created_to)
+    if filters.hide_test_records:
+        for prefix in TEST_RECORD_PREFIXES:
+            query = query.where(~Case.title.startswith(prefix, autoescape=True))
     if filters.search:
         escaped = filters.search.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_")
         pattern = f"%{escaped}%"

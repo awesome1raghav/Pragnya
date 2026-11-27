@@ -1,0 +1,382 @@
+{
+  "summary": {
+    "in_scope_modules": 17,
+    "fully_passing_modules": 0,
+    "partial_modules": 17,
+    "source_excluded": 1,
+    "features_defined": 209,
+    "passed": 65,
+    "failed": 7,
+    "untested_or_partial": 137,
+    "module_completion_rate": 0.0,
+    "executed_assertion_pass_rate": 90.3,
+    "feature_verification_coverage": 34.4,
+    "verified_functional_feature_rate": 31.1,
+    "frontend_routes_loaded": 24,
+    "frontend_routes_checked": 24,
+    "frontend_controls_total_inventoried": 1136,
+    "frontend_controls_actually_exercised": "not exhaustively counted",
+    "verdict": "PARTIALLY FUNCTIONAL"
+  },
+  "module_matrix": [
+    {
+      "Module": "NEX-CM",
+      "Features discovered": 11,
+      "Assertions executed": 7,
+      "Passed": 7,
+      "Failed": 0,
+      "Blocked": 4,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-CAP",
+      "Features discovered": 15,
+      "Assertions executed": 3,
+      "Passed": 3,
+      "Failed": 0,
+      "Blocked": 12,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-EVD",
+      "Features discovered": 12,
+      "Assertions executed": 5,
+      "Passed": 5,
+      "Failed": 0,
+      "Blocked": 7,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-MET",
+      "Features discovered": 10,
+      "Assertions executed": 5,
+      "Passed": 5,
+      "Failed": 0,
+      "Blocked": 5,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-IMG",
+      "Features discovered": 15,
+      "Assertions executed": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 14,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-VID",
+      "Features discovered": 17,
+      "Assertions executed": 0,
+      "Passed": 0,
+      "Failed": 0,
+      "Blocked": 17,
+      "Missing": 0,
+      "Verdict": "BLOCKED"
+    },
+    {
+      "Module": "NEX-AUD",
+      "Features discovered": 15,
+      "Assertions executed": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 14,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-PRV",
+      "Features discovered": 12,
+      "Assertions executed": 1,
+      "Passed": 1,
+      "Failed": 0,
+      "Blocked": 11,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-SRC",
+      "Features discovered": 0,
+      "Assertions executed": 0,
+      "Passed": 0,
+      "Failed": 0,
+      "Blocked": 0,
+      "Missing": 0,
+      "Verdict": "EXCLUDED"
+    },
+    {
+      "Module": "NEX-FPM",
+      "Features discovered": 17,
+      "Assertions executed": 8,
+      "Passed": 7,
+      "Failed": 1,
+      "Blocked": 9,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-MOC",
+      "Features discovered": 12,
+      "Assertions executed": 6,
+      "Passed": 5,
+      "Failed": 1,
+      "Blocked": 6,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-ALN",
+      "Features discovered": 12,
+      "Assertions executed": 6,
+      "Passed": 4,
+      "Failed": 2,
+      "Blocked": 6,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-TRN",
+      "Features discovered": 15,
+      "Assertions executed": 6,
+      "Passed": 5,
+      "Failed": 1,
+      "Blocked": 9,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-CMC",
+      "Features discovered": 12,
+      "Assertions executed": 4,
+      "Passed": 3,
+      "Failed": 1,
+      "Blocked": 8,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-EGC",
+      "Features discovered": 14,
+      "Assertions executed": 5,
+      "Passed": 4,
+      "Failed": 1,
+      "Blocked": 9,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-REC",
+      "Features discovered": 6,
+      "Assertions executed": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Blocked": 2,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-INV",
+      "Features discovered": 6,
+      "Assertions executed": 4,
+      "Passed": 4,
+      "Failed": 0,
+      "Blocked": 2,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    },
+    {
+      "Module": "NEX-RPT",
+      "Features discovered": 8,
+      "Assertions executed": 6,
+      "Passed": 6,
+      "Failed": 0,
+      "Blocked": 2,
+      "Missing": 0,
+      "Verdict": "PARTIAL"
+    }
+  ],
+  "part1": "01-Foundation-And-Forensics-Results.json",
+  "part2": "02-Intelligence-And-Correlation-Results.json",
+  "part3": "03-System-Integration-Results.json",
+  "system_cases": {
+    "SYS-01": [
+      {
+        "feature": "full pipeline",
+        "status": "PASS",
+        "evidence": "13 uploaded assets, persisted module results, human review and reports"
+      },
+      {
+        "feature": "dependencies",
+        "status": "PASS",
+        "evidence": "Part 1 run plan and executions persisted"
+      },
+      {
+        "feature": "worker retry/crash",
+        "status": "BLOCKED",
+        "evidence": "not injected; shared queue risk from Part 1"
+      }
+    ],
+    "SYS-02": [
+      {
+        "feature": "route availability",
+        "status": "PASS",
+        "evidence": "24 of 24 inventoried routes returned 200"
+      },
+      {
+        "feature": "controls",
+        "status": "BLOCKED",
+        "evidence": "inventory captured buttons/links/inputs; not all actions executed"
+      },
+      {
+        "feature": "source page",
+        "status": "BLOCKED",
+        "evidence": "page rendered; Source Finder controls not activated"
+      }
+    ],
+    "SYS-03": [
+      {
+        "feature": "OpenAPI inventory",
+        "status": "PASS",
+        "evidence": "65 paths found"
+      },
+      {
+        "feature": "request validation",
+        "status": "PASS",
+        "evidence": "page=0 returned 422"
+      },
+      {
+        "feature": "WebSocket replay",
+        "status": "PASS",
+        "evidence": "real case events received"
+      },
+      {
+        "feature": "authorization",
+        "status": "FAIL",
+        "evidence": "no authentication or resource authorization in local single-operator mode"
+      }
+    ],
+    "SYS-04": [
+      {
+        "feature": "PostgreSQL/storage",
+        "status": "PASS",
+        "evidence": "live probes passed"
+      },
+      {
+        "feature": "Qdrant",
+        "status": "PASS",
+        "evidence": "15 PostgreSQL embeddings and 15 Qdrant points"
+      },
+      {
+        "feature": "Neo4j",
+        "status": "BLOCKED",
+        "evidence": "disabled in isolated API; projection consistency unverified"
+      },
+      {
+        "feature": "outbox",
+        "status": "BLOCKED",
+        "evidence": "replay observed, projection failure/rebuild not tested"
+      }
+    ],
+    "SYS-05": [
+      {
+        "feature": "invalid ID/error",
+        "status": "PASS",
+        "evidence": "missing case 404"
+      },
+      {
+        "feature": "CORS",
+        "status": "PASS",
+        "evidence": "untrusted origin denied"
+      },
+      {
+        "feature": "WebSocket origin",
+        "status": "PASS",
+        "evidence": "untrusted origin rejected"
+      },
+      {
+        "feature": "authentication",
+        "status": "FAIL",
+        "evidence": "local API has no sign-in or resource-level authorization"
+      },
+      {
+        "feature": "outage/crash recovery",
+        "status": "BLOCKED",
+        "evidence": "no Part 3 fault injection"
+      }
+    ],
+    "SYS-06": [
+      {
+        "feature": "API latency",
+        "status": "PASS",
+        "evidence": "single-sample ready/database/graph timings in raw system results"
+      },
+      {
+        "feature": "frontend route load",
+        "status": "PASS",
+        "evidence": "24 single-sample route timings in route inventory"
+      },
+      {
+        "feature": "peak CPU/RAM",
+        "status": "BLOCKED",
+        "evidence": "not measured"
+      },
+      {
+        "feature": "repeatability",
+        "status": "BLOCKED",
+        "evidence": "no repeated benchmark series"
+      }
+    ]
+  },
+  "defects": [
+    {
+      "id": "QA-001",
+      "module": "NEX-FPM/NEX-MOC",
+      "priority": "P1",
+      "actual": "IMG-04 and VID-04 unrelated solid-color fixtures become candidate",
+      "cause": "FPM similarity threshold allows false candidate",
+      "file": "Backend/App/Modules/NexFpm/Fingerprints.py::compare",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-002",
+      "module": "NEX-ALN",
+      "priority": "P1",
+      "actual": "VID-01/03 audio offset 0s while video offset -2s",
+      "cause": "Audio subfingerprint ambiguity on tone signal (hypothesis)",
+      "file": "Backend/App/Modules/NexAln/Service.py::audio_alignment",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-003",
+      "module": "NEX-TRN/NEX-CMC",
+      "priority": "P1",
+      "actual": "VID-03 audio replacement 4-7s not identified or correlated",
+      "cause": "Upstream discontinuity rule not triggered (hypothesis)",
+      "file": "Backend/App/Modules/NexCmc/Service.py::build",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-004",
+      "module": "NEX-EGC",
+      "priority": "P2",
+      "actual": "Graph API 134/214 differs from latest EGC result 135/215",
+      "cause": "Snapshot selection or self-reference (hypothesis)",
+      "file": "Backend/App/Api/V1/Investigation.py::case_graph",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-005",
+      "module": "SYS-03/SYS-05",
+      "priority": "P1",
+      "actual": "No authentication or resource-level authorization",
+      "cause": "Single-operator local-mode design",
+      "file": "Backend/App/Dependencies.py::get_actor",
+      "evidence": "03-Raw-System-Results.json"
+    }
+  ]
+}

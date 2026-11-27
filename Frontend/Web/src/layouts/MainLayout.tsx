@@ -5,7 +5,7 @@
    Each page loads its own data through the API layer; the shell holds no copy of investigation records. */
 import { createContext, Suspense, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
 import { Check, TriangleAlert } from 'lucide-react';
 import s from '@/styles/workspace.module.css';
 import { NAV } from '@/config/navigation';
@@ -25,7 +25,13 @@ export const useWorkspace = () => { const v = useContext(ShellCtx); if (!v) thro
 
 export default function MainLayout({ children }: { children: ReactNode }) {
   // search params are read below, so the shell renders inside a Suspense boundary (Next.js 16)
-  return <Suspense fallback={<ShellFallback />}><LiveEventsProvider><CaseContextProvider><Shell>{children}</Shell></CaseContextProvider></LiveEventsProvider></Suspense>;
+  // reducedMotion='user': every framer-motion animation follows the operating system's reduce-motion setting
+  return <Suspense fallback={<ShellFallback />}><MotionConfig reducedMotion='user'><LiveEventsProvider><CaseContextProvider><Shell>{children}</Shell></CaseContextProvider></LiveEventsProvider></MotionConfig></Suspense>;
+}
+
+/** Comfortable (default) or compact spacing, chosen in Settings and kept in this browser; other tabs follow. */
+export function applyDensity() {
+  try { document.documentElement.dataset.density = localStorage.getItem('nx-density') === 'compact' ? 'compact' : 'comfortable'; } catch { /* storage unavailable */ }
 }
 
 function ShellFallback() {
@@ -44,6 +50,7 @@ function Shell({ children }: { children: ReactNode }) {
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   useEffect(() => { try { const v = localStorage.getItem('nx-rail'); setRail(v ? v === '1' : matchMedia('(min-width: 1360px)').matches); } catch { /* defaults */ } }, []);
+  useEffect(() => { applyDensity(); window.addEventListener('storage', applyDensity); return () => window.removeEventListener('storage', applyDensity); }, []);
   const toggleRail = useCallback(() => setRail(v => { try { localStorage.setItem('nx-rail', v ? '0' : '1'); } catch { /* ignore */ } return !v; }), []);
   const notify = useCallback((msg: string, tone: Toast['tone'] = 'ok') => { setToast({ msg, tone }); clearTimeout(timer.current); timer.current = setTimeout(() => setToast(null), 4600); }, []);
 

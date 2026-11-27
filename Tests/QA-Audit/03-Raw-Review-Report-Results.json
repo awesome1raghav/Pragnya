@@ -1,0 +1,624 @@
+{
+  "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+  "requests": {
+    "reconstruction": {
+      "status": 200,
+      "elapsed_ms": 76.52,
+      "body": {
+        "success": true,
+        "message": "Reconstruction retrieved successfully",
+        "data": {
+          "result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+          "produced_at": "2026-11-27T00:28:49.641074Z",
+          "timeline": [
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.244453+00:00",
+              "label": "EVD-0010",
+              "evidence_id": "d62f46c7-0d53-485c-bc21-8e1d4f2a16cb"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.332364+00:00",
+              "label": "EVD-0011",
+              "evidence_id": "c4559d40-d974-4a20-bcca-d1ff75fa5b2a"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.421904+00:00",
+              "label": "EVD-0012",
+              "evidence_id": "c3d57d1e-dbf5-4d91-b13b-ffb742bdcc45"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.501255+00:00",
+              "label": "EVD-0013",
+              "evidence_id": "78c78c48-54ee-4efe-ab40-2bd820fe43cd"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.571233+00:00",
+              "label": "EVD-0014",
+              "evidence_id": "18c56c19-ab5a-43f6-bdbf-3bccd5d243f9"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:02.816189+00:00",
+              "label": "EVD-0015",
+              "evidence_id": "4ef1297c-2594-4225-8c1b-eb013871326f"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:03.092820+00:00",
+              "label": "EVD-0016",
+              "evidence_id": "4b4e5c3f-912f-45a5-979c-2fef76846623"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:03.466951+00:00",
+              "label": "EVD-0017",
+              "evidence_id": "99d0a5f9-ebc1-40cf-8d75-baecd35560f7"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:03.747176+00:00",
+              "label": "EVD-0018",
+              "evidence_id": "4bd50618-e45c-466f-bd38-ce05c52dac98"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:03.970141+00:00",
+              "label": "EVD-0019",
+              "evidence_id": "525791ea-7f3d-459c-a207-d7af99ae9dc6"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:04.162284+00:00",
+              "label": "EVD-0020",
+              "evidence_id": "0e8f519a-1cfd-4b85-80af-db23e96888ab"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:04.364162+00:00",
+              "label": "EVD-0021",
+              "evidence_id": "fdf9b6f9-08e0-4c2e-9f7d-6028f0faa3c5"
+            },
+            {
+              "by": "NEXTRON (measured)",
+              "kind": "RECEIVED",
+              "time": "2026-11-27T00:28:04.625041+00:00",
+              "label": "EVD-0022",
+              "evidence_id": "aaf9e705-d130-4a09-b7c1-930bf0eae02f"
+            }
+          ],
+          "conflicts": []
+        },
+        "meta": {
+          "request_id": "req_8ea7a4b4135b41098b193be2db6c95f1",
+          "timestamp": "2026-11-27T00:42:46.924Z"
+        }
+      }
+    },
+    "reviews": {
+      "status": 200,
+      "elapsed_ms": 18.56,
+      "body": {
+        "success": true,
+        "message": "Reviews retrieved successfully",
+        "data": [
+          {
+            "review_id": "82920359-e336-46f0-b2b6-41f7eed2da2c",
+            "review_number": "REV-0007",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "CASE_CONCLUSION",
+            "subject_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "version": 1,
+            "decision": "INCONCLUSIVE",
+            "rationale": "Controlled fixtures show candidate links and unresolved audio discrepancy; no verified source or calibrated accuracy",
+            "reconstruction_result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.123154Z"
+          },
+          {
+            "review_id": "b97aa695-766a-4945-ae0d-c8e5916bd4d8",
+            "review_number": "REV-0006",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "FINDING",
+            "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+            "version": 4,
+            "decision": "NEEDS_MORE_EVIDENCE",
+            "rationale": "Controlled QA audit: NEEDS_MORE_EVIDENCE revision; not a forensic conclusion",
+            "reconstruction_result_id": null,
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.101398Z"
+          },
+          {
+            "review_id": "1bc0b19b-d123-40e8-a3e3-3583c2c74a4c",
+            "review_number": "REV-0005",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "FINDING",
+            "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+            "version": 3,
+            "decision": "INCONCLUSIVE",
+            "rationale": "Controlled QA audit: INCONCLUSIVE revision; not a forensic conclusion",
+            "reconstruction_result_id": null,
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.079723Z"
+          },
+          {
+            "review_id": "454dd6ab-b7a6-4dee-a6de-f4803b25e09d",
+            "review_number": "REV-0004",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "FINDING",
+            "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+            "version": 2,
+            "decision": "REJECTED",
+            "rationale": "Controlled QA audit: REJECTED revision; not a forensic conclusion",
+            "reconstruction_result_id": null,
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.052391Z"
+          },
+          {
+            "review_id": "09996b7b-5f05-4c8b-9b04-d299181fd663",
+            "review_number": "REV-0003",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "FINDING",
+            "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+            "version": 1,
+            "decision": "ACCEPTED",
+            "rationale": "Controlled QA audit: ACCEPTED revision; not a forensic conclusion",
+            "reconstruction_result_id": null,
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:12.944547Z"
+          }
+        ],
+        "meta": {
+          "request_id": "req_cf61637edbfd4c2981e4489286686dd1",
+          "timestamp": "2026-11-27T00:42:47.011Z"
+        }
+      }
+    },
+    "reviews_current": {
+      "status": 200,
+      "elapsed_ms": 21.06,
+      "body": {
+        "success": true,
+        "message": "Reviews retrieved successfully",
+        "data": [
+          {
+            "review_id": "82920359-e336-46f0-b2b6-41f7eed2da2c",
+            "review_number": "REV-0007",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "CASE_CONCLUSION",
+            "subject_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "version": 1,
+            "decision": "INCONCLUSIVE",
+            "rationale": "Controlled fixtures show candidate links and unresolved audio discrepancy; no verified source or calibrated accuracy",
+            "reconstruction_result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.123154Z"
+          },
+          {
+            "review_id": "b97aa695-766a-4945-ae0d-c8e5916bd4d8",
+            "review_number": "REV-0006",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "subject_type": "FINDING",
+            "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+            "version": 4,
+            "decision": "NEEDS_MORE_EVIDENCE",
+            "rationale": "Controlled QA audit: NEEDS_MORE_EVIDENCE revision; not a forensic conclusion",
+            "reconstruction_result_id": null,
+            "reviewer": "local-operator",
+            "created_at": "2026-11-27T00:42:13.101398Z"
+          }
+        ],
+        "meta": {
+          "request_id": "req_6444ab9c7d27490cb5a4311f26e37cb6",
+          "timestamp": "2026-11-27T00:42:47.033Z"
+        }
+      }
+    },
+    "draft": {
+      "status": 200,
+      "body": {
+        "data": {
+          "report_id": "d7858651-bd78-4a52-bccb-bcd8e6b228a7",
+          "report_number": "RPT-0003",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "version": 1,
+          "kind": "DRAFT",
+          "state": "QUEUED",
+          "job_id": "f5653def-c265-43a8-9ee5-787d96c1d2d5",
+          "json_sha256": null,
+          "pdf_sha256": null,
+          "summary": {},
+          "error": null,
+          "requested_by": "local-operator",
+          "created_at": "2026-11-27T00:42:13.170296Z",
+          "generated_at": null
+        }
+      },
+      "elapsed_ms": null
+    },
+    "final": {
+      "status": 200,
+      "body": {
+        "data": {
+          "report_id": "97037e9c-c276-45be-8c00-ebac7bfcaffc",
+          "report_number": "RPT-0004",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "version": 2,
+          "kind": "FINAL",
+          "state": "QUEUED",
+          "job_id": "d322eaaf-3e58-4ff3-b18d-7f08c2c3c1d4",
+          "json_sha256": null,
+          "pdf_sha256": null,
+          "summary": {},
+          "error": null,
+          "requested_by": "local-operator",
+          "created_at": "2026-11-27T00:42:13.282201Z",
+          "generated_at": null
+        }
+      },
+      "elapsed_ms": null
+    },
+    "report_list": {
+      "status": 200,
+      "elapsed_ms": 14.47,
+      "body": {
+        "success": true,
+        "message": "Reports retrieved successfully",
+        "data": [
+          {
+            "report_id": "97037e9c-c276-45be-8c00-ebac7bfcaffc",
+            "report_number": "RPT-0004",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "version": 2,
+            "kind": "FINAL",
+            "state": "GENERATED",
+            "job_id": "d322eaaf-3e58-4ff3-b18d-7f08c2c3c1d4",
+            "json_sha256": "bf45d6b06e7e04b299f18724ef8d468c6d99e727d48d29bd1f5cf993611df764",
+            "pdf_sha256": "02b21d5a6bca3608b743d6d9517b8a8e936b3c508cdcae08c882a57d474a141c",
+            "summary": {
+              "modules": 84,
+              "reviews": 2,
+              "sources": 0,
+              "evidence": 13,
+              "findings": 195,
+              "conclusion": "INCONCLUSIVE"
+            },
+            "error": null,
+            "requested_by": "local-operator",
+            "created_at": "2026-11-27T00:42:13.282201Z",
+            "generated_at": "2026-11-27T00:42:48.721490Z"
+          },
+          {
+            "report_id": "d7858651-bd78-4a52-bccb-bcd8e6b228a7",
+            "report_number": "RPT-0003",
+            "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+            "version": 1,
+            "kind": "DRAFT",
+            "state": "GENERATED",
+            "job_id": "f5653def-c265-43a8-9ee5-787d96c1d2d5",
+            "json_sha256": "908ded0da131d247e86c4c276a587dcdbb5dd77ec2345d92566ce1b6a8710ab8",
+            "pdf_sha256": "93c880e479685fb5fad6d96aee08c3518918767f56382f778d86468f205e24e0",
+            "summary": {
+              "modules": 84,
+              "reviews": 2,
+              "sources": 0,
+              "evidence": 13,
+              "findings": 195,
+              "conclusion": "INCONCLUSIVE"
+            },
+            "error": null,
+            "requested_by": "local-operator",
+            "created_at": "2026-11-27T00:42:13.170296Z",
+            "generated_at": "2026-11-27T00:42:48.287573Z"
+          }
+        ],
+        "meta": {
+          "request_id": "req_bda43afade0e4dfb81dcdd512112c5cf",
+          "timestamp": "2026-11-27T00:42:48.820Z"
+        }
+      }
+    }
+  },
+  "reviews": [
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "review_id": "09996b7b-5f05-4c8b-9b04-d299181fd663",
+          "review_number": "REV-0003",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "subject_type": "FINDING",
+          "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+          "version": 1,
+          "decision": "ACCEPTED",
+          "rationale": "Controlled QA audit: ACCEPTED revision; not a forensic conclusion",
+          "reconstruction_result_id": null,
+          "reviewer": "local-operator",
+          "created_at": "2026-11-27T00:42:12.944547Z"
+        }
+      },
+      "elapsed_ms": null
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "review_id": "454dd6ab-b7a6-4dee-a6de-f4803b25e09d",
+          "review_number": "REV-0004",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "subject_type": "FINDING",
+          "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+          "version": 2,
+          "decision": "REJECTED",
+          "rationale": "Controlled QA audit: REJECTED revision; not a forensic conclusion",
+          "reconstruction_result_id": null,
+          "reviewer": "local-operator",
+          "created_at": "2026-11-27T00:42:13.052391Z"
+        }
+      },
+      "elapsed_ms": null
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "review_id": "1bc0b19b-d123-40e8-a3e3-3583c2c74a4c",
+          "review_number": "REV-0005",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "subject_type": "FINDING",
+          "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+          "version": 3,
+          "decision": "INCONCLUSIVE",
+          "rationale": "Controlled QA audit: INCONCLUSIVE revision; not a forensic conclusion",
+          "reconstruction_result_id": null,
+          "reviewer": "local-operator",
+          "created_at": "2026-11-27T00:42:13.079723Z"
+        }
+      },
+      "elapsed_ms": null
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "review_id": "b97aa695-766a-4945-ae0d-c8e5916bd4d8",
+          "review_number": "REV-0006",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "subject_type": "FINDING",
+          "subject_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+          "version": 4,
+          "decision": "NEEDS_MORE_EVIDENCE",
+          "rationale": "Controlled QA audit: NEEDS_MORE_EVIDENCE revision; not a forensic conclusion",
+          "reconstruction_result_id": null,
+          "reviewer": "local-operator",
+          "created_at": "2026-11-27T00:42:13.101398Z"
+        }
+      },
+      "elapsed_ms": null
+    },
+    {
+      "status": 200,
+      "body": {
+        "data": {
+          "review_id": "82920359-e336-46f0-b2b6-41f7eed2da2c",
+          "review_number": "REV-0007",
+          "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "subject_type": "CASE_CONCLUSION",
+          "subject_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+          "version": 1,
+          "decision": "INCONCLUSIVE",
+          "rationale": "Controlled fixtures show candidate links and unresolved audio discrepancy; no verified source or calibrated accuracy",
+          "reconstruction_result_id": "ebe79f42-a118-4171-beec-1c2f8bb99324",
+          "reviewer": "local-operator",
+          "created_at": "2026-11-27T00:42:13.123154Z"
+        }
+      },
+      "elapsed_ms": null
+    }
+  ],
+  "reports": [
+    {
+      "record": {
+        "report_id": "97037e9c-c276-45be-8c00-ebac7bfcaffc",
+        "report_number": "RPT-0004",
+        "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+        "version": 2,
+        "kind": "FINAL",
+        "state": "GENERATED",
+        "job_id": "d322eaaf-3e58-4ff3-b18d-7f08c2c3c1d4",
+        "json_sha256": "bf45d6b06e7e04b299f18724ef8d468c6d99e727d48d29bd1f5cf993611df764",
+        "pdf_sha256": "02b21d5a6bca3608b743d6d9517b8a8e936b3c508cdcae08c882a57d474a141c",
+        "summary": {
+          "modules": 84,
+          "reviews": 2,
+          "sources": 0,
+          "evidence": 13,
+          "findings": 195,
+          "conclusion": "INCONCLUSIVE"
+        },
+        "error": null,
+        "requested_by": "local-operator",
+        "created_at": "2026-11-27T00:42:13.282201Z",
+        "generated_at": "2026-11-27T00:42:48.721490Z"
+      },
+      "json": {
+        "status": 200,
+        "bytes": 171070,
+        "sha256": "bf45d6b06e7e04b299f18724ef8d468c6d99e727d48d29bd1f5cf993611df764",
+        "header_sha256": "bf45d6b06e7e04b299f18724ef8d468c6d99e727d48d29bd1f5cf993611df764",
+        "content": {
+          "keys": [
+            "case",
+            "conclusion",
+            "evidence",
+            "format",
+            "generated_by",
+            "graph",
+            "kind",
+            "lineage",
+            "modules",
+            "report",
+            "reviews",
+            "sources",
+            "statement",
+            "timeline",
+            "version"
+          ],
+          "evidence_count": 13,
+          "module_count": 84,
+          "review_count": 2,
+          "case": {
+            "case": "CASE-0016",
+            "description": "Self-generated media, isolated E2E database",
+            "status": "EVIDENCE_COLLECTION",
+            "title": "NEXTRON-QA-001 controlled audit"
+          },
+          "statement": "Findings are reported at their assertion level: OBSERVATION (measured), INFERENCE (a method's reading with its stated threshold and limitations), CANDIDATE (proposed, not established). Investigator decisions are listed separately and do not alter findings."
+        }
+      },
+      "pdf": {
+        "status": 200,
+        "bytes": 27355,
+        "sha256": "02b21d5a6bca3608b743d6d9517b8a8e936b3c508cdcae08c882a57d474a141c",
+        "header_sha256": "02b21d5a6bca3608b743d6d9517b8a8e936b3c508cdcae08c882a57d474a141c",
+        "pdf_signature": "%PDF-"
+      }
+    },
+    {
+      "record": {
+        "report_id": "d7858651-bd78-4a52-bccb-bcd8e6b228a7",
+        "report_number": "RPT-0003",
+        "case_id": "5f9a809e-281f-4a5d-adc3-82070ebc3f8c",
+        "version": 1,
+        "kind": "DRAFT",
+        "state": "GENERATED",
+        "job_id": "f5653def-c265-43a8-9ee5-787d96c1d2d5",
+        "json_sha256": "908ded0da131d247e86c4c276a587dcdbb5dd77ec2345d92566ce1b6a8710ab8",
+        "pdf_sha256": "93c880e479685fb5fad6d96aee08c3518918767f56382f778d86468f205e24e0",
+        "summary": {
+          "modules": 84,
+          "reviews": 2,
+          "sources": 0,
+          "evidence": 13,
+          "findings": 195,
+          "conclusion": "INCONCLUSIVE"
+        },
+        "error": null,
+        "requested_by": "local-operator",
+        "created_at": "2026-11-27T00:42:13.170296Z",
+        "generated_at": "2026-11-27T00:42:48.287573Z"
+      },
+      "json": {
+        "status": 200,
+        "bytes": 171070,
+        "sha256": "908ded0da131d247e86c4c276a587dcdbb5dd77ec2345d92566ce1b6a8710ab8",
+        "header_sha256": "908ded0da131d247e86c4c276a587dcdbb5dd77ec2345d92566ce1b6a8710ab8",
+        "content": {
+          "keys": [
+            "case",
+            "conclusion",
+            "evidence",
+            "format",
+            "generated_by",
+            "graph",
+            "kind",
+            "lineage",
+            "modules",
+            "report",
+            "reviews",
+            "sources",
+            "statement",
+            "timeline",
+            "version"
+          ],
+          "evidence_count": 13,
+          "module_count": 84,
+          "review_count": 2,
+          "case": {
+            "case": "CASE-0016",
+            "description": "Self-generated media, isolated E2E database",
+            "status": "EVIDENCE_COLLECTION",
+            "title": "NEXTRON-QA-001 controlled audit"
+          },
+          "statement": "Findings are reported at their assertion level: OBSERVATION (measured), INFERENCE (a method's reading with its stated threshold and limitations), CANDIDATE (proposed, not established). Investigator decisions are listed separately and do not alter findings."
+        }
+      },
+      "pdf": {
+        "status": 200,
+        "bytes": 27358,
+        "sha256": "93c880e479685fb5fad6d96aee08c3518918767f56382f778d86468f205e24e0",
+        "header_sha256": "93c880e479685fb5fad6d96aee08c3518918767f56382f778d86468f205e24e0",
+        "pdf_signature": "%PDF-"
+      }
+    }
+  ],
+  "checks": {
+    "timeline_ordered": true,
+    "timeline_count": 13,
+    "timeline_measured_labels": true,
+    "finding_before": {
+      "score": 0.9375,
+      "title": "Same content variant: EVD-0010 and EVD-0012",
+      "region": null,
+      "assertion": "INFERENCE",
+      "module_id": "NEX-MOC",
+      "confidence": null,
+      "finding_id": "1dc9bc6b-18cf-433c-90aa-59acb332d171",
+      "parameters": {
+        "fingerprints": "nextron-fpm/1"
+      },
+      "score_kind": "SIMILARITY",
+      "time_range": null,
+      "description": "These items are candidate versions of the same media, from fingerprint similarity. No stated publication times order them. A candidate is not a confirmed derivation; review decides that.",
+      "limitations": [
+        "Similarity is not proof of common origin or of who copied whom",
+        "Earlier observed means earlier according to the sources' own claims, which can be wrong or edited"
+      ],
+      "measurement": {
+        "similarity": 0.9375,
+        "thresholds": {
+          "dhash": 16,
+          "phash": 12
+        },
+        "relationship": "SAME_CONTENT_VARIANT",
+        "dhash_distance": 12,
+        "phash_distance": 4,
+        "earlier_observed": null
+      },
+      "evidence_ids": [
+        "d62f46c7-0d53-485c-bc21-8e1d4f2a16cb",
+        "c3d57d1e-dbf5-4d91-b13b-ffb742bdcc45"
+      ],
+      "finding_type": "LINEAGE_CANDIDATE",
+      "confidence_basis": null,
+      "supporting_artifact_ids": []
+    },
+    "worker_claimed": [
+      "f5653def-c265-43a8-9ee5-787d96c1d2d5",
+      "d322eaaf-3e58-4ff3-b18d-7f08c2c3c1d4"
+    ],
+    "review_versions": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "report_hashes_match": true
+  }
+}

@@ -6,7 +6,8 @@ import type {
   EvidenceListItem, EvidenceQuery, EvidenceStatistics, Evidence, IntegrityState, IntegrityVerification, Liveness, Metadata, ModuleCatalogue,
   Paginated, Readiness, SearchResults, SourceType, StorageStatus, UploadedEvidence,
   AnalysisResult, Connector, EvidenceAnalysis, Job, JobQuery, Lineage, ModuleResults, Notification, NotificationSummary, Run, Source, SourceObservation, WorkersStatus,
-  GraphSnapshot, Reconstruction, Report, Review, ReviewInput, Preferences, SystemConfig, RecentFinding,
+  GraphSnapshot, Reconstruction, Report, Review, ReviewInput, Preferences, SystemConfig, RecentFinding, Progress, AttentionItem,
+  BacktrackingCandidate, BacktrackingComparison, BacktrackingOverview, BacktrackingOccurrence,
 } from './types';
 
 const e = encodeURIComponent;
@@ -73,6 +74,7 @@ export const api = {
     analyze: (evidenceId: string) => request<Job>(`/evidence/${e(evidenceId)}/analyze`, { method: 'POST' }),
     forEvidence: (evidenceId: string) => request<EvidenceAnalysis>(`/evidence/${e(evidenceId)}/analysis`),
     result: (resultId: string) => request<AnalysisResult>(`/analyses/${e(resultId)}`),
+    resultUrl: (resultId: string) => url(`/analyses/${e(resultId)}`),
     moduleResults: (caseId: string, moduleId: string) => request<ModuleResults>(`/cases/${e(caseId)}/modules/${e(moduleId)}/results`),
     artifactUrl: (artifactId: string) => url(`/artifacts/${e(artifactId)}`),
   },
@@ -85,6 +87,19 @@ export const api = {
     connectors: () => request<Connector[]>('/sources/connectors'),
   },
   lineage: (caseId: string) => request<Lineage>(`/cases/${e(caseId)}/lineage`),
+  backtracking: {
+    candidates: (caseId: string) => request<{ case_id: string; candidates: BacktrackingCandidate[] }>(`/cases/${e(caseId)}/backtracking/candidates?all_media=true`),
+    comparisons: (caseId: string) => request<{ case_id: string; comparisons: BacktrackingComparison[] }>(`/cases/${e(caseId)}/backtracking/comparisons`),
+    comparison: (caseId: string, id: string) => request<BacktrackingComparison>(`/cases/${e(caseId)}/backtracking/comparisons/${e(id)}`),
+    overview: (caseId: string) => request<BacktrackingOverview>(`/cases/${e(caseId)}/backtracking/overview`),
+    sources: (caseId: string) => request<{ source_occurrences: BacktrackingOccurrence[] }>(`/cases/${e(caseId)}/backtracking/source-occurrences`),
+    compare: (caseId: string, seed_evidence_id: string, candidate_evidence_id: string) => request<BacktrackingComparison>(`/cases/${e(caseId)}/backtracking/verify`, { method: 'POST', ...json({ seed_evidence_id, candidate_evidence_id }) }),
+    expand: (caseId: string, seed_evidence_id: string, max_comparisons = 100) => request<{ job_id: string; state: string; reused: boolean }>(`/cases/${e(caseId)}/backtracking/expand`, { method: 'POST', ...json({ seed_evidence_id, max_comparisons }) }),
+  },
+  workspace: {
+    progress: (caseIds: string[]) => request<Progress[]>(`/investigation-progress${query({ case_ids: caseIds })}`),
+    attention: (hideTestRecords: boolean, limit = 8) => request<AttentionItem[]>(`/attention${query({ hide_test_records: hideTestRecords, limit })}`),
+  },
   findings: {
     recent: (limit = 8, assertion?: 'OBSERVATION' | 'INFERENCE' | 'INCONCLUSIVE') => request<RecentFinding[]>(`/findings${query({ limit, assertion })}`),
   },

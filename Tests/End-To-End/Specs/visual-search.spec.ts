@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-const API = process.env.NEXTRON_API ?? 'http://localhost:8001/api/v1';
+const API = process.env.NEXTRON_API ?? 'http://localhost:8002/api/v1';
 
 test('sources keeps local image search as the default', async ({ page }) => {
   const created = await fetch(`${API}/cases`, { method: 'POST', headers: { 'Content-Type': 'application/json' },

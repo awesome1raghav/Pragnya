@@ -1,0 +1,459 @@
+{
+  "summary": {
+    "in_scope_modules": 17,
+    "fully_passing_modules": 0,
+    "partial_modules": 17,
+    "source_excluded": 1,
+    "features_defined": 209,
+    "passed": 65,
+    "failed": 7,
+    "untested_or_partial": 137,
+    "module_completion_rate": 0.0,
+    "executed_assertion_pass_rate": 90.3,
+    "feature_verification_coverage": 34.4,
+    "verified_functional_feature_rate": 31.1,
+    "frontend_routes_loaded": 24,
+    "frontend_routes_checked": 24,
+    "frontend_controls_total_inventoried": 1136,
+    "frontend_controls_actually_exercised": "not exhaustively counted",
+    "verdict": "PARTIALLY FUNCTIONAL"
+  },
+  "modules": [
+    {
+      "module_id": "NEX-REC",
+      "module_name": "Timeline and Reconstruction",
+      "test_case_id": "TC-16",
+      "purpose": "Validate connected investigation output",
+      "input_fixtures": [
+        "NEXTRON-QA-001"
+      ],
+      "preconditions": "Part 1-2 persisted case and findings",
+      "execution_steps": [
+        "Read reconstruction",
+        "Record review revisions",
+        "Generate reports through isolated worker",
+        "Download PDF and JSON"
+      ],
+      "expected_output": "Persisted, traceable human investigation output",
+      "actual_output": "4 verified features",
+      "feature_validation_table": [
+        {
+          "feature": "timeline generation",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "13 ordered received events",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "event ordering",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "ISO timestamps ascending",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "measured/claimed distinction",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "RECEIVED labelled NEXTRON measured",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "source publication timestamps",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "no local source records; Source Finder excluded",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "alternative hypotheses",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "not exercised",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "persistence",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "reconstruction API returned persisted result",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        }
+      ],
+      "frontend_status": "Route rendered; action controls not exercised",
+      "api_status": "Executed against isolated API",
+      "backend_status": "Worker claimed only queued report jobs",
+      "database_storage_status": "Reports and reviews persisted; hashes checked",
+      "algorithm_model_status": "Uses stored findings without new inference",
+      "error_handling_status": "Negative report failure not injected",
+      "execution_time": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": null,
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete blocked controls and failure cases",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-INV",
+      "module_name": "Review and Decision",
+      "test_case_id": "TC-17",
+      "purpose": "Validate connected investigation output",
+      "input_fixtures": [
+        "NEXTRON-QA-001"
+      ],
+      "preconditions": "Part 1-2 persisted case and findings",
+      "execution_steps": [
+        "Read reconstruction",
+        "Record review revisions",
+        "Generate reports through isolated worker",
+        "Download PDF and JSON"
+      ],
+      "expected_output": "Persisted, traceable human investigation output",
+      "actual_output": "4 verified features",
+      "feature_validation_table": [
+        {
+          "feature": "four decisions",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "four finding decisions and one case conclusion",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "review revisions",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "finding versions 1..4",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "rationale and reviewer",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "stored review responses",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "current/history",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "two current subjects, five versions",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "machine finding unchanged",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "pre/post database payload comparison not captured",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "frontend controls",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "route rendered; review actions not clicked",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Route rendered; action controls not exercised",
+      "api_status": "Executed against isolated API",
+      "backend_status": "Worker claimed only queued report jobs",
+      "database_storage_status": "Reports and reviews persisted; hashes checked",
+      "algorithm_model_status": "Uses stored findings without new inference",
+      "error_handling_status": "Negative report failure not injected",
+      "execution_time": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": null,
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete blocked controls and failure cases",
+      "final_module_verdict": "PARTIAL"
+    },
+    {
+      "module_id": "NEX-RPT",
+      "module_name": "Reporting",
+      "test_case_id": "TC-18",
+      "purpose": "Validate connected investigation output",
+      "input_fixtures": [
+        "NEXTRON-QA-001"
+      ],
+      "preconditions": "Part 1-2 persisted case and findings",
+      "execution_steps": [
+        "Read reconstruction",
+        "Record review revisions",
+        "Generate reports through isolated worker",
+        "Download PDF and JSON"
+      ],
+      "expected_output": "Persisted, traceable human investigation output",
+      "actual_output": "6 verified features",
+      "feature_validation_table": [
+        {
+          "feature": "draft and final",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "two generated versions",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "PDF/JSON byte integrity",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "download SHA-256 equals header",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "PDF readability",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "PDF signature and pdfinfo parsed; text extraction unavailable",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "evidence inventory",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "13 preserved items in both JSON reports",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "module results",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "84 persisted module result entries",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "human review separation",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "current reviews separate from findings",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "PASS"
+        },
+        {
+          "feature": "failed report recovery",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "no failure injection",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        },
+        {
+          "feature": "report UI controls",
+          "expected_behavior": "traceable persisted behavior",
+          "actual_behavior": "route rendered, controls untested",
+          "verification_evidence": "03-Raw-Review-Report-Results.json",
+          "status": "BLOCKED"
+        }
+      ],
+      "frontend_status": "Route rendered; action controls not exercised",
+      "api_status": "Executed against isolated API",
+      "backend_status": "Worker claimed only queued report jobs",
+      "database_storage_status": "Reports and reviews persisted; hashes checked",
+      "algorithm_model_status": "Uses stored findings without new inference",
+      "error_handling_status": "Negative report failure not injected",
+      "execution_time": [
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "peak_memory": null,
+      "failed_assertions": [],
+      "root_cause": null,
+      "affected_files_and_functions": [],
+      "severity": "MEDIUM",
+      "recommended_fix": "Complete blocked controls and failure cases",
+      "final_module_verdict": "PARTIAL"
+    }
+  ],
+  "system_cases": {
+    "SYS-01": [
+      {
+        "feature": "full pipeline",
+        "status": "PASS",
+        "evidence": "13 uploaded assets, persisted module results, human review and reports"
+      },
+      {
+        "feature": "dependencies",
+        "status": "PASS",
+        "evidence": "Part 1 run plan and executions persisted"
+      },
+      {
+        "feature": "worker retry/crash",
+        "status": "BLOCKED",
+        "evidence": "not injected; shared queue risk from Part 1"
+      }
+    ],
+    "SYS-02": [
+      {
+        "feature": "route availability",
+        "status": "PASS",
+        "evidence": "24 of 24 inventoried routes returned 200"
+      },
+      {
+        "feature": "controls",
+        "status": "BLOCKED",
+        "evidence": "inventory captured buttons/links/inputs; not all actions executed"
+      },
+      {
+        "feature": "source page",
+        "status": "BLOCKED",
+        "evidence": "page rendered; Source Finder controls not activated"
+      }
+    ],
+    "SYS-03": [
+      {
+        "feature": "OpenAPI inventory",
+        "status": "PASS",
+        "evidence": "65 paths found"
+      },
+      {
+        "feature": "request validation",
+        "status": "PASS",
+        "evidence": "page=0 returned 422"
+      },
+      {
+        "feature": "WebSocket replay",
+        "status": "PASS",
+        "evidence": "real case events received"
+      },
+      {
+        "feature": "authorization",
+        "status": "FAIL",
+        "evidence": "no authentication or resource authorization in local single-operator mode"
+      }
+    ],
+    "SYS-04": [
+      {
+        "feature": "PostgreSQL/storage",
+        "status": "PASS",
+        "evidence": "live probes passed"
+      },
+      {
+        "feature": "Qdrant",
+        "status": "PASS",
+        "evidence": "15 PostgreSQL embeddings and 15 Qdrant points"
+      },
+      {
+        "feature": "Neo4j",
+        "status": "BLOCKED",
+        "evidence": "disabled in isolated API; projection consistency unverified"
+      },
+      {
+        "feature": "outbox",
+        "status": "BLOCKED",
+        "evidence": "replay observed, projection failure/rebuild not tested"
+      }
+    ],
+    "SYS-05": [
+      {
+        "feature": "invalid ID/error",
+        "status": "PASS",
+        "evidence": "missing case 404"
+      },
+      {
+        "feature": "CORS",
+        "status": "PASS",
+        "evidence": "untrusted origin denied"
+      },
+      {
+        "feature": "WebSocket origin",
+        "status": "PASS",
+        "evidence": "untrusted origin rejected"
+      },
+      {
+        "feature": "authentication",
+        "status": "FAIL",
+        "evidence": "local API has no sign-in or resource-level authorization"
+      },
+      {
+        "feature": "outage/crash recovery",
+        "status": "BLOCKED",
+        "evidence": "no Part 3 fault injection"
+      }
+    ],
+    "SYS-06": [
+      {
+        "feature": "API latency",
+        "status": "PASS",
+        "evidence": "single-sample ready/database/graph timings in raw system results"
+      },
+      {
+        "feature": "frontend route load",
+        "status": "PASS",
+        "evidence": "24 single-sample route timings in route inventory"
+      },
+      {
+        "feature": "peak CPU/RAM",
+        "status": "BLOCKED",
+        "evidence": "not measured"
+      },
+      {
+        "feature": "repeatability",
+        "status": "BLOCKED",
+        "evidence": "no repeated benchmark series"
+      }
+    ]
+  },
+  "defects": [
+    {
+      "id": "QA-001",
+      "module": "NEX-FPM/NEX-MOC",
+      "priority": "P1",
+      "actual": "IMG-04 and VID-04 unrelated solid-color fixtures become candidate",
+      "cause": "FPM similarity threshold allows false candidate",
+      "file": "Backend/App/Modules/NexFpm/Fingerprints.py::compare",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-002",
+      "module": "NEX-ALN",
+      "priority": "P1",
+      "actual": "VID-01/03 audio offset 0s while video offset -2s",
+      "cause": "Audio subfingerprint ambiguity on tone signal (hypothesis)",
+      "file": "Backend/App/Modules/NexAln/Service.py::audio_alignment",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-003",
+      "module": "NEX-TRN/NEX-CMC",
+      "priority": "P1",
+      "actual": "VID-03 audio replacement 4-7s not identified or correlated",
+      "cause": "Upstream discontinuity rule not triggered (hypothesis)",
+      "file": "Backend/App/Modules/NexCmc/Service.py::build",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-004",
+      "module": "NEX-EGC",
+      "priority": "P2",
+      "actual": "Graph API 134/214 differs from latest EGC result 135/215",
+      "cause": "Snapshot selection or self-reference (hypothesis)",
+      "file": "Backend/App/Api/V1/Investigation.py::case_graph",
+      "evidence": "02-Raw-Intelligence-Results.json"
+    },
+    {
+      "id": "QA-005",
+      "module": "SYS-03/SYS-05",
+      "priority": "P1",
+      "actual": "No authentication or resource-level authorization",
+      "cause": "Single-operator local-mode design",
+      "file": "Backend/App/Dependencies.py::get_actor",
+      "evidence": "03-Raw-System-Results.json"
+    }
+  ]
+}
